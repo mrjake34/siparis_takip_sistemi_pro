@@ -16,16 +16,16 @@ Sipariş Takip Sistemi, işletmelerin siparişlerini kolayca yönetebilmeleri i�
 
 <table>
   <tr>
-    <td><img alt="mobil ss1" src="https://github.com/mrjake34/siparis_takip_sistemi_pro/assets/121731273/1f23409b-a0f9-446a-aee5-66ca8da61770" width ="50%" height="50%"></td>
-    <td><img alt="mobil ss2" src="https://github.com/mrjake34/siparis_takip_sistemi_pro/assets/121731273/8c43be6e-8297-4f1f-a9cc-9374a176cca6" width ="50%" height="50%"></td>
-    <td><img alt="mobil ss3" src="https://github.com/mrjake34/siparis_takip_sistemi_pro/assets/121731273/ce51a108-0c69-4507-8847-9487385617fe" width ="50%" height="50%"></td>
-    <td><img alt="mobil ss4" src="https://github.com/mrjake34/siparis_takip_sistemi_pro/assets/121731273/dfb7916c-41c5-42e2-ad36-c57078f25b91" width ="50%" height="50%"></td>
+    <td><img alt="mobil ss1" src="https://github.com/mrjake34/siparis_takip_sistemi_pro/assets/121731273/06b3bc0d-89a6-4141-b9cb-3f4e5be10f5c" width ="50%" height="50%"></td>
+    <td><img alt="mobil ss2" src="https://github.com/mrjake34/siparis_takip_sistemi_pro/assets/121731273/792ea794-8ed5-41bc-a219-1f6a13538512" width ="50%" height="50%"></td>
+    <td><img alt="mobil ss3" src="https://github.com/mrjake34/siparis_takip_sistemi_pro/assets/121731273/80974154-125a-4232-96e0-62c7fd70a66f" width ="50%" height="50%"></td>
+    <td><img alt="mobil ss4" src="https://github.com/mrjake34/siparis_takip_sistemi_pro/assets/121731273/d7f6cea3-998e-4eda-ab62-9023126b0dd6" width ="50%" height="50%"></td>
   </tr>
   <tr>
-    <td><img alt="mobil ss5" src="https://github.com/mrjake34/siparis_takip_sistemi_pro/assets/121731273/9a7fbc77-999d-4f74-9b5c-7c57f7c48d32" width ="50%" height="50%"></td>
-    <td><img alt="mobil ss6" src="https://github.com/mrjake34/siparis_takip_sistemi_pro/assets/121731273/b93ac029-3828-4442-b453-0a1f6864287a" width ="50%" height="50%"></td>
-    <td><img alt="mobil ss7" src="https://github.com/mrjake34/siparis_takip_sistemi_pro/assets/121731273/133e62a2-86d2-45a7-b87d-734c193c4e52" width ="50%" height="50%"></td>
-    <td><img alt="mobil ss8" src="https://github.com/mrjake34/siparis_takip_sistemi_pro/assets/121731273/d07490d7-32c2-4f19-b37e-a44ed4346470" width ="50%" height="50%"></td>
+    <td><img alt="mobil ss5" src="https://github.com/mrjake34/siparis_takip_sistemi_pro/assets/121731273/fc97dfbe-c452-4a74-b0af-36fb6fcfc862" width ="50%" height="50%"></td>
+    <td><img alt="mobil ss6" src="https://github.com/mrjake34/siparis_takip_sistemi_pro/assets/121731273/85c591b3-1a38-4410-91a2-58e9985fd6f5" width ="50%" height="50%"></td>
+    <td><img alt="mobil ss7" src="https://github.com/mrjake34/siparis_takip_sistemi_pro/assets/121731273/04e03fae-cf96-4509-bb10-b9b483595ab8" width ="50%" height="50%"></td>
+    <td><img alt="mobil ss8" src="https://github.com/mrjake34/siparis_takip_sistemi_pro/assets/121731273/4e19a51f-bb87-4223-ba23-334563356f6a" width ="50%" height="50%"></td>
   </tr>
 </table>
 
@@ -33,7 +33,7 @@ Sipariş Takip Sistemi, işletmelerin siparişlerini kolayca yönetebilmeleri i�
 
 # Desktop Screenshots
 <picture>
-<img alt="desktop ss1" src="https://github.com/mrjake34/siparis_takip_sistemi_pro/assets/121731273/275b6791-5f7c-4866-8a75-236a003e185c" width ="50%" height="50%">
+<img alt="desktop ss1" src="https://github.com/mrjake34/siparis_takip_sistemi_pro/assets/121731273/4fd5ddac-51fb-490d-9aaa-45376ead95d3" width ="50%" height="50%">
 </picture>
 
 ## Kurulum
