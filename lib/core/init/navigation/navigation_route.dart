@@ -40,7 +40,7 @@ class NavigationRoute {
             const AddOrder(), NavigationConstants.orderAddPage);
       case NavigationConstants.orderListPage:
         return normalNavigate(
-            const OrderListPage(), NavigationConstants.orderListPage);
+            OrderListPage(), NavigationConstants.orderListPage);
       case NavigationConstants.productAddPage:
         return normalNavigate(AddProduct(), NavigationConstants.productAddPage);
       case NavigationConstants.productListPage:

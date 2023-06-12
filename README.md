@@ -10,7 +10,7 @@ Sipariş Takip Sistemi, işletmelerin siparişlerini kolayca yönetebilmeleri i�
 - Müşteri ekleme, listeleme, düzenleme ve silme işlemlerini yapabilir
 - Sipariş ekleme, listeleme, düzenleme ve silme işlemlerini yapabilir
 ## Kurye Girişi
-- Kurye müşteri bilgilerini ve harita konumunu görebilir ve kendisine atanan siparişleri görüntüleyebilir.
+- Kurye kendisine atanan siparişe ait müşteri bilgilerini, harita konumunu ve sipariş detaylarını görüntüleyebilir.
 
 # Mobil Screenshots
 
