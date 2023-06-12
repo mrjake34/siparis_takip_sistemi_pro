@@ -50,7 +50,7 @@ class PageBuilder extends StatelessWidget {
               itemCount: orderList?.order?.length ?? 0,
               itemBuilder: (BuildContext context, int index) {
                 Order? order = orderList?.order?[index];
-                Text orderStatusText = mainFunctions.getTextFromOrderStatus(
+                String orderStatusText = mainFunctions.getStringFromOrderStatus(
                     orderStatus: order?.orderStatus);
                 IconData iconData = mainFunctions.getIconFromOrderStatus(
                     orderStatus: order?.orderStatus);
@@ -135,7 +135,7 @@ class CustomerField extends StatelessWidget {
   final Order? order;
   final IconData iconData;
   final Color color;
-  final Text orderStatusText;
+  final String orderStatusText;
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +157,7 @@ class CustomerField extends StatelessWidget {
               },
               leading: Icon(iconData, color: color),
               title: Text(customer?.name ?? " "),
-              subtitle: orderStatusText,
+              subtitle: Text(orderStatusText),
             );
           },
         ),

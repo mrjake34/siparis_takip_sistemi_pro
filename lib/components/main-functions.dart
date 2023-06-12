@@ -72,18 +72,18 @@ class MainFunctions {
     }
   }
 
-  Text getTextFromOrderStatus({String? orderStatus}) {
+  String getStringFromOrderStatus({String? orderStatus}) {
     switch (orderStatus) {
       case "waiting":
-        return Text(LocaleKeys.order_inLine.tr());
+        return LocaleKeys.order_inLine.tr();
       case "inProcess":
-        return Text(LocaleKeys.order_inProcess.tr());
+        return LocaleKeys.order_inProcess.tr();
       case "inDistribution":
-        return Text(LocaleKeys.order_onTheWay.tr());
+        return LocaleKeys.order_onTheWay.tr();
       case "completed":
-        return Text(LocaleKeys.order_isDone.tr());
+        return LocaleKeys.order_isDone.tr();
       default:
-        return Text(LocaleKeys.order_inLine.tr());
+        return LocaleKeys.order_inLine.tr();
     }
   }
 

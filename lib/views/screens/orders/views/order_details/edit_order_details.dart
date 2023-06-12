@@ -32,7 +32,7 @@ class _EditOrderPageState extends State<EditOrderPage> with BaseModelView {
               builder: (context, state) {
                 if (state.order != null) {
                   Order? order = state.order;
-                  Text orderStatus = mainFunctions.getTextFromOrderStatus(
+                  String orderStatus = mainFunctions.getStringFromOrderStatus(
                       orderStatus: order?.orderStatus);
                   IconData iconData = mainFunctions.getIconFromOrderStatus(
                       orderStatus: order?.orderStatus);
@@ -65,7 +65,7 @@ class _EditOrderPageState extends State<EditOrderPage> with BaseModelView {
                                   const SizedBox(
                                     width: 5,
                                   ),
-                                  orderStatus,
+                                  Text(orderStatus),
                                 ],
                               ),
                               style: ListTileStyle.drawer,

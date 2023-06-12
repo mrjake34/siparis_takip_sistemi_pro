@@ -56,13 +56,12 @@ class _AddOrderState extends State<AddOrder> with BaseModelView {
 }
 
 class PageBuilder extends StatelessWidget {
-  const PageBuilder({
-    super.key,
-    required this.navService,
-    required this.orderNoteController,
-    required this.utils,
-    required this.appNetwork
-  });
+  const PageBuilder(
+      {super.key,
+      required this.navService,
+      required this.orderNoteController,
+      required this.utils,
+      required this.appNetwork});
 
   final NavigationService navService;
   final TextEditingController orderNoteController;
@@ -217,8 +216,7 @@ class AddProductHeader extends StatelessWidget {
 }
 
 class ProductCard extends StatelessWidget {
-  const ProductCard(
-      {super.key, required this.utils, required this.appNetwork});
+  const ProductCard({super.key, required this.utils, required this.appNetwork});
 
   final UtilsService utils;
   final AppNetwork appNetwork;
@@ -380,17 +378,18 @@ class OrderNoteField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-          padding: const EdgeInsets.all(3.0),
-          child: TextFormField(
-            controller: orderNoteController,
-            textInputAction: TextInputAction.done,
-            minLines: 3,
-            maxLines: 3,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              hintText: LocaleKeys.order_addOrderNote.tr(),
-            ),
-          )),
+        padding: const EdgeInsets.all(3.0),
+        child: TextFormField(
+          controller: orderNoteController,
+          textInputAction: TextInputAction.done,
+          minLines: 3,
+          maxLines: 3,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            hintText: LocaleKeys.order_addOrderNote.tr(),
+          ),
+        ),
+      ),
     );
   }
 }

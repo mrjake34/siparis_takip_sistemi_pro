@@ -33,7 +33,7 @@ class OrderListPendingOrders extends StatelessWidget with BaseModelView {
             itemCount: state.pendingOrders?.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
               Order? order = state.pendingOrders?[index];
-              Text orderStatus = mainFunctions.getTextFromOrderStatus(
+              String orderStatus = mainFunctions.getStringFromOrderStatus(
                   orderStatus: order?.orderStatus);
               IconData iconData = mainFunctions.getIconFromOrderStatus(
                   orderStatus: order?.orderStatus);
@@ -86,7 +86,7 @@ class CustomerField extends StatelessWidget {
   final Order? order;
   final IconData iconData;
   final Color color;
-  final Text orderStatus;
+  final String orderStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +109,7 @@ class CustomerField extends StatelessWidget {
               },
               leading: Icon(iconData, color: color),
               title: Text(customer?.name ?? " "),
-              subtitle: orderStatus,
+              subtitle: Text(orderStatus),
             );
           },
         ),

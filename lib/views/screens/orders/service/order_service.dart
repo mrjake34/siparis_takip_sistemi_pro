@@ -1,12 +1,9 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:get/get_connect/http/src/status/http_status.dart';
 import 'package:vexana/vexana.dart';
-
 import '../../../../core/base/models/base_model_view.dart';
-import '../../../../core/constants/network/url.dart';
 import '../../../../core/constants/enums/enums.dart';
 import '../../../../core/init/translation/locale_keys.g.dart';
 import '../model/order.dart';
@@ -14,9 +11,6 @@ import 'order_service_interface.dart';
 
 class OrderService extends IOrderService with BaseModelView {
   OrderService();
-
-  
-
   @override
   Future postOrder(
       String customerId, String orderNote, List orderListPostOut) async {
@@ -26,7 +20,6 @@ class OrderService extends IOrderService with BaseModelView {
       "orderNote": orderNote,
       "products": orderListPostOut
     });
-    
     final response = await networkService.dio.post(
       appNetwork.postOrderUrl,
       options: Options(

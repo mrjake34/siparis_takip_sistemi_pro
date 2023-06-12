@@ -35,7 +35,7 @@ class _OrderDetailsState extends State<OrderDetails> with BaseModelView {
                 previous.orderList != current.orderList,
             builder: (context, state) {
               Order? order = state.order;
-              Text orderStatusText = mainFunctions.getTextFromOrderStatus(
+              String orderStatusText = mainFunctions.getStringFromOrderStatus(
                   orderStatus: order?.orderStatus);
               IconData iconData = mainFunctions.getIconFromOrderStatus(
                   orderStatus: order?.orderStatus);
@@ -46,13 +46,19 @@ class _OrderDetailsState extends State<OrderDetails> with BaseModelView {
                   children: [
                     ListTile(
                       title: Text(LocaleKeys.order_orderId.tr()),
-                      trailing: SelectableText(order?.id ?? ""),
+                      trailing: SelectableText(
+                        order?.id ?? "",
+                        style: const TextStyle(fontSize: 14),
+                      ),
                       style: ListTileStyle.drawer,
                     ),
                     ListTile(
                       title: Text(LocaleKeys.order_orderTime.tr()),
-                      trailing: Text(DateFormat("yyyy/MM/dd - HH:mm ")
-                          .format(order?.createdAt ?? DateTime.now())),
+                      trailing: Text(
+                        DateFormat("yyyy/MM/dd - HH:mm ")
+                            .format(order?.createdAt ?? DateTime.now()),
+                        style: const TextStyle(fontSize: 14),
+                      ),
                       style: ListTileStyle.drawer,
                     ),
                     ListTile(
@@ -67,7 +73,8 @@ class _OrderDetailsState extends State<OrderDetails> with BaseModelView {
                           const SizedBox(
                             width: 10,
                           ),
-                          orderStatusText,
+                          Text(orderStatusText,
+                              style: const TextStyle(fontSize: 14)),
                         ],
                       ),
                       style: ListTileStyle.drawer,
@@ -75,7 +82,9 @@ class _OrderDetailsState extends State<OrderDetails> with BaseModelView {
                     ListTile(
                       title: Text(LocaleKeys.mainText_totalPrice.tr()),
                       trailing: SelectableText(
-                          "${order?.totalPrice.toStringAsFixed(2) ?? 0.0} ${context.watch<ChangeCurrencyPriceSymbol>().getSymbol}"),
+                        "${order?.totalPrice.toStringAsFixed(2) ?? 0.0} ${context.watch<ChangeCurrencyPriceSymbol>().getSymbol}",
+                        style: const TextStyle(fontSize: 14),
+                      ),
                       style: ListTileStyle.drawer,
                     ),
                   ],
@@ -89,19 +98,28 @@ class _OrderDetailsState extends State<OrderDetails> with BaseModelView {
                       children: [
                         ListTile(
                           title: Text(LocaleKeys.customer_customerName.tr()),
-                          trailing: SelectableText(customer?.name ?? " "),
+                          trailing: SelectableText(
+                            customer?.name ?? " ",
+                            style: const TextStyle(fontSize: 14),
+                          ),
                           style: ListTileStyle.drawer,
                         ),
                         ListTile(
                           title: Text(LocaleKeys.customer_customerPhone.tr()),
-                          trailing: SelectableText(customer?.phone ?? " "),
+                          trailing: SelectableText(
+                            customer?.phone ?? " ",
+                            style: const TextStyle(fontSize: 14),
+                          ),
                           style: ListTileStyle.drawer,
                         ),
                         ListTile(
                           title: Text(
                             LocaleKeys.customer_customerAddress.tr(),
                           ),
-                          subtitle: SelectableText(customer?.address ?? " "),
+                          subtitle: SelectableText(
+                            customer?.address ?? " ",
+                            style: const TextStyle(fontSize: 14),
+                          ),
                           style: ListTileStyle.drawer,
                         ),
                       ],
@@ -130,40 +148,55 @@ class _OrderDetailsState extends State<OrderDetails> with BaseModelView {
                                     price: product?.price);
                             return ExpansionTile(
                               controlAffinity: ListTileControlAffinity.trailing,
+                              trailing:
+                                  const Icon(Icons.keyboard_double_arrow_down),
                               title: Text(product?.name ?? ""),
                               children: [
                                 ListTile(
                                   title:
                                       Text(LocaleKeys.product_productName.tr()),
-                                  subtitle: Text(product?.name ?? ""),
+                                  trailing: Text(
+                                    product?.name ?? "",
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
                                   style: ListTileStyle.drawer,
                                 ),
                                 ListTile(
                                   title:
                                       Text(LocaleKeys.mainText_quantity.tr()),
-                                  subtitle: Text("$orderQuantity"),
+                                  trailing: Text(
+                                    "$orderQuantity",
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
                                   style: ListTileStyle.drawer,
                                 ),
                                 ListTile(
                                   title: Text(
                                       LocaleKeys.order_productUnitPrice.tr()),
-                                  subtitle: Text(
-                                      product?.price.toStringAsFixed(2) ?? ""),
+                                  trailing: Text(
+                                    product?.price.toStringAsFixed(2) ?? "",
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
                                   style: ListTileStyle.drawer,
                                 ),
                                 ListTile(
                                   title: Text(LocaleKeys
                                       .order_orderProductTotalPrice
                                       .tr()),
-                                  subtitle: Text(
-                                      productTotalPrice.toStringAsFixed(2)),
+                                  trailing: Text(
+                                    productTotalPrice.toStringAsFixed(2),
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
                                   style: ListTileStyle.drawer,
                                 ),
                                 ListTile(
                                   title: Text(
-                                      LocaleKeys.order_orderProductNote.tr()),
-                                  subtitle:
-                                      Text(orderProduct?.productNote ?? " "),
+                                    LocaleKeys.order_orderProductNote.tr(),
+                                  ),
+                                  subtitle: Text(
+                                    orderProduct?.productNote ?? " ",
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
                                   style: ListTileStyle.drawer,
                                 ),
                               ],
