@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/components/main-functions.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/app/app_constants.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/core/init/navigation/navigation_service.dart';
@@ -74,12 +75,8 @@ class PageBuilder extends StatelessWidget {
                               orderStatusText: orderStatusText),
                         ),
                         Expanded(
-                          flex: 1,
+                          flex: 2,
                           child: CardMoreButton(order: order),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Container(),
                         ),
                       ],
                     ),
@@ -122,7 +119,7 @@ class CardMoreButton extends StatelessWidget {
       },
       child: CircleAvatar(
           backgroundColor: Theme.of(context).colorScheme.surface,
-          child: const Icon(Icons.more_vert)),
+          child: Icon(AppConstats.instance.moreIcon)),
     );
   }
 }

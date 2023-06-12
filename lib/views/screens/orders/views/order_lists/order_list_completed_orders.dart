@@ -8,6 +8,7 @@ import 'package:siparis_takip_sistemi_pro/views/screens/customer/bloc/customer_b
 import 'package:siparis_takip_sistemi_pro/views/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/orders/views/order_lists/bottomsheet_widget/bottomsheet_widget.dart';
 import '../../../../../core/base/models/base_model_view.dart';
+import '../../../../../core/constants/app/app_constants.dart';
 import '../../../../../core/constants/navigation/navigation_constants.dart';
 import '../../../../../core/init/navigation/navigation_service.dart';
 import '../../../customer/model/customer.dart';
@@ -48,7 +49,7 @@ class OrderListCompletedOrders extends StatelessWidget with BaseModelView {
                   child: Row(
                     children: [
                       Expanded(
-                        flex: 3,
+                        flex: 5,
                         child: CustomerField(
                             order: order,
                             iconData: iconData,
@@ -56,7 +57,7 @@ class OrderListCompletedOrders extends StatelessWidget with BaseModelView {
                             orderStatus: orderStatus),
                       ),
                       const Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: CardMoreButton(),
                       ),
                     ],
@@ -99,7 +100,6 @@ class CustomerField extends StatelessWidget {
                 .firstWhere((element) => element.id == order?.customerId);
             return ListTile(
               onTap: () {
-             
                 NavigationService.instance.navigateToPage(
                     path: NavigationConstants.orderDetailsPage,
                     object: order?.id);
@@ -129,7 +129,7 @@ class CardMoreButton extends StatelessWidget {
       },
       child: CircleAvatar(
           backgroundColor: Theme.of(context).colorScheme.surface,
-          child: const Icon(Icons.more_vert)),
+          child: Icon(AppConstats.instance.moreIcon)),
     );
   }
 }

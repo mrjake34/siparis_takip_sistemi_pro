@@ -7,6 +7,7 @@ import 'package:siparis_takip_sistemi_pro/views/screens/customer/bloc/customer_b
 import 'package:siparis_takip_sistemi_pro/views/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/product/bloc/products_bloc.dart';
 import '../../../../../core/init/translation/locale_keys.g.dart';
+import '../../../../../providers/main_providers.dart';
 import '../../../customer/model/customer.dart';
 import '../../../product/model/product.dart';
 import '../../model/order.dart';
@@ -41,74 +42,69 @@ class _OrderDetailsState extends State<OrderDetails> with BaseModelView {
               Color color = mainFunctions.getColorFromOrderStatus(
                   orderStatus: order?.orderStatus);
               return Column(children: [
-                Card(
-                  color: Theme.of(context).colorScheme.surface,
-                  child: Column(
-                    children: [
-                      ListTile(
-                        title: Text(LocaleKeys.order_orderId.tr()),
-                        subtitle: SelectableText(order?.id ?? ""),
-                        style: ListTileStyle.drawer,
+                Column(
+                  children: [
+                    ListTile(
+                      title: Text(LocaleKeys.order_orderId.tr()),
+                      trailing: SelectableText(order?.id ?? ""),
+                      style: ListTileStyle.drawer,
+                    ),
+                    ListTile(
+                      title: Text(LocaleKeys.order_orderTime.tr()),
+                      trailing: Text(DateFormat("yyyy/MM/dd - HH:mm ")
+                          .format(order?.createdAt ?? DateTime.now())),
+                      style: ListTileStyle.drawer,
+                    ),
+                    ListTile(
+                      title: Text(LocaleKeys.order_orderStatus.tr()),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            iconData,
+                            color: color,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          orderStatusText,
+                        ],
                       ),
-                      ListTile(
-                        title: Text(LocaleKeys.order_orderTime.tr()),
-                        subtitle: Text(DateFormat("yyyy/MM/dd - HH:mm ")
-                            .format(order?.createdAt ?? DateTime.now())),
-                        style: ListTileStyle.drawer,
-                      ),
-                      ListTile(
-                        title: Text(LocaleKeys.order_orderStatus.tr()),
-                        subtitle: Row(
-                          children: [
-                            Icon(
-                              iconData,
-                              color: color,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            orderStatusText,
-                          ],
-                        ),
-                        style: ListTileStyle.drawer,
-                      ),
-                      ListTile(
-                        title: Text(LocaleKeys.mainText_totalPrice.tr()),
-                        subtitle: SelectableText(
-                            order?.totalPrice.toStringAsFixed(2) ?? ""),
-                        style: ListTileStyle.drawer,
-                      ),
-                    ],
-                  ),
+                      style: ListTileStyle.drawer,
+                    ),
+                    ListTile(
+                      title: Text(LocaleKeys.mainText_totalPrice.tr()),
+                      trailing: SelectableText(
+                          "${order?.totalPrice.toStringAsFixed(2) ?? 0.0} ${context.watch<ChangeCurrencyPriceSymbol>().getSymbol}"),
+                      style: ListTileStyle.drawer,
+                    ),
+                  ],
                 ),
                 BlocBuilder<CustomerBloc, CustomerState>(
                   builder: (context, state) {
                     Customer? customer = state.customerList?.customers
                         .firstWhere(
                             (element) => element.id == order?.customerId);
-                    return Card(
-                      color: Theme.of(context).colorScheme.surface,
-                      child: Column(
-                        children: [
-                          ListTile(
-                            title: Text(LocaleKeys.customer_customerName.tr()),
-                            subtitle: SelectableText(customer?.name ?? " "),
-                            style: ListTileStyle.drawer,
+                    return Column(
+                      children: [
+                        ListTile(
+                          title: Text(LocaleKeys.customer_customerName.tr()),
+                          trailing: SelectableText(customer?.name ?? " "),
+                          style: ListTileStyle.drawer,
+                        ),
+                        ListTile(
+                          title: Text(LocaleKeys.customer_customerPhone.tr()),
+                          trailing: SelectableText(customer?.phone ?? " "),
+                          style: ListTileStyle.drawer,
+                        ),
+                        ListTile(
+                          title: Text(
+                            LocaleKeys.customer_customerAddress.tr(),
                           ),
-                          ListTile(
-                            title: Text(LocaleKeys.customer_customerPhone.tr()),
-                            subtitle: SelectableText(customer?.phone ?? " "),
-                            style: ListTileStyle.drawer,
-                          ),
-                          ListTile(
-                            title: Text(
-                              LocaleKeys.customer_customerAddress.tr(),
-                            ),
-                            subtitle: SelectableText(customer?.address ?? " "),
-                            style: ListTileStyle.drawer,
-                          ),
-                        ],
-                      ),
+                          subtitle: SelectableText(customer?.address ?? " "),
+                          style: ListTileStyle.drawer,
+                        ),
+                      ],
                     );
                   },
                 ),

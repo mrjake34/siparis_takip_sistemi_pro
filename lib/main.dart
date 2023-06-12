@@ -14,7 +14,6 @@ import 'package:siparis_takip_sistemi_pro/views/screens/orders/bloc/add_order_bl
 import 'package:siparis_takip_sistemi_pro/views/screens/product/bloc/products_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/profile/bloc/user_profile_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/splash/view/splash_screen.dart';
-
 import 'core/constants/app/app_constants.dart';
 import 'core/init/navigation/navigation_route.dart';
 import 'core/init/navigation/navigation_service.dart';
