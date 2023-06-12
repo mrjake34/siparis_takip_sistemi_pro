@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/icons/icons.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/src/bottomsheets/main_bottom_sheets.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/customer/bloc/customer_bloc.dart';
@@ -131,7 +132,7 @@ class CardMoreButton extends StatelessWidget {
       },
       child: CircleAvatar(
           backgroundColor: Theme.of(context).colorScheme.surface,
-          child: Icon(AppConstats.instance.moreIcon)),
+          child: Icon(AppIcons.instance.moreIcon)),
     );
   }
 }

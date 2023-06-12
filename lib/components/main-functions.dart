@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/app/app_constants.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/icons/icons.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';
 import 'package:siparis_takip_sistemi_pro/core/init/cache/shared_manager.dart';
 import 'package:siparis_takip_sistemi_pro/core/init/navigation/navigation_service.dart';
@@ -60,15 +60,15 @@ class MainFunctions {
   IconData getIconFromOrderStatus({String? orderStatus}) {
     switch (orderStatus) {
       case "waiting":
-        return AppConstats.instance.pendingIcon;
+        return AppIcons.instance.pendingIcon;
       case "inProcess":
-        return AppConstats.instance.inProcessIcon;
+        return AppIcons.instance.inProcessIcon;
       case "inDistribution":
-        return AppConstats.instance.onTheWayIcon;
+        return AppIcons.instance.onTheWayIcon;
       case "completed":
-        return AppConstats.instance.isDoneIcon;
+        return AppIcons.instance.isDoneIcon;
       default:
-        return AppConstats.instance.pendingIcon;
+        return AppIcons.instance.pendingIcon;
     }
   }
 

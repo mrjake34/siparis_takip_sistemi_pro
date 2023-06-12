@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:siparis_takip_sistemi_pro/components/main-functions.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/app/app_constants.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
+import '../../constants/icons/icons.dart';
 import '../../init/cache/shared_manager.dart';
 import '../../init/navigation/navigation_service.dart';
 import '../../init/network/network_service.dart';
@@ -16,5 +17,6 @@ mixin class BaseModelView {
   UtilsService utils = UtilsService.instance;
   AppConstats appConstats = AppConstats.instance;
   AppColors appColors = AppColors.instance;
+  AppIcons appIcons = AppIcons.instance;
   MainFunctions mainFunctions = MainFunctions.instance;
 }

@@ -1,14 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'dart:async';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-
 import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
-
-import '../../../../../providers/main_providers.dart';
+import '../../../../../providers/customer_provider.dart';
 
 class AddCustomerGoogleMap extends StatelessWidget {
   final Completer<GoogleMapController> _controller =

@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 mixin class AppConstats {
@@ -30,11 +27,5 @@ mixin class AppConstats {
   final String productUrl = "https://api.efes.tech/products";
   final String productUrlWithSlash = "https://api.efes.tech/products/";
 
-  final IconData orderListIcon = Icons.list_alt;
-  final IconData isDoneIcon = Icons.task_alt;
-  final IconData onTheWayIcon = Icons.delivery_dining_outlined;
-  final IconData inProcessIcon = Icons.access_time;
-  final IconData pendingIcon = Icons.pending_outlined;
-  final IconData produtIcon = Icons.view_in_ar;
-  final IconData moreIcon = Icons.miscellaneous_services_outlined;
+
 }

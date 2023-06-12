@@ -45,32 +45,32 @@ class _OrderListPageState extends State<OrderListPage> with BaseModelView {
     return [
       PersistentBottomNavBarItem(
         icon: Icon(
-          appConstats.orderListIcon,
-          color: AppColors.instance.ordersColor,
+          appIcons.orderListIcon,
+          color: appColors.ordersColor,
         ),
       ),
       PersistentBottomNavBarItem(
         icon: Icon(
-          appConstats.pendingIcon,
-          color: AppColors.instance.orderPendingColor,
+          appIcons.pendingIcon,
+          color: appColors.orderPendingColor,
         ),
       ),
       PersistentBottomNavBarItem(
         icon: Icon(
-          appConstats.inProcessIcon,
-          color: AppColors.instance.orderInProcessColor,
+          appIcons.inProcessIcon,
+          color: appColors.orderInProcessColor,
         ),
       ),
       PersistentBottomNavBarItem(
         icon: Icon(
-          appConstats.onTheWayIcon,
-          color: AppColors.instance.orderOnTheWayColor,
+          appIcons.onTheWayIcon,
+          color: appColors.orderOnTheWayColor,
         ),
       ),
       PersistentBottomNavBarItem(
         icon: Icon(
-          appConstats.isDoneIcon,
-          color: AppColors.instance.orderIsDoneColor,
+          appIcons.isDoneIcon,
+          color: appColors.orderIsDoneColor,
         ),
       ),
     ];
