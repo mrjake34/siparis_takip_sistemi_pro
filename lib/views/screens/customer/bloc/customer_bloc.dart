@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/utils/utils.dart';
-import '../model/customer.dart';
 
 import '../../../../core/constants/enums/enums.dart';
+import '../../../../core/init/translation/locale_keys.g.dart';
+import '../../../../core/init/utils/utils.dart';
+import '../model/customer.dart';
 import '../service/customer_service.dart';
 
 part 'customer_event.dart';

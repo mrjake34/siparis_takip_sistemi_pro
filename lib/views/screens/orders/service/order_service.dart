@@ -6,7 +6,7 @@ import 'package:get/get_connect/http/src/status/http_status.dart';
 import 'package:vexana/vexana.dart';
 
 import '../../../../core/base/models/base_model_view.dart';
-import '../../../../core/constants/app/app_constants.dart';
+import '../../../../core/constants/network/url.dart';
 import '../../../../core/constants/enums/enums.dart';
 import '../../../../core/init/translation/locale_keys.g.dart';
 import '../model/order.dart';
@@ -28,7 +28,7 @@ class OrderService extends IOrderService with BaseModelView {
     });
     
     final response = await networkService.dio.post(
-      AppConstats.postOrderUrl,
+      appNetwork.postOrderUrl,
       options: Options(
         headers: {
           "content-type": "application/json",
@@ -47,7 +47,7 @@ class OrderService extends IOrderService with BaseModelView {
   @override
   Future<OrderList?> getOrderList({String? cookie}) async {
     cookie ??= sharedManager.getStringValue(PreferenceKey.cookie);
-    final response = await networkService.dio.get(AppConstats.postOrderUrl,
+    final response = await networkService.dio.get(appNetwork.postOrderUrl,
         options: Options(
           headers: {
             "content-type": "application/json",
@@ -68,7 +68,7 @@ class OrderService extends IOrderService with BaseModelView {
   Future<Order> getOrder(String id) async {
     String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
 
-    final response = await networkService.dio.get(AppConstats.getOrderUrl + id,
+    final response = await networkService.dio.get(appNetwork.getOrderUrl + id,
         options: Options(
           headers: {
             "content-type": "application/json",
@@ -82,7 +82,7 @@ class OrderService extends IOrderService with BaseModelView {
   @override
   Future deleteOrder(String id) async {
     String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final response = await networkService.dio.delete(AppConstats.getOrderUrl + id,
+    final response = await networkService.dio.delete(appNetwork.getOrderUrl + id,
         options: Options(
           headers: {
             "content-type": "application/json",
@@ -97,7 +97,7 @@ class OrderService extends IOrderService with BaseModelView {
   @override
   Future patchOrder(String id, String key, String value) async {
     String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final response = await networkService.dio.patch(AppConstats.getOrderUrl + id,
+    final response = await networkService.dio.patch(appNetwork.getOrderUrl + id,
         data: [
           {"propName": key, "value": value}
         ],

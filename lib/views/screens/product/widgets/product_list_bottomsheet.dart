@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/product/service/product_service.dart';
 
 import '../../../../core/constants/colors/colors.dart';
 import '../../../../core/init/translation/locale_keys.g.dart';
 import '../model/product.dart';
+import '../service/product_service.dart';
 import '../view/edit_product.dart';
 
 class ProductListBottomSheet extends StatelessWidget {

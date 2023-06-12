@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-
 import '../../../../core/base/models/base_model_view.dart';
-import '../../../../core/constants/app/app_constants.dart';
 import '../../../../core/constants/enums/enums.dart';
 import '../../../models/user_model/user.dart';
 
@@ -11,7 +9,7 @@ class ProfileService with BaseModelView {
     cookie ??= sharedManager.getStringValue(PreferenceKey.cookie);
     id ??= sharedManager.getStringValue(PreferenceKey.userId);
     try {
-      final response = await networkService.dio.get(AppConstats.getUserUrl + id,
+      final response = await networkService.dio.get(appNetwork.getUserUrl + id,
           options: Options(
             headers: {
               "authorization": cookie,
@@ -50,7 +48,7 @@ class ProfileService with BaseModelView {
 
   Future patchUser(String id, String key, String value) async {
     String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final response = await networkService.dio.patch(AppConstats.getUserUrl + id,
+    final response = await networkService.dio.patch(appNetwork.getUserUrl + id,
         options: Options(
           headers: {
             "authorization": cookie,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:siparis_takip_sistemi_pro/components/main-functions.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/app/app_constants.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
+import '../../../components/main-functions.dart';
+import '../../constants/network/url.dart';
+import '../../constants/colors/colors.dart';
 import '../../constants/icons/icons.dart';
 import '../../init/cache/shared_manager.dart';
 import '../../init/navigation/navigation_service.dart';
@@ -15,7 +15,7 @@ mixin class BaseModelView {
   NavigationService navService = NavigationService.instance;
   NetworkService networkService = NetworkService();
   UtilsService utils = UtilsService.instance;
-  AppConstats appConstats = AppConstats.instance;
+  AppNetwork appNetwork = AppNetwork.instance;
   AppColors appColors = AppColors.instance;
   AppIcons appIcons = AppIcons.instance;
   MainFunctions mainFunctions = MainFunctions.instance;

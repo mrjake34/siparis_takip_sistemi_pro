@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/enums/network_enums.dart';
+
 import '../../../../core/base/models/base_model_view.dart';
 import '../../../../core/constants/enums/enums.dart';
+import '../../../../core/constants/enums/network_enums.dart';
 import '../../../../core/init/translation/locale_keys.g.dart';
 import '../model/product.dart';
 
@@ -11,7 +12,7 @@ class ProductService with BaseModelView {
   Future<ProductList?> fetchProductList() async {
     String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
     final response = await networkService.dio.get(
-      appConstats.productUrl,
+      appNetwork.productUrl,
       options: Options(headers: {
         "content-type": "application/json",
         "authorization": cookie,
@@ -30,7 +31,7 @@ class ProductService with BaseModelView {
   Future deleteProduct(String id, String name) async {
     String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
     final response =
-        await networkService.dio.delete(appConstats.productUrlWithSlash + id,
+        await networkService.dio.delete(appNetwork.productUrlWithSlash + id,
             options: Options(
               headers: {
                 "content-type": "application/json",
@@ -49,7 +50,7 @@ class ProductService with BaseModelView {
     String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
 
     final response = await networkService.dio.post(
-      appConstats.productUrl,
+      appNetwork.productUrl,
       options: Options(headers: {
         "content-type": "application/json",
         "authorization": cookie,
@@ -67,7 +68,7 @@ class ProductService with BaseModelView {
     String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
 
     final response = await networkService.dio.get(
-      appConstats.productUrlWithSlash + id,
+      appNetwork.productUrlWithSlash + id,
       options: Options(
         headers: {
           "content-type": "application/json",
@@ -88,7 +89,7 @@ class ProductService with BaseModelView {
     String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
     if (id != null && value != null) {
       final response = await networkService.dio.patch(
-        appConstats.productUrlWithSlash + id,
+        appNetwork.productUrlWithSlash + id,
         data: [
           {"propName": key.toString(), "value": value}
         ],

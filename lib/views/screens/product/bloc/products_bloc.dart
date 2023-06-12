@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+
 import '../../../../core/constants/enums/enums.dart';
 import '../../../../core/constants/enums/network_enums.dart';
 import '../model/product.dart';

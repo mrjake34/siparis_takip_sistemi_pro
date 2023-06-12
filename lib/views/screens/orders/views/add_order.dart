@@ -17,7 +17,7 @@ import 'package:siparis_takip_sistemi_pro/core/init/utils/utils.dart';
 import 'package:siparis_takip_sistemi_pro/src/bottomsheets/main_bottom_sheets.dart';
 import 'package:siparis_takip_sistemi_pro/src/button/main_elevated_button.dart';
 import '../../../../providers/main_providers.dart';
-import '../../../../core/constants/app/app_constants.dart';
+import '../../../../core/constants/network/url.dart';
 import '../../../../src/button/main_elevated_button_without_color.dart';
 import '../../product/model/product.dart';
 import '../bloc/add_order_bloc/orders_bloc.dart';
@@ -50,7 +50,7 @@ class _AddOrderState extends State<AddOrder> with BaseModelView {
       navService: navService,
       orderNoteController: orderNoteController,
       utils: utils,
-      appConstats: appConstats,
+      appNetwork: appNetwork,
     );
   }
 }
@@ -61,13 +61,13 @@ class PageBuilder extends StatelessWidget {
     required this.navService,
     required this.orderNoteController,
     required this.utils,
-    required this.appConstats
+    required this.appNetwork
   });
 
   final NavigationService navService;
   final TextEditingController orderNoteController;
   final UtilsService utils;
-  final AppConstats appConstats;
+  final AppNetwork appNetwork;
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +120,7 @@ class PageBuilder extends StatelessWidget {
               ),
               ProductCard(
                 utils: utils,
-                appConstats: appConstats,
+                appNetwork: appNetwork,
               ),
               const SizedBox(
                 height: 20,
@@ -218,10 +218,10 @@ class AddProductHeader extends StatelessWidget {
 
 class ProductCard extends StatelessWidget {
   const ProductCard(
-      {super.key, required this.utils, required this.appConstats});
+      {super.key, required this.utils, required this.appNetwork});
 
   final UtilsService utils;
-  final AppConstats appConstats;
+  final AppNetwork appNetwork;
 
   @override
   Widget build(BuildContext context) {

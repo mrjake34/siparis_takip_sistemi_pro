@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/utils/utils.dart';
+import '../../../../../core/init/utils/utils.dart';
 
 import '../../../../../core/constants/enums/enums.dart';
 import '../../../../../core/init/translation/locale_keys.g.dart';

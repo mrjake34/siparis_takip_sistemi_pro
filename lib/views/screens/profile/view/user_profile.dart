@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
+import '../../../../core/constants/size/sizes.dart';
 
 import '../../../../components/main-functions.dart';
 import '../../../../core/constants/colors/colors.dart';

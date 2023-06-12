@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/app/app_constants.dart';
+import '../../constants/network/url.dart';
 
 class NetworkService {
   static NetworkService? _instance;
@@ -9,7 +9,7 @@ class NetworkService {
     return _instance!;
   }
   NetworkService._init() {
-    _dio = Dio(BaseOptions(baseUrl: AppConstats.baseUrl));
+    _dio = Dio(BaseOptions(baseUrl: AppNetwork.instance.baseUrl));
   }
 
   Dio get dio => _dio;

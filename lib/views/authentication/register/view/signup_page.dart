@@ -6,19 +6,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
-import 'package:siparis_takip_sistemi_pro/src/dialogs/show_dialog.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/core/init/utils/utils.dart';
 import 'package:siparis_takip_sistemi_pro/providers/main_providers.dart';
 import 'package:siparis_takip_sistemi_pro/src/button/loading_button.dart';
 import 'package:siparis_takip_sistemi_pro/src/button/main_elevated_icon_button.dart';
+import 'package:siparis_takip_sistemi_pro/src/dialogs/show_dialog.dart';
+
 import '../../../../core/base/models/base_model_view.dart';
 import '../../../../core/constants/app/main_funcs.dart';
 import '../../../../core/constants/navigation/navigation_constants.dart';
 import '../../../../core/init/translation/locale_keys.g.dart';
 import '../cubit/register_cubit.dart';
-
 import '../cubit/register_state.dart';
 
 class SignUpWidget extends StatefulWidget {

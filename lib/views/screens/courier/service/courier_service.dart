@@ -5,7 +5,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/base/models/base_model_view.dart';
-import '../../../../core/constants/app/app_constants.dart';
 import '../../../../core/constants/enums/enums.dart';
 import '../../../../core/init/translation/locale_keys.g.dart';
 import '../model/courier.dart';
@@ -27,7 +26,7 @@ class CourierService with BaseModelView {
 
     String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
     final response = await networkService.dio.post(
-      AppConstats.getCouriersUrl,
+      appNetwork.getCouriersUrl,
       options: Options(
         headers: {
           "content-type": "application/json",
@@ -55,7 +54,7 @@ class CourierService with BaseModelView {
 
   Future<CourierList?> getCouriers() async {
     String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final response = await networkService.dio.get(AppConstats.getCouriersUrl,
+    final response = await networkService.dio.get(appNetwork.getCouriersUrl,
         options: Options(
           headers: {
             "content-type": "application/json",
@@ -73,7 +72,7 @@ class CourierService with BaseModelView {
   Future<Courier?> getCourier(String id) async {
     String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
     final response =
-        await networkService.dio.get(AppConstats.deleteCourierUrl + id,
+        await networkService.dio.get(appNetwork.deleteCourierUrl + id,
             options: Options(
               headers: {
                 "content-type": "application/json",
@@ -92,7 +91,7 @@ class CourierService with BaseModelView {
     String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
     String? shopName = sharedManager.getStringValue(PreferenceKey.shopName);
     final response =
-        await networkService.dio.delete(AppConstats.deleteCourierUrl + id,
+        await networkService.dio.delete(appNetwork.deleteCourierUrl + id,
             options: Options(
               headers: {
                 "content-type": "application/json",
@@ -111,7 +110,7 @@ class CourierService with BaseModelView {
   Future patchCourier(String key, String value, String id) async {
     String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
     final response =
-        await networkService.dio.patch(AppConstats.deleteCourierUrl + id,
+        await networkService.dio.patch(appNetwork.deleteCourierUrl + id,
             options: Options(headers: {
               "content-type": "application/json",
               "authorization": cookie,

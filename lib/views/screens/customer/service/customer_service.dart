@@ -4,7 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../../core/base/models/base_model_view.dart';
-import '../../../../core/constants/app/app_constants.dart';
+import '../../../../core/constants/network/url.dart';
 import '../../../../core/constants/enums/enums.dart';
 import '../../../../core/init/translation/locale_keys.g.dart';
 import '../model/customer.dart';
@@ -13,7 +13,7 @@ class CustomerService with BaseModelView {
   Future<Response?> addCustomer({Customer? customer}) async {
     String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
     final response = await networkService.dio.post(
-      AppConstats.getCustomerUrl,
+      appNetwork.getCustomerUrl,
       options: Options(headers: {
         "content-type": "application/json",
         "authorization": cookie,
@@ -31,7 +31,7 @@ class CustomerService with BaseModelView {
 
   Future<CustomerList?> getCustomersList() async {
     String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final response = await networkService.dio.get(AppConstats.getCustomerUrl,
+    final response = await networkService.dio.get(appNetwork.getCustomerUrl,
         options: Options(
           headers: {
             "content-type": "application/json",
@@ -49,7 +49,7 @@ class CustomerService with BaseModelView {
   Future<Customer> getCustomer(String id) async {
     String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
     final response =
-        await networkService.dio.get(AppConstats.deleteCustomerUrl + id,
+        await networkService.dio.get(appNetwork.deleteCustomerUrl + id,
             options: Options(
               headers: {
                 "content-type": "application/json",
@@ -64,7 +64,7 @@ class CustomerService with BaseModelView {
     String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
 
     final response = await networkService.dio.patch(
-        AppConstats.deleteCustomerUrl + id,
+        appNetwork.deleteCustomerUrl + id,
         options: Options(headers: {
           "content-type": "application/json",
           "authorization": cookie
@@ -80,7 +80,7 @@ class CustomerService with BaseModelView {
   Future deleteCustomer(String id) async {
     String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
     final response =
-        await networkService.dio.delete(AppConstats.deleteCustomerUrl + id,
+        await networkService.dio.delete(appNetwork.deleteCustomerUrl + id,
             options: Options(
               headers: {
                 "content-type": "application/json",

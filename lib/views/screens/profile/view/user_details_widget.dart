@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/profile/bloc/user_profile_bloc.dart';
+import '../bloc/user_profile_bloc.dart';
 
 import '../../../../core/init/translation/locale_keys.g.dart';
 import '../../../models/user_model/user.dart';

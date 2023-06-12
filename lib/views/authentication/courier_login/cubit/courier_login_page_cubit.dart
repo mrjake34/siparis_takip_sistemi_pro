@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import '../../../../core/base/models/base_model_view.dart';
 import '../../../../core/constants/enums/enums.dart';
 
-import '../../../../core/constants/app/app_constants.dart';
-
 part 'courier_login_page_state.dart';
 
 class CourierLoginPageCubit extends Cubit<CourierLoginPageState>
@@ -15,12 +13,12 @@ class CourierLoginPageCubit extends Cubit<CourierLoginPageState>
   final TextEditingController? passwordController;
   CourierLoginPageCubit({this.emailControlller, this.passwordController})
       : super(const CourierLoginPageState());
-  Dio dio = Dio(BaseOptions(baseUrl: AppConstats.baseUrl));
+
 
   Future<void> loginUser() async {
     emit(const CourierLoginPageState(status: Status.isLoading));
       try {
-        final response = await dio.post(AppConstats.courierLoginUrl, data: {
+        final response = await networkService.dio.post(appNetwork.courierLoginUrl, data: {
           "email": emailControlller?.text.trim(),
           "password": passwordController?.text.trim()
         });

@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/customer/view/maps/customer_map.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/orders/views/order_details/edit_order_details.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/orders/views/order_details/order_detail.dart';
+
 import '../../../views/authentication/login/view/login_page.dart';
-import '../../../views/screens/customer/view/maps/customer_flutter_map.dart';
-import '../../../views/screens/orders/views/add_customer_in_add_order/add_order_add_customer.dart';
-import '../../../views/screens/orders/views/add_order.dart';
-import '../../../views/screens/orders/views/order_lists/order_list_page.dart';
-import '../../../views/screens/splash/view/splash_screen.dart';
 import '../../../views/authentication/register/view/signup_page.dart';
 import '../../../views/other_pages/not_found_page.dart';
 import '../../../views/screens/courier/view/add_courier.dart';
 import '../../../views/screens/courier/view/courier_list_page.dart';
 import '../../../views/screens/customer/view/add_customer.dart';
 import '../../../views/screens/customer/view/customer_list_page.dart';
+import '../../../views/screens/customer/view/maps/customer_flutter_map.dart';
+import '../../../views/screens/customer/view/maps/customer_map.dart';
+import '../../../views/screens/orders/views/add_customer_in_add_order/add_order_add_customer.dart';
+import '../../../views/screens/orders/views/add_order.dart';
+import '../../../views/screens/orders/views/order_details/edit_order_details.dart';
+import '../../../views/screens/orders/views/order_details/order_detail.dart';
+import '../../../views/screens/orders/views/order_lists/order_list_page.dart';
 import '../../../views/screens/product/view/add_product.dart';
 import '../../../views/screens/product/view/product_list.dart';
 import '../../../views/screens/profile/view/user_profile.dart';
+import '../../../views/screens/splash/view/splash_screen.dart';
 import '../../constants/navigation/navigation_constants.dart';
 
 class NavigationRoute {

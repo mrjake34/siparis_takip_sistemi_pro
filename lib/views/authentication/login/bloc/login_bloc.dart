@@ -1,18 +1,15 @@
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/base/models/base_model_view.dart';
-import '../../../../core/constants/app/app_constants.dart';
 import '../../../../core/constants/enums/enums.dart';
 import '../../../../core/init/translation/locale_keys.g.dart';
 import '../../../models/user_model/user.dart';
 import '../../../screens/profile/service/profile_service.dart';
 import '../model/login_response_model.dart';
-
 part 'login_event.dart';
 part 'login_state.dart';
 
@@ -25,18 +22,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with BaseModelView {
       (event, emit) async {
         emit(state.copyWith(status: Status.isLoading));
         try {
-
           final response = await networkService.dio.post(
-            AppConstats.login,
+            appNetwork.login,
             data: {
               'email': emailController?.text.trim(),
               'password': passwordController?.text.trim()
             },
           );
           if (response.statusCode == HttpStatus.ok) {
-
             String? cookie = response.headers["authorization"]?.first;
-
             LoginResponseModel model =
                 LoginResponseModel.fromJson(response.data);
             await sharedManager.setStringValue(

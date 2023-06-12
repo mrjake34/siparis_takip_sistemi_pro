@@ -1,15 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/app/app_constants.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/views/authentication/register/model/register_response_error_model.dart';
-
 import '../../../../core/init/translation/locale_keys.g.dart';
 import 'register_state.dart';
 
@@ -35,17 +32,17 @@ class RegisterCubit extends Cubit<RegisterState> with BaseModelView {
     this.formKey,
   }) : super(const RegisterState());
 
-  Dio dio = Dio(BaseOptions(baseUrl: AppConstats.baseUrl));
+
 
   Future<void> postRegisterModel() async {
     if (passwordController?.text.trim() == password2Controller?.text.trim()) {
       try {
         emit(const RegisterState(status: Status.isLoading));
-        dio.options.headers = {
+        networkService.dio.options.headers = {
           "Access-Control-Request-Headers":
               "access-control-allow-credentials,access-control-allow-headers,access-control-allow-methods,access-control-allow-origin,content-type",
         };
-        final response = await dio.post(AppConstats.signup, data: {
+        final response = await networkService.dio.post(appNetwork.signup, data: {
           "name": nameController?.text.trim(),
           "phone": phoneController?.text.trim(),
           "email": emailController?.text.trim(),

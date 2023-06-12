@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
-
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/providers/search_providers.dart';
 import 'package:siparis_takip_sistemi_pro/views/authentication/login/view/login_page.dart';
@@ -14,7 +13,7 @@ import 'package:siparis_takip_sistemi_pro/views/screens/orders/bloc/add_order_bl
 import 'package:siparis_takip_sistemi_pro/views/screens/product/bloc/products_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/profile/bloc/user_profile_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/splash/view/splash_screen.dart';
-import 'core/constants/app/app_constants.dart';
+import 'core/constants/network/url.dart';
 import 'core/init/navigation/navigation_route.dart';
 import 'core/init/navigation/navigation_service.dart';
 import 'core/init/translation/translation_manager.dart';
@@ -77,7 +76,7 @@ void main() async {
           create: (context) => EditCourierChangePhoneReadyOnlyProvider())
     ],
     child: EasyLocalization(
-        path: AppConstats.translationPath,
+        path: AppNetwork.instance.translationPath,
         supportedLocales: TranslationManager.instance!.supportedLocales,
         startLocale: TranslationManager.instance!.enLocale,
         child: MultiBlocProvider(providers: [

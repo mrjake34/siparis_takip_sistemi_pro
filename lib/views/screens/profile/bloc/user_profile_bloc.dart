@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/profile/service/profile_service.dart';
+import '../service/profile_service.dart';
 
 import '../../../../core/constants/enums/enums.dart';
 import '../../../models/user_model/user.dart';

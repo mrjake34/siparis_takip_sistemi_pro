@@ -1,15 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/src/bottomsheets/main_bottom_sheets.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/product/bloc/products_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/product/widgets/product_list_bottomsheet.dart';
+
 import '../../../../core/constants/colors/colors.dart';
 import '../../../../core/constants/enums/enums.dart';
+import '../../../../core/constants/size/sizes.dart';
+import '../../../../core/init/translation/locale_keys.g.dart';
 import '../../../../providers/main_providers.dart';
+import '../../../../src/bottomsheets/main_bottom_sheets.dart';
+import '../bloc/products_bloc.dart';
 import '../model/product.dart';
+import '../widgets/product_list_bottomsheet.dart';
 
 class ProductListPage extends StatelessWidget {
   const ProductListPage({Key? key}) : super(key: key);

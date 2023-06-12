@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
+
+import '../core/constants/colors/colors.dart';
 import '../core/constants/icons/icons.dart';
 import '../views/screens/orders/model/order.dart';
 
