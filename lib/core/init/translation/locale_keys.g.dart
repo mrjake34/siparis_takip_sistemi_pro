@@ -53,6 +53,7 @@ abstract class  LocaleKeys {
   static const mainText_refreshPage = 'mainText.refreshPage';
   static const mainText_lightTheme = 'mainText.lightTheme';
   static const mainText_darkTheme = 'mainText.darkTheme';
+  static const mainText_autoTheme = 'mainText.autoTheme';
   static const mainText_theme3 = 'mainText.theme3';
   static const mainText_theme4 = 'mainText.theme4';
   static const mainText_theme5 = 'mainText.theme5';

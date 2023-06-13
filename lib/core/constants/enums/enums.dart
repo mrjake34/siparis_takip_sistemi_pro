@@ -9,7 +9,13 @@ enum PreferenceKey {
   userPhone,
   paymentStatus,
   userUpdatedAt,
-  firstLogin
+  firstLogin,
+  theme,
+}
+
+enum ThemeEnums {
+  lightTheme,
+  darkTheme
 }
 
 enum Status { isValidate, isLoading, isDone, isFailed }
@@ -29,5 +35,8 @@ enum LocationService {
 
 enum UserRole { user, courier, admin }
 
-
-enum AutoLogin {isLoading, completed, failed,}
+enum AutoLogin {
+  isLoading,
+  completed,
+  failed,
+}

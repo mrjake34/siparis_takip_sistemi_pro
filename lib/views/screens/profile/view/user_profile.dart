@@ -10,6 +10,7 @@ import '../../../../core/constants/enums/enums.dart';
 import '../../../../core/init/translation/locale_keys.g.dart';
 import '../../../../providers/main_providers.dart';
 import '../bloc/user_profile_bloc.dart';
+import 'choose_theme_widget.dart';
 import 'user_details_widget.dart';
 
 class UserProfile extends StatefulWidget {
@@ -54,7 +55,7 @@ class PageBuilder extends StatelessWidget {
               child: Column(
                 children: [
                   const UserDetailWidget(),
-                  //const ChooseThemeWidget(),
+                  const ChooseThemeWidget(),
                   const ChangeLanguageField(),
                   const ChangeCurrencySymbolField(),
                   ProfilePageLogoutButton(pageSize: pageSize),

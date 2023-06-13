@@ -22,7 +22,10 @@ import 'providers/courier_providers.dart';
 import 'providers/customer_provider.dart';
 import 'providers/main_providers.dart';
 import 'providers/product_providers.dart';
-import 'theme/theme-context.dart';
+import 'providers/theme_providers.dart';
+import 'theme/dark_theme.dart';
+import 'theme/light_theme.dart';
+import 'theme/theme_service.dart';
 import 'views/authentication/login/bloc/login_bloc.dart';
 import 'views/models/user_model/user.dart';
 import 'views/screens/courier/model/courier.dart';
@@ -68,9 +71,9 @@ void main() async {
           create: (context) => ChangePasswordVisibilityAddCourierProvider()),
       ChangeNotifierProvider(
           create: (context) => ChangeRePasswordVisibilityAddCourierProvider()),
-             ChangeNotifierProvider(
+      ChangeNotifierProvider(
           create: (context) => EditCourierChangeNameReadyOnlyProvider()),
-                ChangeNotifierProvider(
+      ChangeNotifierProvider(
           create: (context) => EditCourierChangeEmailReadyOnlyProvider()),
       ChangeNotifierProvider(
           create: (context) => EditCourierChangePhoneReadyOnlyProvider())
@@ -103,8 +106,24 @@ void main() async {
   FlutterNativeSplash.remove();
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  ThemeData? theme;
+  @override
+  void initState() {
+    checkTheme();
+    super.initState();
+  }
+
+  Future<void> checkTheme() async {
+    context.read<ThemeChange>().changeTheme = await ThemeService().getThemeFromSave() ?? lightTheme;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,8 +132,8 @@ class MyApp extends StatelessWidget {
       scaffoldMessengerKey: UtilsService.instance.messengerKey,
       navigatorKey: NavigationService.instance.navigatorKey,
       debugShowCheckedModeBanner: false,
-      theme: lightTheme,
-      darkTheme: darkTheme,
+      theme: context.watch<ThemeChange>().getTheme ?? lightTheme,
+      darkTheme: context.watch<ThemeChange>().getTheme ?? darkTheme,
       localizationsDelegates: context.localizationDelegates,
       locale: context.locale,
       supportedLocales: context.supportedLocales,

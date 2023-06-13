@@ -19,17 +19,20 @@ class SharedManager {
   Future<void> clearAll() async {
     await _preferences!.clear();
   }
+  Future<void> removeFromKey(PreferenceKey key) async {
+    await _preferences!.remove(key.name);
+  }
 
   Future<void> setStringValue(PreferenceKey key, String value) async {
-    await _preferences?.setString(key.toString(), value);
+    await _preferences?.setString(key.name, value);
   }
 
   Future<void> setBoolValue(PreferenceKey key, bool value) async {
-    await _preferences?.setBool(key.toString(), value);
+    await _preferences?.setBool(key.name, value);
   }
 
   String getStringValue(PreferenceKey key) =>
-      _preferences?.getString(key.toString()) ?? "";
+      _preferences?.getString(key.name) ?? "";
   bool getBoolValue(PreferenceKey key) =>
-      _preferences?.getBool(key.toString()) ?? false;
+      _preferences?.getBool(key.name) ?? false;
 }
