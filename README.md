@@ -53,3 +53,14 @@ Bu projeyle ilgili herhangi bir sorunuz veya öneriniz varsa, lütfen benimle il
 - E-posta: alkanatas34@gmail.com
 - Linkedin: https://www.linkedin.com/in/alkan-ata%C5%9F-101482248/
 
+## License
+
+This project is licensed under the terms of the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+MIT License
+
+Sipariş Takip Pro
+
+Copyright (c) 2023 Efes Information Technologies
+
+...
