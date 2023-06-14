@@ -5,104 +5,129 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/network/url.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/navigation/navigation_route.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/navigation/navigation_service.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/translation_manager.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/utils/utils.dart';
+import 'package:siparis_takip_sistemi_pro/providers/courier_providers.dart';
+import 'package:siparis_takip_sistemi_pro/providers/customer_provider.dart';
+import 'package:siparis_takip_sistemi_pro/providers/main_providers.dart';
+import 'package:siparis_takip_sistemi_pro/providers/product_providers.dart';
 import 'package:siparis_takip_sistemi_pro/providers/search_providers.dart';
+import 'package:siparis_takip_sistemi_pro/providers/theme_providers.dart';
+import 'package:siparis_takip_sistemi_pro/theme/dark_theme.dart';
+import 'package:siparis_takip_sistemi_pro/theme/light_theme.dart';
+import 'package:siparis_takip_sistemi_pro/theme/theme_service.dart';
+import 'package:siparis_takip_sistemi_pro/views/authentication/login/bloc/login_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/authentication/login/view/login_page.dart';
+import 'package:siparis_takip_sistemi_pro/views/models/user_model/user.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/bloc/courier_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/courier/model/courier.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/customer/bloc/customer_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/product/bloc/products_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/profile/bloc/user_profile_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/splash/view/splash_screen.dart';
-import 'core/constants/network/url.dart';
-import 'core/init/navigation/navigation_route.dart';
-import 'core/init/navigation/navigation_service.dart';
-import 'core/init/translation/translation_manager.dart';
-import 'core/init/utils/utils.dart';
-import 'providers/courier_providers.dart';
-import 'providers/customer_provider.dart';
-import 'providers/main_providers.dart';
-import 'providers/product_providers.dart';
-import 'providers/theme_providers.dart';
-import 'theme/dark_theme.dart';
-import 'theme/light_theme.dart';
-import 'theme/theme_service.dart';
-import 'views/authentication/login/bloc/login_bloc.dart';
-import 'views/models/user_model/user.dart';
-import 'views/screens/courier/model/courier.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (context) => OrderDetailProvider()),
-      ChangeNotifierProvider(create: (context) => OrderStatusIconProvider()),
-      ChangeNotifierProvider(
-          create: (context) => OrderStatusBorderColorProvider()),
-      ChangeNotifierProvider(create: (context) => UserDetail()),
-      ChangeNotifierProvider(create: (context) => GetUserLocation()),
-      ChangeNotifierProvider(create: (context) => ChangeCurrencyPriceSymbol()),
-      ChangeNotifierProvider(create: (context) => ThemeChange()),
-      ChangeNotifierProvider(create: (context) => CourierSearch()),
-      ChangeNotifierProvider(
-          create: (context) => AddOrderAddCustomerSearchProvider()),
-      ChangeNotifierProvider(
-          create: (context) => AddOrderAddProductSearchProvider()),
-      ChangeNotifierProvider(create: (context) => CustomerMapProvider()),
-      ChangeNotifierProvider(
-          create: (context) => ChangePasswordVisibilityProvider()),
-      ChangeNotifierProvider(
-          create: (context) => ChangePasswordVisibilityTwoProvider()),
-      ChangeNotifierProvider(
-          create: (context) => MembershipAgreementProvider()),
-      ChangeNotifierProvider(
-          create: (context) => AllOrdersListOrderSearchProvider()),
-      ChangeNotifierProvider(
-          create: (context) => EditProductNameEditButtonProvider()),
-      ChangeNotifierProvider(
-          create: (context) => EditProductPriceEditButtonProvider()),
-      ChangeNotifierProvider(
-          create: (context) => CustomerNameEditingStatusProvider()),
-      ChangeNotifierProvider(
-          create: (context) => CustomerAddressEditingStatusProvider()),
-      ChangeNotifierProvider(
-          create: (context) => CustomerPhoneEditingStatusProvider()),
-      ChangeNotifierProvider(
-          create: (context) => ChangePasswordVisibilityAddCourierProvider()),
-      ChangeNotifierProvider(
-          create: (context) => ChangeRePasswordVisibilityAddCourierProvider()),
-      ChangeNotifierProvider(
-          create: (context) => EditCourierChangeNameReadyOnlyProvider()),
-      ChangeNotifierProvider(
-          create: (context) => EditCourierChangeEmailReadyOnlyProvider()),
-      ChangeNotifierProvider(
-          create: (context) => EditCourierChangePhoneReadyOnlyProvider())
-    ],
-    child: EasyLocalization(
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => OrderDetailProvider()),
+        ChangeNotifierProvider(create: (context) => OrderStatusIconProvider()),
+        ChangeNotifierProvider(
+          create: (context) => OrderStatusBorderColorProvider(),
+        ),
+        ChangeNotifierProvider(create: (context) => UserDetail()),
+        ChangeNotifierProvider(create: (context) => GetUserLocation()),
+        ChangeNotifierProvider(
+          create: (context) => ChangeCurrencyPriceSymbol(),
+        ),
+        ChangeNotifierProvider(create: (context) => ThemeChange()),
+        ChangeNotifierProvider(create: (context) => CourierSearch()),
+        ChangeNotifierProvider(
+          create: (context) => AddOrderAddCustomerSearchProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AddOrderAddProductSearchProvider(),
+        ),
+        ChangeNotifierProvider(create: (context) => CustomerMapProvider()),
+        ChangeNotifierProvider(
+          create: (context) => ChangePasswordVisibilityProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ChangePasswordVisibilityTwoProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MembershipAgreementProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AllOrdersListOrderSearchProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => EditProductNameEditButtonProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => EditProductPriceEditButtonProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CustomerNameEditingStatusProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CustomerAddressEditingStatusProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CustomerPhoneEditingStatusProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ChangePasswordVisibilityAddCourierProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ChangeRePasswordVisibilityAddCourierProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => EditCourierChangeNameReadyOnlyProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => EditCourierChangeEmailReadyOnlyProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => EditCourierChangePhoneReadyOnlyProvider(),
+        )
+      ],
+      child: EasyLocalization(
         path: AppNetwork.instance.translationPath,
         supportedLocales: TranslationManager.instance!.supportedLocales,
         startLocale: TranslationManager.instance!.enLocale,
-        child: MultiBlocProvider(providers: [
-          BlocProvider(
-            create: (context) => LoginBloc(),
-          ),
-          BlocProvider(
-            create: (context) => CustomerBloc(),
-          ),
-          BlocProvider(
-            create: (context) => CourierBloc(),
-          ),
-          BlocProvider(
-            create: (context) => OrdersBloc(),
-          ),
-          BlocProvider(
-            create: (context) => ProductsBloc(),
-          ),
-          BlocProvider(
-            create: (context) => UserProfileBloc(),
-          ),
-        ], child: const MyApp())),
-  ));
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => LoginBloc(),
+            ),
+            BlocProvider(
+              create: (context) => CustomerBloc(),
+            ),
+            BlocProvider(
+              create: (context) => CourierBloc(),
+            ),
+            BlocProvider(
+              create: (context) => OrdersBloc(),
+            ),
+            BlocProvider(
+              create: (context) => ProductsBloc(),
+            ),
+            BlocProvider(
+              create: (context) => UserProfileBloc(),
+            ),
+          ],
+          child: const MyApp(),
+        ),
+      ),
+    ),
+  );
   FlutterNativeSplash.remove();
 }
 
@@ -122,7 +147,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> checkTheme() async {
-    context.read<ThemeChange>().changeTheme = await ThemeService().getThemeFromSave() ?? lightTheme;
+    context.read<ThemeChange>().changeTheme =
+        await ThemeService().getThemeFromSave() ?? lightTheme;
   }
 
   @override

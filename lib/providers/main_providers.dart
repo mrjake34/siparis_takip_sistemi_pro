@@ -1,11 +1,12 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: avoid_setters_without_getters
 
-import '../core/constants/colors/colors.dart';
-import '../core/constants/icons/icons.dart';
-import '../views/screens/orders/model/order.dart';
+import 'package:flutter/material.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/icons/icons.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/orders/model/order.dart';
 
 class ChangeCurrencyPriceSymbol with ChangeNotifier {
-  String currencySymbol = "₺";
+  String currencySymbol = '₺';
 
   String get getSymbol {
     return currencySymbol;

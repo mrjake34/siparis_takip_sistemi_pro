@@ -4,11 +4,11 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../core/init/translation/locale_keys.g.dart';
-import '../../../../../providers/customer_provider.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/providers/customer_provider.dart';
 
 class AddCustomerFlutterMap extends StatelessWidget {
-  const AddCustomerFlutterMap({Key? key}) : super(key: key);
+  const AddCustomerFlutterMap({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,27 +18,41 @@ class AddCustomerFlutterMap extends StatelessWidget {
       ),
       body: FlutterMap(
         options: MapOptions(
-            center: LatLng(context.watch<GetUserLocation>().getAlternativeMapLatLng2.latitude, context.watch<GetUserLocation>().getAlternativeMapLatLng2.longitude),
+          center: LatLng(
+            context.watch<GetUserLocation>().getAlternativeMapLatLng2.latitude,
+            context.watch<GetUserLocation>().getAlternativeMapLatLng2.longitude,
+          ),
           zoom: 17,
-          onTap: (position, latlong){
+          onTap: (position, latlong) {
             context.read<GetUserLocation>().setLatLng2 = latlong;
-          }
+          },
         ),
         children: [
           TileLayer(
-            urlTemplate:
-            'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
             userAgentPackageName: 'dev.fleaflet.flutter_map.example',
           ),
           MarkerLayer(
             markers: [
-              Marker(point: LatLng(context.watch<GetUserLocation>().getAlternativeMapLatLng2.latitude, context.watch<GetUserLocation>().getAlternativeMapLatLng2.longitude),
+              Marker(
+                point: LatLng(
+                  context
+                      .watch<GetUserLocation>()
+                      .getAlternativeMapLatLng2
+                      .latitude,
+                  context
+                      .watch<GetUserLocation>()
+                      .getAlternativeMapLatLng2
+                      .longitude,
+                ),
                 builder: (BuildContext context) {
-                  return const Icon(Icons.location_on, color: Colors.blue,);
+                  return const Icon(
+                    Icons.location_on,
+                    color: Colors.blue,
+                  );
                 },
-
               )
-            ]
+            ],
           )
         ],
       ),

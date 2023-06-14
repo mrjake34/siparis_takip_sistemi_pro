@@ -21,6 +21,7 @@ class ChangeRePasswordVisibilityAddCourierProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
+
 class EditCourierChangeNameReadyOnlyProvider extends ChangeNotifier {
   bool _readyOnly = true;
 
@@ -31,6 +32,7 @@ class EditCourierChangeNameReadyOnlyProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
+
 class EditCourierChangeEmailReadyOnlyProvider extends ChangeNotifier {
   bool _readyOnly = true;
 
@@ -41,6 +43,7 @@ class EditCourierChangeEmailReadyOnlyProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
+
 class EditCourierChangePhoneReadyOnlyProvider extends ChangeNotifier {
   bool _readyOnly = true;
 

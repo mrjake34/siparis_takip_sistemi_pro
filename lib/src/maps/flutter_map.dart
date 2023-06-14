@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
-import '../../core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
 
 
 class FlutterMapPage extends StatelessWidget {
+  const FlutterMapPage({super.key, this.mapLat, this.mapLng});
   final double? mapLat;
   final double? mapLng;
-  const FlutterMapPage({Key? key, this.mapLat, this.mapLng}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +18,7 @@ class FlutterMapPage extends StatelessWidget {
       ),
       body: FlutterMap(
         options: MapOptions(
-          center: LatLng(mapLat ?? 0.0, mapLng ?? 0.0)
+          center: LatLng(mapLat ?? 0.0, mapLng ?? 0.0),
         ),
         children: [
           TileLayer(
@@ -37,7 +37,7 @@ class FlutterMapPage extends StatelessWidget {
             ],
           )
         ],
-      )
+      ),
     );
   }
 }

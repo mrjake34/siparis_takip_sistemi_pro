@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'inavigation_sevice.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/navigation/inavigation_sevice.dart';
 
 class NavigationService implements INavigationService {
   NavigationService._init();
@@ -8,7 +7,8 @@ class NavigationService implements INavigationService {
   static NavigationService get instance => _instance;
 
   GlobalKey<NavigatorState> navigatorKey = GlobalKey();
-  var removeAllRoutes = (Route<dynamic> route) => false;
+  bool Function(Route<dynamic> route) removeAllRoutes =
+      (Route<dynamic> route) => false;
 
   @override
   Future<void> navigateToPage({String? path, Object? object}) async {

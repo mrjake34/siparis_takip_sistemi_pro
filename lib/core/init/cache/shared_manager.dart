@@ -1,6 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 
 class SharedManager {
   SharedManager._init() {
@@ -12,13 +11,13 @@ class SharedManager {
   SharedPreferences? _preferences;
   static SharedManager get instance => _instance;
 
-  static preferencesInit() async {
-    instance._preferences ??= await SharedPreferences.getInstance();
-  }
+  static Future<void> preferencesInit() async =>
+      instance._preferences ??= await SharedPreferences.getInstance();
 
   Future<void> clearAll() async {
     await _preferences!.clear();
   }
+
   Future<void> removeFromKey(PreferenceKey key) async {
     await _preferences!.remove(key.name);
   }
@@ -27,12 +26,12 @@ class SharedManager {
     await _preferences?.setString(key.name, value);
   }
 
-  Future<void> setBoolValue(PreferenceKey key, bool value) async {
-    await _preferences?.setBool(key.name, value);
+  Future<void> setBoolValue(PreferenceKey key, {bool? value}) async {
+    await _preferences?.setBool(key.name, value ?? false);
   }
 
   String getStringValue(PreferenceKey key) =>
-      _preferences?.getString(key.name) ?? "";
+      _preferences?.getString(key.name) ?? '';
   bool getBoolValue(PreferenceKey key) =>
       _preferences?.getBool(key.name) ?? false;
 }

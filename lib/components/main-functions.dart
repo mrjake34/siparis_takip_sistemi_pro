@@ -13,44 +13,48 @@ class MainFunctions {
   static final MainFunctions _instance = MainFunctions._init();
   static MainFunctions get instance => _instance;
 
-  Future logOutDialog(BuildContext context) {
+  Future<dynamic> logOutDialog(BuildContext context) {
     return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(
-              LocaleKeys.mainText_logout.tr(),
-              style: const TextStyle(fontSize: 15),
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            LocaleKeys.mainText_logout.tr(),
+            style: const TextStyle(fontSize: 15),
+          ),
+          content: Text(LocaleKeys.alerts_logoutAlerts.tr()),
+          actions: [
+            TextButton(
+              onPressed: () {
+                NavigationService.instance.navigateToBack();
+              },
+              child: Text(LocaleKeys.mainText_cancel.tr()),
             ),
-            content: Text(LocaleKeys.alerts_logoutAlerts.tr()),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    NavigationService.instance.navigateToBack();
-                  },
-                  child: Text(LocaleKeys.mainText_cancel.tr())),
-              TextButton(
-                  onPressed: () async {
-                    SharedManager.instance.clearAll().whenComplete(() {
-                      NavigationService.instance.navigateToPageRemoveAll(
-                          path: NavigationConstants.loginPage);
-                    });
-                  },
-                  child: Text(LocaleKeys.mainText_confirm.tr())),
-            ],
-          );
-        });
+            TextButton(
+              onPressed: () async {
+                await SharedManager.instance.clearAll().whenComplete(() {
+                  NavigationService.instance.navigateToPageRemoveAll(
+                    path: NavigationConstants.loginPage,
+                  );
+                });
+              },
+              child: Text(LocaleKeys.mainText_confirm.tr()),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Color getColorFromOrderStatus({String? orderStatus}) {
     switch (orderStatus) {
-      case "waiting":
+      case 'waiting':
         return AppColors.instance.orderPendingColor;
-      case "inProcess":
+      case 'inProcess':
         return AppColors.instance.orderInProcessColor;
-      case "inDistribution":
+      case 'inDistribution':
         return AppColors.instance.orderOnTheWayColor;
-      case "completed":
+      case 'completed':
         return AppColors.instance.orderIsDoneColor;
       default:
         return AppColors.instance.orderPendingColor;
@@ -59,13 +63,13 @@ class MainFunctions {
 
   IconData getIconFromOrderStatus({String? orderStatus}) {
     switch (orderStatus) {
-      case "waiting":
+      case 'waiting':
         return AppIcons.instance.pendingIcon;
-      case "inProcess":
+      case 'inProcess':
         return AppIcons.instance.inProcessIcon;
-      case "inDistribution":
+      case 'inDistribution':
         return AppIcons.instance.onTheWayIcon;
-      case "completed":
+      case 'completed':
         return AppIcons.instance.isDoneIcon;
       default:
         return AppIcons.instance.pendingIcon;
@@ -74,13 +78,13 @@ class MainFunctions {
 
   String getStringFromOrderStatus({String? orderStatus}) {
     switch (orderStatus) {
-      case "waiting":
+      case 'waiting':
         return LocaleKeys.order_inLine.tr();
-      case "inProcess":
+      case 'inProcess':
         return LocaleKeys.order_inProcess.tr();
-      case "inDistribution":
+      case 'inDistribution':
         return LocaleKeys.order_onTheWay.tr();
-      case "completed":
+      case 'completed':
         return LocaleKeys.order_isDone.tr();
       default:
         return LocaleKeys.order_inLine.tr();
@@ -91,8 +95,7 @@ class MainFunctions {
     if (quantity != null && price != null) {
       return quantity * price;
     } else {
-      return 0.0;
+      return 0;
     }
   }
 }
-

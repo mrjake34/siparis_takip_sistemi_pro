@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../core/constants/enums/enums.dart';
-import '../model/courier.dart';
-import '../service/courier_service.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/courier/model/courier.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/courier/service/courier_service.dart';
 
 part 'courier_event.dart';
 part 'courier_state.dart';

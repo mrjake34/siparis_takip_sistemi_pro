@@ -42,14 +42,14 @@ class PageBuilder extends StatelessWidget {
             previous.orderList != current.orderList,
         builder: (context, state) {
           OrderList? orderList = state.orderList;
-          orderList?.order?.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-          if (orderList?.order?.isNotEmpty == true) {
+          orderList?.order.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+          if (orderList?.order.isNotEmpty == true) {
             return ListView.builder(
               padding: const EdgeInsets.all(pagePadding),
               shrinkWrap: true,
-              itemCount: orderList?.order?.length ?? 0,
+              itemCount: orderList?.order.length ?? 0,
               itemBuilder: (BuildContext context, int index) {
-                Order? order = orderList?.order?[index];
+                Order? order = orderList?.order[index];
                 String orderStatusText = mainFunctions.getStringFromOrderStatus(
                     orderStatus: order?.orderStatus);
                 IconData iconData = mainFunctions.getIconFromOrderStatus(
@@ -84,7 +84,7 @@ class PageBuilder extends StatelessWidget {
                 );
               },
             );
-          } else if (orderList?.order?.isEmpty == true) {
+          } else if (orderList?.order.isEmpty == true) {
             return Center(
               child: Text(LocaleKeys.errors_failedLoadData.tr()),
             );
@@ -148,7 +148,7 @@ class CustomerField extends StatelessWidget {
               previous.customerList != current.customerList,
           builder: (context, state) {
             Customer? customer = state.customerList?.customers
-                .firstWhere((element) => element.id == order?.customerId);
+                ?.firstWhere((element) => element.id == order?.customerId);
             return ListTile(
               onTap: () {
                 context.read<OrdersBloc>().add(ChooseAnOrder(order: order));

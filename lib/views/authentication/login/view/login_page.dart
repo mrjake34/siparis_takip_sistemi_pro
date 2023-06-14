@@ -7,24 +7,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
-
+import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/utils/utils.dart';
+import 'package:siparis_takip_sistemi_pro/providers/main_providers.dart';
 import 'package:siparis_takip_sistemi_pro/src/button/loading_button.dart';
 import 'package:siparis_takip_sistemi_pro/src/button/main_elevated_button.dart';
+import 'package:siparis_takip_sistemi_pro/views/authentication/courier_login/view/courier_login.dart';
 import 'package:siparis_takip_sistemi_pro/views/authentication/login/bloc/login_bloc.dart';
-import '../../../../core/base/models/base_model_view.dart';
-import '../../../../core/constants/enums/enums.dart';
-import '../../../../core/constants/navigation/navigation_constants.dart';
-import '../../../../core/init/translation/locale_keys.g.dart';
-import '../../../../core/init/utils/utils.dart';
-import '../../../../providers/main_providers.dart';
-import '../../courier_login/view/courier_login.dart';
-import '../../password_reset/view/passport_reset.dart';
+import 'package:siparis_takip_sistemi_pro/views/authentication/password_reset/view/passport_reset.dart';
 
 class LoginPage extends StatelessWidget with BaseModelView {
   LoginPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final TextEditingController emailController = TextEditingController();
 
@@ -36,21 +35,24 @@ class LoginPage extends StatelessWidget with BaseModelView {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => LoginBloc(
-          emailController: emailController,
-          passwordController: passwordController),
+        emailController: emailController,
+        passwordController: passwordController,
+      ),
       child: BlocConsumer<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state.status == Status.isDone) {
             navService.navigateToPageRemoveAll(
-                path: NavigationConstants.splashScreen);
+              path: NavigationConstants.splashScreen,
+            );
           }
         },
         builder: (context, state) {
           return BuildPage(
-              loginKey: loginKey,
-              emailController: emailController,
-              passwordController: passwordController,
-              state: state);
+            loginKey: loginKey,
+            emailController: emailController,
+            passwordController: passwordController,
+            state: state,
+          );
         },
       ),
     );
@@ -59,11 +61,11 @@ class LoginPage extends StatelessWidget with BaseModelView {
 
 class BuildPage extends StatelessWidget {
   const BuildPage({
-    super.key,
     required this.loginKey,
     required this.emailController,
     required this.passwordController,
     required this.state,
+    super.key,
   });
 
   final GlobalKey<FormBuilderState> loginKey;
@@ -74,7 +76,7 @@ class BuildPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size pageSize = MediaQuery.of(context).size;
+    final pageSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(),
       body: Center(
@@ -89,13 +91,12 @@ class BuildPage extends StatelessWidget {
                 key: loginKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     const SizedBox(
                       height: 20,
                     ),
                     Image.asset(
-                      "assets/images/main-logo.png",
+                      'assets/images/main-logo.png',
                       fit: BoxFit.fill,
                     ),
                     const SizedBox(
@@ -103,7 +104,7 @@ class BuildPage extends StatelessWidget {
                     ),
                     Card(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8),
                         child: Column(
                           children: [
                             EmailFormField(
@@ -147,8 +148,8 @@ class BuildPage extends StatelessWidget {
 
 class EmailFormField extends StatelessWidget {
   const EmailFormField({
-    super.key,
     required this.emailController,
+    super.key,
   });
 
   final TextEditingController emailController;
@@ -161,19 +162,22 @@ class EmailFormField extends StatelessWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(vertical: 10),
-          prefixIcon: const Icon(
-            Icons.mail_outline,
-            size: 20,
-          ),
-          hintText: LocaleKeys.mainText_enterMailAddress.tr(),
-          border: InputBorder.none,
-          focusedBorder: InputBorder.none),
+        contentPadding: const EdgeInsets.symmetric(vertical: 10),
+        prefixIcon: const Icon(
+          Icons.mail_outline,
+          size: 20,
+        ),
+        hintText: LocaleKeys.mainText_enterMailAddress.tr(),
+        border: InputBorder.none,
+        focusedBorder: InputBorder.none,
+      ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
         FormBuilderValidators.email(
-            errorText: LocaleKeys.errors_justEnterEmail.tr()),
+          errorText: LocaleKeys.errors_justEnterEmail.tr(),
+        ),
       ]),
     );
   }
@@ -181,15 +185,15 @@ class EmailFormField extends StatelessWidget {
 
 class PasswordFormField extends StatelessWidget {
   const PasswordFormField({
-    Key? key,
     required this.passwordController,
-  }) : super(key: key);
+    super.key,
+  });
 
   final TextEditingController passwordController;
 
   @override
   Widget build(BuildContext context) {
-    bool visibility =
+    final visibility =
         Provider.of<ChangePasswordVisibilityProvider>(context).getVisibility;
 
     return TextFormField(
@@ -213,9 +217,11 @@ class PasswordFormField extends StatelessWidget {
           ),
           onPressed: () {
             if (visibility == true) {
-              context.read<ChangePasswordVisibilityProvider>().setVisibility = false;
+              context.read<ChangePasswordVisibilityProvider>().setVisibility =
+                  false;
             } else {
-              context.read<ChangePasswordVisibilityProvider>().setVisibility = true;
+              context.read<ChangePasswordVisibilityProvider>().setVisibility =
+                  true;
             }
           },
         ),
@@ -223,7 +229,8 @@ class PasswordFormField extends StatelessWidget {
       validator: FormBuilderValidators.compose(
         [
           FormBuilderValidators.required(
-              errorText: LocaleKeys.errors_errorEnterPassword.tr()),
+            errorText: LocaleKeys.errors_errorEnterPassword.tr(),
+          ),
         ],
       ),
     );
@@ -232,8 +239,8 @@ class PasswordFormField extends StatelessWidget {
 
 class LoginButton extends StatelessWidget {
   const LoginButton({
-    super.key,
     required this.loginKey,
+    super.key,
   });
   final GlobalKey<FormBuilderState> loginKey;
 
@@ -272,9 +279,13 @@ class ForgetPasswordText extends StatelessWidget {
           fontSize: 15,
         ),
       ),
-      onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => PassReset(),
-      )),
+      onPressed: () => Navigator.of(context).push(pageRouterPassReset()),
+    );
+  }
+
+  MaterialPageRoute<dynamic> pageRouterPassReset() {
+    return MaterialPageRoute(
+      builder: (context) => PassReset(),
     );
   }
 }
@@ -291,10 +302,11 @@ class RegisterText extends StatelessWidget with BaseModelView {
       children: [
         Text(LocaleKeys.mainText_haventAccount.tr()),
         TextButton(
-            onPressed: () {
-              navService.navigateToPage(path: NavigationConstants.registerPage);
-            },
-            child: Text(LocaleKeys.mainText_signup.tr()))
+          onPressed: () {
+            navService.navigateToPage(path: NavigationConstants.registerPage);
+          },
+          child: Text(LocaleKeys.mainText_signup.tr()),
+        )
       ],
     );
   }
@@ -312,15 +324,17 @@ class CourierLoginPageRouterButton extends StatelessWidget {
         Expanded(
           flex: 8,
           child: MainElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CourierLoginPage()));
-              },
-              child: Text(LocaleKeys.mainText_courierLogin.tr())),
+            onPressed: () {
+              Navigator.push(context, pageRouterCourierLoginPage());
+            },
+            child: Text(LocaleKeys.mainText_courierLogin.tr()),
+          ),
         ),
       ],
     );
+  }
+
+  MaterialPageRoute<dynamic> pageRouterCourierLoginPage() {
+    return MaterialPageRoute(builder: (context) => CourierLoginPage());
   }
 }

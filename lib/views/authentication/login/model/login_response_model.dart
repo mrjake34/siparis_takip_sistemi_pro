@@ -1,16 +1,25 @@
+import 'dart:convert';
+
+LoginResponseModel loginResponseModelFromJson(String str) =>
+    LoginResponseModel.fromJson(jsonDecode(str) as Map<String, dynamic>);
+
+String loginResponseModelToJson(LoginResponseModel data) =>
+    json.encode(data.toJson());
+
 class LoginResponseModel {
+  LoginResponseModel({this.message, this.user});
+  LoginResponseModel.fromJson(Map<String, dynamic> json) {
+    message = json['message'].toString();
+    if (json['User'] != null) {
+      user = UserModel.fromJson(json['User'] as Map<String, String>);
+    } else {
+      user = null;
+    }
+  }
   String? message;
   UserModel? user;
-
-  LoginResponseModel({this.message, this.user});
-
-  LoginResponseModel.fromJson(Map<String, dynamic> json) {
-    message = json['message'];
-    user = json['User'] != null ? UserModel.fromJson(json['User']) : null;
-  }
-
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final data = <String, dynamic>{};
     data['message'] = message;
     if (user != null) {
       data['User'] = user!.toJson();
@@ -20,23 +29,26 @@ class LoginResponseModel {
 }
 
 class UserModel {
-  String? id;
-  String? shopName;
-  String? role;
-
-  UserModel({this.id, this.shopName, this.role});
-
-  UserModel.fromJson(Map<String, dynamic> json) {
-    id = json['Id'];
-    shopName = json['shopName'];
-    role = json['role'];
+  const UserModel({
+    required this.id,
+    required this.shopName,
+    required this.role,
+  });
+  factory UserModel.fromJson(Map<String, String> json) {
+    return UserModel(
+      id: json['Id'] ?? '',
+      shopName: json['shopName'] ?? '',
+      role: json['role'] ?? '',
+    );
   }
-
+  final String id;
+  final String shopName;
+  final String role;
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['Id'] = id;
-    data['shopName'] = shopName;
-    data['role'] = role;
-    return data;
+    return {
+      'Id': id,
+      'shopName': shopName,
+      'role': role,
+    };
   }
 }

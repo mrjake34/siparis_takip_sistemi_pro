@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import '../../../../core/init/translation/locale_keys.g.dart';
-import '../../../../core/constants/colors/colors.dart';
-import '../../../../core/constants/enums/enums.dart';
-import '../../../../core/constants/size/sizes.dart';
-import '../../../../core/init/utils/utils.dart';
-import '../../../../providers/courier_providers.dart';
-import '../bloc/courier_bloc.dart';
-import '../service/courier_service.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/utils/utils.dart';
+import 'package:siparis_takip_sistemi_pro/providers/courier_providers.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/courier/bloc/courier_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/courier/service/courier_service.dart';
 
 class AddCourier extends StatefulWidget {
-  const AddCourier({Key? key}) : super(key: key);
+  const AddCourier({super.key});
 
   @override
   State<AddCourier> createState() => _AddCourierState();
@@ -29,19 +29,26 @@ class _AddCourierState extends State<AddCourier> {
 
   @override
   Widget build(BuildContext context) {
-    return PageBuilder(formKey: _formKey, nameController: nameController, emailController: emailController, phoneController: phoneController, passwordController: passwordController, password2Controller: password2Controller);
+    return PageBuilder(
+      formKey: _formKey,
+      nameController: nameController,
+      emailController: emailController,
+      phoneController: phoneController,
+      passwordController: passwordController,
+      password2Controller: password2Controller,
+    );
   }
 }
 
 class PageBuilder extends StatelessWidget {
   const PageBuilder({
-    super.key,
     required GlobalKey<FormBuilderState> formKey,
     required this.nameController,
     required this.emailController,
     required this.phoneController,
     required this.passwordController,
     required this.password2Controller,
+    super.key,
   }) : _formKey = formKey;
 
   final GlobalKey<FormBuilderState> _formKey;
@@ -81,16 +88,27 @@ class PageBuilder extends StatelessWidget {
                 children: [
                   AddCourierNameTextField(nameController: nameController),
                   const SizedBox(
-                    height: 10.0,
+                    height: 10,
                   ),
                   AddCourierEmailTextField(emailController: emailController),
                   AddCourierPhoneTextField(phoneController: phoneController),
-                  AddCourierPasswordTextField(passwordController: passwordController),
-                  AddCourierRePasswordTextField(password2Controller: password2Controller),
-                  const SizedBox(
-                    height: 10.0,
+                  AddCourierPasswordTextField(
+                    passwordController: passwordController,
                   ),
-                  AddCourierButtonField(formKey: _formKey, passwordController: passwordController, password2Controller: password2Controller, nameController: nameController, emailController: emailController, phoneController: phoneController)
+                  AddCourierRePasswordTextField(
+                    password2Controller: password2Controller,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  AddCourierButtonField(
+                    formKey: _formKey,
+                    passwordController: passwordController,
+                    password2Controller: password2Controller,
+                    nameController: nameController,
+                    emailController: emailController,
+                    phoneController: phoneController,
+                  )
                 ],
               ),
             ),
@@ -103,13 +121,13 @@ class PageBuilder extends StatelessWidget {
 
 class AddCourierButtonField extends StatelessWidget {
   const AddCourierButtonField({
-    super.key,
     required GlobalKey<FormBuilderState> formKey,
     required this.passwordController,
     required this.password2Controller,
     required this.nameController,
     required this.emailController,
     required this.phoneController,
+    super.key,
   }) : _formKey = formKey;
 
   final GlobalKey<FormBuilderState> _formKey;
@@ -130,18 +148,19 @@ class AddCourierButtonField extends StatelessWidget {
                 if (passwordController.text.trim() ==
                     password2Controller.text.trim()) {
                   CourierService().postCourier(
-                      context,
-                      nameController.text,
-                      emailController.text,
-                      passwordController.text,
-                      phoneController.text);
+                    context,
+                    nameController.text,
+                    emailController.text,
+                    passwordController.text,
+                    phoneController.text,
+                  );
                 } else {
-                  UtilsService.instance.errorSnackBar(
-                      LocaleKeys.errors_passwordDontMatch.tr());
+                  UtilsService.instance
+                      .errorSnackBar(LocaleKeys.errors_passwordDontMatch.tr());
                 }
               } else {
-                UtilsService.instance.errorSnackBar(
-                    LocaleKeys.errors_pleaseEnterAllField.tr());
+                UtilsService.instance
+                    .errorSnackBar(LocaleKeys.errors_pleaseEnterAllField.tr());
               }
             },
             child: Text(LocaleKeys.mainText_add.tr()),
@@ -154,8 +173,8 @@ class AddCourierButtonField extends StatelessWidget {
 
 class AddCourierRePasswordTextField extends StatelessWidget {
   const AddCourierRePasswordTextField({
-    super.key,
     required this.password2Controller,
+    super.key,
   });
 
   final TextEditingController password2Controller;
@@ -176,16 +195,14 @@ class AddCourierRePasswordTextField extends StatelessWidget {
         suffixIcon: IconButton(
           icon: Icon(
             context
-                    .watch<
-                        ChangeRePasswordVisibilityAddCourierProvider>()
+                    .watch<ChangeRePasswordVisibilityAddCourierProvider>()
                     .getVisibility
                 ? Icons.visibility_off
                 : Icons.visibility,
           ),
           onPressed: () {
             context
-                .read<
-                    ChangeRePasswordVisibilityAddCourierProvider>()
+                .read<ChangeRePasswordVisibilityAddCourierProvider>()
                 .setVisibility();
           },
         ),
@@ -193,10 +210,12 @@ class AddCourierRePasswordTextField extends StatelessWidget {
       validator: FormBuilderValidators.compose(
         [
           FormBuilderValidators.required(
-              errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
-          FormBuilderValidators.minLength(6,
-              errorText:
-                  LocaleKeys.errors_errorPasswordLength.tr()),
+            errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+          ),
+          FormBuilderValidators.minLength(
+            6,
+            errorText: LocaleKeys.errors_errorPasswordLength.tr(),
+          ),
         ],
       ),
     );
@@ -205,8 +224,8 @@ class AddCourierRePasswordTextField extends StatelessWidget {
 
 class AddCourierPasswordTextField extends StatelessWidget {
   const AddCourierPasswordTextField({
-    super.key,
     required this.passwordController,
+    super.key,
   });
 
   final TextEditingController passwordController;
@@ -227,16 +246,14 @@ class AddCourierPasswordTextField extends StatelessWidget {
         suffixIcon: IconButton(
           icon: Icon(
             context
-                    .watch<
-                        ChangePasswordVisibilityAddCourierProvider>()
+                    .watch<ChangePasswordVisibilityAddCourierProvider>()
                     .getVisibility
                 ? Icons.visibility_off
                 : Icons.visibility,
           ),
           onPressed: () {
             context
-                .read<
-                    ChangePasswordVisibilityAddCourierProvider>()
+                .read<ChangePasswordVisibilityAddCourierProvider>()
                 .setVisibility();
           },
         ),
@@ -244,10 +261,12 @@ class AddCourierPasswordTextField extends StatelessWidget {
       validator: FormBuilderValidators.compose(
         [
           FormBuilderValidators.required(
-              errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
-          FormBuilderValidators.minLength(6,
-              errorText:
-                  LocaleKeys.errors_errorPasswordLength.tr()),
+            errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+          ),
+          FormBuilderValidators.minLength(
+            6,
+            errorText: LocaleKeys.errors_errorPasswordLength.tr(),
+          ),
         ],
       ),
     );
@@ -256,8 +275,8 @@ class AddCourierPasswordTextField extends StatelessWidget {
 
 class AddCourierPhoneTextField extends StatelessWidget {
   const AddCourierPhoneTextField({
-    super.key,
     required this.phoneController,
+    super.key,
   });
 
   final TextEditingController phoneController;
@@ -276,9 +295,11 @@ class AddCourierPhoneTextField extends StatelessWidget {
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
         FormBuilderValidators.numeric(
-            errorText: LocaleKeys.errors_justEnterNumber.tr())
+          errorText: LocaleKeys.errors_justEnterNumber.tr(),
+        )
       ]),
     );
   }
@@ -286,8 +307,8 @@ class AddCourierPhoneTextField extends StatelessWidget {
 
 class AddCourierEmailTextField extends StatelessWidget {
   const AddCourierEmailTextField({
-    super.key,
     required this.emailController,
+    super.key,
   });
 
   final TextEditingController emailController;
@@ -305,9 +326,11 @@ class AddCourierEmailTextField extends StatelessWidget {
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
         FormBuilderValidators.email(
-            errorText: LocaleKeys.errors_justEnterEmail.tr())
+          errorText: LocaleKeys.errors_justEnterEmail.tr(),
+        )
       ]),
     );
   }
@@ -315,8 +338,8 @@ class AddCourierEmailTextField extends StatelessWidget {
 
 class AddCourierNameTextField extends StatelessWidget {
   const AddCourierNameTextField({
-    super.key,
     required this.nameController,
+    super.key,
   });
 
   final TextEditingController nameController;
@@ -333,7 +356,8 @@ class AddCourierNameTextField extends StatelessWidget {
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
       ]),
     );
   }

@@ -92,7 +92,7 @@ class _OrderDetailsState extends State<OrderDetails> with BaseModelView {
                 BlocBuilder<CustomerBloc, CustomerState>(
                   builder: (context, state) {
                     Customer? customer = state.customerList?.customers
-                        .firstWhere(
+                        ?.firstWhere(
                             (element) => element.id == order?.customerId);
                     return Column(
                       children: [

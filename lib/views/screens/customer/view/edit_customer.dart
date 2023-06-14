@@ -2,18 +2,18 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import '../../../../core/constants/size/sizes.dart';
-import '../../../../core/init/translation/locale_keys.g.dart';
-import '../bloc/customer_bloc.dart';
-import '../../../../core/constants/colors/colors.dart';
-import '../../../../core/constants/enums/enums.dart';
-import '../../../../providers/customer_provider.dart';
-import '../model/customer.dart';
-import '../service/customer_service.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/providers/customer_provider.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/customer/bloc/customer_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/customer/model/customer.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/customer/service/customer_service.dart';
 
 class EditCustomer extends StatelessWidget {
+  EditCustomer({required this.id, super.key});
   final String id;
-  EditCustomer({super.key, required this.id});
   final TextEditingController nameController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
@@ -21,20 +21,21 @@ class EditCustomer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageBuilder(
-        id: id,
-        nameController: nameController,
-        addressController: addressController,
-        phoneController: phoneController);
+      id: id,
+      nameController: nameController,
+      addressController: addressController,
+      phoneController: phoneController,
+    );
   }
 }
 
 class PageBuilder extends StatelessWidget {
   const PageBuilder({
-    super.key,
     required this.id,
     required this.nameController,
     required this.addressController,
     required this.phoneController,
+    super.key,
   });
 
   final String id;
@@ -59,35 +60,39 @@ class PageBuilder extends StatelessWidget {
               child: BlocBuilder<CustomerBloc, CustomerState>(
                 builder: (context, state) {
                   if (state.customerList != null) {
-                    Customer? customer = state.customerList?.customers
-                        .firstWhere((element) => element.id == id);
-                    nameController.text = customer?.name ?? "";
-                    addressController.text = customer?.address ?? "";
-                    phoneController.text = customer?.phone ?? "";
+                    final customer = state.customerList?.customers
+                        ?.firstWhere((element) => element.id == id);
+                    nameController.text = customer?.name ?? '';
+                    addressController.text = customer?.address ?? '';
+                    phoneController.text = customer?.phone ?? '';
                     return Column(
                       children: [
                         CustomerNameTextField(nameController: nameController),
                         const SizedBox(
-                          height: 10.0,
+                          height: 10,
                         ),
                         CustomerNameButtonField(
-                            customer: customer, nameController: nameController),
+                          customer: customer,
+                          nameController: nameController,
+                        ),
                         const SizedBox(
-                          height: 10.0,
+                          height: 10,
                         ),
                         CustomerAddressTextField(
-                            addressController: addressController),
+                          addressController: addressController,
+                        ),
                         const SizedBox(
-                          height: 10.0,
+                          height: 10,
                         ),
                         const CustomerAddressButtonField(),
                         const SizedBox(
-                          height: 10.0,
+                          height: 10,
                         ),
                         CustomerPhoneTextField(
-                            phoneController: phoneController),
+                          phoneController: phoneController,
+                        ),
                         const SizedBox(
-                          height: 10.0,
+                          height: 10,
                         ),
                         const CustomerPhoneButtonField(),
                       ],
@@ -142,33 +147,39 @@ class CustomerPhoneButtonField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         ElevatedButton(
-            onPressed: () {}, child: Text(LocaleKeys.mainText_save.tr())),
-        const SizedBox(
-          width: 10.0,
+          onPressed: () {},
+          child: Text(LocaleKeys.mainText_save.tr()),
         ),
-        context.watch<CustomerPhoneEditingStatusProvider>().getEditingStatus ==
-                true
-            ? ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                onPressed: () {
-                  context
-                      .read<CustomerPhoneEditingStatusProvider>()
-                      .setEditingStatus();
-                },
-                child: Text(LocaleKeys.mainText_edit.tr()))
-            : ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                onPressed: () {
-                  context
-                      .read<CustomerPhoneEditingStatusProvider>()
-                      .setEditingStatus();
-                },
-                child: Text(LocaleKeys.mainText_cancel.tr())),
         const SizedBox(
-          width: 10.0,
+          width: 10,
+        ),
+        if (context
+                .watch<CustomerPhoneEditingStatusProvider>()
+                .getEditingStatus ==
+            true)
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+            onPressed: () {
+              context
+                  .read<CustomerPhoneEditingStatusProvider>()
+                  .setEditingStatus();
+            },
+            child: Text(LocaleKeys.mainText_edit.tr()),
+          )
+        else
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () {
+              context
+                  .read<CustomerPhoneEditingStatusProvider>()
+                  .setEditingStatus();
+            },
+            child: Text(LocaleKeys.mainText_cancel.tr()),
+          ),
+        const SizedBox(
+          width: 10,
         ),
       ],
     );
@@ -177,8 +188,8 @@ class CustomerPhoneButtonField extends StatelessWidget {
 
 class CustomerPhoneTextField extends StatelessWidget {
   const CustomerPhoneTextField({
-    super.key,
     required this.phoneController,
+    super.key,
   });
 
   final TextEditingController phoneController;
@@ -199,9 +210,11 @@ class CustomerPhoneTextField extends StatelessWidget {
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
         FormBuilderValidators.numeric(
-            errorText: LocaleKeys.errors_justEnterNumber.tr())
+          errorText: LocaleKeys.errors_justEnterNumber.tr(),
+        )
       ]),
     );
   }
@@ -216,35 +229,39 @@ class CustomerAddressButtonField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         ElevatedButton(
-            onPressed: () {}, child: Text(LocaleKeys.mainText_save.tr())),
-        const SizedBox(
-          width: 10.0,
+          onPressed: () {},
+          child: Text(LocaleKeys.mainText_save.tr()),
         ),
-        context
-                    .watch<CustomerAddressEditingStatusProvider>()
-                    .getEditingStatus ==
-                true
-            ? ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                onPressed: () {
-                  context
-                      .read<CustomerAddressEditingStatusProvider>()
-                      .setEditingStatus();
-                },
-                child: Text(LocaleKeys.mainText_edit.tr()))
-            : ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                onPressed: () {
-                  context
-                      .read<CustomerAddressEditingStatusProvider>()
-                      .setEditingStatus();
-                },
-                child: Text(LocaleKeys.mainText_cancel.tr())),
         const SizedBox(
-          width: 10.0,
+          width: 10,
+        ),
+        if (context
+                .watch<CustomerAddressEditingStatusProvider>()
+                .getEditingStatus ==
+            true)
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+            onPressed: () {
+              context
+                  .read<CustomerAddressEditingStatusProvider>()
+                  .setEditingStatus();
+            },
+            child: Text(LocaleKeys.mainText_edit.tr()),
+          )
+        else
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () {
+              context
+                  .read<CustomerAddressEditingStatusProvider>()
+                  .setEditingStatus();
+            },
+            child: Text(LocaleKeys.mainText_cancel.tr()),
+          ),
+        const SizedBox(
+          width: 10,
         ),
       ],
     );
@@ -253,8 +270,8 @@ class CustomerAddressButtonField extends StatelessWidget {
 
 class CustomerAddressTextField extends StatelessWidget {
   const CustomerAddressTextField({
-    super.key,
     required this.addressController,
+    super.key,
   });
 
   final TextEditingController addressController;
@@ -276,9 +293,11 @@ class CustomerAddressTextField extends StatelessWidget {
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
         FormBuilderValidators.email(
-            errorText: LocaleKeys.errors_justEnterEmail.tr())
+          errorText: LocaleKeys.errors_justEnterEmail.tr(),
+        )
       ]),
     );
   }
@@ -286,9 +305,9 @@ class CustomerAddressTextField extends StatelessWidget {
 
 class CustomerNameButtonField extends StatelessWidget {
   const CustomerNameButtonField({
-    super.key,
     required this.customer,
     required this.nameController,
+    super.key,
   });
 
   final Customer? customer;
@@ -298,37 +317,45 @@ class CustomerNameButtonField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         ElevatedButton(
-            onPressed: () {
-              CustomerService().patchCustomer(customer?.name ?? "",
-                  nameController.text, customer?.id ?? "");
-            },
-            child: Text(LocaleKeys.mainText_save.tr())),
-        const SizedBox(
-          width: 10.0,
+          onPressed: () {
+            CustomerService().patchCustomer(
+              customer?.name ?? '',
+              nameController.text,
+              customer?.id ?? '',
+            );
+          },
+          child: Text(LocaleKeys.mainText_save.tr()),
         ),
-        context.watch<CustomerNameEditingStatusProvider>().getEditingStatus ==
-                true
-            ? ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                onPressed: () {
-                  context
-                      .read<CustomerNameEditingStatusProvider>()
-                      .setEditingStatus();
-                },
-                child: Text(LocaleKeys.mainText_edit.tr()))
-            : ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                onPressed: () {
-                  context
-                      .read<CustomerNameEditingStatusProvider>()
-                      .setEditingStatus();
-                },
-                child: Text(LocaleKeys.mainText_cancel.tr())),
         const SizedBox(
-          width: 10.0,
+          width: 10,
+        ),
+        if (context
+                .watch<CustomerNameEditingStatusProvider>()
+                .getEditingStatus ==
+            true)
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+            onPressed: () {
+              context
+                  .read<CustomerNameEditingStatusProvider>()
+                  .setEditingStatus();
+            },
+            child: Text(LocaleKeys.mainText_edit.tr()),
+          )
+        else
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () {
+              context
+                  .read<CustomerNameEditingStatusProvider>()
+                  .setEditingStatus();
+            },
+            child: Text(LocaleKeys.mainText_cancel.tr()),
+          ),
+        const SizedBox(
+          width: 10,
         ),
       ],
     );
@@ -337,8 +364,8 @@ class CustomerNameButtonField extends StatelessWidget {
 
 class CustomerNameTextField extends StatelessWidget {
   const CustomerNameTextField({
-    super.key,
     required this.nameController,
+    super.key,
   });
 
   final TextEditingController nameController;
@@ -357,7 +384,8 @@ class CustomerNameTextField extends StatelessWidget {
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
       ]),
     );
   }

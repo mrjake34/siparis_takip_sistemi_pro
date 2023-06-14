@@ -1,13 +1,15 @@
+// ignore_for_file: avoid_setters_without_getters
+
 import 'package:flutter/material.dart';
-import '../theme/dark_theme.dart';
-import '../theme/light_theme.dart';
+import 'package:siparis_takip_sistemi_pro/theme/dark_theme.dart';
+import 'package:siparis_takip_sistemi_pro/theme/light_theme.dart';
 
 class ThemeChange with ChangeNotifier {
   ThemeData themeDark = darkTheme;
   ThemeData themeLight = lightTheme;
   ThemeData? _theme;
 
-  void setThemeAuto(){
+  void setThemeAuto() {
     _theme = null;
     notifyListeners();
   }

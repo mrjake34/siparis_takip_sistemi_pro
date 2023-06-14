@@ -3,9 +3,9 @@ import '../model/order.dart';
 abstract class IOrderService {
   IOrderService();
 
-  Future postOrder(String customerId, String orderNote, List orderListPostOut);
+  Future<dynamic> postOrder(String customerId, String orderNote, List<dynamic> orderListPostOut);
   Future<OrderList?> getOrderList();
   Future<Order> getOrder(String id);
-  Future deleteOrder(String id);
-  Future patchOrder(String id, String key, String value);
+  Future<dynamic> deleteOrder(String id);
+  Future<dynamic> patchOrder(String id, String key, String value);
 }

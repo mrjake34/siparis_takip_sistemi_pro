@@ -1,14 +1,16 @@
+
+
 class RegisterResponseErrorModel {
-  String? message;
 
   RegisterResponseErrorModel({this.message});
 
   RegisterResponseErrorModel.fromJson(Map<String, dynamic> json) {
-    message = json['message'];
+    message = json['message'].toString();
   }
+  String? message;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
+    final data = <String, dynamic>{};
     data['message'] = message;
     return data;
   }

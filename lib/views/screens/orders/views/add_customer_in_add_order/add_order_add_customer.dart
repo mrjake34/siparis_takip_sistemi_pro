@@ -46,12 +46,8 @@ class CustomerListField extends StatelessWidget {
           BlocBuilder<CustomerBloc, CustomerState>(
             builder: (context, state) {
               List<Customer>? customerList = state.customerList?.customers
-                  .where((element) => element.name
-                      .toString()
-                      .toLowerCase()
-                      .contains(context
-                          .watch<AddOrderAddCustomerSearchProvider>()
-                          .getSearchValue))
+                  ?.where(
+                      (element) => element.name.toString().toLowerCase().contains(context.watch<AddOrderAddCustomerSearchProvider>().getSearchValue))
                   .toList();
               return ListView.builder(
                 shrinkWrap: true,
@@ -70,13 +66,10 @@ class CustomerListField extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 15.0, top: 10.0, bottom: 0),
+                                padding: const EdgeInsets.only(left: 15.0, top: 10.0, bottom: 0),
                                 child: Text(
                                   customer?.name ?? "",
-                                  style: const TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
+                                  style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                                 ),
                               ),
                               ListTile(
@@ -94,17 +87,10 @@ class CustomerListField extends StatelessWidget {
                                   // context
                                   //     .read<AddOrderAddCustomerProvider>()
                                   //     .setCustomer = customer ?? Customer();
-                                  context.read<OrdersBloc>().add(
-                                      AddOrderAddCustomerEvent(
-                                          customer: customer));
+                                  context.read<OrdersBloc>().add(AddOrderAddCustomerEvent(customer: customer));
                                 } finally {
-                                  UtilsService.instance.showSnackBar(
-                                      LocaleKeys.succes_customerAdded.tr());
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => const AddOrder()),
-                                      (route) => false);
+                                  UtilsService.instance.showSnackBar(LocaleKeys.succes_customerAdded.tr());
+                                  Navigator.pushAndRemoveUntil(context, PageRouterAddOrder(), (route) => false);
                                 }
                               },
                               icon: const Icon(Icons.add)),
@@ -119,6 +105,10 @@ class CustomerListField extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  MaterialPageRoute<dynamic> PageRouterAddOrder() {
+    return MaterialPageRoute(builder: (context) => const AddOrder());
   }
 }
 
@@ -137,8 +127,7 @@ class SearchBarAndTitle extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 10),
           child: TextFormField(
-            initialValue:
-                context.watch<AddOrderAddCustomerSearchProvider>().getSearchValue,
+            initialValue: context.watch<AddOrderAddCustomerSearchProvider>().getSearchValue,
             decoration: InputDecoration(
               filled: true,
               fillColor: Theme.of(context).colorScheme.surface,
@@ -146,8 +135,7 @@ class SearchBarAndTitle extends StatelessWidget {
               suffixIcon: const Icon(Icons.search),
             ),
             onChanged: (value) {
-              context.read<AddOrderAddCustomerSearchProvider>().setSearchValue =
-                  value.toLowerCase();
+              context.read<AddOrderAddCustomerSearchProvider>().setSearchValue = value.toLowerCase();
             },
           ),
         ),

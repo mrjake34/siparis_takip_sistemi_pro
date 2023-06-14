@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class CustomDialog {
   Future<void> showCustomDialog(BuildContext context, Widget child) async {
-    showDialog(
+    return showDialog(
       context: context,
       builder: (context) {
         return Dialog(
           backgroundColor: Theme.of(context).colorScheme.surface,
-          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+          shape: const RoundedRectangleBorder(),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: child,
           ),
         );
@@ -18,14 +18,14 @@ class CustomDialog {
   }
 
   Future<void> showCustomDialogError(BuildContext context, Widget child) async {
-    showDialog(
+    return showDialog(
       context: context,
       builder: (context) {
         return Dialog(
           backgroundColor: Theme.of(context).colorScheme.surface,
-          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+          shape: const RoundedRectangleBorder(),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: child,
           ),
         );

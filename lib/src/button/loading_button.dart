@@ -7,12 +7,16 @@ class LoadingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: null,
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Center(
-              child: LoadingAnimationWidget.fourRotatingDots(
-                  color: Colors.white, size: 25)),
-        ));
+      onPressed: null,
+      child: Padding(
+        padding: const EdgeInsets.all(5),
+        child: Center(
+          child: LoadingAnimationWidget.fourRotatingDots(
+            color: Colors.white,
+            size: 25,
+          ),
+        ),
+      ),
+    );
   }
 }

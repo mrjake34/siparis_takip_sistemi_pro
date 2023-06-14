@@ -11,12 +11,11 @@ import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/utils/utils.dart';
 import 'package:siparis_takip_sistemi_pro/providers/main_providers.dart';
 import 'package:siparis_takip_sistemi_pro/src/button/loading_button.dart';
 import 'package:siparis_takip_sistemi_pro/src/button/main_elevated_button.dart';
 import 'package:siparis_takip_sistemi_pro/views/authentication/courier_login/cubit/courier_login_page_cubit.dart';
-
-import '../../../../core/init/utils/utils.dart';
 
 class CourierLoginPage extends StatelessWidget with BaseModelView {
   CourierLoginPage({
@@ -43,7 +42,8 @@ class CourierLoginPage extends StatelessWidget with BaseModelView {
             if (state.status == Status.isDone) {
               utils.showSnackBar(LocaleKeys.succes_loginSuccess.tr());
               navService.navigateToPageRemoveAll(
-                  path: NavigationConstants.splashScreen);
+                path: NavigationConstants.splashScreen,
+              );
             } else if (state.status == UserStatus.userNotFound) {
               utils.errorSnackBar(LocaleKeys.errors_userInfoIncorrect.tr());
             } else {
@@ -65,10 +65,10 @@ class CourierLoginPage extends StatelessWidget with BaseModelView {
 
 class PageBuilder extends StatelessWidget {
   const PageBuilder({
-    super.key,
     required GlobalKey<FormBuilderState> loginKey,
     required this.emailController,
     required this.passwordController,
+    super.key,
   }) : _loginKey = loginKey;
 
   final GlobalKey<FormBuilderState> _loginKey;
@@ -77,7 +77,7 @@ class PageBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size pageSize = MediaQuery.of(context).size;
+    final pageSize = MediaQuery.of(context).size;
     return Center(
       child: SingleChildScrollView(
         child: Container(
@@ -85,18 +85,17 @@ class PageBuilder extends StatelessWidget {
             maxWidth: pageSize.width >= 800 ? 800 : pageSize.width / 1,
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: FormBuilder(
               key: _loginKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   const SizedBox(
                     height: 20,
                   ),
                   Image.asset(
-                    "assets/images/main-logo.png",
+                    'assets/images/main-logo.png',
                     fit: BoxFit.fill,
                   ),
                   const SizedBox(
@@ -135,8 +134,8 @@ class PageBuilder extends StatelessWidget {
 
 class CourierLoginButton extends StatelessWidget with BaseModelView {
   CourierLoginButton({
-    super.key,
     required GlobalKey<FormBuilderState> loginKey,
+    super.key,
   }) : _loginKey = loginKey;
 
   final GlobalKey<FormBuilderState> _loginKey;
@@ -154,7 +153,8 @@ class CourierLoginButton extends StatelessWidget with BaseModelView {
                     context.read<CourierLoginPageCubit>().loginUser();
                   } else {
                     UtilsService.instance.errorSnackBar(
-                        LocaleKeys.errors_pleaseEnterAllField.tr());
+                      LocaleKeys.errors_pleaseEnterAllField.tr(),
+                    );
                   }
                 },
                 child: Text(
@@ -168,8 +168,8 @@ class CourierLoginButton extends StatelessWidget with BaseModelView {
 
 class PasswordField extends StatelessWidget {
   const PasswordField({
-    super.key,
     required this.passwordController,
+    super.key,
   });
 
   final TextEditingController passwordController;
@@ -208,7 +208,8 @@ class PasswordField extends StatelessWidget {
       validator: FormBuilderValidators.compose(
         [
           FormBuilderValidators.required(
-              errorText: LocaleKeys.errors_errorEnterPassword.tr()),
+            errorText: LocaleKeys.errors_errorEnterPassword.tr(),
+          ),
         ],
       ),
     );
@@ -217,8 +218,8 @@ class PasswordField extends StatelessWidget {
 
 class EmailField extends StatelessWidget {
   const EmailField({
-    super.key,
     required this.emailController,
+    super.key,
   });
 
   final TextEditingController emailController;
@@ -231,19 +232,22 @@ class EmailField extends StatelessWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       autofillHints: const [AutofillHints.email],
       decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(vertical: 10),
-          prefixIcon: const Icon(
-            Icons.mail_outline,
-            size: 20,
-          ),
-          hintText: LocaleKeys.mainText_enterMailAddress.tr(),
-          border: InputBorder.none,
-          focusedBorder: InputBorder.none),
+        contentPadding: const EdgeInsets.symmetric(vertical: 10),
+        prefixIcon: const Icon(
+          Icons.mail_outline,
+          size: 20,
+        ),
+        hintText: LocaleKeys.mainText_enterMailAddress.tr(),
+        border: InputBorder.none,
+        focusedBorder: InputBorder.none,
+      ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
         FormBuilderValidators.email(
-            errorText: LocaleKeys.errors_justEnterEmail.tr()),
+          errorText: LocaleKeys.errors_justEnterEmail.tr(),
+        ),
       ]),
     );
   }

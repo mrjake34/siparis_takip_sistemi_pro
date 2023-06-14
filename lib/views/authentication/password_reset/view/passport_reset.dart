@@ -4,13 +4,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:siparis_takip_sistemi_pro/src/dialogs/show_dialog.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/src/button/loading_button.dart';
 import 'package:siparis_takip_sistemi_pro/src/button/main_elevated_icon_button.dart';
+import 'package:siparis_takip_sistemi_pro/src/dialogs/show_dialog.dart';
 import 'package:siparis_takip_sistemi_pro/views/authentication/password_reset/cubit/password_reset_cubit.dart';
 
 class PassReset extends StatelessWidget with BaseModelView {
@@ -32,15 +32,17 @@ class PassReset extends StatelessWidget with BaseModelView {
           listener: (context, state) {
             if (state.status == Status.isDone) {
               CustomDialog().showCustomDialog(
-                  context, Text(LocaleKeys.succes_resetPasswordSent.tr()));
+                context,
+                Text(LocaleKeys.succes_resetPasswordSent.tr()),
+              );
             } else if (state.status == Status.isFailed) {
               CustomDialog().showCustomDialogError(
-                  context,
-                  Text(
-                    LocaleKeys.errors_errorWhileSendingPasswordResetEmail.tr(),
-                    style:
-                        TextStyle(color: Theme.of(context).colorScheme.error),
-                  ));
+                context,
+                Text(
+                  LocaleKeys.errors_errorWhileSendingPasswordResetEmail.tr(),
+                  style: TextStyle(color: Theme.of(context).colorScheme.error),
+                ),
+              );
             }
           },
           builder: (context, state) {
@@ -58,10 +60,10 @@ class PassReset extends StatelessWidget with BaseModelView {
 
 class PageBuilder extends StatelessWidget {
   const PageBuilder({
-    super.key,
     required GlobalKey<FormState> formKey,
     required this.emailController,
     required this.state,
+    super.key,
   }) : _formKey = formKey;
 
   final GlobalKey<FormState> _formKey;
@@ -70,9 +72,8 @@ class PageBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size pageSize = MediaQuery.of(context).size;
+    final pageSize = MediaQuery.of(context).size;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Center(
@@ -86,10 +87,9 @@ class PageBuilder extends StatelessWidget {
               child: Card(
                 color: Theme.of(context).colorScheme.surface,
                 child: Padding(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(15),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
                         LocaleKeys.mainText_resetPasswordEmailInfo.tr(),
@@ -122,9 +122,9 @@ class PageBuilder extends StatelessWidget {
 
 class SenderButton extends StatelessWidget {
   const SenderButton({
-    super.key,
     required GlobalKey<FormState> formKey,
     required this.state,
+    super.key,
   }) : _formKey = formKey;
 
   final GlobalKey<FormState> _formKey;
@@ -150,8 +150,8 @@ class SenderButton extends StatelessWidget {
 
 class EmailFormField extends StatelessWidget {
   const EmailFormField({
-    super.key,
     required this.emailController,
+    super.key,
   });
 
   final TextEditingController emailController;
@@ -164,21 +164,24 @@ class EmailFormField extends StatelessWidget {
       autofillHints: const [AutofillHints.email],
       autovalidateMode: AutovalidateMode.onUserInteraction,
       decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(vertical: 10),
-          prefixIcon: const Icon(
-            Icons.mail_outline,
-            size: 20,
-          ),
-          hintText: LocaleKeys.mainText_enterMailAddress.tr(),
-          filled: true,
-          fillColor: Theme.of(context).colorScheme.surface.withOpacity(0.1),
-          border: InputBorder.none,
-          focusedBorder: InputBorder.none),
+        contentPadding: const EdgeInsets.symmetric(vertical: 10),
+        prefixIcon: const Icon(
+          Icons.mail_outline,
+          size: 20,
+        ),
+        hintText: LocaleKeys.mainText_enterMailAddress.tr(),
+        filled: true,
+        fillColor: Theme.of(context).colorScheme.surface.withOpacity(0.1),
+        border: InputBorder.none,
+        focusedBorder: InputBorder.none,
+      ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
         FormBuilderValidators.email(
-            errorText: LocaleKeys.errors_justEnterEmail.tr()),
+          errorText: LocaleKeys.errors_justEnterEmail.tr(),
+        ),
       ]),
     );
   }

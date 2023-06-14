@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
 
-import '../../core/constants/colors/colors.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
 
 class MainElevatedButtonWithoutColor extends StatelessWidget {
-  const MainElevatedButtonWithoutColor(
-      {super.key, required this.onPressed, required this.child, this.color});
+  const MainElevatedButtonWithoutColor({
+    required this.onPressed,
+    required this.child,
+    super.key,
+    this.color,
+  });
 
-  final Function() onPressed;
+  final void Function() onPressed;
   final Color? color;
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    Size pageSize = MediaQuery.of(context).size;
+    final pageSize = MediaQuery.of(context).size;
     return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            fixedSize: Size(pageSize.width, 40),
-            backgroundColor:
-                color ?? AppColors.instance.alternativeButtonColor),
-        onPressed: onPressed,
-        child: child);
+      style: ElevatedButton.styleFrom(
+        fixedSize: Size(pageSize.width, 40),
+        backgroundColor: color ?? AppColors.instance.alternativeButtonColor,
+      ),
+      onPressed: onPressed,
+      child: child,
+    );
   }
 }

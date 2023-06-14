@@ -1,23 +1,24 @@
 import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import '../../../../core/constants/colors/colors.dart';
-import '../../../../core/constants/navigation/navigation_constants.dart';
-import '../../../../core/init/navigation/navigation_service.dart';
-import '../../../../core/init/translation/locale_keys.g.dart';
-import '../../../../src/button/main_elevated_button_without_color.dart';
-import '../bloc/customer_bloc.dart';
-import '../model/customer.dart';
-import '../../../../core/constants/enums/enums.dart';
-import '../../../../core/constants/size/sizes.dart';
-import '../../../../core/init/utils/utils.dart';
-import '../../../../providers/customer_provider.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/navigation/navigation_service.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/utils/utils.dart';
+import 'package:siparis_takip_sistemi_pro/providers/customer_provider.dart';
+import 'package:siparis_takip_sistemi_pro/src/button/main_elevated_button_without_color.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/customer/bloc/customer_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/customer/model/customer.dart';
 
 class AddCustomer extends StatelessWidget {
-  AddCustomer({Key? key}) : super(key: key);
+  AddCustomer({super.key});
 
   final _formKey = GlobalKey<FormBuilderState>();
 
@@ -31,20 +32,21 @@ class AddCustomer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageBuilder(
-        formKey: _formKey,
-        customerNameController: customerNameController,
-        customerPhoneController: customerPhoneController,
-        customerAddressController: customerAddressController);
+      formKey: _formKey,
+      customerNameController: customerNameController,
+      customerPhoneController: customerPhoneController,
+      customerAddressController: customerAddressController,
+    );
   }
 }
 
 class PageBuilder extends StatelessWidget {
   const PageBuilder({
-    super.key,
     required GlobalKey<FormBuilderState> formKey,
     required this.customerNameController,
     required this.customerPhoneController,
     required this.customerAddressController,
+    super.key,
   }) : _formKey = formKey;
 
   final GlobalKey<FormBuilderState> _formKey;
@@ -72,29 +74,33 @@ class PageBuilder extends StatelessWidget {
                 child: Column(
                   children: [
                     CustomerNameTextField(
-                        customerNameController: customerNameController),
+                      customerNameController: customerNameController,
+                    ),
                     const SizedBox(
-                      height: 10.0,
+                      height: 10,
                     ),
                     CustomerPhoneTextField(
-                        customerPhoneController: customerPhoneController),
+                      customerPhoneController: customerPhoneController,
+                    ),
                     const SizedBox(
-                      height: 4.0,
+                      height: 4,
                     ),
                     CustomerAddressTextField(
-                        customerAddressController: customerAddressController),
+                      customerAddressController: customerAddressController,
+                    ),
                     const SizedBox(
-                      height: 10.0,
+                      height: 10,
                     ),
                     const AddCustomerAddLocationWithMapField(),
                     const SizedBox(
-                      height: 20.0,
+                      height: 20,
                     ),
                     AddCustomerAddButtonField(
-                        formKey: _formKey,
-                        customerNameController: customerNameController,
-                        customerPhoneController: customerPhoneController,
-                        customerAddressController: customerAddressController),
+                      formKey: _formKey,
+                      customerNameController: customerNameController,
+                      customerPhoneController: customerPhoneController,
+                      customerAddressController: customerAddressController,
+                    ),
                     const SizedBox(
                       height: 30,
                     ),
@@ -133,11 +139,11 @@ class LinearField extends StatelessWidget {
 
 class AddCustomerAddButtonField extends StatelessWidget {
   const AddCustomerAddButtonField({
-    super.key,
     required GlobalKey<FormBuilderState> formKey,
     required this.customerNameController,
     required this.customerPhoneController,
     required this.customerAddressController,
+    super.key,
   }) : _formKey = formKey;
 
   final GlobalKey<FormBuilderState> _formKey;
@@ -150,38 +156,45 @@ class AddCustomerAddButtonField extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-            child: ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    context.read<CustomerBloc>().add(AddCustomerEvent(
+          child: ElevatedButton(
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                context.read<CustomerBloc>().add(
+                      AddCustomerEvent(
                         customer: Customer(
-                            name: customerNameController.text.trim(),
-                            phone: customerPhoneController.text.trim(),
-                            address: customerAddressController.text.trim(),
-                            latitude: Platform.isWindows == false
-                                ? context
-                                    .watch<GetUserLocation>()
-                                    .getAlternativeMapLatLng2
-                                    .latitude
-                                : context
-                                    .watch<GetUserLocation>()
-                                    .getGoogleMapLatLng
-                                    .latitude,
-                            longitude: Platform.isWindows == false
-                                ? context
-                                    .watch<GetUserLocation>()
-                                    .getAlternativeMapLatLng2
-                                    .longitude
-                                : context
-                                    .watch<GetUserLocation>()
-                                    .getGoogleMapLatLng
-                                    .longitude)));
-                  } else {
-                    UtilsService.instance.errorSnackBar(
-                        LocaleKeys.errors_pleaseEnterAllField.tr());
-                  }
-                },
-                child: Text(LocaleKeys.customer_addCustomer.tr())))
+                          name: customerNameController.text.trim(),
+                          phone: customerPhoneController.text.trim(),
+                          address: customerAddressController.text.trim(),
+                          latitude: Platform.isWindows == false
+                              ? context
+                                  .watch<GetUserLocation>()
+                                  .getAlternativeMapLatLng2
+                                  .latitude
+                              : context
+                                  .watch<GetUserLocation>()
+                                  .getGoogleMapLatLng
+                                  .latitude,
+                          longitude: Platform.isWindows == false
+                              ? context
+                                  .watch<GetUserLocation>()
+                                  .getAlternativeMapLatLng2
+                                  .longitude
+                              : context
+                                  .watch<GetUserLocation>()
+                                  .getGoogleMapLatLng
+                                  .longitude,
+                        ),
+                      ),
+                    );
+              } else {
+                UtilsService.instance.errorSnackBar(
+                  LocaleKeys.errors_pleaseEnterAllField.tr(),
+                );
+              }
+            },
+            child: Text(LocaleKeys.customer_addCustomer.tr()),
+          ),
+        )
       ],
     );
   }
@@ -199,13 +212,17 @@ class AddCustomerAddLocationWithMapField extends StatelessWidget {
         ListTile(
           title: Text(LocaleKeys.mainText_location.tr()),
           subtitle: SelectableText(
-            "${Platform.isWindows == true ? context.watch<GetUserLocation>().getAlternativeMapLatLng2.latitude : context.watch<GetUserLocation>().getGoogleMapLatLng.latitude}",
+            '${Platform.isWindows == true ? context.watch<GetUserLocation>()
+            .getAlternativeMapLatLng2.latitude 
+            : context.watch<GetUserLocation>().getGoogleMapLatLng.latitude}',
           ),
         ),
         ListTile(
           title: Text(LocaleKeys.mainText_location.tr()),
           subtitle: SelectableText(
-            "${Platform.isWindows == true ? context.watch<GetUserLocation>().getAlternativeMapLatLng2.longitude : context.watch<GetUserLocation>().getGoogleMapLatLng.longitude}",
+            '${Platform.isWindows == true ? context.watch<GetUserLocation>()
+            .getAlternativeMapLatLng2.longitude 
+            : context.watch<GetUserLocation>().getGoogleMapLatLng.longitude}',
           ),
         ),
         MainElevatedButtonWithoutColor(
@@ -230,8 +247,8 @@ class AddCustomerAddLocationWithMapField extends StatelessWidget {
 
 class CustomerAddressTextField extends StatelessWidget {
   const CustomerAddressTextField({
-    super.key,
     required this.customerAddressController,
+    super.key,
   });
 
   final TextEditingController customerAddressController;
@@ -251,7 +268,8 @@ class CustomerAddressTextField extends StatelessWidget {
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
       ]),
     );
   }
@@ -259,8 +277,8 @@ class CustomerAddressTextField extends StatelessWidget {
 
 class CustomerPhoneTextField extends StatelessWidget {
   const CustomerPhoneTextField({
-    super.key,
     required this.customerPhoneController,
+    super.key,
   });
 
   final TextEditingController customerPhoneController;
@@ -279,9 +297,11 @@ class CustomerPhoneTextField extends StatelessWidget {
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
         FormBuilderValidators.numeric(
-            errorText: LocaleKeys.errors_justEnterNumber.tr())
+          errorText: LocaleKeys.errors_justEnterNumber.tr(),
+        )
       ]),
     );
   }
@@ -289,8 +309,8 @@ class CustomerPhoneTextField extends StatelessWidget {
 
 class CustomerNameTextField extends StatelessWidget {
   const CustomerNameTextField({
-    super.key,
     required this.customerNameController,
+    super.key,
   });
 
   final TextEditingController customerNameController;
@@ -307,7 +327,8 @@ class CustomerNameTextField extends StatelessWidget {
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
       ]),
     );
   }

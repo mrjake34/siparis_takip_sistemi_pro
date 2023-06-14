@@ -1,1 +1,1 @@
-const double pagePadding = 10.0;
+const double pagePadding = 10;

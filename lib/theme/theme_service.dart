@@ -3,20 +3,20 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
-import '../core/constants/enums/enums.dart';
-import 'dark_theme.dart';
-import 'light_theme.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/theme/dark_theme.dart';
+import 'package:siparis_takip_sistemi_pro/theme/light_theme.dart';
 
 class ThemeService with BaseModelView {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   Future<ThemeData?> getThemeFromSave() async {
-    SharedPreferences preferences = await _prefs;
-    final theme = preferences.getString("theme");
+    final preferences = await _prefs;
+    final theme = preferences.getString('theme');
     if (theme?.isNotEmpty ?? false) {
       switch (theme) {
-        case "lightTheme":
+        case 'lightTheme':
           return lightTheme;
-        case "darkTheme":
+        case 'darkTheme':
           return darkTheme;
       }
     }

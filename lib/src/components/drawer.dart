@@ -7,12 +7,12 @@ import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_c
 import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
 
 class DrawerWidget extends StatelessWidget with BaseModelView {
+  DrawerWidget({required this.userRole, super.key});
   final String userRole;
-  DrawerWidget({super.key, required this.userRole});
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
+    var screenWidth = MediaQuery.of(context).size.width;
     return Drawer(
       width: screenWidth * 0.7 < 600 ? screenWidth * 0.7 : screenWidth = 400,
       child: ListView(
@@ -45,7 +45,8 @@ class DrawerWidget extends StatelessWidget with BaseModelView {
           TextButton(
             onPressed: () {
               navService.navigateToPage(
-                  path: NavigationConstants.orderListPage);
+                path: NavigationConstants.orderListPage,
+              );
             },
             child: Row(
               children: [
@@ -67,7 +68,8 @@ class DrawerWidget extends StatelessWidget with BaseModelView {
           TextButton(
             onPressed: () {
               navService.navigateToPage(
-                  path: NavigationConstants.productAddPage);
+                path: NavigationConstants.productAddPage,
+              );
             },
             child: Row(
               children: [
@@ -89,7 +91,8 @@ class DrawerWidget extends StatelessWidget with BaseModelView {
           TextButton(
             onPressed: () {
               navService.navigateToPage(
-                  path: NavigationConstants.productListPage);
+                path: NavigationConstants.productListPage,
+              );
             },
             child: Row(
               children: [
@@ -111,7 +114,8 @@ class DrawerWidget extends StatelessWidget with BaseModelView {
           TextButton(
             onPressed: () {
               navService.navigateToPage(
-                  path: NavigationConstants.customerAddPage);
+                path: NavigationConstants.customerAddPage,
+              );
             },
             child: Row(
               children: [
@@ -133,7 +137,8 @@ class DrawerWidget extends StatelessWidget with BaseModelView {
           TextButton(
             onPressed: () {
               navService.navigateToPage(
-                  path: NavigationConstants.customerListPage);
+                path: NavigationConstants.customerListPage,
+              );
             },
             child: Row(
               children: [
@@ -155,7 +160,8 @@ class DrawerWidget extends StatelessWidget with BaseModelView {
           TextButton(
             onPressed: () {
               navService.navigateToPage(
-                  path: NavigationConstants.courierAddPage);
+                path: NavigationConstants.courierAddPage,
+              );
             },
             child: Row(
               children: [
@@ -177,7 +183,8 @@ class DrawerWidget extends StatelessWidget with BaseModelView {
           TextButton(
             onPressed: () {
               navService.navigateToPage(
-                  path: NavigationConstants.courierListPage);
+                path: NavigationConstants.courierListPage,
+              );
             },
             child: Row(
               children: [

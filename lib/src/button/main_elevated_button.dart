@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 
 class MainElevatedButton extends StatelessWidget {
-  const MainElevatedButton(
-      {super.key, required this.onPressed, required this.child});
+  const MainElevatedButton({
+    required this.onPressed,
+    required this.child,
+    super.key,
+  });
 
-  final Function() onPressed;
+  final void Function() onPressed;
 
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    Size pageSize = MediaQuery.of(context).size;
+    final pageSize = MediaQuery.of(context).size;
     return ElevatedButton(
-        style: ElevatedButton.styleFrom(fixedSize: Size(pageSize.width, 40)),
-        onPressed: onPressed,
-        child: child);
+      style: ElevatedButton.styleFrom(fixedSize: Size(pageSize.width, 40)),
+      onPressed: onPressed,
+      child: child,
+    );
   }
 }

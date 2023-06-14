@@ -5,6 +5,8 @@ class AppColors {
   static final AppColors _instance = AppColors._init();
   static AppColors get instance => _instance;
 
+  final Color lightThemeColor = const Color.fromARGB(255, 242, 242, 242);
+  final Color darkThemeColor = const Color(0xFF393E46);
   final Color alternativeButtonColor = const Color.fromARGB(255, 49, 170, 117);
   final Color customersColor = const Color.fromARGB(255, 74, 206, 111);
   final Color couriersColor = const Color.fromARGB(255, 62, 158, 178);

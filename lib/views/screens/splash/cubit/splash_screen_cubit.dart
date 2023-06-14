@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/utils/utils.dart';
 
 import '../../../../core/constants/enums/enums.dart';
 import '../../../../core/init/cache/shared_manager.dart';
@@ -40,7 +41,7 @@ class SplashScreenCubit extends Cubit<SplashScreenState> {
             status: Status.isDone, locationService: LocationService.denied));
       }
     } else if (permission == LocationPermission.deniedForever) {
-      Future.error(LocaleKeys.errors_locationPermissionOff.tr());
+      UtilsService.instance.errorSnackBar(LocaleKeys.errors_locationPermissionOff.tr());
       emit(state.copyWith(
         status: Status.isDone,
         locationService: LocationService.deniedForever,

@@ -5,23 +5,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/navigation/navigation_service.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/src/components/drawer.dart';
+import 'package:siparis_takip_sistemi_pro/src/text/autosize_number.dart';
+import 'package:siparis_takip_sistemi_pro/src/text/autosize_text.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/courier/bloc/courier_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/customer/bloc/customer_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/product/bloc/products_bloc.dart';
-import '../../../../core/constants/colors/colors.dart';
-import '../../../../core/constants/enums/enums.dart';
-import '../../../../core/constants/size/sizes.dart';
-import '../../../../src/text/autosize_text.dart';
-import '../../../../core/constants/navigation/navigation_constants.dart';
-import '../../../../core/init/navigation/navigation_service.dart';
-import '../../../../core/init/translation/locale_keys.g.dart';
-import '../../../../src/components/drawer.dart';
-import '../../../../src/text/autosize_number.dart';
-import '../../courier/bloc/courier_bloc.dart';
-import '../../customer/bloc/customer_bloc.dart';
-import '../../orders/bloc/add_order_bloc/orders_bloc.dart';
 
 class HomePageView extends StatelessWidget with BaseModelView {
+  HomePageView({required this.userRole, super.key});
   final String userRole;
-  HomePageView({Key? key, required this.userRole}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class HomePageView extends StatelessWidget with BaseModelView {
 }
 
 class BuildPage extends StatelessWidget {
-  const BuildPage({super.key, this.userRole, required this.appColors});
+  const BuildPage({required this.appColors, super.key, this.userRole});
   final String? userRole;
   final AppColors appColors;
 
@@ -45,14 +45,15 @@ class BuildPage extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-              onPressed: () {
-                NavigationService.instance
-                    .navigateToPage(path: NavigationConstants.userProfile);
-              },
-              icon: const Icon(CupertinoIcons.profile_circled))
+            onPressed: () {
+              NavigationService.instance
+                  .navigateToPage(path: NavigationConstants.userProfile);
+            },
+            icon: const Icon(CupertinoIcons.profile_circled),
+          )
         ],
       ),
-      drawer: DrawerWidget(userRole: userRole ?? ""),
+      drawer: DrawerWidget(userRole: userRole ?? ''),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(pagePadding),
         child: Column(
@@ -91,7 +92,7 @@ class BuildPage extends StatelessWidget {
 }
 
 class FetchOrderStatusCount extends StatelessWidget {
-  const FetchOrderStatusCount({super.key, required this.appColors});
+  const FetchOrderStatusCount({required this.appColors, super.key});
   final AppColors appColors;
 
   @override
@@ -127,7 +128,7 @@ class FetchOrderStatusCount extends StatelessWidget {
 }
 
 class DoneOrdersCountField extends StatelessWidget {
-  const DoneOrdersCountField({super.key, required this.appColors});
+  const DoneOrdersCountField({required this.appColors, super.key});
   final AppColors appColors;
 
   @override
@@ -149,7 +150,7 @@ class DoneOrdersCountField extends StatelessWidget {
           child: BlocBuilder<OrdersBloc, OrdersState>(
             builder: (context, state) {
               return CustomAutoSizeNumber(
-                data: "${state.doneOrders?.length ?? 0}",
+                data: '${state.doneOrders?.length ?? 0}',
                 textColor: Colors.white,
               );
             },
@@ -161,7 +162,7 @@ class DoneOrdersCountField extends StatelessWidget {
 }
 
 class OnTheWayOrdersCountField extends StatelessWidget {
-  const OnTheWayOrdersCountField({super.key, required this.appColors});
+  const OnTheWayOrdersCountField({required this.appColors, super.key});
   final AppColors appColors;
 
   @override
@@ -183,7 +184,7 @@ class OnTheWayOrdersCountField extends StatelessWidget {
           child: BlocBuilder<OrdersBloc, OrdersState>(
             builder: (context, state) {
               return CustomAutoSizeNumber(
-                data: "${state.onTheWayOrders?.length ?? 0}",
+                data: '${state.onTheWayOrders?.length ?? 0}',
                 textColor: Colors.white,
               );
             },
@@ -195,7 +196,7 @@ class OnTheWayOrdersCountField extends StatelessWidget {
 }
 
 class ProcessOrdersCountField extends StatelessWidget {
-  const ProcessOrdersCountField({super.key, required this.appColors});
+  const ProcessOrdersCountField({required this.appColors, super.key});
   final AppColors appColors;
 
   @override
@@ -217,7 +218,7 @@ class ProcessOrdersCountField extends StatelessWidget {
           child: BlocBuilder<OrdersBloc, OrdersState>(
             builder: (context, state) {
               return CustomAutoSizeNumber(
-                data: "${state.processOrders?.length ?? 0}",
+                data: '${state.processOrders?.length ?? 0}',
                 textColor: Colors.white,
               );
             },
@@ -229,7 +230,7 @@ class ProcessOrdersCountField extends StatelessWidget {
 }
 
 class PendingOrdersCountField extends StatelessWidget {
-  const PendingOrdersCountField({super.key, required this.appColors});
+  const PendingOrdersCountField({required this.appColors, super.key});
   final AppColors appColors;
 
   @override
@@ -251,7 +252,7 @@ class PendingOrdersCountField extends StatelessWidget {
           child: BlocBuilder<OrdersBloc, OrdersState>(
             builder: (context, state) {
               return CustomAutoSizeNumber(
-                data: "${state.pendingOrders?.length ?? 0}",
+                data: '${state.pendingOrders?.length ?? 0}',
                 textColor: Colors.white,
               );
             },
@@ -263,99 +264,101 @@ class PendingOrdersCountField extends StatelessWidget {
 }
 
 class FetchProductsCountBox extends StatelessWidget {
-  const FetchProductsCountBox({super.key, required this.appColors});
+  const FetchProductsCountBox({required this.appColors, super.key});
   final AppColors appColors;
 
   @override
   Widget build(BuildContext context) {
     context.read<ProductsBloc>().add(const ProductListEvent());
     return Flexible(
-        child: GestureDetector(
-      onTap: () {
-        NavigationService.instance
-            .navigateToPage(path: NavigationConstants.productListPage);
-      },
-      child: Card(
-        color: appColors.productsColor,
-        child: Container(
-          constraints: const BoxConstraints(
-            minHeight: 110,
-          ),
-          child: ListTile(
-            style: ListTileStyle.list,
-            title: CustomAutoSizeText(
-              data: LocaleKeys.mainText_totalProducts.tr(),
-              textColor: Colors.white,
+      child: GestureDetector(
+        onTap: () {
+          NavigationService.instance
+              .navigateToPage(path: NavigationConstants.productListPage);
+        },
+        child: Card(
+          color: appColors.productsColor,
+          child: Container(
+            constraints: const BoxConstraints(
+              minHeight: 110,
             ),
-            subtitle: BlocBuilder<ProductsBloc, ProductsState>(
-              builder: (context, state) {
-                return CustomAutoSizeNumber(
-                  data: "${state.productList?.products.length ?? 0}",
-                  textColor: Colors.white,
-                );
-              },
+            child: ListTile(
+              style: ListTileStyle.list,
+              title: CustomAutoSizeText(
+                data: LocaleKeys.mainText_totalProducts.tr(),
+                textColor: Colors.white,
+              ),
+              subtitle: BlocBuilder<ProductsBloc, ProductsState>(
+                builder: (context, state) {
+                  return CustomAutoSizeNumber(
+                    data: '${state.productList?.products.length ?? 0}',
+                    textColor: Colors.white,
+                  );
+                },
+              ),
             ),
           ),
         ),
       ),
-    ));
+    );
   }
 }
 
 class FetchOrdersCountBox extends StatelessWidget {
-  const FetchOrdersCountBox({super.key, required this.appColors});
+  const FetchOrdersCountBox({required this.appColors, super.key});
   final AppColors appColors;
 
   @override
   Widget build(BuildContext context) {
     context.read<OrdersBloc>().add(OrdersListEvent());
     return Flexible(
-        child: GestureDetector(
-      onTap: () {
-        NavigationService.instance
-            .navigateToPage(path: NavigationConstants.orderListPage);
-      },
-      child: Card(
-        color: appColors.ordersColor,
-        child: Container(
-          constraints: const BoxConstraints(
-            minHeight: 110,
-          ),
-          child: ListTile(
-            style: ListTileStyle.list,
-            title: CustomAutoSizeText(
-              data: LocaleKeys.mainText_totalOrder.tr(),
-              textColor: Colors.white,
+      child: GestureDetector(
+        onTap: () {
+          NavigationService.instance
+              .navigateToPage(path: NavigationConstants.orderListPage);
+        },
+        child: Card(
+          color: appColors.ordersColor,
+          child: Container(
+            constraints: const BoxConstraints(
+              minHeight: 110,
             ),
-            subtitle: BlocBuilder<OrdersBloc, OrdersState>(
-              builder: (context, state) {
-                return CustomAutoSizeNumber(
-                  data: "${state.orderList?.order?.length ?? 0}",
-                  textColor: Colors.white,
-                );
-              },
+            child: ListTile(
+              style: ListTileStyle.list,
+              title: CustomAutoSizeText(
+                data: LocaleKeys.mainText_totalOrder.tr(),
+                textColor: Colors.white,
+              ),
+              subtitle: BlocBuilder<OrdersBloc, OrdersState>(
+                builder: (context, state) {
+                  return CustomAutoSizeNumber(
+                    data: '${state.orderList?.order.length ?? 0}',
+                    textColor: Colors.white,
+                  );
+                },
+              ),
             ),
           ),
         ),
       ),
-    ));
+    );
   }
 }
 
 class FetchCouriersCountBox extends StatelessWidget {
-  const FetchCouriersCountBox({super.key, required this.appColors});
+  const FetchCouriersCountBox({required this.appColors, super.key});
   final AppColors appColors;
 
   @override
   Widget build(BuildContext context) {
     context.read<CourierBloc>().add(const CourierEvent());
     return Flexible(
-        child: GestureDetector(
-      onTap: () {
-        NavigationService.instance
-            .navigateToPage(path: NavigationConstants.courierListPage);
-      },
-      child: Card(
+      child: GestureDetector(
+        onTap: () {
+          NavigationService.instance
+              .navigateToPage(path: NavigationConstants.courierListPage);
+        },
+        child: Card(
           color: appColors.couriersColor,
           child: Container(
             constraints: const BoxConstraints(
@@ -370,19 +373,21 @@ class FetchCouriersCountBox extends StatelessWidget {
               subtitle: BlocBuilder<CourierBloc, CourierState>(
                 builder: (context, state) {
                   return CustomAutoSizeNumber(
-                    data: "${state.courierList?.courier?.length ?? 0}",
+                    data: '${state.courierList?.courier?.length ?? 0}',
                     textColor: Colors.white,
                   );
                 },
               ),
             ),
-          )),
-    ));
+          ),
+        ),
+      ),
+    );
   }
 }
 
 class FetchCustomersCountBox extends StatelessWidget {
-  const FetchCustomersCountBox({super.key, required this.appColors});
+  const FetchCustomersCountBox({required this.appColors, super.key});
   final AppColors appColors;
 
   @override
@@ -409,7 +414,7 @@ class FetchCustomersCountBox extends StatelessWidget {
               subtitle: BlocBuilder<CustomerBloc, CustomerState>(
                 builder: (context, state) {
                   return CustomAutoSizeNumber(
-                    data: "${state.customerList?.customers.length ?? 0}",
+                    data: '${state.customerList?.customers?.length ?? 0}',
                     textColor: Colors.white,
                   );
                 },

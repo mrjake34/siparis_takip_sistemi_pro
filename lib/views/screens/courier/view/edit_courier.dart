@@ -2,18 +2,18 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import '../../../../core/constants/size/sizes.dart';
-import '../../../../core/init/translation/locale_keys.g.dart';
-import '../../../../core/constants/colors/colors.dart';
-import '../../../../core/constants/enums/enums.dart';
-import '../../../../providers/courier_providers.dart';
-import '../bloc/courier_bloc.dart';
-import '../model/courier.dart';
-import '../service/courier_service.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/providers/courier_providers.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/courier/bloc/courier_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/courier/model/courier.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/courier/service/courier_service.dart';
 
 class EditCourier extends StatelessWidget {
+  EditCourier({required this.id, super.key});
   final String id;
-  EditCourier({super.key, required this.id});
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
@@ -31,10 +31,11 @@ class EditCourier extends StatelessWidget {
           const LinearField(),
           Flexible(
             child: CourierEditField(
-                id: id,
-                nameController: nameController,
-                emailController: emailController,
-                phoneController: phoneController),
+              id: id,
+              nameController: nameController,
+              emailController: emailController,
+              phoneController: phoneController,
+            ),
           ),
         ],
       ),
@@ -66,11 +67,11 @@ class LinearField extends StatelessWidget {
 
 class CourierEditField extends StatelessWidget {
   const CourierEditField({
-    super.key,
     required this.id,
     required this.nameController,
     required this.emailController,
     required this.phoneController,
+    super.key,
   });
 
   final String id;
@@ -85,38 +86,44 @@ class CourierEditField extends StatelessWidget {
       child: BlocBuilder<CourierBloc, CourierState>(
         builder: (context, state) {
           if (state.courierList != null) {
-            Courier? courier = state.courierList?.courier
+            final courier = state.courierList?.courier
                 ?.firstWhere((element) => element.id == id);
-            nameController.text = courier?.name ?? "";
-            emailController.text = courier?.email ?? "";
-            phoneController.text = courier?.phone ?? "";
+            nameController.text = courier?.name ?? '';
+            emailController.text = courier?.email ?? '';
+            phoneController.text = courier?.phone ?? '';
             return SingleChildScrollView(
               child: Column(
                 children: [
                   EditCourierNameTextField(nameController: nameController),
                   const SizedBox(
-                    height: 10.0,
+                    height: 10,
                   ),
                   EditCourierNameButtonField(
-                      nameController: nameController, courier: courier),
+                    nameController: nameController,
+                    courier: courier,
+                  ),
                   const SizedBox(
-                    height: 10.0,
+                    height: 10,
                   ),
                   EditCourierEmailTextField(emailController: emailController),
                   const SizedBox(
-                    height: 10.0,
+                    height: 10,
                   ),
                   EditCourierEmailButtonField(
-                      emailController: emailController, courier: courier),
+                    emailController: emailController,
+                    courier: courier,
+                  ),
                   const SizedBox(
-                    height: 10.0,
+                    height: 10,
                   ),
                   EditCourierPhoneTextField(phoneController: phoneController),
                   const SizedBox(
-                    height: 10.0,
+                    height: 10,
                   ),
                   EditCourierPhoneButtonField(
-                      phoneController: phoneController, courier: courier),
+                    phoneController: phoneController,
+                    courier: courier,
+                  ),
                 ],
               ),
             );
@@ -137,9 +144,9 @@ class CourierEditField extends StatelessWidget {
 
 class EditCourierPhoneButtonField extends StatelessWidget {
   const EditCourierPhoneButtonField({
-    super.key,
     required this.phoneController,
     required this.courier,
+    super.key,
   });
 
   final TextEditingController phoneController;
@@ -149,39 +156,45 @@ class EditCourierPhoneButtonField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         ElevatedButton(
-            onPressed: () {
-              CourierService().patchCourier(
-                  "phone", phoneController.text, courier?.phone ?? "");
-            },
-            child: Text(LocaleKeys.mainText_save.tr())),
-        const SizedBox(
-          width: 10.0,
+          onPressed: () {
+            CourierService().patchCourier(
+              'phone',
+              phoneController.text,
+              courier?.phone ?? '',
+            );
+          },
+          child: Text(LocaleKeys.mainText_save.tr()),
         ),
-        context
-                    .watch<EditCourierChangePhoneReadyOnlyProvider>()
-                    .getVisibility ==
-                true
-            ? ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                onPressed: () {
-                  context
-                      .read<EditCourierChangePhoneReadyOnlyProvider>()
-                      .setVisibility();
-                },
-                child: Text(LocaleKeys.mainText_edit.tr()))
-            : ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                onPressed: () {
-                  context
-                      .read<EditCourierChangePhoneReadyOnlyProvider>()
-                      .setVisibility();
-                },
-                child: Text(LocaleKeys.mainText_cancel.tr())),
         const SizedBox(
-          width: 10.0,
+          width: 10,
+        ),
+        if (context
+                .watch<EditCourierChangePhoneReadyOnlyProvider>()
+                .getVisibility ==
+            true)
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+            onPressed: () {
+              context
+                  .read<EditCourierChangePhoneReadyOnlyProvider>()
+                  .setVisibility();
+            },
+            child: Text(LocaleKeys.mainText_edit.tr()),
+          )
+        else
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () {
+              context
+                  .read<EditCourierChangePhoneReadyOnlyProvider>()
+                  .setVisibility();
+            },
+            child: Text(LocaleKeys.mainText_cancel.tr()),
+          ),
+        const SizedBox(
+          width: 10,
         ),
       ],
     );
@@ -190,8 +203,8 @@ class EditCourierPhoneButtonField extends StatelessWidget {
 
 class EditCourierPhoneTextField extends StatelessWidget {
   const EditCourierPhoneTextField({
-    super.key,
     required this.phoneController,
+    super.key,
   });
 
   final TextEditingController phoneController;
@@ -213,9 +226,11 @@ class EditCourierPhoneTextField extends StatelessWidget {
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
         FormBuilderValidators.numeric(
-            errorText: LocaleKeys.errors_justEnterNumber.tr())
+          errorText: LocaleKeys.errors_justEnterNumber.tr(),
+        )
       ]),
     );
   }
@@ -223,9 +238,9 @@ class EditCourierPhoneTextField extends StatelessWidget {
 
 class EditCourierEmailButtonField extends StatelessWidget {
   const EditCourierEmailButtonField({
-    super.key,
     required this.emailController,
     required this.courier,
+    super.key,
   });
 
   final TextEditingController emailController;
@@ -235,39 +250,45 @@ class EditCourierEmailButtonField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         ElevatedButton(
-            onPressed: () {
-              CourierService().patchCourier(
-                  "email", emailController.text, courier?.email ?? "");
-            },
-            child: Text(LocaleKeys.mainText_save.tr())),
-        const SizedBox(
-          width: 10.0,
+          onPressed: () {
+            CourierService().patchCourier(
+              'email',
+              emailController.text,
+              courier?.email ?? '',
+            );
+          },
+          child: Text(LocaleKeys.mainText_save.tr()),
         ),
-        context
-                    .watch<EditCourierChangeEmailReadyOnlyProvider>()
-                    .getVisibility ==
-                true
-            ? ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                onPressed: () {
-                  context
-                      .read<EditCourierChangeEmailReadyOnlyProvider>()
-                      .setVisibility();
-                },
-                child: Text(LocaleKeys.mainText_edit.tr()))
-            : ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                onPressed: () {
-                  context
-                      .read<EditCourierChangeEmailReadyOnlyProvider>()
-                      .setVisibility();
-                },
-                child: Text(LocaleKeys.mainText_cancel.tr())),
         const SizedBox(
-          width: 10.0,
+          width: 10,
+        ),
+        if (context
+                .watch<EditCourierChangeEmailReadyOnlyProvider>()
+                .getVisibility ==
+            true)
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+            onPressed: () {
+              context
+                  .read<EditCourierChangeEmailReadyOnlyProvider>()
+                  .setVisibility();
+            },
+            child: Text(LocaleKeys.mainText_edit.tr()),
+          )
+        else
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () {
+              context
+                  .read<EditCourierChangeEmailReadyOnlyProvider>()
+                  .setVisibility();
+            },
+            child: Text(LocaleKeys.mainText_cancel.tr()),
+          ),
+        const SizedBox(
+          width: 10,
         ),
       ],
     );
@@ -276,8 +297,8 @@ class EditCourierEmailButtonField extends StatelessWidget {
 
 class EditCourierEmailTextField extends StatelessWidget {
   const EditCourierEmailTextField({
-    super.key,
     required this.emailController,
+    super.key,
   });
 
   final TextEditingController emailController;
@@ -300,9 +321,11 @@ class EditCourierEmailTextField extends StatelessWidget {
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
         FormBuilderValidators.email(
-            errorText: LocaleKeys.errors_justEnterEmail.tr())
+          errorText: LocaleKeys.errors_justEnterEmail.tr(),
+        )
       ]),
     );
   }
@@ -310,9 +333,9 @@ class EditCourierEmailTextField extends StatelessWidget {
 
 class EditCourierNameButtonField extends StatelessWidget {
   const EditCourierNameButtonField({
-    super.key,
     required this.nameController,
     required this.courier,
+    super.key,
   });
 
   final TextEditingController nameController;
@@ -322,37 +345,42 @@ class EditCourierNameButtonField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         ElevatedButton(
-            onPressed: () {
-              CourierService()
-                  .patchCourier("name", nameController.text, courier?.id ?? "");
-            },
-            child: Text(LocaleKeys.mainText_save.tr())),
-        const SizedBox(
-          width: 10.0,
+          onPressed: () {
+            CourierService()
+                .patchCourier('name', nameController.text, courier?.id ?? '');
+          },
+          child: Text(LocaleKeys.mainText_save.tr()),
         ),
-        context.watch<EditCourierChangeNameReadyOnlyProvider>().getVisibility ==
-                true
-            ? ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                onPressed: () {
-                  context
-                      .read<EditCourierChangeNameReadyOnlyProvider>()
-                      .setVisibility();
-                },
-                child: Text(LocaleKeys.mainText_edit.tr()))
-            : ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                onPressed: () {
-                  context
-                      .read<EditCourierChangeNameReadyOnlyProvider>()
-                      .setVisibility();
-                },
-                child: Text(LocaleKeys.mainText_cancel.tr())),
         const SizedBox(
-          width: 10.0,
+          width: 10,
+        ),
+        if (context
+                .watch<EditCourierChangeNameReadyOnlyProvider>()
+                .getVisibility ==
+            true)
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+            onPressed: () {
+              context
+                  .read<EditCourierChangeNameReadyOnlyProvider>()
+                  .setVisibility();
+            },
+            child: Text(LocaleKeys.mainText_edit.tr()),
+          )
+        else
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () {
+              context
+                  .read<EditCourierChangeNameReadyOnlyProvider>()
+                  .setVisibility();
+            },
+            child: Text(LocaleKeys.mainText_cancel.tr()),
+          ),
+        const SizedBox(
+          width: 10,
         ),
       ],
     );
@@ -361,8 +389,8 @@ class EditCourierNameButtonField extends StatelessWidget {
 
 class EditCourierNameTextField extends StatelessWidget {
   const EditCourierNameTextField({
-    super.key,
     required this.nameController,
+    super.key,
   });
 
   final TextEditingController nameController;
@@ -381,7 +409,8 @@ class EditCourierNameTextField extends StatelessWidget {
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
       ]),
     );
   }

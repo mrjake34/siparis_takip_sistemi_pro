@@ -1,21 +1,21 @@
 import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/base/models/base_model_view.dart';
-import '../../../../core/constants/enums/enums.dart';
-import '../../../../core/init/translation/locale_keys.g.dart';
-import '../../../models/user_model/user.dart';
-import '../../../screens/profile/service/profile_service.dart';
-import '../model/login_response_model.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/views/authentication/login/model/login_response_model.dart';
+import 'package:siparis_takip_sistemi_pro/views/models/user_model/user.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/profile/service/profile_service.dart';
+
 part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> with BaseModelView {
-  final TextEditingController? emailController;
-  final TextEditingController? passwordController;
   LoginBloc({this.emailController, this.passwordController})
       : super(const LoginState()) {
     on<DoLoginEvent>(
@@ -30,19 +30,24 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with BaseModelView {
             },
           );
           if (response.statusCode == HttpStatus.ok) {
-            String? cookie = response.headers["authorization"]?.first;
-            LoginResponseModel model =
-                LoginResponseModel.fromJson(response.data);
+            final cookie = response.headers['authorization']?.first;
+            final model = loginResponseModelFromJson(response.data.toString());
             await sharedManager.setStringValue(
-                PreferenceKey.cookie, cookie ?? "");
+              PreferenceKey.cookie,
+              cookie ?? '',
+            );
             await sharedManager.setStringValue(
-                PreferenceKey.userId, model.user?.id ?? "");
-            User? user =
+              PreferenceKey.userId,
+              model.user?.id ?? '',
+            );
+            final user =
                 await ProfileService().fetchUserDetails(id: model.user?.id);
-            emit(state.copyWith(
-              status: Status.isDone,
-              model: user,
-            ));
+            emit(
+              state.copyWith(
+                status: Status.isDone,
+                model: user,
+              ),
+            );
           } else if (response.statusCode == 400) {
             utils.errorSnackBar(LocaleKeys.errors_userInfoIncorrect.tr());
             emit(state.copyWith(status: UserStatus.userNotFound));
@@ -67,7 +72,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with BaseModelView {
       final id = sharedManager.getStringValue(PreferenceKey.userId);
       if (cookie.isNotEmpty || id.isNotEmpty) {
         try {
-          User? user = await ProfileService().fetchUserDetails(id: id);
+          final user = await ProfileService().fetchUserDetails(id: id);
           emit(state.copyWith(model: user, autoLogin: AutoLogin.completed));
         } on Exception {
           emit(state.copyWith(autoLogin: AutoLogin.failed));
@@ -77,4 +82,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with BaseModelView {
       }
     });
   }
+  final TextEditingController? emailController;
+  final TextEditingController? passwordController;
 }

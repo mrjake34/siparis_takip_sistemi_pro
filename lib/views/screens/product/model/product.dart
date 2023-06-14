@@ -1,7 +1,7 @@
-
 import 'dart:convert';
 
-ProductList productListFromJson(String str) => ProductList.fromJson(json.decode(str));
+ProductList productListFromJson(String str) =>
+    ProductList.fromJson(json.decode(str) as Map<String, dynamic>);
 
 String productListToJson(ProductList data) => json.encode(data.toJson());
 
@@ -11,18 +11,22 @@ class ProductList {
     required this.products,
   });
 
+  factory ProductList.fromJson(Map<String, dynamic> json) => ProductList(
+        message: json['message'].toString(),
+        products: List<Product>.from(
+          (json['products'] as List<dynamic>).map(
+            (dynamic x) => Product.fromJson(x as Map<String, dynamic>),
+          ),
+        ),
+      );
+
   String message;
   List<Product> products;
 
-  factory ProductList.fromJson(Map<String, dynamic> json) => ProductList(
-    message: json["message"],
-    products: List<Product>.from(json["products"].map((x) => Product.fromJson(x))),
-  );
-
   Map<String, dynamic> toJson() => {
-    "message": message,
-    "products": List<dynamic>.from(products.map((x) => x.toJson())),
-  };
+        'message': message,
+        'products': List<dynamic>.from(products.map((x) => x.toJson())),
+      };
 }
 
 class Product {
@@ -30,11 +34,20 @@ class Product {
     required this.id,
     required this.name,
     required this.shopName,
-    this.productNote,
     required this.price,
     required this.createdAt,
     required this.updatedAt,
+    this.productNote,
   });
+
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
+        id: json['_id'].toString(),
+        name: json['name'].toString(),
+        shopName: json['shopName'].toString(),
+        price: double.tryParse(json['price'].toString()) ?? 0.0,
+        createdAt: DateTime.parse(json['createdAt'].toString()),
+        updatedAt: DateTime.parse(json['updatedAt'].toString()),
+      );
 
   String id;
   String name;
@@ -45,22 +58,13 @@ class Product {
   DateTime createdAt;
   DateTime updatedAt;
 
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
-    id: json["_id"],
-    name: json["name"],
-    shopName: json["shopName"],
-    price: json["price"]?.toDouble(),
-    createdAt: DateTime.parse(json["createdAt"]),
-    updatedAt: DateTime.parse(json["updatedAt"]),
-  );
-
   Map<String, dynamic> toJson() => {
-    "_id": id,
-    "name": name,
-    "shopName": shopName,
-    "price": price,
-    "createdAt": createdAt.toIso8601String(),
-    "updatedAt": updatedAt.toIso8601String(),
-  };
+        '_id': id,
+        'name': name,
+        'shopName': shopName,
+        'price': price,
+        'createdAt': createdAt.toIso8601String(),
+        'updatedAt': updatedAt.toIso8601String(),
+      };
   double? get totalPrice => price * quantity;
 }

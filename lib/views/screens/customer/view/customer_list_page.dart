@@ -1,19 +1,19 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/base/models/base_model_view.dart';
-import '../../../../core/constants/size/sizes.dart';
-import '../../../../core/init/translation/locale_keys.g.dart';
-import '../bloc/customer_bloc.dart';
-import '../../../../core/constants/colors/colors.dart';
-import '../../../../core/constants/enums/enums.dart';
-import '../../../../src/bottomsheets/main_bottom_sheets.dart';
-import '../model/customer.dart';
-import 'bottomsheet/customer_list_bottom_sheet.dart';
-import 'customer_details.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/src/bottomsheets/main_bottom_sheets.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/customer/bloc/customer_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/customer/model/customer.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/customer/view/bottomsheet/customer_list_bottom_sheet.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/customer/view/customer_details.dart';
 
 class CustomerListPage extends StatefulWidget {
-  const CustomerListPage({Key? key}) : super(key: key);
+  const CustomerListPage({super.key});
 
   @override
   State<CustomerListPage> createState() => _CustomerListPageState();
@@ -29,8 +29,8 @@ class _CustomerListPageState extends State<CustomerListPage>
 
 class PageBuilder extends StatelessWidget {
   const PageBuilder({
-    super.key,
     required this.appColors,
+    super.key,
   });
 
   final AppColors appColors;
@@ -55,8 +55,8 @@ class PageBuilder extends StatelessWidget {
 
 class CustomerListBuilder extends StatelessWidget {
   const CustomerListBuilder({
-    super.key,
     required this.appColors,
+    super.key,
   });
 
   final AppColors appColors;
@@ -68,9 +68,9 @@ class CustomerListBuilder extends StatelessWidget {
         if (state.customerList?.customers != null) {
           return ListView.builder(
             padding: const EdgeInsets.all(pagePadding),
-            itemCount: state.customerList?.customers.length ?? 0,
+            itemCount: state.customerList?.customers?.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
-              Customer? customer = state.customerList?.customers[index];
+              final customer = state.customerList?.customers?[index];
               return Card(
                 child: Row(
                   children: [
@@ -79,9 +79,10 @@ class CustomerListBuilder extends StatelessWidget {
                       child: CustomerListCardCustomerField(customer: customer),
                     ),
                     Expanded(
-                      flex: 1,
                       child: CustomerListCardButtonField(
-                          appColors: appColors, customer: customer),
+                        appColors: appColors,
+                        customer: customer,
+                      ),
                     ),
                   ],
                 ),
@@ -104,8 +105,8 @@ class CustomerListBuilder extends StatelessWidget {
 
 class CustomerListCardCustomerField extends StatelessWidget {
   const CustomerListCardCustomerField({
-    super.key,
     required this.customer,
+    super.key,
   });
 
   final Customer? customer;
@@ -115,37 +116,42 @@ class CustomerListCardCustomerField extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CustomerDetails(customerId: customer?.id),
-            ));
+          context,
+          pageRouterCustomerDetailPage(),
+        );
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 15.0, top: 10.0, bottom: 0),
+            padding: const EdgeInsets.only(left: 15, top: 10),
             child: Text(
-              customer?.name ?? "",
+              customer?.name ?? '',
               style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
             ),
           ),
           ListTile(
-            title: Text(customer?.address ?? ""),
-            subtitle: Text(customer?.phone ?? ""),
+            title: Text(customer?.address ?? ''),
+            subtitle: Text(customer?.phone ?? ''),
           ),
         ],
       ),
+    );
+  }
+
+  MaterialPageRoute<dynamic> pageRouterCustomerDetailPage() {
+    return MaterialPageRoute(
+      builder: (context) => CustomerDetails(customerId: customer?.id),
     );
   }
 }
 
 class CustomerListCardButtonField extends StatelessWidget {
   const CustomerListCardButtonField({
-    super.key,
     required this.appColors,
     required this.customer,
+    super.key,
   });
 
   final AppColors appColors;
@@ -154,15 +160,20 @@ class CustomerListCardButtonField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {
-          MainBottomSheets().openBottomSheet(
-              context,
-              CustomerListBottomSheetWidget(
-                  appColors: appColors, id: customer?.id));
-        },
-        child: CircleAvatar(
-            backgroundColor: Theme.of(context).colorScheme.surface,
-            child: const Icon(Icons.more_vert)));
+      onTap: () {
+        MainBottomSheets().openBottomSheet(
+          context,
+          CustomerListBottomSheetWidget(
+            appColors: appColors,
+            id: customer?.id,
+          ),
+        );
+      },
+      child: CircleAvatar(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        child: const Icon(Icons.more_vert),
+      ),
+    );
   }
 }
 

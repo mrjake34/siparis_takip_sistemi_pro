@@ -6,25 +6,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/app/main_funcs.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/core/init/utils/utils.dart';
 import 'package:siparis_takip_sistemi_pro/providers/main_providers.dart';
 import 'package:siparis_takip_sistemi_pro/src/button/loading_button.dart';
 import 'package:siparis_takip_sistemi_pro/src/button/main_elevated_icon_button.dart';
 import 'package:siparis_takip_sistemi_pro/src/dialogs/show_dialog.dart';
-
-import '../../../../core/base/models/base_model_view.dart';
-import '../../../../core/constants/app/main_funcs.dart';
-import '../../../../core/constants/navigation/navigation_constants.dart';
-import '../../../../core/init/translation/locale_keys.g.dart';
-import '../cubit/register_cubit.dart';
-import '../cubit/register_state.dart';
+import 'package:siparis_takip_sistemi_pro/views/authentication/register/cubit/register_cubit.dart';
+import 'package:siparis_takip_sistemi_pro/views/authentication/register/cubit/register_state.dart';
 
 class SignUpWidget extends StatefulWidget {
   const SignUpWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<SignUpWidget> createState() => _SignUpWidgetState();
@@ -58,23 +57,27 @@ class _SignUpWidgetState extends State<SignUpWidget> with BaseModelView {
             utils.errorSnackBar(LocaleKeys.errors_errorUserRegister.tr());
           } else if (state.status == Status.isDone) {
             navService.navigateToPageRemoveAll(
-                path: NavigationConstants.loginPage);
+              path: NavigationConstants.loginPage,
+            );
             CustomDialog().showCustomDialog(
-                context, Text(LocaleKeys.succes_registerSuccess.tr()));
+              context,
+              Text(LocaleKeys.succes_registerSuccess.tr()),
+            );
           }
         },
         builder: (context, state) {
           return PageBuilder(
-              formKey: formKey,
-              nameController: nameController,
-              emailController: emailController,
-              phoneController: phoneController,
-              shopNameController: shopNameController,
-              passwordController: passwordController,
-              password2Controller: password2Controller,
-              mainFunctions: mainFunction,
-              utils: utils,
-              state: state);
+            formKey: formKey,
+            nameController: nameController,
+            emailController: emailController,
+            phoneController: phoneController,
+            shopNameController: shopNameController,
+            passwordController: passwordController,
+            password2Controller: password2Controller,
+            mainFunctions: mainFunction,
+            utils: utils,
+            state: state,
+          );
         },
       ),
     );
@@ -83,7 +86,6 @@ class _SignUpWidgetState extends State<SignUpWidget> with BaseModelView {
 
 class PageBuilder extends StatelessWidget {
   const PageBuilder({
-    super.key,
     required this.formKey,
     required this.nameController,
     required this.emailController,
@@ -94,6 +96,7 @@ class PageBuilder extends StatelessWidget {
     required this.mainFunctions,
     required this.utils,
     required this.state,
+    super.key,
   });
 
   final GlobalKey<FormBuilderState> formKey;
@@ -110,7 +113,7 @@ class PageBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size pageSize = MediaQuery.of(context).size;
+    final pageSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text(LocaleKeys.mainText_signup.tr()),
@@ -120,7 +123,8 @@ class PageBuilder extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(pagePadding),
             constraints: BoxConstraints(
-                maxWidth: pageSize.width >= 800 ? 800 : pageSize.width / 1),
+              maxWidth: pageSize.width >= 800 ? 800 : pageSize.width / 1,
+            ),
             child: FormBuilder(
               key: formKey,
               child: Column(
@@ -187,14 +191,17 @@ class HaveAccountField extends StatelessWidget with BaseModelView {
           LocaleKeys.mainText_haveAccount.tr(),
         ),
         TextButton(
-            onPressed: () {
-              navService.navigateToBack();
-            },
-            child: Text(LocaleKeys.mainText_login.tr(),
-                style: TextStyle(
-                  decoration: TextDecoration.underline,
-                  color: Theme.of(context).colorScheme.error,
-                )))
+          onPressed: () {
+            navService.navigateToBack();
+          },
+          child: Text(
+            LocaleKeys.mainText_login.tr(),
+            style: TextStyle(
+              decoration: TextDecoration.underline,
+              color: Theme.of(context).colorScheme.error,
+            ),
+          ),
+        )
       ],
     );
   }
@@ -202,10 +209,10 @@ class HaveAccountField extends StatelessWidget with BaseModelView {
 
 class RegisterButton extends StatelessWidget {
   const RegisterButton({
-    super.key,
     required this.formKey,
     required this.utils,
     required this.state,
+    super.key,
   });
 
   final GlobalKey<FormBuilderState> formKey;
@@ -229,11 +236,13 @@ class RegisterButton extends StatelessWidget {
                         context.read<RegisterCubit>().postRegisterModel();
                       } else {
                         utils.errorSnackBar(
-                            LocaleKeys.errors_errorUserAgreement.tr());
+                          LocaleKeys.errors_errorUserAgreement.tr(),
+                        );
                       }
                     } else {
                       utils.errorSnackBar(
-                          LocaleKeys.errors_pleaseEnterAllField.tr());
+                        LocaleKeys.errors_pleaseEnterAllField.tr(),
+                      );
                     }
                   },
                   label: Text(
@@ -251,8 +260,8 @@ class RegisterButton extends StatelessWidget {
 
 class MembershipAgreementField extends StatelessWidget {
   const MembershipAgreementField({
-    super.key,
     required this.mainFunctions,
+    super.key,
   });
 
   final MainFuncs mainFunctions;
@@ -264,17 +273,17 @@ class MembershipAgreementField extends StatelessWidget {
     return Row(
       children: [
         Checkbox(
-            checkColor: Theme.of(context).colorScheme.background,
-            value: agreement,
-            onChanged: (bool? newValue) {
-              context.read<MembershipAgreementProvider>().setAgreement =
-                  newValue!;
-            }),
+          checkColor: Theme.of(context).colorScheme.background,
+          value: agreement,
+          onChanged: (bool? newValue) {
+            context.read<MembershipAgreementProvider>().setAgreement =
+                newValue!;
+          },
+        ),
         TextButton(
-            onPressed: () {
-              mainFunctions.openMembershipAgreement();
-            },
-            child: Text(LocaleKeys.mainText_userAgreement.tr())),
+          onPressed: mainFunctions.openMembershipAgreement,
+          child: Text(LocaleKeys.mainText_userAgreement.tr()),
+        ),
       ],
     );
   }
@@ -282,8 +291,8 @@ class MembershipAgreementField extends StatelessWidget {
 
 class PasswordTwoFormField extends StatelessWidget {
   const PasswordTwoFormField({
-    super.key,
     required this.password2Controller,
+    super.key,
   });
 
   final TextEditingController password2Controller;
@@ -322,9 +331,12 @@ class PasswordTwoFormField extends StatelessWidget {
       validator: FormBuilderValidators.compose(
         [
           FormBuilderValidators.required(
-              errorText: LocaleKeys.errors_errorEnterPassword.tr()),
-          FormBuilderValidators.minLength(6,
-              errorText: LocaleKeys.errors_errorPasswordLength.tr()),
+            errorText: LocaleKeys.errors_errorEnterPassword.tr(),
+          ),
+          FormBuilderValidators.minLength(
+            6,
+            errorText: LocaleKeys.errors_errorPasswordLength.tr(),
+          ),
         ],
       ),
     );
@@ -333,8 +345,8 @@ class PasswordTwoFormField extends StatelessWidget {
 
 class PasswordFormField extends StatelessWidget {
   const PasswordFormField({
-    super.key,
     required this.passwordController,
+    super.key,
   });
 
   final TextEditingController passwordController;
@@ -371,9 +383,12 @@ class PasswordFormField extends StatelessWidget {
       validator: FormBuilderValidators.compose(
         [
           FormBuilderValidators.required(
-              errorText: LocaleKeys.errors_errorEnterPassword.tr()),
-          FormBuilderValidators.minLength(6,
-              errorText: LocaleKeys.errors_errorPasswordLength.tr()),
+            errorText: LocaleKeys.errors_errorEnterPassword.tr(),
+          ),
+          FormBuilderValidators.minLength(
+            6,
+            errorText: LocaleKeys.errors_errorPasswordLength.tr(),
+          ),
         ],
       ),
     );
@@ -382,8 +397,8 @@ class PasswordFormField extends StatelessWidget {
 
 class ShopNameFormField extends StatelessWidget {
   const ShopNameFormField({
-    super.key,
     required this.shopNameController,
+    super.key,
   });
 
   final TextEditingController shopNameController;
@@ -405,7 +420,8 @@ class ShopNameFormField extends StatelessWidget {
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr())
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        )
       ]),
     );
   }
@@ -413,8 +429,8 @@ class ShopNameFormField extends StatelessWidget {
 
 class PhoneFormField extends StatelessWidget {
   const PhoneFormField({
-    super.key,
     required this.phoneController,
+    super.key,
   });
 
   final TextEditingController phoneController;
@@ -438,7 +454,8 @@ class PhoneFormField extends StatelessWidget {
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
       ]),
     );
   }
@@ -446,8 +463,8 @@ class PhoneFormField extends StatelessWidget {
 
 class EmailFormField extends StatelessWidget {
   const EmailFormField({
-    super.key,
     required this.emailController,
+    super.key,
   });
 
   final TextEditingController emailController;
@@ -469,9 +486,11 @@ class EmailFormField extends StatelessWidget {
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
         FormBuilderValidators.email(
-            errorText: LocaleKeys.errors_justEnterEmail.tr())
+          errorText: LocaleKeys.errors_justEnterEmail.tr(),
+        )
       ]),
     );
   }
@@ -479,8 +498,8 @@ class EmailFormField extends StatelessWidget {
 
 class NameFormField extends StatelessWidget {
   const NameFormField({
-    super.key,
     required this.nameController,
+    super.key,
   });
 
   final TextEditingController nameController;
@@ -502,7 +521,8 @@ class NameFormField extends StatelessWidget {
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr())
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        )
       ]),
     );
   }

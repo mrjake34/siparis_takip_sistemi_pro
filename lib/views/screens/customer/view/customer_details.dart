@@ -8,19 +8,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/src/maps/flutter_map.dart';
+import 'package:siparis_takip_sistemi_pro/src/maps/google_map.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/customer/bloc/customer_bloc.dart';
-
-import '../../../../src/maps/flutter_map.dart';
-import '../../../../src/maps/google_map.dart';
-import '../model/customer.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/customer/model/customer.dart';
 
 class CustomerDetails extends StatelessWidget with BaseModelView {
-  final String? customerId;
-
   CustomerDetails({
-    super.key,
     required this.customerId,
+    super.key,
   });
+  final String? customerId;
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +28,8 @@ class CustomerDetails extends StatelessWidget with BaseModelView {
 
 class PageBuilder extends StatelessWidget {
   const PageBuilder({
-    super.key,
     required this.customerId,
+    super.key,
   });
 
   final String? customerId;
@@ -45,9 +43,9 @@ class PageBuilder extends StatelessWidget {
       body: BlocBuilder<CustomerBloc, CustomerState>(
         builder: (context, state) {
           if (state.customerList != null) {
-            Customer? customer = state.customerList?.customers
-                .firstWhere((element) => element.id == customerId);
-            DateTime? createdTime = customer?.createdAt;
+            final customer = state.customerList?.customers
+                ?.firstWhere((element) => element.id == customerId);
+            final createdTime = customer?.createdAt;
             return SingleChildScrollView(
               padding: const EdgeInsets.all(pagePadding),
               child: Column(
@@ -56,7 +54,8 @@ class PageBuilder extends StatelessWidget {
                   CustomerDetailCardCustomerAddress(customer: customer),
                   CustomerDetailCardCustomerPhone(customer: customer),
                   CustomerDetailCardCustomerCreatedTime(
-                      createdTime: createdTime),
+                    createdTime: createdTime,
+                  ),
                   CustomerDetailCardCustomerLocation(customer: customer)
                 ],
               ),
@@ -78,8 +77,8 @@ class PageBuilder extends StatelessWidget {
 
 class CustomerDetailCardCustomerLocation extends StatelessWidget {
   const CustomerDetailCardCustomerLocation({
-    super.key,
     required this.customer,
+    super.key,
   });
 
   final Customer? customer;
@@ -95,7 +94,8 @@ class CustomerDetailCardCustomerLocation extends StatelessWidget {
               isThreeLine: true,
               title: Text(LocaleKeys.customer_customerLocation.tr()),
               subtitle: SelectableText(
-                  "${customer?.longitude ?? 0.0} ${customer?.latitude ?? 0.0}"),
+                '${customer?.longitude ?? 0.0} ${customer?.latitude ?? 0.0}',
+              ),
             ),
           ),
           Expanded(
@@ -104,21 +104,14 @@ class CustomerDetailCardCustomerLocation extends StatelessWidget {
               onTap: () {
                 if (Platform.isWindows) {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => FlutterMapPage(
-                                mapLat: customer?.latitude ?? 0.0,
-                                mapLng: customer?.longitude ?? 0.0,
-                              )));
+                    context,
+                    pageRouterFlutterMapPage(),
+                  );
                 } else {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => GoogleMapPage(
-                          mapLat: customer?.latitude ?? 0.0,
-                          mapLong: customer?.longitude ?? 0.0,
-                        ),
-                      ));
+                    context,
+                    pageRouterGoogleMapPage(),
+                  );
                 }
               },
               child: Column(
@@ -133,12 +126,30 @@ class CustomerDetailCardCustomerLocation extends StatelessWidget {
       ),
     );
   }
+
+  MaterialPageRoute<dynamic> pageRouterFlutterMapPage() {
+    return MaterialPageRoute(
+      builder: (context) => FlutterMapPage(
+        mapLat: customer?.latitude ?? 0.0,
+        mapLng: customer?.longitude ?? 0.0,
+      ),
+    );
+  }
+
+  MaterialPageRoute<dynamic> pageRouterGoogleMapPage() {
+    return MaterialPageRoute(
+      builder: (context) => GoogleMapPage(
+        mapLat: customer?.latitude ?? 0.0,
+        mapLong: customer?.longitude ?? 0.0,
+      ),
+    );
+  }
 }
 
 class CustomerDetailCardCustomerCreatedTime extends StatelessWidget {
   const CustomerDetailCardCustomerCreatedTime({
-    super.key,
     required this.createdTime,
+    super.key,
   });
 
   final DateTime? createdTime;
@@ -149,7 +160,8 @@ class CustomerDetailCardCustomerCreatedTime extends StatelessWidget {
       child: ListTile(
         title: Text(LocaleKeys.mainText_createdTime.tr()),
         subtitle: Text(
-            DateFormat("yyyy/MM/dd").format(createdTime ?? DateTime.now())),
+          DateFormat('yyyy/MM/dd').format(createdTime ?? DateTime.now()),
+        ),
       ),
     );
   }
@@ -157,8 +169,8 @@ class CustomerDetailCardCustomerCreatedTime extends StatelessWidget {
 
 class CustomerDetailCardCustomerPhone extends StatelessWidget {
   const CustomerDetailCardCustomerPhone({
-    super.key,
     required this.customer,
+    super.key,
   });
 
   final Customer? customer;
@@ -168,7 +180,7 @@ class CustomerDetailCardCustomerPhone extends StatelessWidget {
     return Card(
       child: ListTile(
         title: Text(LocaleKeys.customer_customerPhone.tr()),
-        subtitle: SelectableText(customer?.phone ?? ""),
+        subtitle: SelectableText(customer?.phone ?? ''),
       ),
     );
   }
@@ -176,8 +188,8 @@ class CustomerDetailCardCustomerPhone extends StatelessWidget {
 
 class CustomerDetailCardCustomerAddress extends StatelessWidget {
   const CustomerDetailCardCustomerAddress({
-    super.key,
     required this.customer,
+    super.key,
   });
 
   final Customer? customer;
@@ -187,7 +199,7 @@ class CustomerDetailCardCustomerAddress extends StatelessWidget {
     return Card(
       child: ListTile(
         title: Text(LocaleKeys.customer_customerAddress.tr()),
-        subtitle: SelectableText(customer?.address ?? ""),
+        subtitle: SelectableText(customer?.address ?? ''),
       ),
     );
   }
@@ -195,8 +207,8 @@ class CustomerDetailCardCustomerAddress extends StatelessWidget {
 
 class CustomerDetailCardCustomerName extends StatelessWidget {
   const CustomerDetailCardCustomerName({
-    super.key,
     required this.customer,
+    super.key,
   });
 
   final Customer? customer;
@@ -206,7 +218,7 @@ class CustomerDetailCardCustomerName extends StatelessWidget {
     return Card(
       child: ListTile(
         title: Text(LocaleKeys.customer_customerName.tr()),
-        subtitle: Text(customer?.name ?? ""),
+        subtitle: Text(customer?.name ?? ''),
       ),
     );
   }

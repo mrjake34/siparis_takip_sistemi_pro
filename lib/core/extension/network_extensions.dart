@@ -1,7 +1,9 @@
-import '../constants/enums/network_enums.dart';
+// ignore_for_file: no_default_cases
+
+import 'package:siparis_takip_sistemi_pro/core/constants/enums/network_enums.dart';
 
 extension NetworkTypeExtension on HttpTypes? {
-  String get rawValue {
+  String? get rawValue {
     switch (this) {
       case HttpTypes.get:
         return 'GET';
@@ -10,7 +12,7 @@ extension NetworkTypeExtension on HttpTypes? {
       case HttpTypes.delete:
         return 'DELETE';
       default:
-        throw 'Error';
+       return null;
     }
   }
 }

@@ -1,18 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/base/models/base_model_view.dart';
-import '../../../../core/constants/size/sizes.dart';
-import '../../../../core/init/translation/locale_keys.g.dart';
-import '../../../../src/bottomsheets/main_bottom_sheets.dart';
-import '../bloc/courier_bloc.dart';
-import 'bottomsheet/courier_bottom_sheet.dart';
-import '../../../../core/constants/colors/colors.dart';
-import '../../../../core/constants/enums/enums.dart';
-import '../model/courier.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/src/bottomsheets/main_bottom_sheets.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/courier/bloc/courier_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/courier/model/courier.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/courier/view/bottomsheet/courier_bottom_sheet.dart';
 
 class CourierListPage extends StatefulWidget {
-  const CourierListPage({Key? key}) : super(key: key);
+  const CourierListPage({super.key});
 
   @override
   State<CourierListPage> createState() => _CourierListPageState();
@@ -28,8 +28,8 @@ class _CourierListPageState extends State<CourierListPage> with BaseModelView {
 
 class PageBuilder extends StatelessWidget {
   const PageBuilder({
-    super.key,
     required this.appColors,
+    super.key,
   });
 
   final AppColors appColors;
@@ -76,8 +76,8 @@ class LinearField extends StatelessWidget {
 
 class CourierListBuilder extends StatelessWidget {
   const CourierListBuilder({
-    super.key,
     required this.appColors,
+    super.key,
   });
 
   final AppColors appColors;
@@ -91,7 +91,7 @@ class CourierListBuilder extends StatelessWidget {
             padding: const EdgeInsets.all(pagePadding),
             itemCount: state.courierList?.courier?.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
-              Courier? courier = state.courierList?.courier?[index];
+              final courier = state.courierList?.courier?[index];
               return Card(
                 color: Theme.of(context).colorScheme.surface,
                 child: Row(
@@ -101,9 +101,10 @@ class CourierListBuilder extends StatelessWidget {
                       child: CourierCardCourierDetailField(courier: courier),
                     ),
                     Expanded(
-                      flex: 1,
                       child: CourierCardMoreButtonField(
-                          appColors: appColors, courier: courier),
+                        appColors: appColors,
+                        courier: courier,
+                      ),
                     )
                   ],
                 ),
@@ -126,8 +127,8 @@ class CourierListBuilder extends StatelessWidget {
 
 class CourierCardCourierDetailField extends StatelessWidget {
   const CourierCardCourierDetailField({
-    super.key,
     required this.courier,
+    super.key,
   });
 
   final Courier? courier;
@@ -139,15 +140,15 @@ class CourierCardCourierDetailField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 15.0, top: 10.0, bottom: 0),
+          padding: const EdgeInsets.only(left: 15, top: 10),
           child: Text(
-            courier?.name ?? "",
+            courier?.name ?? '',
             style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
           ),
         ),
         ListTile(
-          title: Text(courier?.email ?? ""),
-          subtitle: Text(courier?.phone ?? ""),
+          title: Text(courier?.email ?? ''),
+          subtitle: Text(courier?.phone ?? ''),
         ),
       ],
     );
@@ -156,9 +157,9 @@ class CourierCardCourierDetailField extends StatelessWidget {
 
 class CourierCardMoreButtonField extends StatelessWidget {
   const CourierCardMoreButtonField({
-    super.key,
     required this.appColors,
     required this.courier,
+    super.key,
   });
 
   final AppColors appColors;
@@ -167,17 +168,20 @@ class CourierCardMoreButtonField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {
-          MainBottomSheets().openBottomSheet(
-              context,
-              CourierBottomSheet(
-                appColors: appColors,
-                id: courier?.id,
-                name: courier?.name,
-              ));
-        },
-        child: CircleAvatar(
-            backgroundColor: Theme.of(context).colorScheme.surface,
-            child: const Icon(Icons.more_vert)));
+      onTap: () {
+        MainBottomSheets().openBottomSheet(
+          context,
+          CourierBottomSheet(
+            appColors: appColors,
+            id: courier?.id,
+            name: courier?.name,
+          ),
+        );
+      },
+      child: CircleAvatar(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        child: const Icon(Icons.more_vert),
+      ),
+    );
   }
 }

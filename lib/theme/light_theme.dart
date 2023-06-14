@@ -6,6 +6,7 @@ ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   colorScheme: const ColorScheme(
     brightness: Brightness.light,
+    //Main Text
     primary: Color.fromARGB(255, 0, 0, 0),
     //Buttons Text and userInteractive
     onPrimary: Color.fromARGB(255, 2, 34, 128),
@@ -24,38 +25,48 @@ ThemeData lightTheme = ThemeData(
     onTertiary: Color.fromARGB(255, 255, 255, 255),
   ),
   cardTheme: CardTheme(
-      elevation: 5,
-      surfaceTintColor: Colors.transparent,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0))),
+    elevation: 5,
+    surfaceTintColor: Colors.transparent,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+  ),
   elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-          textStyle: const TextStyle(fontWeight: FontWeight.bold),
-          backgroundColor: const Color.fromARGB(255, 73, 84, 100),
-          surfaceTintColor: Colors.transparent,
-          foregroundColor: Colors.white,
-          disabledBackgroundColor: const Color(0xFF495464),
-          disabledForegroundColor: const Color.fromARGB(255, 255, 255, 255),
-          side: BorderSide.none,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(2.0)))),
+    style: ElevatedButton.styleFrom(
+      textStyle: const TextStyle(fontWeight: FontWeight.bold),
+      backgroundColor: const Color.fromARGB(255, 73, 84, 100),
+      surfaceTintColor: Colors.transparent,
+      foregroundColor: Colors.white,
+      disabledBackgroundColor: const Color(0xFF495464),
+      disabledForegroundColor: const Color.fromARGB(255, 255, 255, 255),
+      side: BorderSide.none,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(2),
+      ),
+    ),
+  ),
   textButtonTheme: TextButtonThemeData(
     style: ElevatedButton.styleFrom(
       textStyle: const TextStyle(fontWeight: FontWeight.bold),
       side: BorderSide.none,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(2),
       ),
     ),
   ),
   iconButtonTheme: IconButtonThemeData(
-      style: IconButton.styleFrom(
-    foregroundColor: const Color.fromARGB(255, 87, 92, 107),
-  )),
+    style: IconButton.styleFrom(
+      foregroundColor: const Color.fromARGB(255, 87, 92, 107),
+    ),
+  ),
   appBarTheme: AppBarTheme(
-      titleTextStyle: GoogleFonts.aBeeZee(
-          textStyle: const TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15)),
-      elevation: 2.0,
-      surfaceTintColor: Colors.transparent,
-      shadowColor: Colors.black),
+    titleTextStyle: GoogleFonts.aBeeZee(
+      textStyle: const TextStyle(
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+        fontSize: 15,
+      ),
+    ),
+    elevation: 2,
+    surfaceTintColor: Colors.transparent,
+    shadowColor: Colors.black,
+  ),
 );

@@ -4,8 +4,7 @@ class TranslationManager {
   TranslationManager._init();
   static TranslationManager? _instance;
   static TranslationManager? get instance {
-    _instance ??= TranslationManager._init();
-    return _instance;
+    return _instance ??= TranslationManager._init();
   }
 
   final enLocale = const Locale('en', 'US');
@@ -13,4 +12,3 @@ class TranslationManager {
 
   List<Locale> get supportedLocales => [enLocale, trLocale];
 }
-

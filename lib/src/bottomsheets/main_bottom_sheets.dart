@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import '../../core/constants/size/sizes.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
 
 class MainBottomSheets {
-  Future openBottomSheet(BuildContext context, Widget widget) async {
-    double pageWidth = MediaQuery.of(context).size.width;
-    showModalBottomSheet(
+  Future<dynamic> openBottomSheet(BuildContext context, Widget widget) async {
+    final pageWidth = MediaQuery.of(context).size.width;
+    return showModalBottomSheet(
       constraints: BoxConstraints(
         minWidth: pageWidth,
       ),
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(pagePadding))),
+        borderRadius: BorderRadius.all(Radius.circular(pagePadding)),
+      ),
       showDragHandle: true,
       useRootNavigator: true,
       isScrollControlled: true,
@@ -21,15 +22,18 @@ class MainBottomSheets {
     );
   }
 
-  Future openBottomSheetNoScrollable(
-      BuildContext context, Widget widget) async {
-    double pageWidth = MediaQuery.of(context).size.width;
-    showModalBottomSheet(
+  Future<dynamic> openBottomSheetNoScrollable(
+    BuildContext context,
+    Widget widget,
+  ) async {
+    final pageWidth = MediaQuery.of(context).size.width;
+    return showModalBottomSheet(
       constraints: BoxConstraints(
         minWidth: pageWidth,
       ),
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(pagePadding))),
+        borderRadius: BorderRadius.all(Radius.circular(pagePadding)),
+      ),
       showDragHandle: true,
       useRootNavigator: true,
       isScrollControlled: true,

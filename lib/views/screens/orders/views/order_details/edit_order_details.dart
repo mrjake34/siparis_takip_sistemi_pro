@@ -83,7 +83,7 @@ class _EditOrderPageState extends State<EditOrderPage> with BaseModelView {
                         builder: (context, state) {
                           if (state.customerList != null) {
                             Customer? customer = state.customerList?.customers
-                                .firstWhere((element) =>
+                                ?.firstWhere((element) =>
                                     element.id == order?.customerId);
                             return Card(
                               color: Theme.of(context).colorScheme.surface,

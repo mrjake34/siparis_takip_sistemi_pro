@@ -99,7 +99,7 @@ class CustomerField extends StatelessWidget {
               previous.customerList != current.customerList,
           builder: (context, state) {
             Customer? customer = state.customerList?.customers
-                .firstWhere((element) => element.id == order?.customerId);
+                ?.firstWhere((element) => element.id == order?.customerId);
             return ListTile(
               onTap: () {
                 NavigationService.instance.navigateToPage(

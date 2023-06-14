@@ -1,43 +1,34 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../core/base/models/base_model_view.dart';
-import '../../../../core/constants/enums/enums.dart';
-import '../../../../core/init/translation/locale_keys.g.dart';
-import '../model/courier.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/courier/model/courier.dart';
 
 class CourierService with BaseModelView {
-  Future postCourier(
+  Future<dynamic> postCourier(
     BuildContext context,
     String name,
     String email,
     String password,
     String phone,
   ) async {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) =>
-          const Center(child: CircularProgressIndicator.adaptive()),
-    );
-
-    String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
+    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
     final response = await networkService.dio.post(
       appNetwork.getCouriersUrl,
       options: Options(
         headers: {
-          "content-type": "application/json",
-          "authorization": cookie,
+          'content-type': 'application/json',
+          'authorization': cookie,
         },
       ),
       data: jsonEncode({
-        "name": name,
-        "email": email,
-        "password": password,
-        "phone": phone,
+        'name': name,
+        'email': email,
+        'password': password,
+        'phone': phone,
       }),
     );
     if (response.statusCode == 200) {
@@ -53,71 +44,80 @@ class CourierService with BaseModelView {
   }
 
   Future<CourierList?> getCouriers() async {
-    String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final response = await networkService.dio.get(appNetwork.getCouriersUrl,
-        options: Options(
-          headers: {
-            "content-type": "application/json",
-            "authorization": cookie,
-          },
-        ));
+    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
+    final response = await networkService.dio.get(
+      appNetwork.getCouriersUrl,
+      options: Options(
+        headers: {
+          'content-type': 'application/json',
+          'authorization': cookie,
+        },
+      ),
+    );
     if (response.statusCode == 200) {
-      final courierList = CourierList.fromJson(response.data);
+      final courierList =
+          CourierList.fromJson(response.data as Map<String, dynamic>);
       return courierList;
     } else {
-      throw Exception("Failed to load orders");
+      throw Exception('Failed to load orders');
     }
   }
 
   Future<Courier?> getCourier(String id) async {
-    String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final response =
-        await networkService.dio.get(appNetwork.deleteCourierUrl + id,
-            options: Options(
-              headers: {
-                "content-type": "application/json",
-                "authorization": cookie,
-              },
-            ));
+    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
+    final response = await networkService.dio.get(
+      appNetwork.deleteCourierUrl + id,
+      options: Options(
+        headers: {
+          'content-type': 'application/json',
+          'authorization': cookie,
+        },
+      ),
+    );
     if (response.statusCode == 200) {
-      final courier = Courier.fromJson(response.data['courier']);
+      final courier =
+          Courier.fromJson(response.data['courier'] as Map<String, String>);
       return courier;
     } else {
-      throw Exception("Failed to load orders");
+      throw Exception('Failed to load orders');
     }
   }
 
-  Future deleteCourier(String id, String name) async {
-    String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    String? shopName = sharedManager.getStringValue(PreferenceKey.shopName);
-    final response =
-        await networkService.dio.delete(appNetwork.deleteCourierUrl + id,
-            options: Options(
-              headers: {
-                "content-type": "application/json",
-                "authorization": cookie,
-              },
-            ),
-            data: {"_id": id, "shopName": shopName});
+  Future<dynamic> deleteCourier(String id, String name) async {
+    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
+    final shopName = sharedManager.getStringValue(PreferenceKey.shopName);
+    final response = await networkService.dio.delete(
+      appNetwork.deleteCourierUrl + id,
+      options: Options(
+        headers: {
+          'content-type': 'application/json',
+          'authorization': cookie,
+        },
+      ),
+      data: {'_id': id, 'shopName': shopName},
+    );
     if (response.statusCode == 200) {
       utils.showSnackBar(LocaleKeys.succes_removeSuccessful.tr());
-      getCouriers();
+      await getCouriers();
     } else {
       utils.errorSnackBar(LocaleKeys.errors_courierRemoveError.tr());
     }
   }
 
-  Future patchCourier(String key, String value, String id) async {
-    String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final response =
-        await networkService.dio.patch(appNetwork.deleteCourierUrl + id,
-            options: Options(headers: {
-              "content-type": "application/json",
-              "authorization": cookie,
-            }),
-            data: [
-          {"propName": key, "value": value}
-        ]);
+  Future<dynamic> patchCourier(String key, String value, String id) async {
+    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
+    final response = await networkService.dio.patch(
+      appNetwork.deleteCourierUrl + id,
+      options: Options(
+        headers: {
+          'content-type': 'application/json',
+          'authorization': cookie,
+        },
+      ),
+      data: [
+        {'propName': key, 'value': value}
+      ],
+    );
     if (response.statusCode == 200) {
     } else {}
   }

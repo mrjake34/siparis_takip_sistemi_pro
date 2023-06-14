@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
 class RegisterState extends Equatable {
-  final Enum? status;
 
   const RegisterState({this.status});
+  final Enum? status;
 
   @override
   List<Object?> get props => [status];

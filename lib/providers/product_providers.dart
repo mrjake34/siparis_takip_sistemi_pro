@@ -10,6 +10,7 @@ class EditProductNameEditButtonProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
+
 class EditProductPriceEditButtonProvider extends ChangeNotifier {
   bool _editing = false;
 
@@ -20,4 +21,3 @@ class EditProductPriceEditButtonProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
-
