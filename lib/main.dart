@@ -23,7 +23,6 @@ import 'package:siparis_takip_sistemi_pro/views/authentication/login/bloc/login_
 import 'package:siparis_takip_sistemi_pro/views/authentication/login/view/login_page.dart';
 import 'package:siparis_takip_sistemi_pro/views/models/user_model/user.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/bloc/courier_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/courier/model/courier.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/customer/bloc/customer_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/product/bloc/products_bloc.dart';

@@ -24,6 +24,7 @@ class ChooseThemeWidget extends StatelessWidget {
                   context.read<ThemeChange>().changeTheme = darkTheme;
                   ThemeService().saveTheme(ThemeEnums.darkTheme);
                   ThemeService().getThemeFromSave();
+                  
                 },
                 child: Container(
                   height: 30,

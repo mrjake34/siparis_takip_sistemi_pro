@@ -86,11 +86,11 @@ class CourierEditField extends StatelessWidget {
       child: BlocBuilder<CourierBloc, CourierState>(
         builder: (context, state) {
           if (state.courierList != null) {
-            final courier = state.courierList?.courier
+            final couriers = state.courierList?.couriers
                 ?.firstWhere((element) => element.id == id);
-            nameController.text = courier?.name ?? '';
-            emailController.text = courier?.email ?? '';
-            phoneController.text = courier?.phone ?? '';
+            nameController.text = couriers?.name ?? '';
+            emailController.text = couriers?.email ?? '';
+            phoneController.text = couriers?.phone ?? '';
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -100,7 +100,7 @@ class CourierEditField extends StatelessWidget {
                   ),
                   EditCourierNameButtonField(
                     nameController: nameController,
-                    courier: courier,
+                    couriers: couriers,
                   ),
                   const SizedBox(
                     height: 10,
@@ -111,7 +111,7 @@ class CourierEditField extends StatelessWidget {
                   ),
                   EditCourierEmailButtonField(
                     emailController: emailController,
-                    courier: courier,
+                    couriers: couriers,
                   ),
                   const SizedBox(
                     height: 10,
@@ -122,7 +122,7 @@ class CourierEditField extends StatelessWidget {
                   ),
                   EditCourierPhoneButtonField(
                     phoneController: phoneController,
-                    courier: courier,
+                    couriers: couriers,
                   ),
                 ],
               ),
@@ -145,12 +145,12 @@ class CourierEditField extends StatelessWidget {
 class EditCourierPhoneButtonField extends StatelessWidget {
   const EditCourierPhoneButtonField({
     required this.phoneController,
-    required this.courier,
+    required this.couriers,
     super.key,
   });
 
   final TextEditingController phoneController;
-  final Courier? courier;
+  final Courier? couriers;
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +162,7 @@ class EditCourierPhoneButtonField extends StatelessWidget {
             CourierService().patchCourier(
               'phone',
               phoneController.text,
-              courier?.phone ?? '',
+              couriers?.phone ?? '',
             );
           },
           child: Text(LocaleKeys.mainText_save.tr()),
@@ -239,12 +239,12 @@ class EditCourierPhoneTextField extends StatelessWidget {
 class EditCourierEmailButtonField extends StatelessWidget {
   const EditCourierEmailButtonField({
     required this.emailController,
-    required this.courier,
+    required this.couriers,
     super.key,
   });
 
   final TextEditingController emailController;
-  final Courier? courier;
+  final Courier? couriers;
 
   @override
   Widget build(BuildContext context) {
@@ -256,7 +256,7 @@ class EditCourierEmailButtonField extends StatelessWidget {
             CourierService().patchCourier(
               'email',
               emailController.text,
-              courier?.email ?? '',
+              couriers?.email ?? '',
             );
           },
           child: Text(LocaleKeys.mainText_save.tr()),
@@ -334,12 +334,12 @@ class EditCourierEmailTextField extends StatelessWidget {
 class EditCourierNameButtonField extends StatelessWidget {
   const EditCourierNameButtonField({
     required this.nameController,
-    required this.courier,
+    required this.couriers,
     super.key,
   });
 
   final TextEditingController nameController;
-  final Courier? courier;
+  final Courier? couriers;
 
   @override
   Widget build(BuildContext context) {
@@ -349,7 +349,7 @@ class EditCourierNameButtonField extends StatelessWidget {
         ElevatedButton(
           onPressed: () {
             CourierService()
-                .patchCourier('name', nameController.text, courier?.id ?? '');
+                .patchCourier('name', nameController.text, couriers?.id ?? '');
           },
           child: Text(LocaleKeys.mainText_save.tr()),
         ),

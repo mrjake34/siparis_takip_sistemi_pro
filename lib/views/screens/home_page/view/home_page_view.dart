@@ -373,7 +373,7 @@ class FetchCouriersCountBox extends StatelessWidget {
               subtitle: BlocBuilder<CourierBloc, CourierState>(
                 builder: (context, state) {
                   return CustomAutoSizeNumber(
-                    data: '${state.courierList?.courier?.length ?? 0}',
+                    data: '${state.courierList?.couriers?.length ?? 0}',
                     textColor: Colors.white,
                   );
                 },

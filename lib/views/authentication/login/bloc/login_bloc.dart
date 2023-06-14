@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -11,7 +10,6 @@ import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.da
 import 'package:siparis_takip_sistemi_pro/views/authentication/login/model/login_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/views/models/user_model/user.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/profile/service/profile_service.dart';
-
 part 'login_event.dart';
 part 'login_state.dart';
 
@@ -31,7 +29,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with BaseModelView {
           );
           if (response.statusCode == HttpStatus.ok) {
             final cookie = response.headers['authorization']?.first;
-            final model = loginResponseModelFromJson(response.data.toString());
+
+            final model = LoginResponseModel.fromJson(
+              response.data as Map<String, dynamic>,
+            );
+
             await sharedManager.setStringValue(
               PreferenceKey.cookie,
               cookie ?? '',
@@ -58,11 +60,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with BaseModelView {
         } on DioException catch (e) {
           if (e.response?.statusCode == 400) {
             utils.errorSnackBar(LocaleKeys.errors_userInfoIncorrect.tr());
-            emit(state.copyWith(status: UserStatus.userNotFound));
-          } else {
-            utils.errorSnackBar(LocaleKeys.errors_loginError.tr());
-            emit(state.copyWith(status: Status.isFailed));
+            return emit(state.copyWith(status: Status.isFailed));
           }
+          utils.errorSnackBar(LocaleKeys.errors_loginError.tr());
+          return emit(state.copyWith(status: Status.isFailed));
         }
       },
     );

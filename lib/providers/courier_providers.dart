@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../views/screens/courier/model/courier.dart';
+
 class ChangePasswordVisibilityAddCourierProvider extends ChangeNotifier {
   bool _visibility = true;
 
@@ -51,6 +53,31 @@ class EditCourierChangePhoneReadyOnlyProvider extends ChangeNotifier {
 
   void setVisibility() {
     _readyOnly = !_readyOnly;
+    notifyListeners();
+  }
+}
+class CourierAddOrder with ChangeNotifier {
+  Courier? courier;
+
+  Courier get searchValue {
+    return courier ?? Courier();
+  }
+
+  set searchValue(Courier value) {
+    courier = value;
+    notifyListeners();
+  }
+}
+
+class CourierSearch with ChangeNotifier {
+  String searchTerm = '';
+
+  String get searchValue {
+    return searchTerm;
+  }
+
+  set searchValue(String value) {
+    searchTerm = value;
     notifyListeners();
   }
 }

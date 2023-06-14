@@ -1,9 +1,11 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: avoid_setters_without_getters
-
 import 'package:flutter/cupertino.dart';
-
+import 'package:json_annotation/json_annotation.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/orders/model/order.dart';
+part 'user.g.dart';
 
+@JsonSerializable()
 class User {
   User({
     this.role,
@@ -17,17 +19,6 @@ class User {
     this.updatedAt,
   });
 
-  User.fromJson(Map<String, String> json)
-      : shopName = json['shopName'],
-        id = json['_id'],
-        role = json['role'],
-        updatedAt = json['updatedAt'],
-        paymentStatus = bool.tryParse(json['paymentStatus'] ?? ''),
-        name = json['name'],
-        email = json['email'],
-        password = json['password'],
-        phone = json['phone'];
-
   final String? id;
   final String? name;
   final String? email;
@@ -39,19 +30,9 @@ class User {
   final String? updatedAt;
   final List<Order> orderList = [];
 
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['shopName'] = shopName;
-    data['role'] = role;
-    data['_id'] = id;
-    data['updatedAt'] = updatedAt;
-    data['paymentStatus'] = paymentStatus;
-    data['name'] = name;
-    data['phone'] = phone;
-    data['email'] = email;
-    data['password'] = password;
-    return data;
-  }
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UserToJson(this);
 }
 
 class UserDetail with ChangeNotifier {

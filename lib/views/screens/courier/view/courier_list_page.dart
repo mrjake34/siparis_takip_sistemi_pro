@@ -89,21 +89,21 @@ class CourierListBuilder extends StatelessWidget {
         if (state.courierList != null) {
           return ListView.builder(
             padding: const EdgeInsets.all(pagePadding),
-            itemCount: state.courierList?.courier?.length ?? 0,
+            itemCount: state.courierList?.couriers?.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
-              final courier = state.courierList?.courier?[index];
+              final couriers = state.courierList?.couriers?[index];
               return Card(
                 color: Theme.of(context).colorScheme.surface,
                 child: Row(
                   children: [
                     Expanded(
                       flex: 3,
-                      child: CourierCardCourierDetailField(courier: courier),
+                      child: CourierCardCourierDetailField(couriers: couriers),
                     ),
                     Expanded(
                       child: CourierCardMoreButtonField(
                         appColors: appColors,
-                        courier: courier,
+                        couriers: couriers,
                       ),
                     )
                   ],
@@ -127,11 +127,11 @@ class CourierListBuilder extends StatelessWidget {
 
 class CourierCardCourierDetailField extends StatelessWidget {
   const CourierCardCourierDetailField({
-    required this.courier,
+    required this.couriers,
     super.key,
   });
 
-  final Courier? courier;
+  final Courier? couriers;
 
   @override
   Widget build(BuildContext context) {
@@ -142,13 +142,13 @@ class CourierCardCourierDetailField extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 15, top: 10),
           child: Text(
-            courier?.name ?? '',
+            couriers?.name ?? '',
             style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
           ),
         ),
         ListTile(
-          title: Text(courier?.email ?? ''),
-          subtitle: Text(courier?.phone ?? ''),
+          title: Text(couriers?.email ?? ''),
+          subtitle: Text(couriers?.phone ?? ''),
         ),
       ],
     );
@@ -158,12 +158,12 @@ class CourierCardCourierDetailField extends StatelessWidget {
 class CourierCardMoreButtonField extends StatelessWidget {
   const CourierCardMoreButtonField({
     required this.appColors,
-    required this.courier,
+    required this.couriers,
     super.key,
   });
 
   final AppColors appColors;
-  final Courier? courier;
+  final Courier? couriers;
 
   @override
   Widget build(BuildContext context) {
@@ -173,8 +173,8 @@ class CourierCardMoreButtonField extends StatelessWidget {
           context,
           CourierBottomSheet(
             appColors: appColors,
-            id: courier?.id,
-            name: courier?.name,
+            id: couriers?.id,
+            name: couriers?.name,
           ),
         );
       },

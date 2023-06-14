@@ -1,54 +1,28 @@
-import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart';
 
-LoginResponseModel loginResponseModelFromJson(String str) =>
-    LoginResponseModel.fromJson(jsonDecode(str) as Map<String, dynamic>);
+part 'login_response_model.g.dart';
 
-String loginResponseModelToJson(LoginResponseModel data) =>
-    json.encode(data.toJson());
-
+@JsonSerializable()
 class LoginResponseModel {
   LoginResponseModel({this.message, this.user});
-  LoginResponseModel.fromJson(Map<String, dynamic> json) {
-    message = json['message'].toString();
-    if (json['User'] != null) {
-      user = UserModel.fromJson(json['User'] as Map<String, String>);
-    } else {
-      user = null;
-    }
-  }
+  factory LoginResponseModel.fromJson(Map<String, dynamic> json) =>
+      _$LoginResponseModelFromJson(json);
   String? message;
   UserModel? user;
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['message'] = message;
-    if (user != null) {
-      data['User'] = user!.toJson();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => _$LoginResponseModelToJson(this);
 }
 
+@JsonSerializable()
 class UserModel {
   const UserModel({
     required this.id,
     required this.shopName,
     required this.role,
   });
-  factory UserModel.fromJson(Map<String, String> json) {
-    return UserModel(
-      id: json['Id'] ?? '',
-      shopName: json['shopName'] ?? '',
-      role: json['role'] ?? '',
-    );
-  }
+  factory UserModel.fromJson(Map<String, String> json) =>
+      _$UserModelFromJson(json);
   final String id;
   final String shopName;
   final String role;
-  Map<String, dynamic> toJson() {
-    return {
-      'Id': id,
-      'shopName': shopName,
-      'role': role,
-    };
-  }
+  Map<String, dynamic> toJson() => _$UserModelToJson(this);
 }

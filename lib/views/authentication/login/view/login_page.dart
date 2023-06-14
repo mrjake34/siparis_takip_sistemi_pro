@@ -246,9 +246,13 @@ class LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return context.watch<LoginBloc>().state.status == Status.isLoading
-        ? const LoadingButton()
-        : MainElevatedButton(
+    return BlocBuilder<LoginBloc, LoginState>(
+      buildWhen: (previous, current) => previous.status != current.status,
+      builder: (context, state) {
+        if (state.status == Status.isLoading) {
+          return const LoadingButton();
+        } else {
+          return MainElevatedButton(
             onPressed: () {
               if (loginKey.currentState?.validate() ?? false) {
                 context.read<LoginBloc>().add(DoLoginEvent());
@@ -261,6 +265,9 @@ class LoginButton extends StatelessWidget {
               LocaleKeys.mainText_login.tr(),
             ),
           );
+        }
+      },
+    );
   }
 }
 

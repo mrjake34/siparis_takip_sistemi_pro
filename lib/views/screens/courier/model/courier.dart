@@ -1,135 +1,96 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first,
 // avoid_equals_and_hash_code_on_mutable_classes
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'courier.g.dart';
+
+@JsonSerializable()
 class CourierList {
-  List<Courier>? courier;
-  CourierList({this.courier});
-  CourierList.fromJson(Map<String, dynamic> json) {
-    if (json['couriers'] != null) {
-      courier = <Courier>[];
-      json['couriers'].forEach((Map<String, String> v) {
-        courier!.add(Courier.fromJson(v));
-      });
-    }
-  }
+  final String message;
+  final List<Courier> couriers;
 
-  Map<String, dynamic> toJson() {
-    final courier = <String, dynamic>{};
-    if (this.courier != null) {
-      courier['couriers'] = this.courier!.map((e) => e.toJson()).toList();
-    }
-    return courier;
-  }
+  CourierList({
+    required this.message,
+    required this.couriers,
+  });
+
+  CourierList copyWith({
+    String? message,
+    List<Courier>? couriers,
+  }) =>
+      CourierList(
+        message: message ?? this.message,
+        couriers: couriers ?? this.couriers,
+      );
+
+  factory CourierList.fromJson(Map<String, dynamic> json) =>
+      _$CourierListFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CourierListToJson(this);
 }
 
+@JsonSerializable()
 class Courier {
-  final String? name;
-  final String? email;
-  final String? phone;
   final String? id;
+  final String? shopName;
+  final String? name;
+  final String? phone;
+  final String? email;
   final String? password;
   final String? role;
+  final List<dynamic>? orders;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final String? ip;
+  final String? refreshToken;
 
   Courier({
-    this.password,
-    this.role,
     this.id,
+    this.shopName,
     this.name,
     this.phone,
     this.email,
+    this.password,
+    this.role,
+    this.orders,
+    this.createdAt,
+    this.updatedAt,
+    this.ip,
+    this.refreshToken,
   });
 
-  Courier.fromJson(Map<String, String> json)
-      : name = json['name'],
-        id = json['_id'],
-        email = json['email'],
-        role = json['role'],
-        password = json['password'],
-        phone = json['phone'];
+  Courier copyWith({
+    String? id,
+    String? shopName,
+    String? name,
+    String? phone,
+    String? email,
+    String? password,
+    String? role,
+    List<dynamic>? orders,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    String? ip,
+    String? refreshToken,
+  }) =>
+      Courier(
+        id: id ?? this.id,
+        shopName: shopName ?? this.shopName,
+        name: name ?? this.name,
+        phone: phone ?? this.phone,
+        email: email ?? this.email,
+        password: password ?? this.password,
+        role: role ?? this.role,
+        orders: orders ?? this.orders,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+        ip: ip ?? this.ip,
+        refreshToken: refreshToken ?? this.refreshToken,
+      );
 
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['name'] = name;
-    data['email'] = email;
-    data['password'] = password;
-    data['role'] = role;
-    data['_id'] = id;
-    data['phone'] = phone;
-    return data;
-  }
+  factory Courier.fromJson(Map<String, dynamic> json) =>
+      _$CourierFromJson(json);
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'name': name,
-      'email': email,
-      'phone': phone,
-      'id': id,
-      'password': password,
-      'role': role,
-    };
-  }
-
-  factory Courier.fromMap(Map<String, dynamic> map) {
-    return Courier(
-      name: map['name'] != null ? map['name'] as String : null,
-      email: map['email'] != null ? map['email'] as String : null,
-      phone: map['phone'] != null ? map['phone'] as String : null,
-      id: map['id'] != null ? map['id'] as String : null,
-      password: map['password'] != null ? map['password'] as String : null,
-      role: map['role'] != null ? map['role'] as String : null,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(covariant Courier other) {
-    if (identical(this, other)) return true;
-
-    return other.name == name &&
-        other.email == email &&
-        other.phone == phone &&
-        other.id == id &&
-        other.password == password &&
-        other.role == role;
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode {
-    return name.hashCode ^
-        email.hashCode ^
-        phone.hashCode ^
-        id.hashCode ^
-        password.hashCode ^
-        role.hashCode;
-  }
-}
-
-class CourierAddOrder with ChangeNotifier {
-  Courier? courier;
-
-  Courier get searchValue {
-    return courier ?? Courier();
-  }
-
-  set searchValue(Courier value) {
-    courier = value;
-    notifyListeners();
-  }
-}
-
-class CourierSearch with ChangeNotifier {
-  String searchTerm = '';
-
-  String get searchValue {
-    return searchTerm;
-  }
-
-  set searchValue(String value) {
-    searchTerm = value;
-    notifyListeners();
-  }
+  Map<String, dynamic> toJson() => _$CourierToJson(this);
 }

@@ -1,5 +1,3 @@
-
-
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
@@ -20,10 +18,10 @@ class ProfileService with BaseModelView {
           },
         ),
       );
-      if (response.statusCode == 200) {
-        final jsonUser = response.data;
 
-        final user = User.fromJson(jsonUser as Map<String, String>);
+      if (response.statusCode == 200) {
+
+        final user = User.fromJson(response.data['user'] as Map<String,dynamic>);
 
         await sharedManager.setStringValue(PreferenceKey.userId, user.id ?? '');
         await sharedManager.setStringValue(
@@ -45,7 +43,7 @@ class ProfileService with BaseModelView {
         await sharedManager.setStringValue(PreferenceKey.role, user.role ?? '');
         await sharedManager.setBoolValue(
           PreferenceKey.paymentStatus,
-          value:user.paymentStatus ?? false,
+          value: user.paymentStatus ?? false,
         );
         await sharedManager.setStringValue(
           PreferenceKey.userUpdatedAt,

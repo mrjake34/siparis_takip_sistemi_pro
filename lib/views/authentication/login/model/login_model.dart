@@ -1,12 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
 
-LoginModel loginModelFromJson(String str) =>
-    LoginModel.fromJson(jsonDecode(str) as Map<String, dynamic>);
-
-String loginModelToJson(LoginModel data) => json.encode(data.toJson());
+part 'login_model.g.dart';
 
 @JsonSerializable()
 class LoginModel {
@@ -17,15 +13,8 @@ class LoginModel {
     this.password,
   });
 
-  LoginModel.fromJson(Map<String, dynamic> json) {
-    email = json['email'].toString();
-    password = json['password'].toString();
-  }
+  factory LoginModel.fromJson(Map<String, dynamic> json) =>
+      _$LoginModelFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['email'] = email;
-    data['password'] = password;
-    return data;
-  }
+  Map<String, dynamic> toJson() => _$LoginModelToJson(this);
 }

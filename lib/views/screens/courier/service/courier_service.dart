@@ -55,8 +55,11 @@ class CourierService with BaseModelView {
       ),
     );
     if (response.statusCode == 200) {
-      final courierList =
-          CourierList.fromJson(response.data as Map<String, dynamic>);
+      print(jsonEncode(response.data));
+      final courierList = CourierList.fromJson(
+        response.data as Map<String,dynamic>,
+      );
+      
       return courierList;
     } else {
       throw Exception('Failed to load orders');
