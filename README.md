@@ -1,6 +1,7 @@
 # Ticari Amaçla Kullanım Hakkı Sadece Efes Bilgi Teknolojileri'ne aittir. Reponun paylaşım amacı topluluğa kaynak oluşturmak içindir.
 
 # Sipariş Takip Sistemi
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis) <a href="https://github.com/felangel/bloc"><img src="https://tinyurl.com/bloc-library" alt="Bloc Library"></a>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis) <a href="https://github.com/felangel/bloc"><img src="https://tinyurl.com/bloc-library" alt="Bloc Library"></a>
 
@@ -55,14 +56,5 @@ Bu projeyle ilgili herhangi bir sorunuz veya öneriniz varsa, lütfen benimle il
 - E-posta: alkanatas34@gmail.com
 - Linkedin: https://www.linkedin.com/in/alkan-ata%C5%9F-101482248/
 
-## License
-
-This project is licensed under the terms of the MIT License. See the [LICENSE](LICENSE) file for more details.
-
-MIT License
-
-Sipariş Takip Pro
-
-Copyright (c) 2023 Efes Information Technologies
 
 ...
