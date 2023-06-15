@@ -1,29 +1,21 @@
-import 'dart:convert';
+// To parse this JSON data, do
+//
+//     final customerList = customerListFromJson(jsonString);
 
-import 'package:siparis_takip_sistemi_pro/views/screens/orders/model/order.dart';
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'customer.g.dart';
 
-CustomerList customerListFromJson(String str) =>
-    CustomerList.fromJson(jsonDecode(str) as Map<String, dynamic>);
-
-String customerListToJson(CustomerList data) => jsonEncode(data.toJson());
-
+@JsonSerializable()
 class CustomerList {
-  const CustomerList({
+  CustomerList({
     required this.message,
-    this.customers = const [],
+    required this.customers,
   });
 
-  factory CustomerList.fromJson(Map<String, dynamic> json) => CustomerList(
-        message: json['message'].toString(),
-        customers: (json['customers'] as List<dynamic>?)
-            ?.map(
-              (customerJson) =>
-                  Customer.fromJson(customerJson as Map<String, dynamic>),
-            )
-            .toList(),
-      );
+  factory CustomerList.fromJson(Map<String, dynamic> json) => _$CustomerListFromJson(json);
   final String message;
-  final List<Customer>? customers;
+  final List<Customer> customers;
 
   CustomerList copyWith({
     String? message,
@@ -34,19 +26,17 @@ class CustomerList {
         customers: customers ?? this.customers,
       );
 
-  Map<String, dynamic> toJson() => {
-        'message': message,
-        'customers': customers?.map((customer) => customer.toJson()).toList(),
-      };
+  Map<String, dynamic> toJson() => _$CustomerListToJson(this);
 }
 
-class Customer {
+@JsonSerializable()
+class Customer extends Equatable {
   const Customer({
     this.id,
     this.shopName,
     this.name,
     this.phone,
-    this.address,
+    this.adress,
     this.longitude,
     this.latitude,
     this.orders,
@@ -54,30 +44,15 @@ class Customer {
     this.updatedAt,
   });
 
-  factory Customer.fromJson(Map<String, dynamic> json) => Customer(
-        id: json['_id'].toString(),
-        shopName: json['shopName'].toString(),
-        name: json['name'].toString(),
-        phone: json['phone'].toString(),
-        address: json['adress'].toString(),
-        longitude: double.tryParse(json['longitude'].toString()) ??
-            0.0, // Changed to double.tryParse
-        latitude: double.tryParse(json['latitude'].toString()) ??
-            0.0, // Changed to double.tryParse
-        orders: orderListFromJson(json['orders'].toString()),
-        createdAt: DateTime.tryParse(json['createdAt'].toString()) ??
-            DateTime.now(), // Changed to DateTime.tryParse
-        updatedAt: DateTime.tryParse(json['updatedAt'].toString()) ??
-            DateTime.now(), // Changed to DateTime.tryParse
-      );
+  factory Customer.fromJson(Map<String, dynamic> json) => _$CustomerFromJson(json);
   final String? id;
   final String? shopName;
   final String? name;
   final String? phone;
-  final String? address;
+  final String? adress;
   final double? longitude;
   final double? latitude;
-  final OrderList? orders;
+  final List<dynamic>? orders;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
@@ -86,10 +61,10 @@ class Customer {
     String? shopName,
     String? name,
     String? phone,
-    String? address,
+    String? adress,
     double? longitude,
     double? latitude,
-    OrderList? orders,
+    List<dynamic>? orders,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) =>
@@ -98,7 +73,7 @@ class Customer {
         shopName: shopName ?? this.shopName,
         name: name ?? this.name,
         phone: phone ?? this.phone,
-        address: address ?? this.address,
+        adress: adress ?? this.adress,
         longitude: longitude ?? this.longitude,
         latitude: latitude ?? this.latitude,
         orders: orders ?? this.orders,
@@ -106,22 +81,19 @@ class Customer {
         updatedAt: updatedAt ?? this.updatedAt,
       );
 
-  Map<String, dynamic> toJson() => {
-        '_id': id,
-        'shopName': shopName,
-        'name': name,
-        'phone': phone,
-        'adress': address,
-        'longitude': longitude.toString(), 
-        'latitude': latitude.toString(), 
-        'orders':
-            orderListToJson(orders ?? const OrderList(message: '', order: [])),
-        'createdAt': createdAt?.toIso8601String(),
-        'updatedAt': updatedAt?.toIso8601String(),
-      };
+  Map<String, dynamic> toJson() => _$CustomerToJson(this);
+
+  @override
+  List<Object?> get props => [
+        id,
+        shopName,
+        name,
+        phone,
+        adress,
+        longitude,
+        latitude,
+        orders,
+        createdAt,
+        updatedAt,
+      ];
 }
-
-
-OrderList orderListFromJson(String str) =>
-    OrderList.fromJson(jsonDecode(str) as Map<String, dynamic>);
-String orderListToJson(OrderList data) => jsonEncode(data.toJson());

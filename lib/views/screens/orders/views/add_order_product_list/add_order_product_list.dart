@@ -6,14 +6,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/core/init/utils/utils.dart';
-import '../../../../../core/init/translation/locale_keys.g.dart';
-import '../../../../../providers/main_providers.dart';
-import '../../../../../providers/search_providers.dart';
-import '../../../../../src/text/autosize_text.dart';
-import '../../../product/bloc/products_bloc.dart';
-import '../../../product/model/product.dart';
-import '../../bloc/add_order_bloc/orders_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/providers/main_providers.dart';
+import 'package:siparis_takip_sistemi_pro/providers/search_providers.dart';
+import 'package:siparis_takip_sistemi_pro/src/text/autosize_text.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/product/bloc/products_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/product/model/product.dart';
 
 class AddOrderProductList extends StatelessWidget with BaseModelView {
   AddOrderProductList({
@@ -32,26 +32,23 @@ class AddOrderProductList extends StatelessWidget with BaseModelView {
             child: BlocBuilder<ProductsBloc, ProductsState>(
               builder: (context, state) {
                 if (state.status == Status.isDone) {
-                  List<Product>? productList = state.productList?.products
-                      .where((element) => element.name
-                          .toString()
-                          .toLowerCase()
-                          .contains(
-                              context.watch<AddOrderAddProductSearchProvider>().getSearchValue))
+                  final productList = state.productList?.products
+                      .where((element) => element.name.toLowerCase().contains(context.watch<AddOrderAddProductSearchProvider>().getSearchValue))
                       .toList();
                   return ListView.builder(
-                      key: UniqueKey(),
-                      shrinkWrap: true,
-                      itemCount: productList?.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        Product? product = productList?[index];
-                        return ProductCard(
-                          product: product,
-                          utils: utils,
-                          index: index,
-                          state: state,
-                        );
-                      });
+                    key: UniqueKey(),
+                    shrinkWrap: true,
+                    itemCount: productList?.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final product = productList?[index];
+                      return ProductCard(
+                        product: product,
+                        utils: utils,
+                        index: index,
+                        state: state,
+                      );
+                    },
+                  );
                 } else if (state.status == Status.isFailed) {
                   return Center(
                     child: Text(LocaleKeys.errors_failedLoadData.tr()),
@@ -72,11 +69,11 @@ class AddOrderProductList extends StatelessWidget with BaseModelView {
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
-    super.key,
     required this.product,
     required this.utils,
     required this.state,
     required this.index,
+    super.key,
   });
 
   final Product? product;
@@ -97,15 +94,13 @@ class ProductCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ListTile(
-                  title: Text(product?.name ?? ""),
-                  subtitle: Text(
-                      "${product?.price ?? ""} ${context.watch<ChangeCurrencyPriceSymbol>().currencySymbol}"),
+                  title: Text(product?.name ?? ''),
+                  subtitle: Text("${product?.price ?? ""} ${context.watch<ChangeCurrencyPriceSymbol>().currencySymbol}"),
                 ),
               ],
             ),
           ),
           Expanded(
-            flex: 1,
             child: AddProductButton(
               utils: utils,
               index: index,
@@ -120,10 +115,10 @@ class ProductCard extends StatelessWidget {
 
 class AddProductButton extends StatelessWidget {
   const AddProductButton({
-    super.key,
     required this.utils,
     required this.state,
     required this.index,
+    super.key,
   });
 
   final UtilsService utils;
@@ -133,17 +128,17 @@ class AddProductButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        onPressed: () {
-          try {
-            if (state.productList?.products != null) {
-              context.read<OrdersBloc>().add(OrderCartProductsEvent(
-                  product: state.productList?.products[index]));
-            }
-          } finally {
-            utils.showSnackBar(LocaleKeys.succes_productAdded.tr());
+      onPressed: () {
+        try {
+          if (state.productList?.products != null) {
+            context.read<OrdersBloc>().add(OrderCartProductsEvent(product: state.productList?.products[index]));
           }
-        },
-        icon: Icon(Icons.add, color: Theme.of(context).colorScheme.primary));
+        } finally {
+          utils.showSnackBar(LocaleKeys.succes_productAdded.tr());
+        }
+      },
+      icon: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
+    );
   }
 }
 
@@ -170,8 +165,7 @@ class SearchField extends StatelessWidget {
               suffixIcon: const Icon(Icons.search),
             ),
             onChanged: (value) {
-              context.read<AddOrderAddProductSearchProvider>().setSearchValue =
-                  value.toLowerCase();
+              context.read<AddOrderAddProductSearchProvider>().setSearchValue = value.toLowerCase();
             },
           ),
         ),

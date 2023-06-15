@@ -2,19 +2,18 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../../core/constants/size/sizes.dart';
-
-import '../../../../components/main-functions.dart';
-import '../../../../core/constants/colors/colors.dart';
-import '../../../../core/constants/enums/enums.dart';
-import '../../../../core/init/translation/locale_keys.g.dart';
-import '../../../../providers/main_providers.dart';
-import '../bloc/user_profile_bloc.dart';
-import 'choose_theme_widget.dart';
-import 'user_details_widget.dart';
+import 'package:siparis_takip_sistemi_pro/components/main-functions.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/providers/main_providers.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/profile/bloc/user_profile_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/profile/view/choose_theme_widget.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/profile/view/user_details_widget.dart';
 
 class UserProfile extends StatefulWidget {
-  const UserProfile({Key? key}) : super(key: key);
+  const UserProfile({super.key});
 
   @override
   State<UserProfile> createState() => _UserProfileState();
@@ -24,15 +23,15 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     context.read<UserProfileBloc>().add(const FetchUserDetailsEvent());
-    Size pageSize = MediaQuery.of(context).size;
+    final pageSize = MediaQuery.of(context).size;
     return PageBuilder(pageSize: pageSize);
   }
 }
 
 class PageBuilder extends StatelessWidget {
   const PageBuilder({
-    super.key,
     required this.pageSize,
+    super.key,
   });
 
   final Size pageSize;
@@ -107,15 +106,17 @@ class ChangeLanguageField extends StatelessWidget {
         Row(
           children: [
             TextButton(
-                onPressed: () {
-                  context.setLocale(const Locale('en', 'US'));
-                },
-                child: Text(LocaleKeys.mainText_english.tr())),
+              onPressed: () {
+                context.setLocale(const Locale('en', 'US'));
+              },
+              child: Text(LocaleKeys.mainText_english.tr()),
+            ),
             TextButton(
-                onPressed: () {
-                  context.setLocale(const Locale('tr', 'TR'));
-                },
-                child: Text(LocaleKeys.mainText_turkish.tr())),
+              onPressed: () {
+                context.setLocale(const Locale('tr', 'TR'));
+              },
+              child: Text(LocaleKeys.mainText_turkish.tr()),
+            ),
           ],
         ),
       ],
@@ -137,35 +138,40 @@ class ChangeCurrencySymbolField extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {
-                context.read<ChangeCurrencyPriceSymbol>().changeSymbol = "₺";
+                context.read<ChangeCurrencyPriceSymbol>().changeSymbol = '₺';
               },
               icon: const Icon(FontAwesomeIcons.turkishLiraSign),
             ),
             IconButton(
-                onPressed: () {
-                  context.read<ChangeCurrencyPriceSymbol>().changeSymbol = "€";
-                },
-                icon: const Icon(FontAwesomeIcons.euroSign)),
+              onPressed: () {
+                context.read<ChangeCurrencyPriceSymbol>().changeSymbol = '€';
+              },
+              icon: const Icon(FontAwesomeIcons.euroSign),
+            ),
             IconButton(
-                onPressed: () {
-                  context.read<ChangeCurrencyPriceSymbol>().changeSymbol = "\$";
-                },
-                icon: const Icon(FontAwesomeIcons.dollarSign)),
+              onPressed: () {
+                context.read<ChangeCurrencyPriceSymbol>().changeSymbol = r'$';
+              },
+              icon: const Icon(FontAwesomeIcons.dollarSign),
+            ),
             IconButton(
-                onPressed: () {
-                  context.read<ChangeCurrencyPriceSymbol>().changeSymbol = "£";
-                },
-                icon: const Icon(FontAwesomeIcons.sterlingSign)),
+              onPressed: () {
+                context.read<ChangeCurrencyPriceSymbol>().changeSymbol = '£';
+              },
+              icon: const Icon(FontAwesomeIcons.sterlingSign),
+            ),
             IconButton(
-                onPressed: () {
-                  context.read<ChangeCurrencyPriceSymbol>().changeSymbol = "₽";
-                },
-                icon: const Icon(FontAwesomeIcons.rubleSign)),
+              onPressed: () {
+                context.read<ChangeCurrencyPriceSymbol>().changeSymbol = '₽';
+              },
+              icon: const Icon(FontAwesomeIcons.rubleSign),
+            ),
             IconButton(
-                onPressed: () {
-                  context.read<ChangeCurrencyPriceSymbol>().changeSymbol = "₼";
-                },
-                icon: const Icon(FontAwesomeIcons.manatSign)),
+              onPressed: () {
+                context.read<ChangeCurrencyPriceSymbol>().changeSymbol = '₼';
+              },
+              icon: const Icon(FontAwesomeIcons.manatSign),
+            ),
           ],
         ),
       ],
@@ -175,8 +181,8 @@ class ChangeCurrencySymbolField extends StatelessWidget {
 
 class ProfilePageLogoutButton extends StatelessWidget {
   const ProfilePageLogoutButton({
-    super.key,
     required this.pageSize,
+    super.key,
   });
 
   final Size pageSize;
@@ -184,16 +190,14 @@ class ProfilePageLogoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.all(5),
       child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              elevation: 5.0,
-              backgroundColor: Colors.red,
-              fixedSize: Size(pageSize.width, 40.0)),
-          onPressed: () {
-            MainFunctions.instance.logOutDialog(context);
-          },
-          child: Text(LocaleKeys.mainText_logout.tr())),
+        style: ElevatedButton.styleFrom(elevation: 5, backgroundColor: Colors.red, fixedSize: Size(pageSize.width, 40)),
+        onPressed: () {
+          MainFunctions.instance.logOutDialog(context);
+        },
+        child: Text(LocaleKeys.mainText_logout.tr()),
+      ),
     );
   }
 }

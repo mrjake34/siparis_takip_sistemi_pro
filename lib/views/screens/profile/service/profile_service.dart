@@ -5,9 +5,9 @@ import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/views/models/user_model/user.dart';
 
 class ProfileService with BaseModelView {
-  Future<User?> fetchUserDetails({String? id, String? cookie}) async {
+  Future<UserModel?> fetchUserDetails({String? cookie}) async {
     cookie ??= sharedManager.getStringValue(PreferenceKey.cookie);
-    id ??= sharedManager.getStringValue(PreferenceKey.userId);
+    final id = sharedManager.getStringValue(PreferenceKey.userId);
     try {
       final response = await networkService.dio.get(
         appNetwork.getUserUrl + id,
@@ -20,34 +20,34 @@ class ProfileService with BaseModelView {
       );
 
       if (response.statusCode == 200) {
-
-        final user = User.fromJson(response.data['user'] as Map<String,dynamic>);
-
-        await sharedManager.setStringValue(PreferenceKey.userId, user.id ?? '');
+        final user = UserModel.fromJson(response.data as Map<String, dynamic>);
         await sharedManager.setStringValue(
           PreferenceKey.userName,
-          user.name ?? '',
+          user.user.name ?? '',
         );
         await sharedManager.setStringValue(
           PreferenceKey.userEmail,
-          user.email ?? '',
+          user.user.email ?? '',
         );
         await sharedManager.setStringValue(
           PreferenceKey.userPhone,
-          user.phone ?? '',
+          user.user.phone ?? '',
         );
         await sharedManager.setStringValue(
           PreferenceKey.shopName,
-          user.shopName ?? '',
+          user.user.shopName ?? '',
         );
-        await sharedManager.setStringValue(PreferenceKey.role, user.role ?? '');
+        await sharedManager.setStringValue(
+          PreferenceKey.role,
+          user.user.role ?? '',
+        );
         await sharedManager.setBoolValue(
           PreferenceKey.paymentStatus,
-          value: user.paymentStatus ?? false,
+          value: user.user.paymentStatus ?? false,
         );
         await sharedManager.setStringValue(
           PreferenceKey.userUpdatedAt,
-          user.updatedAt ?? '',
+          user.user.updatedAt.toString(),
         );
 
         return user;

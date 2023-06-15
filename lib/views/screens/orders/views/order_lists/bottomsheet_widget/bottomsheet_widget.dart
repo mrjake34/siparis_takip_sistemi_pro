@@ -1,19 +1,19 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../../core/base/models/base_model_view.dart';
-import '../../../../../../core/constants/colors/colors.dart';
-import '../../../../../../core/constants/navigation/navigation_constants.dart';
-import '../../../../../../core/init/navigation/navigation_service.dart';
-import '../../../bloc/add_order_bloc/orders_bloc.dart';
-import '../../../../../../core/init/translation/locale_keys.g.dart';
-import '../../../model/order.dart';
-import '../../../service/order_service.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/navigation/navigation_service.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/orders/model/order.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/orders/service/order_service.dart';
 
 // ignore: must_be_immutable
 class OrderListBottomSheetWidget extends StatelessWidget with BaseModelView {
   OrderListBottomSheetWidget({super.key, this.order});
-  final Order? order;
+  final OrderListProduct? order;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class OrderListBottomSheetWidget extends StatelessWidget with BaseModelView {
 }
 
 class UpdateStatusToWaiting extends StatelessWidget {
-  const UpdateStatusToWaiting({super.key, required this.orderId, required this.appColors});
+  const UpdateStatusToWaiting({required this.orderId, required this.appColors, super.key});
 
   final String? orderId;
   final AppColors appColors;
@@ -64,17 +64,17 @@ class UpdateStatusToWaiting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisSize: MainAxisSize.max,
       children: [
         Expanded(
           child: TextButton(
-              onPressed: () {
-                OrderService().patchOrder(orderId ?? "", "orderStatus", "waiting");
-              },
-              child: Text(
-                LocaleKeys.order_inLine.tr(),
-                style: TextStyle(color: appColors.orderPendingColor),
-              )),
+            onPressed: () {
+              OrderService().patchOrder(orderId ?? '', 'orderStatus', 'waiting');
+            },
+            child: Text(
+              LocaleKeys.order_inLine.tr(),
+              style: TextStyle(color: appColors.orderPendingColor),
+            ),
+          ),
         ),
       ],
     );
@@ -82,7 +82,7 @@ class UpdateStatusToWaiting extends StatelessWidget {
 }
 
 class UpdateStatusToProcess extends StatelessWidget {
-  const UpdateStatusToProcess({super.key, required this.orderId, required this.appColors});
+  const UpdateStatusToProcess({required this.orderId, required this.appColors, super.key});
 
   final String? orderId;
   final AppColors appColors;
@@ -90,17 +90,17 @@ class UpdateStatusToProcess extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisSize: MainAxisSize.max,
       children: [
         Expanded(
           child: TextButton(
-              onPressed: () {
-                OrderService().patchOrder(orderId ?? "", "orderStatus", "inProcess");
-              },
-              child: Text(
-                LocaleKeys.order_inProcess.tr(),
-                style: TextStyle(color: appColors.orderInProcessColor),
-              )),
+            onPressed: () {
+              OrderService().patchOrder(orderId ?? '', 'orderStatus', 'inProcess');
+            },
+            child: Text(
+              LocaleKeys.order_inProcess.tr(),
+              style: TextStyle(color: appColors.orderInProcessColor),
+            ),
+          ),
         ),
       ],
     );
@@ -108,7 +108,7 @@ class UpdateStatusToProcess extends StatelessWidget {
 }
 
 class UpdateStatusToDistribution extends StatelessWidget {
-  const UpdateStatusToDistribution({super.key, required this.orderId, required this.appColors});
+  const UpdateStatusToDistribution({required this.orderId, required this.appColors, super.key});
 
   final String? orderId;
   final AppColors appColors;
@@ -116,17 +116,17 @@ class UpdateStatusToDistribution extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisSize: MainAxisSize.max,
       children: [
         Expanded(
           child: TextButton(
-              onPressed: () {
-                OrderService().patchOrder(orderId ?? "", "orderStatus", "inDistribution");
-              },
-              child: Text(
-                LocaleKeys.order_onTheWay.tr(),
-                style: TextStyle(color: appColors.orderOnTheWayColor),
-              )),
+            onPressed: () {
+              OrderService().patchOrder(orderId ?? '', 'orderStatus', 'inDistribution');
+            },
+            child: Text(
+              LocaleKeys.order_onTheWay.tr(),
+              style: TextStyle(color: appColors.orderOnTheWayColor),
+            ),
+          ),
         ),
       ],
     );
@@ -134,7 +134,7 @@ class UpdateStatusToDistribution extends StatelessWidget {
 }
 
 class UpdateStatusToCompleted extends StatelessWidget {
-  const UpdateStatusToCompleted({super.key, required this.orderId, required this.appColors});
+  const UpdateStatusToCompleted({required this.orderId, required this.appColors, super.key});
 
   final String? orderId;
 
@@ -143,12 +143,11 @@ class UpdateStatusToCompleted extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisSize: MainAxisSize.max,
       children: [
         Expanded(
           child: TextButton(
             onPressed: () {
-              OrderService().patchOrder(orderId ?? "", "orderStatus", "completed");
+              OrderService().patchOrder(orderId ?? '', 'orderStatus', 'completed');
             },
             child: Text(
               LocaleKeys.order_isDone.tr(),
@@ -162,26 +161,26 @@ class UpdateStatusToCompleted extends StatelessWidget {
 }
 
 class EditButton extends StatelessWidget {
-  const EditButton({super.key, required this.order, required this.appColors});
+  const EditButton({required this.order, required this.appColors, super.key});
 
-  final Order? order;
+  final OrderListProduct? order;
   final AppColors appColors;
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisSize: MainAxisSize.max,
       children: [
         Expanded(
           child: TextButton(
-              onPressed: () {
-                context.read<OrdersBloc>().add(ChooseAnOrder(order: order));
-                NavigationService.instance.navigateToPage(path: NavigationConstants.orderEditPage);
-              },
-              child: Text(
-                LocaleKeys.mainText_edit.tr(),
-                style: const TextStyle(color: Colors.blue),
-              )),
+            onPressed: () {
+              context.read<OrdersBloc>().add(ChooseAnOrder(order: order));
+              NavigationService.instance.navigateToPage(path: NavigationConstants.orderEditPage);
+            },
+            child: Text(
+              LocaleKeys.mainText_edit.tr(),
+              style: const TextStyle(color: Colors.blue),
+            ),
+          ),
         ),
       ],
     );
@@ -189,7 +188,7 @@ class EditButton extends StatelessWidget {
 }
 
 class RemoveButton extends StatelessWidget {
-  const RemoveButton({super.key, required this.navService, required this.orderId, required this.appColors});
+  const RemoveButton({required this.navService, required this.orderId, required this.appColors, super.key});
 
   final NavigationService navService;
   final String? orderId;
@@ -198,48 +197,49 @@ class RemoveButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisSize: MainAxisSize.max,
       children: [
         Expanded(
           child: TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                OpenDialog(context);
-              },
-              child: Text(
-                LocaleKeys.mainText_remove.tr(),
-                style: TextStyle(color: appColors.removeColor),
-              )),
+            onPressed: () {
+              Navigator.pop(context);
+              openDialog(context);
+            },
+            child: Text(
+              LocaleKeys.mainText_remove.tr(),
+              style: TextStyle(color: appColors.removeColor),
+            ),
+          ),
         ),
       ],
     );
   }
 
-  Future<dynamic> OpenDialog(BuildContext context) {
+  Future<dynamic> openDialog(BuildContext context) {
     return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(
-              LocaleKeys.mainText_remove.tr(),
-              style: const TextStyle(fontSize: 15),
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            LocaleKeys.mainText_remove.tr(),
+            style: const TextStyle(fontSize: 15),
+          ),
+          content: RichText(
+            text: TextSpan(text: LocaleKeys.alerts_orderRemove.tr(), style: TextStyle(color: Theme.of(context).colorScheme.primary)),
+          ),
+          actions: [
+            TextButton(
+              onPressed: navService.navigateToBack,
+              child: Text(LocaleKeys.mainText_cancel.tr()),
             ),
-            content: RichText(
-              text: TextSpan(text: LocaleKeys.alerts_orderRemove.tr(), style: TextStyle(color: Theme.of(context).colorScheme.primary)),
+            TextButton(
+              onPressed: () {
+                OrderService().deleteOrder(orderId ?? '');
+              },
+              child: Text(LocaleKeys.mainText_confirm.tr()),
             ),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    navService.navigateToBack();
-                  },
-                  child: Text(LocaleKeys.mainText_cancel.tr())),
-              TextButton(
-                  onPressed: () {
-                    OrderService().deleteOrder(orderId ?? "");
-                  },
-                  child: Text(LocaleKeys.mainText_confirm.tr())),
-            ],
-          );
-        });
+          ],
+        );
+      },
+    );
   }
 }

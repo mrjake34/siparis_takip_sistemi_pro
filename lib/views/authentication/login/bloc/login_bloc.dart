@@ -29,7 +29,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with BaseModelView {
           );
           if (response.statusCode == HttpStatus.ok) {
             final cookie = response.headers['authorization']?.first;
-
             final model = LoginResponseModel.fromJson(
               response.data as Map<String, dynamic>,
             );
@@ -40,10 +39,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with BaseModelView {
             );
             await sharedManager.setStringValue(
               PreferenceKey.userId,
-              model.user?.id ?? '',
+              model.User?.Id ?? '',
             );
             final user =
-                await ProfileService().fetchUserDetails(id: model.user?.id);
+                await ProfileService().fetchUserDetails();
             emit(
               state.copyWith(
                 status: Status.isDone,
@@ -73,7 +72,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with BaseModelView {
       final id = sharedManager.getStringValue(PreferenceKey.userId);
       if (cookie.isNotEmpty || id.isNotEmpty) {
         try {
-          final user = await ProfileService().fetchUserDetails(id: id);
+          final user = await ProfileService().fetchUserDetails();
           emit(state.copyWith(model: user, autoLogin: AutoLogin.completed));
         } on Exception {
           emit(state.copyWith(autoLogin: AutoLogin.failed));

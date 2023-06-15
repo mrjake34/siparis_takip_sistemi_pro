@@ -4,9 +4,13 @@ analyzer:
     inference_failure_on_function_invocation: ignore
     avoid_dynamic_calls: ignore
     public_member_api_docs: ignore
+    lines_longer_than_80_chars: ignore
+    sort_pub_dependencies: ignore
 
 linter:
   rules:
+
+
 
 
     

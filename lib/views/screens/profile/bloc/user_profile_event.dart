@@ -8,10 +8,10 @@ abstract class UserProfileEvent extends Equatable {
 }
 
 class FetchUserDetailsEvent extends UserProfileEvent {
-  final User? user;
-  final String? userId;
 
   const FetchUserDetailsEvent({this.user, this.userId});
+  final UserModel? user;
+  final String? userId;
   @override
   List<Object?> get props => [user, userId];
 }

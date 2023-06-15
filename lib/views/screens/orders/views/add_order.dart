@@ -2,30 +2,30 @@
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:flutter/material.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/network/url.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/styles/text_styles.dart';
 import 'package:siparis_takip_sistemi_pro/core/init/navigation/navigation_service.dart';
 import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/core/init/utils/utils.dart';
+import 'package:siparis_takip_sistemi_pro/providers/main_providers.dart';
 import 'package:siparis_takip_sistemi_pro/src/bottomsheets/main_bottom_sheets.dart';
 import 'package:siparis_takip_sistemi_pro/src/button/main_elevated_button.dart';
-import '../../../../providers/main_providers.dart';
-import '../../../../core/constants/network/url.dart';
-import '../../../../src/button/main_elevated_button_without_color.dart';
-import '../../product/model/product.dart';
-import '../bloc/add_order_bloc/orders_bloc.dart';
-import 'add_customer_in_add_order/add_order_add_customer.dart';
-import 'add_order_product_list/add_order_product_list.dart';
+import 'package:siparis_takip_sistemi_pro/src/button/main_elevated_button_without_color.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/orders/views/add_customer_in_add_order/add_order_add_customer.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/orders/views/add_order_product_list/add_order_product_list.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/product/model/product.dart';
 
 class AddOrder extends StatefulWidget {
-  const AddOrder({Key? key}) : super(key: key);
+  const AddOrder({super.key});
 
   @override
   State<AddOrder> createState() => _AddOrderState();
@@ -56,12 +56,13 @@ class _AddOrderState extends State<AddOrder> with BaseModelView {
 }
 
 class PageBuilder extends StatelessWidget {
-  const PageBuilder(
-      {super.key,
-      required this.navService,
-      required this.orderNoteController,
-      required this.utils,
-      required this.appNetwork});
+  const PageBuilder({
+    required this.navService,
+    required this.orderNoteController,
+    required this.utils,
+    required this.appNetwork,
+    super.key,
+  });
 
   final NavigationService navService;
   final TextEditingController orderNoteController;
@@ -76,11 +77,13 @@ class PageBuilder extends StatelessWidget {
           LocaleKeys.order_addOrder.tr(),
         ),
         leading: IconButton(
-            onPressed: () {
-              navService.navigateToPageRemoveAll(
-                  path: NavigationConstants.splashScreen);
-            },
-            icon: const Icon(Icons.arrow_back)),
+          onPressed: () {
+            navService.navigateToPageRemoveAll(
+              path: NavigationConstants.splashScreen,
+            );
+          },
+          icon: const Icon(Icons.arrow_back),
+        ),
         actions: [
           ActionChip(
             disabledColor: Theme.of(context).colorScheme.surface,
@@ -90,19 +93,18 @@ class PageBuilder extends StatelessWidget {
               children: [
                 Text(context.watch<ChangeCurrencyPriceSymbol>().currencySymbol),
                 BlocBuilder<OrdersBloc, OrdersState>(
-                  buildWhen: (previous, current) =>
-                      previous.orderCartTotalPrice !=
-                      current.orderCartTotalPrice,
+                  buildWhen: (previous, current) => previous.orderCartTotalPrice != current.orderCartTotalPrice,
                   builder: (context, state) {
-                    return Text(state.orderCartTotalPrice?.toStringAsFixed(2) ??
-                        "0.00");
+                    return Text(
+                      state.orderCartTotalPrice?.toStringAsFixed(2) ?? '0.00',
+                    );
                   },
                 ),
               ],
             ),
           ),
           const SizedBox(
-            width: 15.0,
+            width: 15,
           )
         ],
       ),
@@ -115,7 +117,7 @@ class PageBuilder extends StatelessWidget {
               OrderNoteField(orderNoteController: orderNoteController),
               const AddProductHeader(),
               const SizedBox(
-                height: 10.0,
+                height: 10,
               ),
               ProductCard(
                 utils: utils,
@@ -125,7 +127,9 @@ class PageBuilder extends StatelessWidget {
                 height: 20,
               ),
               AddOrderButton(
-                  orderNoteController: orderNoteController, utils: utils),
+                orderNoteController: orderNoteController,
+                utils: utils,
+              ),
               const SizedBox(
                 height: 20,
               ),
@@ -145,27 +149,28 @@ class PageBuilder extends StatelessWidget {
 
 class ClearButton extends StatelessWidget {
   const ClearButton({
-    super.key,
     required this.orderNoteController,
+    super.key,
   });
   final TextEditingController orderNoteController;
 
   @override
   Widget build(BuildContext context) {
     return MainElevatedButtonWithoutColor(
-        onPressed: () {
-          orderNoteController.clear();
-          context.read<OrdersBloc>().add(const AddOrderClearProductList());
-        },
-        child: Text(LocaleKeys.mainText_clear.tr()));
+      onPressed: () {
+        orderNoteController.clear();
+        context.read<OrdersBloc>().add(const AddOrderClearProductList());
+      },
+      child: Text(LocaleKeys.mainText_clear.tr()),
+    );
   }
 }
 
 class AddOrderButton extends StatelessWidget {
   const AddOrderButton({
-    super.key,
     required this.orderNoteController,
     required this.utils,
+    super.key,
   });
 
   final TextEditingController orderNoteController;
@@ -174,12 +179,15 @@ class AddOrderButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MainElevatedButton(
-        onPressed: () {
-          context.read<OrdersBloc>().add(AddOrderPostOrderEvent(
+      onPressed: () {
+        context.read<OrdersBloc>().add(
+              AddOrderPostOrderEvent(
                 orderNote: orderNoteController.text.trim(),
-              ));
-        },
-        child: Text(LocaleKeys.order_addOrder.tr()));
+              ),
+            );
+      },
+      child: Text(LocaleKeys.order_addOrder.tr()),
+    );
   }
 }
 
@@ -193,30 +201,31 @@ class AddProductHeader extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-            flex: 1,
-            child: Icon(
-              Icons.view_in_ar,
-              color: Theme.of(context).colorScheme.primary,
-            )),
+          child: Icon(
+            Icons.view_in_ar,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
         Expanded(flex: 3, child: Text(LocaleKeys.product_productName.tr())),
         Expanded(flex: 2, child: Text(LocaleKeys.mainText_quantity.tr())),
         Expanded(
-            flex: 1,
-            child: IconButton(
-              onPressed: () {
-                MainBottomSheets()
-                    .openBottomSheet(context, AddOrderProductList());
-              },
-              icon: Icon(Icons.add_circle_outline,
-                  color: Theme.of(context).colorScheme.primary),
-            )),
+          child: IconButton(
+            onPressed: () {
+              MainBottomSheets().openBottomSheet(context, AddOrderProductList());
+            },
+            icon: Icon(
+              Icons.add_circle_outline,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
+        ),
       ],
     );
   }
 }
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.utils, required this.appNetwork});
+  const ProductCard({required this.utils, required this.appNetwork, super.key});
 
   final UtilsService utils;
   final AppNetwork appNetwork;
@@ -224,65 +233,68 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<OrdersBloc, OrdersState>(
-      buildWhen: (previous, current) =>
-          previous.productList != current.productList,
+      buildWhen: (previous, current) => previous.productList != current.productList,
       builder: (context, state) {
         return Card(
-            color: Theme.of(context).colorScheme.surface,
-            child: ListView.builder(
-              key: UniqueKey(),
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: state.productList?.length ?? 0,
-              itemBuilder: (BuildContext context, int index) {
-                Product? product = state.productList?[index];
-                return Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: ListTile(
-                            title: Text(product?.name ?? ""),
-                            subtitle: Text(
-                                "${product?.price ?? ""} ${context.watch<ChangeCurrencyPriceSymbol>().currencySymbol}"),
+          color: Theme.of(context).colorScheme.surface,
+          child: ListView.builder(
+            key: UniqueKey(),
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: state.productList?.length ?? 0,
+            itemBuilder: (BuildContext context, int index) {
+              final product = state.productList?[index];
+              return Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: ListTile(
+                          title: Text(product?.name ?? ''),
+                          subtitle: Text(
+                            "${product?.price ?? ""} ${context.watch<ChangeCurrencyPriceSymbol>().currencySymbol}",
                           ),
                         ),
-                        Expanded(
-                          flex: 1,
-                          child: ProductCountField(
-                            product: product,
-                            index: index,
+                      ),
+                      Expanded(
+                        child: ProductCountField(
+                          product: product,
+                          index: index,
+                        ),
+                      ),
+                      Expanded(
+                        child: IconButton(
+                          onPressed: () {
+                            try {
+                              context.read<OrdersBloc>().add(
+                                    OrderCartRemoveProductEvent(
+                                      index: index,
+                                    ),
+                                  );
+                            } finally {
+                              utils.showSnackBar(
+                                LocaleKeys.succes_productRemovedFromList.tr(),
+                              );
+                            }
+                          },
+                          icon: Icon(
+                            Icons.delete,
+                            color: AppColors.instance.removeColor,
                           ),
                         ),
-                        Expanded(
-                            flex: 1,
-                            child: IconButton(
-                                onPressed: () {
-                                  try {
-                                    context.read<OrdersBloc>().add(
-                                        OrderCartRemoveProductEvent(
-                                            index: index));
-                                  } finally {
-                                    utils.showSnackBar(LocaleKeys
-                                        .succes_productRemovedFromList
-                                        .tr());
-                                  }
-                                },
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: AppColors.instance.removeColor,
-                                )))
-                      ],
-                    ),
-                    ProductNoteField(
-                      product: product,
-                      index: index,
-                    ),
-                  ],
-                );
-              },
-            ));
+                      )
+                    ],
+                  ),
+                  ProductNoteField(
+                    product: product,
+                    index: index,
+                  ),
+                ],
+              );
+            },
+          ),
+        );
       },
     );
   }
@@ -300,8 +312,7 @@ class ProductCountField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      initialValue: product?.quantity.toString() ?? "0",
-      readOnly: false,
+      initialValue: product?.quantity.toString() ?? '0',
       maxLength: 15,
       textInputAction: TextInputAction.done,
       autovalidateMode: AutovalidateMode.disabled,
@@ -309,20 +320,25 @@ class ProductCountField extends StatelessWidget {
       onChanged: (value) {
         if (value.isNotEmpty) {
           if (int.parse(value) <= 15) {
-            context.read<OrdersBloc>().add(OrderCartChangeProductCountEvent(
-                index: index, count: int.parse(value)));
+            context.read<OrdersBloc>().add(
+                  OrderCartChangeProductCountEvent(
+                    index: index,
+                    count: int.parse(value),
+                  ),
+                );
           }
         }
       },
       decoration: InputDecoration(
-        counterText: "",
+        counterText: '',
         filled: true,
         border: InputBorder.none,
         fillColor: Theme.of(context).colorScheme.surface.withOpacity(0.2),
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
       ]),
     );
   }
@@ -330,8 +346,8 @@ class ProductCountField extends StatelessWidget {
 
 class ProductNoteField extends StatelessWidget {
   const ProductNoteField({
-    super.key,
     required this.product,
+    super.key,
     this.index,
   });
   final Product? product;
@@ -342,11 +358,11 @@ class ProductNoteField extends StatelessWidget {
     return SizedBox(
       height: 70,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         child: FormBuilder(
           key: UniqueKey(),
           child: TextFormField(
-            initialValue: product?.productNote ?? "",
+            initialValue: product?.productNote ?? '',
             decoration: InputDecoration(
               filled: true,
               fillColor: Theme.of(context).colorScheme.surface.withOpacity(0.2),
@@ -356,7 +372,8 @@ class ProductNoteField extends StatelessWidget {
             onChanged: (String value) {
               if (value.isNotEmpty) {
                 context.read<OrdersBloc>().add(
-                    OrderCartChangeProductNoteEvent(index: index, note: value));
+                      OrderCartChangeProductNoteEvent(index: index, note: value),
+                    );
               }
             },
           ),
@@ -368,8 +385,8 @@ class ProductNoteField extends StatelessWidget {
 
 class OrderNoteField extends StatelessWidget {
   const OrderNoteField({
-    super.key,
     required this.orderNoteController,
+    super.key,
   });
 
   final TextEditingController orderNoteController;
@@ -378,7 +395,7 @@ class OrderNoteField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(3.0),
+        padding: const EdgeInsets.all(3),
         child: TextFormField(
           controller: orderNoteController,
           textInputAction: TextInputAction.done,
@@ -403,20 +420,21 @@ class CustomerField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(5.0),
+        padding: const EdgeInsets.all(5),
         child: Row(
           children: [
             Expanded(
               flex: 4,
               child: Column(
-                mainAxisSize: MainAxisSize.max,
                 children: [
                   Row(
                     children: [
                       AutoSizeText(
                         LocaleKeys.customer_customerInfo.tr(),
                         style: const TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.bold),
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
@@ -424,37 +442,36 @@ class CustomerField extends StatelessWidget {
                     height: 10,
                   ),
                   BlocBuilder<OrdersBloc, OrdersState>(
-                    buildWhen: (previous, current) =>
-                        previous.customer != current.customer,
+                    buildWhen: (previous, current) => previous.customer != current.customer,
                     builder: (context, state) {
                       return ListView(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         children: [
                           Text(
-                            "${LocaleKeys.customer_customerName.tr()}: ",
+                            '${LocaleKeys.customer_customerName.tr()}: ',
                             style: justBoldFontTextStyle,
                           ),
                           SelectableText(
-                            state.customer?.name ?? " ",
+                            state.customer?.name ?? ' ',
                             minLines: 1,
                             maxLines: 3,
                           ),
                           Text(
-                            "${LocaleKeys.customer_customerPhone.tr()}: ",
+                            '${LocaleKeys.customer_customerPhone.tr()}: ',
                             style: justBoldFontTextStyle,
                           ),
                           SelectableText(
-                            state.customer?.phone ?? " ",
+                            state.customer?.phone ?? ' ',
                             minLines: 1,
                             maxLines: 3,
                           ),
                           Text(
-                            "${LocaleKeys.customer_customerAddress.tr()}: ",
+                            '${LocaleKeys.customer_customerAddress.tr()}: ',
                             style: justBoldFontTextStyle,
                           ),
                           SelectableText(
-                            state.customer?.address ?? "",
+                            state.customer?.adress ?? '',
                             minLines: 1,
                             maxLines: 3,
                           ),
@@ -466,15 +483,19 @@ class CustomerField extends StatelessWidget {
               ),
             ),
             Expanded(
-                flex: 1,
-                child: IconButton(
-                  onPressed: () {
-                    MainBottomSheets().openBottomSheetNoScrollable(
-                        context, const AddOrderAddCustomer());
-                  },
-                  icon: Icon(Icons.person_add_alt,
-                      color: Theme.of(context).colorScheme.primary),
-                ))
+              child: IconButton(
+                onPressed: () {
+                  MainBottomSheets().openBottomSheetNoScrollable(
+                    context,
+                    const AddOrderAddCustomer(),
+                  );
+                },
+                icon: Icon(
+                  Icons.person_add_alt,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+            )
           ],
         ),
       ),

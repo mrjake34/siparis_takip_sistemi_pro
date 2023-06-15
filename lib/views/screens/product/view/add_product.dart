@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-
-import '../../../../core/constants/colors/colors.dart';
-import '../../../../core/constants/enums/enums.dart';
-import '../../../../core/constants/size/sizes.dart';
-import '../../../../core/init/translation/locale_keys.g.dart';
-import '../../../../core/init/utils/utils.dart';
-import '../bloc/products_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/utils/utils.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/product/bloc/products_bloc.dart';
 
 class AddProduct extends StatelessWidget {
-  AddProduct({Key? key}) : super(key: key);
+  AddProduct({super.key});
   final TextEditingController productNameController = TextEditingController();
 
   final TextEditingController productPriceController = TextEditingController();
@@ -21,19 +20,16 @@ class AddProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PageBuilder(
-        formKey: _formKey,
-        productNameController: productNameController,
-        productPriceController: productPriceController);
+    return PageBuilder(formKey: _formKey, productNameController: productNameController, productPriceController: productPriceController);
   }
 }
 
 class PageBuilder extends StatelessWidget {
   const PageBuilder({
-    super.key,
     required GlobalKey<FormBuilderState> formKey,
     required this.productNameController,
     required this.productPriceController,
+    super.key,
   }) : _formKey = formKey;
 
   final GlobalKey<FormBuilderState> _formKey;
@@ -50,30 +46,24 @@ class PageBuilder extends StatelessWidget {
         children: [
           const LinearField(),
           FormBuilder(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.all(pagePadding),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    ProductNameTextField(
-                        productNameController: productNameController),
-                    ProductPriceTextField(
-                        productPriceController: productPriceController),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    AddProductButton(
-                        formKey: _formKey,
-                        productNameController: productNameController,
-                        productPriceController: productPriceController),
-                  ],
-                ),
-              )),
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(pagePadding),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ProductNameTextField(productNameController: productNameController),
+                  ProductPriceTextField(productPriceController: productPriceController),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  AddProductButton(formKey: _formKey, productNameController: productNameController, productPriceController: productPriceController),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -104,10 +94,10 @@ class LinearField extends StatelessWidget {
 
 class AddProductButton extends StatelessWidget {
   const AddProductButton({
-    super.key,
     required GlobalKey<FormBuilderState> formKey,
     required this.productNameController,
     required this.productPriceController,
+    super.key,
   }) : _formKey = formKey;
 
   final GlobalKey<FormBuilderState> _formKey;
@@ -120,18 +110,17 @@ class AddProductButton extends StatelessWidget {
       children: [
         Expanded(
           child: ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  context.read<ProductsBloc>().add(AddProductEvent(
-                      productName: productNameController.text,
-                      productPrice:
-                          double.tryParse(productPriceController.text)));
-                } else {
-                  UtilsService.instance
-                      .errorSnackBar(LocaleKeys.errors_dontLeaveEmpty.tr());
-                }
-              },
-              child: Text(LocaleKeys.product_addProduct.tr())),
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                context
+                    .read<ProductsBloc>()
+                    .add(AddProductEvent(productName: productNameController.text, productPrice: double.tryParse(productPriceController.text)));
+              } else {
+                UtilsService.instance.errorSnackBar(LocaleKeys.errors_dontLeaveEmpty.tr());
+              }
+            },
+            child: Text(LocaleKeys.product_addProduct.tr()),
+          ),
         ),
       ],
     );
@@ -140,8 +129,8 @@ class AddProductButton extends StatelessWidget {
 
 class ProductPriceTextField extends StatelessWidget {
   const ProductPriceTextField({
-    super.key,
     required this.productPriceController,
+    super.key,
   });
 
   final TextEditingController productPriceController;
@@ -158,8 +147,7 @@ class ProductPriceTextField extends StatelessWidget {
         labelText: LocaleKeys.product_productPrice.tr(),
       ),
       validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+        FormBuilderValidators.required(errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
       ]),
     );
   }
@@ -167,8 +155,8 @@ class ProductPriceTextField extends StatelessWidget {
 
 class ProductNameTextField extends StatelessWidget {
   const ProductNameTextField({
-    super.key,
     required this.productNameController,
+    super.key,
   });
 
   final TextEditingController productNameController;
@@ -184,8 +172,7 @@ class ProductNameTextField extends StatelessWidget {
         labelText: LocaleKeys.product_productName.tr(),
       ),
       validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+        FormBuilderValidators.required(errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
       ]),
     );
   }

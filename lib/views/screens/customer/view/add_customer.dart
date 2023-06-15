@@ -164,7 +164,7 @@ class AddCustomerAddButtonField extends StatelessWidget {
                         customer: Customer(
                           name: customerNameController.text.trim(),
                           phone: customerPhoneController.text.trim(),
-                          address: customerAddressController.text.trim(),
+                          adress: customerAddressController.text.trim(),
                           latitude: Platform.isWindows == false
                               ? context
                                   .watch<GetUserLocation>()

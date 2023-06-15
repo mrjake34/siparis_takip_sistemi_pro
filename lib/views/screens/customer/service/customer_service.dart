@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
@@ -23,7 +21,7 @@ class CustomerService with BaseModelView {
       data: {
         'name': customer?.name,
         'phone': customer?.phone,
-        'adress': customer?.address,
+        'adress': customer?.adress,
         'latitude': customer?.latitude,
         'longitude': customer?.longitude
       },
@@ -41,9 +39,9 @@ class CustomerService with BaseModelView {
       ),
     );
     if (response.statusCode == 200) {
-      final jsonString = json.decode(response.data.toString());
+
       final customer =
-          CustomerList.fromJson(jsonString as Map<String, dynamic>);
+          CustomerList.fromJson(response.data as Map<String, dynamic>);
       return customer;
     } else {
       throw Exception('Failed to load customer list');

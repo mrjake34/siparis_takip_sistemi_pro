@@ -33,38 +33,34 @@ class DoneOrdersEvent extends OrdersEvent {
 }
 
 class OrderCartProductsEvent extends OrdersEvent {
-  final Product? product;
-
   const OrderCartProductsEvent({this.product});
+  final Product? product;
 
   @override
   List<Object?> get props => [product];
 }
 
 class OrderCartRemoveProductEvent extends OrdersEvent {
-  final int? index;
-
   const OrderCartRemoveProductEvent({this.index});
+  final int? index;
 
   @override
   List<Object?> get props => [index];
 }
 
 class OrderCartChangeProductCountEvent extends OrdersEvent {
+  const OrderCartChangeProductCountEvent({this.count, this.index});
   final int? index;
   final int? count;
-
-  const OrderCartChangeProductCountEvent({this.count, this.index});
 
   @override
   List<Object?> get props => [index, count];
 }
 
 class OrderCartChangeProductNoteEvent extends OrdersEvent {
+  const OrderCartChangeProductNoteEvent({this.note, this.index});
   final int? index;
   final String? note;
-
-  const OrderCartChangeProductNoteEvent({this.note, this.index});
 
   @override
   List<Object?> get props => [index, note];
@@ -104,10 +100,11 @@ class AddOrderAddCustomerEvent extends OrdersEvent {
   @override
   List<Object?> get props => [customer];
 }
+
 class ChooseAnOrder extends OrdersEvent {
   const ChooseAnOrder({this.order});
 
-  final Order? order;
+  final OrderListProduct? order;
   @override
   List<Object?> get props => [order];
 }

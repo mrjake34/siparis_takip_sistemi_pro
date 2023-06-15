@@ -77,11 +77,11 @@ class MembershipAgreementProvider extends ChangeNotifier {
 
 
 class OrderDetailProvider with ChangeNotifier {
-  List<Order> order = [];
+  List<OrderListProduct> order = [];
 
-  List<Order> get getOrders => order;
+  List<OrderListProduct> get getOrders => order;
 
-  set addOrder(Order value) {
+  set addOrder(OrderListProduct value) {
     order.add(value);
     notifyListeners();
   }

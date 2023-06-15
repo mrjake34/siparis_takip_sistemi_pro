@@ -55,11 +55,11 @@ class CourierService with BaseModelView {
       ),
     );
     if (response.statusCode == 200) {
-      print(jsonEncode(response.data));
+
       final courierList = CourierList.fromJson(
-        response.data as Map<String,dynamic>,
+        response.data as Map<String, dynamic>,
       );
-      
+
       return courierList;
     } else {
       throw Exception('Failed to load orders');
@@ -78,8 +78,7 @@ class CourierService with BaseModelView {
       ),
     );
     if (response.statusCode == 200) {
-      final courier =
-          Courier.fromJson(response.data['courier'] as Map<String, String>);
+      final courier = Courier.fromJson(response.data['courier'] as Map<String, String>);
       return courier;
     } else {
       throw Exception('Failed to load orders');

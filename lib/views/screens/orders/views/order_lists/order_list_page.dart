@@ -1,23 +1,21 @@
 // ignore_for_file: must_be_immutable
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
-
-import '../../../../../core/init/translation/locale_keys.g.dart';
-import 'order_list_all_orders.dart';
-import 'order_list_completed_orders.dart';
-import 'order_list_ontheway_orders.dart';
-import 'order_list_pending_orders.dart';
-import 'order_list_process_orders.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/orders/views/order_lists/order_list_all_orders.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/orders/views/order_lists/order_list_completed_orders.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/orders/views/order_lists/order_list_ontheway_orders.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/orders/views/order_lists/order_list_pending_orders.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/orders/views/order_lists/order_list_process_orders.dart';
 
 class OrderListPage extends StatelessWidget with BaseModelView {
   OrderListPage({super.key, this.pageIndex});
   final int? pageIndex;
 
   final PersistentTabController _controller =
-      PersistentTabController(initialIndex: 0);
+      PersistentTabController();
 
   List<Widget> orderPages() {
     return [
@@ -82,6 +80,6 @@ class OrderListPage extends StatelessWidget with BaseModelView {
           screens: orderPages(),
           items: bottomNavBarItems(),
           navBarStyle: NavBarStyle.style3,
-        ));
+        ),);
   }
 }

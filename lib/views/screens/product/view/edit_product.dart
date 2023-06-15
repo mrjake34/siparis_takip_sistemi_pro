@@ -8,14 +8,13 @@ import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/network_enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/providers/product_providers.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/product/bloc/products_bloc.dart';
-
-import '../../../../providers/product_providers.dart';
-import '../model/product.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/product/model/product.dart';
 
 class EditProduct extends StatefulWidget {
   final String id;
-  const EditProduct({super.key, required this.id});
+  const EditProduct({required this.id, super.key});
 
   @override
   State<EditProduct> createState() => _EditProductState();
@@ -38,9 +37,10 @@ class _EditProductState extends State<EditProduct> {
           const LinearField(),
           Flexible(
             child: BodyBuilder(
-                widget: widget,
-                nameController: nameController,
-                priceController: priceController),
+              widget: widget,
+              nameController: nameController,
+              priceController: priceController,
+            ),
           ),
         ],
       ),
@@ -72,10 +72,10 @@ class LinearField extends StatelessWidget {
 
 class BodyBuilder extends StatelessWidget {
   const BodyBuilder({
-    super.key,
     required this.widget,
     required this.nameController,
     required this.priceController,
+    super.key,
   });
 
   final EditProduct widget;
@@ -87,29 +87,30 @@ class BodyBuilder extends StatelessWidget {
     return BlocBuilder<ProductsBloc, ProductsState>(
       builder: (context, state) {
         if (state.productList != null) {
-          Product? product = state.productList?.products
-              .firstWhere((element) => element.id == widget.id);
-          nameController.text = product?.name ?? "";
-          priceController.text = product?.price.toString() ?? "";
+          final product = state.productList?.products.firstWhere((element) => element.id == widget.id);
+          nameController.text = product?.name ?? '';
+          priceController.text = product?.price.toString() ?? '';
           return ListView(
             padding: const EdgeInsets.all(pagePadding),
             children: [
               EditProductNameTextField(nameController: nameController),
               const SizedBox(
-                height: 10.0,
+                height: 10,
               ),
               EditProductNameButtonField(
-                  nameController: nameController, product: product),
+                nameController: nameController,
+                product: product,
+              ),
               const SizedBox(
-                height: 10.0,
+                height: 10,
               ),
               EditProductPriceTextField(priceController: priceController),
               const SizedBox(
-                height: 10.0,
+                height: 10,
               ),
               const EditProductPriceButtonField(),
               const SizedBox(
-                height: 10.0,
+                height: 10,
               ),
             ],
           );
@@ -129,8 +130,8 @@ class BodyBuilder extends StatelessWidget {
 
 class EditProductNameTextField extends StatelessWidget {
   const EditProductNameTextField({
-    super.key,
     required this.nameController,
+    super.key,
   });
 
   final TextEditingController nameController;
@@ -148,7 +149,8 @@ class EditProductNameTextField extends StatelessWidget {
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
       ]),
     );
   }
@@ -156,9 +158,9 @@ class EditProductNameTextField extends StatelessWidget {
 
 class EditProductNameButtonField extends StatelessWidget {
   const EditProductNameButtonField({
-    super.key,
     required this.nameController,
     required this.product,
+    super.key,
   });
 
   final TextEditingController nameController;
@@ -168,38 +170,40 @@ class EditProductNameButtonField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         ElevatedButton(
-            onPressed: () {
-              context.read<ProductsBloc>().add(EditProductEvent(
-                  key: PatchProductEnums.name,
-                  value: nameController.text.trim(),
-                  id: product?.id));
-            },
-            child: Text(LocaleKeys.mainText_save.tr())),
-        const SizedBox(
-          width: 10.0,
+          onPressed: () {
+            context.read<ProductsBloc>().add(
+                  EditProductEvent(
+                    key: PatchProductEnums.name,
+                    value: nameController.text.trim(),
+                    id: product?.id,
+                  ),
+                );
+          },
+          child: Text(LocaleKeys.mainText_save.tr()),
         ),
-        context.watch<EditProductNameEditButtonProvider>().getEditing == false
-            ? ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                onPressed: () {
-                  context
-                      .read<EditProductNameEditButtonProvider>()
-                      .setEditing();
-                },
-                child: Text(LocaleKeys.mainText_edit.tr()))
-            : ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                onPressed: () {
-                  context
-                      .read<EditProductNameEditButtonProvider>()
-                      .setEditing();
-                },
-                child: Text(LocaleKeys.mainText_cancel.tr())),
         const SizedBox(
-          width: 10.0,
+          width: 10,
+        ),
+        if (context.watch<EditProductNameEditButtonProvider>().getEditing == false)
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+            onPressed: () {
+              context.read<EditProductNameEditButtonProvider>().setEditing();
+            },
+            child: Text(LocaleKeys.mainText_edit.tr()),
+          )
+        else
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () {
+              context.read<EditProductNameEditButtonProvider>().setEditing();
+            },
+            child: Text(LocaleKeys.mainText_cancel.tr()),
+          ),
+        const SizedBox(
+          width: 10,
         ),
       ],
     );
@@ -208,8 +212,8 @@ class EditProductNameButtonField extends StatelessWidget {
 
 class EditProductPriceTextField extends StatelessWidget {
   const EditProductPriceTextField({
-    super.key,
     required this.priceController,
+    super.key,
   });
 
   final TextEditingController priceController;
@@ -230,7 +234,8 @@ class EditProductPriceTextField extends StatelessWidget {
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr()),
+          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+        ),
       ]),
     );
   }
@@ -245,32 +250,32 @@ class EditProductPriceButtonField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         ElevatedButton(
-            onPressed: () {}, child: Text(LocaleKeys.mainText_save.tr())),
-        const SizedBox(
-          width: 10.0,
+          onPressed: () {},
+          child: Text(LocaleKeys.mainText_save.tr()),
         ),
-        context.watch<EditProductPriceEditButtonProvider>().getEditing == false
-            ? ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                onPressed: () {
-                  context
-                      .read<EditProductPriceEditButtonProvider>()
-                      .setEditing();
-                },
-                child: Text(LocaleKeys.mainText_edit.tr()))
-            : ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                onPressed: () {
-                  context
-                      .read<EditProductPriceEditButtonProvider>()
-                      .setEditing();
-                },
-                child: Text(LocaleKeys.mainText_cancel.tr())),
         const SizedBox(
-          width: 10.0,
+          width: 10,
+        ),
+        if (context.watch<EditProductPriceEditButtonProvider>().getEditing == false)
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+            onPressed: () {
+              context.read<EditProductPriceEditButtonProvider>().setEditing();
+            },
+            child: Text(LocaleKeys.mainText_edit.tr()),
+          )
+        else
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            onPressed: () {
+              context.read<EditProductPriceEditButtonProvider>().setEditing();
+            },
+            child: Text(LocaleKeys.mainText_cancel.tr()),
+          ),
+        const SizedBox(
+          width: 10,
         ),
       ],
     );

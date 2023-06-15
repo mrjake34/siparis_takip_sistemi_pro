@@ -61,9 +61,9 @@ class PageBuilder extends StatelessWidget {
                 builder: (context, state) {
                   if (state.customerList != null) {
                     final customer = state.customerList?.customers
-                        ?.firstWhere((element) => element.id == id);
+                        .firstWhere((element) => element.id == id);
                     nameController.text = customer?.name ?? '';
-                    addressController.text = customer?.address ?? '';
+                    addressController.text = customer?.adress ?? '';
                     phoneController.text = customer?.phone ?? '';
                     return Column(
                       children: [

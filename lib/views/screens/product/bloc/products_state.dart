@@ -22,4 +22,3 @@ class ProductsState extends Equatable {
     );
   }
 }
-

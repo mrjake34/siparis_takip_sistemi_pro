@@ -8,30 +8,29 @@ abstract class ProductsEvent extends Equatable {
 }
 
 class ProductListEvent extends ProductsEvent {
-  final ProductList? productList;
-
   const ProductListEvent({this.productList});
+  final ProductList? productList;
 
   @override
   List<Object?> get props => [productList];
 }
 
 class AddProductEvent extends ProductsEvent {
-  final String? productName;
-  final double? productPrice;
 
   const AddProductEvent({this.productName, this.productPrice});
+  final String? productName;
+  final double? productPrice;
 
   @override
   List<Object?> get props => [productName, productPrice];
 }
 
 class EditProductEvent extends ProductsEvent {
+
+  const EditProductEvent({this.key, this.value, this.id});
   final PatchProductEnums? key;
   final String? value;
   final String? id;
-
-  const EditProductEvent({this.key, this.value, this.id});
 
   @override
   List<Object?> get props => [key, value, id];

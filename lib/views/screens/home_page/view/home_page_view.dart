@@ -46,8 +46,7 @@ class BuildPage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              NavigationService.instance
-                  .navigateToPage(path: NavigationConstants.userProfile);
+              NavigationService.instance.navigateToPage(path: NavigationConstants.userProfile);
             },
             icon: const Icon(CupertinoIcons.profile_circled),
           )
@@ -273,8 +272,7 @@ class FetchProductsCountBox extends StatelessWidget {
     return Flexible(
       child: GestureDetector(
         onTap: () {
-          NavigationService.instance
-              .navigateToPage(path: NavigationConstants.productListPage);
+          NavigationService.instance.navigateToPage(path: NavigationConstants.productListPage);
         },
         child: Card(
           color: appColors.productsColor,
@@ -314,8 +312,7 @@ class FetchOrdersCountBox extends StatelessWidget {
     return Flexible(
       child: GestureDetector(
         onTap: () {
-          NavigationService.instance
-              .navigateToPage(path: NavigationConstants.orderListPage);
+          NavigationService.instance.navigateToPage(path: NavigationConstants.orderListPage);
         },
         child: Card(
           color: appColors.ordersColor,
@@ -332,7 +329,7 @@ class FetchOrdersCountBox extends StatelessWidget {
               subtitle: BlocBuilder<OrdersBloc, OrdersState>(
                 builder: (context, state) {
                   return CustomAutoSizeNumber(
-                    data: '${state.orderList?.order.length ?? 0}',
+                    data: '${state.orderList?.products.length ?? 0}',
                     textColor: Colors.white,
                   );
                 },
@@ -355,8 +352,7 @@ class FetchCouriersCountBox extends StatelessWidget {
     return Flexible(
       child: GestureDetector(
         onTap: () {
-          NavigationService.instance
-              .navigateToPage(path: NavigationConstants.courierListPage);
+          NavigationService.instance.navigateToPage(path: NavigationConstants.courierListPage);
         },
         child: Card(
           color: appColors.couriersColor,
@@ -373,7 +369,7 @@ class FetchCouriersCountBox extends StatelessWidget {
               subtitle: BlocBuilder<CourierBloc, CourierState>(
                 builder: (context, state) {
                   return CustomAutoSizeNumber(
-                    data: '${state.courierList?.couriers?.length ?? 0}',
+                    data: '${state.courierList?.couriers.length ?? 0}',
                     textColor: Colors.white,
                   );
                 },
@@ -396,8 +392,7 @@ class FetchCustomersCountBox extends StatelessWidget {
     return Flexible(
       child: GestureDetector(
         onTap: () {
-          NavigationService.instance
-              .navigateToPage(path: NavigationConstants.customerListPage);
+          NavigationService.instance.navigateToPage(path: NavigationConstants.customerListPage);
         },
         child: Card(
           color: appColors.customersColor,
@@ -414,7 +409,7 @@ class FetchCustomersCountBox extends StatelessWidget {
               subtitle: BlocBuilder<CustomerBloc, CustomerState>(
                 builder: (context, state) {
                   return CustomAutoSizeNumber(
-                    data: '${state.customerList?.customers?.length ?? 0}',
+                    data: '${state.customerList?.customers.length ?? 0}',
                     textColor: Colors.white,
                   );
                 },

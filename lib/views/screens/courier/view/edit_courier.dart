@@ -87,7 +87,7 @@ class CourierEditField extends StatelessWidget {
         builder: (context, state) {
           if (state.courierList != null) {
             final couriers = state.courierList?.couriers
-                ?.firstWhere((element) => element.id == id);
+                .firstWhere((element) => element.id == id);
             nameController.text = couriers?.name ?? '';
             emailController.text = couriers?.email ?? '';
             phoneController.text = couriers?.phone ?? '';

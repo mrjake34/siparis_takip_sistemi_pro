@@ -6,26 +6,46 @@ part of 'user.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
+      message: json['message'] as String,
+      user: User.fromJson(json['user'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
+      'message': instance.message,
+      'user': instance.user,
+    };
+
 User _$UserFromJson(Map<String, dynamic> json) => User(
-      role: json['role'] as String?,
       id: json['id'] as String?,
       name: json['name'] as String?,
       email: json['email'] as String?,
-      phone: json['phone'] as String?,
       password: json['password'] as String?,
+      phone: json['phone'] as String?,
       shopName: json['shopName'] as String?,
+      role: json['role'] as String?,
       paymentStatus: json['paymentStatus'] as bool?,
-      updatedAt: json['updatedAt'] as String?,
+      createdAt: json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
+      updatedAt: json['updatedAt'] == null
+          ? null
+          : DateTime.parse(json['updatedAt'] as String),
+      ip: json['ip'] as String?,
+      refreshToken: json['refreshToken'] as String?,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'email': instance.email,
-      'phone': instance.phone,
       'password': instance.password,
+      'phone': instance.phone,
       'shopName': instance.shopName,
       'role': instance.role,
       'paymentStatus': instance.paymentStatus,
-      'updatedAt': instance.updatedAt,
+      'createdAt': instance.createdAt?.toIso8601String(),
+      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'ip': instance.ip,
+      'refreshToken': instance.refreshToken,
     };

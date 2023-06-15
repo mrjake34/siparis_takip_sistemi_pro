@@ -44,7 +44,7 @@ class PageBuilder extends StatelessWidget {
         builder: (context, state) {
           if (state.customerList != null) {
             final customer = state.customerList?.customers
-                ?.firstWhere((element) => element.id == customerId);
+                .firstWhere((element) => element.id == customerId);
             final createdTime = customer?.createdAt;
             return SingleChildScrollView(
               padding: const EdgeInsets.all(pagePadding),
@@ -199,7 +199,7 @@ class CustomerDetailCardCustomerAddress extends StatelessWidget {
     return Card(
       child: ListTile(
         title: Text(LocaleKeys.customer_customerAddress.tr()),
-        subtitle: SelectableText(customer?.address ?? ''),
+        subtitle: SelectableText(customer?.adress ?? ''),
       ),
     );
   }

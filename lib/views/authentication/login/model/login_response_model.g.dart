@@ -9,25 +9,26 @@ part of 'login_response_model.dart';
 LoginResponseModel _$LoginResponseModelFromJson(Map<String, dynamic> json) =>
     LoginResponseModel(
       message: json['message'] as String?,
-      user: json['user'] == null
+      User: json['User'] == null
           ? null
-          : UserModel.fromJson(Map<String, String>.from(json['user'] as Map)),
+          : LoginModel.fromJson(Map<String, String>.from(json['User'] as Map)),
     );
 
 Map<String, dynamic> _$LoginResponseModelToJson(LoginResponseModel instance) =>
     <String, dynamic>{
       'message': instance.message,
-      'user': instance.user,
+      'User': instance.User,
     };
 
-UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
-      id: json['id'] as String,
+LoginModel _$LoginModelFromJson(Map<String, dynamic> json) => LoginModel(
+      Id: json['Id'] as String,
       shopName: json['shopName'] as String,
       role: json['role'] as String,
     );
 
-Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
-      'id': instance.id,
+Map<String, dynamic> _$LoginModelToJson(LoginModel instance) =>
+    <String, dynamic>{
+      'Id': instance.Id,
       'shopName': instance.shopName,
       'role': instance.role,
     };

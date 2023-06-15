@@ -68,9 +68,9 @@ class CustomerListBuilder extends StatelessWidget {
         if (state.customerList?.customers != null) {
           return ListView.builder(
             padding: const EdgeInsets.all(pagePadding),
-            itemCount: state.customerList?.customers?.length ?? 0,
+            itemCount: state.customerList?.customers.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
-              final customer = state.customerList?.customers?[index];
+              final customer = state.customerList?.customers[index];
               return Card(
                 child: Row(
                   children: [
@@ -132,7 +132,7 @@ class CustomerListCardCustomerField extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text(customer?.address ?? ''),
+            title: Text(customer?.adress ?? ''),
             subtitle: Text(customer?.phone ?? ''),
           ),
         ],

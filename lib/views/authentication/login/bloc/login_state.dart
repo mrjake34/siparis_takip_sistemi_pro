@@ -5,7 +5,7 @@ class LoginState extends Equatable {
   const LoginState({this.status, this.validate, this.model, this.autoLogin});
   final Enum? status;
   final Enum? validate;
-  final User? model;
+  final UserModel? model;
   final Enum? autoLogin;
   @override
   List<Object?> get props => [status, validate, model, autoLogin];
@@ -13,7 +13,7 @@ class LoginState extends Equatable {
   LoginState copyWith({
     Enum? status,
     Enum? validate,
-    User? model,
+    UserModel? model,
     Enum? autoLogin,
   }) {
     return LoginState(

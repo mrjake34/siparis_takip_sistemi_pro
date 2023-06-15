@@ -2,48 +2,37 @@
 //
 //     final orderList = orderListFromJson(jsonString);
 
-// ignore_for_file: constant_identifier_names
+import 'package:json_annotation/json_annotation.dart';
+part 'order.g.dart';
 
-import 'dart:convert';
-
-OrderList orderListFromJson(String str) =>
-    OrderList.fromJson(jsonDecode(str) as Map<String, dynamic>);
-
-String orderListToJson(OrderList data) => json.encode(data.toJson());
-
+@JsonSerializable()
 class OrderList {
-  const OrderList({
+
+  OrderList({
     required this.message,
-    required this.order,
+    required this.products,
   });
 
-  factory OrderList.fromJson(Map<String, dynamic> json) => OrderList(
-        message: json['message'].toString(),
-        order: List<Order>.from(
-          (json['products'] as List<dynamic>)
-              .map((dynamic x) => Order.fromJson(x as Map<String, dynamic>)),
-        ),
-      );
+  factory OrderList.fromJson(Map<String, dynamic> json) => _$OrderListFromJson(json);
   final String message;
-  final List<Order> order;
+  final List<OrderListProduct> products;
 
   OrderList copyWith({
     String? message,
-    List<Order>? order,
+    List<OrderListProduct>? products,
   }) =>
       OrderList(
         message: message ?? this.message,
-        order: order ?? this.order,
+        products: products ?? this.products,
       );
 
-  Map<String, dynamic> toJson() => {
-        'message': message,
-        'products': List<dynamic>.from(order.map((x) => x.toJson())),
-      };
+  Map<String, dynamic> toJson() => _$OrderListToJson(this);
 }
 
-class Order {
-  Order({
+@JsonSerializable()
+class OrderListProduct {
+
+  OrderListProduct({
     required this.id,
     required this.shopName,
     required this.customerId,
@@ -55,24 +44,10 @@ class Order {
     required this.updatedAt,
   });
 
-  factory Order.fromJson(Map<String, dynamic> json) => Order(
-        id: json['_id'].toString(),
-        shopName: shopNameValues.map[json['shopName']]!,
-        customerId: customerIdValues.map[json['customerId']]!,
-        products: List<ProductProduct>.from(
-          (json['products'] as List<dynamic>).map(
-            (dynamic x) => ProductProduct.fromJson(x as Map<String, dynamic>),
-          ),
-        ),
-        orderNote: json['orderNote'].toString(),
-        totalPrice: double.tryParse(json['totalPrice'].toString()) ?? 0.0,
-        orderStatus: json['orderStatus'].toString(),
-        createdAt: DateTime.parse(json['createdAt'].toString()),
-        updatedAt: DateTime.parse(json['updatedAt'].toString()),
-      );
+  factory OrderListProduct.fromJson(Map<String, dynamic> json) => _$OrderListProductFromJson(json);
   final String id;
-  final ShopName shopName;
-  final CustomerId customerId;
+  final String shopName;
+  final String customerId;
   final List<ProductProduct> products;
   final String orderNote;
   final double totalPrice;
@@ -80,10 +55,10 @@ class Order {
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  Order copyWith({
+  OrderListProduct copyWith({
     String? id,
-    ShopName? shopName,
-    CustomerId? customerId,
+    String? shopName,
+    String? customerId,
     List<ProductProduct>? products,
     String? orderNote,
     double? totalPrice,
@@ -91,7 +66,7 @@ class Order {
     DateTime? createdAt,
     DateTime? updatedAt,
   }) =>
-      Order(
+      OrderListProduct(
         id: id ?? this.id,
         shopName: shopName ?? this.shopName,
         customerId: customerId ?? this.customerId,
@@ -103,44 +78,19 @@ class Order {
         updatedAt: updatedAt ?? this.updatedAt,
       );
 
-  Map<String, dynamic> toJson() => {
-        '_id': id,
-        'shopName': shopNameValues.reverse[shopName],
-        'customerId': customerIdValues.reverse[customerId],
-        'products': List<dynamic>.from(products.map((x) => x.toJson())),
-        'orderNote': orderNote,
-        'totalPrice': totalPrice,
-        'orderStatus': orderStatus,
-        'createdAt': createdAt.toIso8601String(),
-        'updatedAt': updatedAt.toIso8601String(),
-      };
+  Map<String, dynamic> toJson() => _$OrderListProductToJson(this);
 }
 
-enum CustomerId {
-  THE_643_DCB2_AFD17_C75_B9_D1702_A0,
-  THE_644270_BBC71_AAD97681716_AA,
-  THE_64427447_D2_AB860_EBE0_A718_F
-}
-
-final customerIdValues = EnumValues({
-  '643dcb2afd17c75b9d1702a0': CustomerId.THE_643_DCB2_AFD17_C75_B9_D1702_A0,
-  '644270bbc71aad97681716aa': CustomerId.THE_644270_BBC71_AAD97681716_AA,
-  '64427447d2ab860ebe0a718f': CustomerId.THE_64427447_D2_AB860_EBE0_A718_F
-});
-
+@JsonSerializable()
 class ProductProduct {
+
   ProductProduct({
     required this.productId,
     required this.quantity,
     required this.id, this.productNote,
   });
 
-  factory ProductProduct.fromJson(Map<String, dynamic> json) => ProductProduct(
-        productId: json['productId'].toString(),
-        quantity: json['quantity'].toString(),
-        productNote: json['productNote'].toString(),
-        id: json['_id'].toString(),
-      );
+  factory ProductProduct.fromJson(Map<String, dynamic> json) => _$ProductProductFromJson(json);
   final String productId;
   final String quantity;
   final String? productNote;
@@ -159,24 +109,5 @@ class ProductProduct {
         id: id ?? this.id,
       );
 
-  Map<String, dynamic> toJson() => {
-        'productId': productId,
-        'quantity': quantity,
-        'productNote': productNote,
-        '_id': id,
-      };
-}
-
-enum ShopName { EFES_TECH }
-
-final shopNameValues = EnumValues({'Efes Tech': ShopName.EFES_TECH});
-
-class EnumValues<T> {
-  EnumValues(this.map);
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  Map<T, String> get reverse {
-    return reverseMap = map.map((k, v) => MapEntry(v, k));
-  }
+  Map<String, dynamic> toJson() => _$ProductProductToJson(this);
 }

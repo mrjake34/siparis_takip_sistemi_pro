@@ -2,8 +2,12 @@
 part of 'splash_screen_cubit.dart';
 
 class SplashScreenState extends Equatable {
-  const SplashScreenState(
-      {this.position, this.locationService, this.status, this.role});
+  const SplashScreenState({
+    this.position,
+    this.locationService,
+    this.status,
+    this.role,
+  });
   final Enum? status;
   final String? role;
   final Enum? locationService;

@@ -24,27 +24,27 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
       emit(state.copyWith(status: Status.isDone, orderList: response));
     });
     on<PendingOrdersEvent>((event, emit) {
-      final response = state.orderList?.order
+      final response = state.orderList?.products
           .where((element) => element.orderStatus == 'waiting')
           .toList();
 
       emit(state.copyWith(pendingOrders: response));
     });
     on<ProcessOrdersEvent>((event, emit) async {
-      final response = state.orderList?.order
+      final response = state.orderList?.products
           .where((element) => element.orderStatus == 'inProcess')
           .toList();
       emit(state.copyWith(processOrders: response));
     });
     on<OnTheWayOrdersEvent>((event, emit) {
-      final response = state.orderList?.order
+      final response = state.orderList?.products
           .where((element) => element.orderStatus == 'inDistribution')
           .toList();
 
       emit(state.copyWith(onTheWayOrders: response));
     });
     on<DoneOrdersEvent>((event, emit) {
-      final response = state.orderList?.order
+      final response = state.orderList?.products
           .where((element) => element.orderStatus == 'completed')
           .toList();
       emit(state.copyWith(doneOrders: response));

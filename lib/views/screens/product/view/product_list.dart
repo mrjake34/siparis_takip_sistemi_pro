@@ -1,19 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../core/constants/colors/colors.dart';
-import '../../../../core/constants/enums/enums.dart';
-import '../../../../core/constants/size/sizes.dart';
-import '../../../../core/init/translation/locale_keys.g.dart';
-import '../../../../providers/main_providers.dart';
-import '../../../../src/bottomsheets/main_bottom_sheets.dart';
-import '../bloc/products_bloc.dart';
-import '../model/product.dart';
-import '../widgets/product_list_bottomsheet.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/providers/main_providers.dart';
+import 'package:siparis_takip_sistemi_pro/src/bottomsheets/main_bottom_sheets.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/product/bloc/products_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/product/model/product.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/product/widgets/product_list_bottomsheet.dart';
 
 class ProductListPage extends StatelessWidget {
-  const ProductListPage({Key? key}) : super(key: key);
+  const ProductListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +45,7 @@ class PageBuilder extends StatelessWidget {
                     padding: const EdgeInsets.all(pagePadding),
                     itemCount: state.productList?.products.length ?? 0,
                     itemBuilder: (BuildContext context, int index) {
-                      Product? product = state.productList?.products[index];
+                      final product = state.productList?.products[index];
                       return Card(
                         child: Row(
                           children: [
@@ -55,7 +54,6 @@ class PageBuilder extends StatelessWidget {
                               child: ProductDetailField(product: product),
                             ),
                             Expanded(
-                              flex: 1,
                               child: CardMoreButton(product: product),
                             ),
                           ],
@@ -101,8 +99,8 @@ class LinearField extends StatelessWidget {
 
 class ProductDetailField extends StatelessWidget {
   const ProductDetailField({
-    super.key,
     required this.product,
+    super.key,
   });
 
   final Product? product;
@@ -114,9 +112,8 @@ class ProductDetailField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ListTile(
-          title: Text(product?.name ?? ""),
-          subtitle: Text(
-              "${product?.price ?? ""} ${context.watch<ChangeCurrencyPriceSymbol>().currencySymbol}"),
+          title: Text(product?.name ?? ''),
+          subtitle: Text("${product?.price ?? ""} ${context.watch<ChangeCurrencyPriceSymbol>().currencySymbol}"),
         ),
       ],
     );
@@ -125,8 +122,8 @@ class ProductDetailField extends StatelessWidget {
 
 class CardMoreButton extends StatelessWidget {
   const CardMoreButton({
-    super.key,
     required this.product,
+    super.key,
   });
 
   final Product? product;
@@ -134,12 +131,10 @@ class CardMoreButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {
-          MainBottomSheets().openBottomSheet(
-              context, ProductListBottomSheet(product: product));
-        },
-        child: CircleAvatar(
-            backgroundColor: Theme.of(context).colorScheme.surface,
-            child: const Icon(Icons.more_vert)));
+      onTap: () {
+        MainBottomSheets().openBottomSheet(context, ProductListBottomSheet(product: product));
+      },
+      child: CircleAvatar(backgroundColor: Theme.of(context).colorScheme.surface, child: const Icon(Icons.more_vert)),
+    );
   }
 }

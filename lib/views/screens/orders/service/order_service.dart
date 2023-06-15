@@ -13,14 +13,13 @@ import 'package:vexana/vexana.dart';
 class OrderService extends IOrderService with BaseModelView {
   OrderService();
   @override
-  Future<dynamic> postOrder(String customerId, String orderNote,
-      List<dynamic> orderListPostOut,) async {
+  Future<dynamic> postOrder(
+    String customerId,
+    String orderNote,
+    List<dynamic> orderListPostOut,
+  ) async {
     final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final body = jsonEncode({
-      'customerId': customerId,
-      'orderNote': orderNote,
-      'products': orderListPostOut
-    });
+    final body = jsonEncode({'customerId': customerId, 'orderNote': orderNote, 'products': orderListPostOut});
     final response = await networkService.dio.post(
       appNetwork.postOrderUrl,
       options: Options(
@@ -51,8 +50,7 @@ class OrderService extends IOrderService with BaseModelView {
       ),
     );
     if (response.statusCode == HttpStatus.ok) {
-      final orderList =
-          OrderList.fromJson(response.data as Map<String, dynamic>);
+      final orderList = OrderList.fromJson(response.data as Map<String, dynamic>);
       return orderList;
     } else if (response.statusCode == HttpStatus.badRequest) {
       return null;
@@ -62,7 +60,7 @@ class OrderService extends IOrderService with BaseModelView {
   }
 
   @override
-  Future<Order> getOrder(String id) async {
+  Future<OrderListProduct> getOrder(String id) async {
     final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
 
     final response = await networkService.dio.get(
@@ -74,7 +72,7 @@ class OrderService extends IOrderService with BaseModelView {
         },
       ),
     );
-    final order = Order.fromJson(response.data as Map<String, dynamic>);
+    final order = OrderListProduct.fromJson(response.data as Map<String, dynamic>);
     return order;
   }
 

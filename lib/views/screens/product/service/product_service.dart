@@ -1,5 +1,3 @@
-
-
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
@@ -23,8 +21,7 @@ class ProductService with BaseModelView {
     );
 
     if (response.statusCode == 200) {
-      final productList =
-          ProductList.fromJson(response.data as Map<String, dynamic>);
+      final productList = ProductList.fromJson(response.data as Map<String, dynamic>);
       return productList;
     } else {
       utils.errorSnackBar(LocaleKeys.errors_failedLoadData.tr());
@@ -86,15 +83,17 @@ class ProductService with BaseModelView {
     if (kDebugMode) {
       print(response.data);
     }
-    final product =
-        Product.fromJson(response.data['product'] as Map<String, dynamic>);
+    final product = Product.fromJson(response.data['product'] as Map<String, dynamic>);
 
     return product;
   }
 
-  Future<Response<dynamic>?> patchProduct(
-      {PatchProductEnums? key, String? value, String? id}) async {
-    String? cookie = sharedManager.getStringValue(PreferenceKey.cookie);
+  Future<Response<dynamic>?> patchProduct({
+    PatchProductEnums? key,
+    String? value,
+    String? id,
+  }) async {
+    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
     if (id != null && value != null) {
       final response = await networkService.dio.patch(
         appNetwork.productUrlWithSlash + id,

@@ -89,9 +89,9 @@ class CourierListBuilder extends StatelessWidget {
         if (state.courierList != null) {
           return ListView.builder(
             padding: const EdgeInsets.all(pagePadding),
-            itemCount: state.courierList?.couriers?.length ?? 0,
+            itemCount: state.courierList?.couriers.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
-              final couriers = state.courierList?.couriers?[index];
+              final couriers = state.courierList?.couriers[index];
               return Card(
                 color: Theme.of(context).colorScheme.surface,
                 child: Row(

@@ -5,13 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/home_page/view/home_page_view.dart';
-
-import '../../../../core/init/translation/locale_keys.g.dart';
-import '../cubit/splash_screen_cubit.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/splash/cubit/splash_screen_cubit.dart';
 
 class SplashScreen extends StatelessWidget with BaseModelView {
-  SplashScreen({Key? key}) : super(key: key);
+  SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class SplashScreen extends StatelessWidget with BaseModelView {
                 .errorSnackBar(LocaleKeys.errors_locationPermissionDenied.tr());
           } else if (state.locationService == LocationService.deniedForever) {
             utils.errorSnackBar(
-                LocaleKeys.errors_locationServiceDeniedForever.tr());
+                LocaleKeys.errors_locationServiceDeniedForever.tr(),);
           }
         },
         builder: (context, state) {
@@ -41,7 +40,7 @@ class SplashScreen extends StatelessWidget with BaseModelView {
             );
           } else {
             return HomePageView(
-              userRole: state.role ?? "",
+              userRole: state.role ?? '',
             );
           }
         },
