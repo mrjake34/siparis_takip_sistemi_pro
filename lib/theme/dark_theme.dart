@@ -23,11 +23,6 @@ ThemeData darkTheme = ThemeData(
       //Card Text
       tertiary: Color.fromARGB(255, 159, 159, 159),
       onTertiary: Color.fromARGB(255, 166, 166, 166),),
-  //Text
-  cardTheme: CardTheme(
-      elevation: 5,
-      surfaceTintColor: Colors.transparent,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),),
   elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
           textStyle: const TextStyle(fontWeight: FontWeight.bold),

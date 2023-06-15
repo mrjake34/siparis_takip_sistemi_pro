@@ -13,10 +13,6 @@ enum PreferenceKey {
   theme,
 }
 
-enum ThemeEnums {
-  lightTheme,
-  darkTheme
-}
 
 enum Status { isValidate, isLoading, isDone, isFailed }
 

@@ -1,4 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -146,8 +147,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> checkTheme() async {
-    context.read<ThemeChange>().changeTheme =
-        await ThemeService().getThemeFromSave() ?? lightTheme;
+    final theme = await ThemeService().getThemeFromSave();
+    if (theme != null) {
+      context.read<ThemeChange>().changeTheme = theme;
+    }
   }
 
   @override

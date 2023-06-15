@@ -24,11 +24,6 @@ ThemeData lightTheme = ThemeData(
     tertiary: Color.fromARGB(255, 255, 255, 255),
     onTertiary: Color.fromARGB(255, 255, 255, 255),
   ),
-  cardTheme: CardTheme(
-    elevation: 5,
-    surfaceTintColor: Colors.transparent,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-  ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       textStyle: const TextStyle(fontWeight: FontWeight.bold),
