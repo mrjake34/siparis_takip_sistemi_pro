@@ -193,8 +193,7 @@ class PasswordFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final visibility =
-        Provider.of<ChangePasswordVisibilityProvider>(context).getVisibility;
+    final visibility = Provider.of<ChangePasswordVisibilityProvider>(context).getVisibility;
 
     return TextFormField(
       autofillHints: const [AutofillHints.password],
@@ -217,11 +216,9 @@ class PasswordFormField extends StatelessWidget {
           ),
           onPressed: () {
             if (visibility == true) {
-              context.read<ChangePasswordVisibilityProvider>().setVisibility =
-                  false;
+              context.read<ChangePasswordVisibilityProvider>().setVisibility = false;
             } else {
-              context.read<ChangePasswordVisibilityProvider>().setVisibility =
-                  true;
+              context.read<ChangePasswordVisibilityProvider>().setVisibility = true;
             }
           },
         ),
@@ -257,8 +254,7 @@ class LoginButton extends StatelessWidget {
               if (loginKey.currentState?.validate() ?? false) {
                 context.read<LoginBloc>().add(DoLoginEvent());
               } else {
-                UtilsService.instance
-                    .errorSnackBar(LocaleKeys.errors_pleaseEnterAllField.tr());
+                UtilsService.instance.errorSnackBar(LocaleKeys.errors_pleaseEnterAllField.tr());
               }
             },
             child: Text(

@@ -7,6 +7,7 @@ import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/src/bottomsheets/main_bottom_sheets.dart';
+import 'package:siparis_takip_sistemi_pro/src/cards/list_card.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/bloc/courier_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/model/courier.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/view/bottomsheet/courier_bottom_sheet.dart';
@@ -92,8 +93,7 @@ class CourierListBuilder extends StatelessWidget {
             itemCount: state.courierList?.couriers.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
               final couriers = state.courierList?.couriers[index];
-              return Card(
-                color: Theme.of(context).colorScheme.surface,
+              return ListCard(
                 child: Row(
                   children: [
                     Expanded(

@@ -13,6 +13,8 @@ import 'package:siparis_takip_sistemi_pro/views/screens/orders/bloc/add_order_bl
 import 'package:siparis_takip_sistemi_pro/views/screens/orders/model/order.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/orders/views/order_lists/bottomsheet_widget/bottomsheet_widget.dart';
 
+import '../../../../../src/cards/list_card.dart';
+
 class OrderListOnTheWayOrders extends StatelessWidget with BaseModelView {
   OrderListOnTheWayOrders({super.key});
 
@@ -38,33 +40,23 @@ class OrderListOnTheWayOrders extends StatelessWidget with BaseModelView {
               final color = mainFunctions.getColorFromOrderStatus(
                 orderStatus: order?.orderStatus,
               );
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 3),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      color: color,
+              return ListCard(
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: CustomerField(
+                        order: order,
+                        iconData: iconData,
+                        color: color,
+                        orderStatus: orderStatus,
+                      ),
                     ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  color: Theme.of(context).colorScheme.surface,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 5,
-                        child: CustomerField(
-                          order: order,
-                          iconData: iconData,
-                          color: color,
-                          orderStatus: orderStatus,
-                        ),
-                      ),
-                      const Expanded(
-                        flex: 2,
-                        child: CardMoreButton(),
-                      ),
-                    ],
-                  ),
+                    const Expanded(
+                      flex: 2,
+                      child: CardMoreButton(),
+                    ),
+                  ],
                 ),
               );
             },

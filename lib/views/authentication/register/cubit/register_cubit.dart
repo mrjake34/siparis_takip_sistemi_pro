@@ -8,6 +8,7 @@ import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart'
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/views/authentication/register/cubit/register_state.dart';
+import 'package:siparis_takip_sistemi_pro/views/authentication/register/model/register_request_model.dart';
 import 'package:siparis_takip_sistemi_pro/views/authentication/register/model/register_response_error_model.dart';
 
 class RegisterCubit extends Cubit<RegisterState> with BaseModelView {
@@ -43,21 +44,23 @@ class RegisterCubit extends Cubit<RegisterState> with BaseModelView {
               'access-control-allow-origin'
               'content-type',
         };
+        final data = RegisterRequestModel(
+          name: nameController?.text.trim(),
+          email: emailController?.text.trim(),
+          phone: phoneController?.text.trim(),
+          password: passwordController?.text.trim(),
+          shopName: shopNameController?.text.trim(),
+        ).toJson();
         final response = await networkService.dio.post(
           appNetwork.signup,
-          data: {
-            'name': nameController?.text.trim(),
-            'phone': phoneController?.text.trim(),
-            'email': emailController?.text.trim(),
-            'password': passwordController?.text.trim(),
-            'shopName': shopNameController?.text.trim()
-          },
+          data: data,
         );
         if (response.statusCode == 200) {
           return emit(const RegisterState(status: Status.isDone));
         }
       } on DioException catch (e) {
         if (e.response?.statusCode == 400) {
+          print(e.response?.data);
           final data = RegisterResponseErrorModel.fromJson(
             e.response?.data as Map<String, dynamic>,
           );

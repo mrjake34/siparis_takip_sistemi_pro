@@ -16,6 +16,8 @@ import 'package:siparis_takip_sistemi_pro/views/screens/orders/bloc/add_order_bl
 import 'package:siparis_takip_sistemi_pro/views/screens/orders/model/order.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/orders/views/order_lists/bottomsheet_widget/bottomsheet_widget.dart';
 
+import '../../../../../src/cards/list_card.dart';
+
 class OrderListAllOrders extends StatelessWidget with BaseModelView {
   OrderListAllOrders({super.key});
 
@@ -51,27 +53,18 @@ class PageBuilder extends StatelessWidget {
                 final orderStatusText = mainFunctions.getStringFromOrderStatus(orderStatus: order?.orderStatus);
                 final iconData = mainFunctions.getIconFromOrderStatus(orderStatus: order?.orderStatus);
                 final color = mainFunctions.getColorFromOrderStatus(orderStatus: order?.orderStatus);
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 3),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        color: color,
+                return ListCard(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 5,
+                        child: CustomerField(order: order, iconData: iconData, color: color, orderStatusText: orderStatusText),
                       ),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 5,
-                          child: CustomerField(order: order, iconData: iconData, color: color, orderStatusText: orderStatusText),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: CardMoreButton(order: order),
-                        ),
-                      ],
-                    ),
+                      Expanded(
+                        flex: 2,
+                        child: CardMoreButton(order: order),
+                      ),
+                    ],
                   ),
                 );
               },

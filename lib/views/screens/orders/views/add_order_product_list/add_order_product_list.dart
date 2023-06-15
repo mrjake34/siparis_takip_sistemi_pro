@@ -10,6 +10,7 @@ import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.da
 import 'package:siparis_takip_sistemi_pro/core/init/utils/utils.dart';
 import 'package:siparis_takip_sistemi_pro/providers/main_providers.dart';
 import 'package:siparis_takip_sistemi_pro/providers/search_providers.dart';
+import 'package:siparis_takip_sistemi_pro/src/cards/list_card.dart';
 import 'package:siparis_takip_sistemi_pro/src/text/autosize_text.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/product/bloc/products_bloc.dart';
@@ -83,8 +84,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Theme.of(context).colorScheme.surface,
+    return ListCard(
       child: Row(
         children: [
           Expanded(

@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: avoid_setters_without_getters
-import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'user.g.dart';
 
@@ -91,23 +90,4 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserToJson(this);
-}
-
-class UserDetail with ChangeNotifier {
-  String? id;
-  String? role;
-
-  String? get userId => id;
-
-  set setUserId(String value) {
-    id = value;
-    notifyListeners();
-  }
-
-  String? get userRole => role;
-
-  set setUserRole(String value) {
-    role = value;
-    notifyListeners();
-  }
 }

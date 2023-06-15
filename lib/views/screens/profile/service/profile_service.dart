@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/views/models/user_model/user.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/profile/model/user.dart';
 
 class ProfileService with BaseModelView {
   Future<UserModel?> fetchUserDetails({String? cookie}) async {

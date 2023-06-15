@@ -101,10 +101,12 @@ class ChangeLanguageField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
+      trailing: const Icon(Icons.keyboard_double_arrow_down),
       title: Text(LocaleKeys.profile_changeLanguage.tr()),
       children: [
         Row(
           children: [
+
             TextButton(
               onPressed: () {
                 context.setLocale(const Locale('en', 'US'));
@@ -132,6 +134,7 @@ class ChangeCurrencySymbolField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
+      trailing: const Icon(Icons.keyboard_double_arrow_down),
       title: Text(LocaleKeys.mainText_changeCurrencySymbol.tr()),
       children: [
         Wrap(

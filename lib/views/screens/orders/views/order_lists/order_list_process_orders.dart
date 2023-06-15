@@ -8,6 +8,7 @@ import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_c
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/core/init/navigation/navigation_service.dart';
 import 'package:siparis_takip_sistemi_pro/src/bottomsheets/main_bottom_sheets.dart';
+import 'package:siparis_takip_sistemi_pro/src/cards/list_card.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/customer/bloc/customer_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/orders/model/order.dart';
@@ -31,28 +32,18 @@ class OrderListProcessOrders extends StatelessWidget with BaseModelView {
               final orderStatus = mainFunctions.getStringFromOrderStatus(orderStatus: order?.orderStatus);
               final iconData = mainFunctions.getIconFromOrderStatus(orderStatus: order?.orderStatus);
               final color = mainFunctions.getColorFromOrderStatus(orderStatus: order?.orderStatus);
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 3),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      color: color,
+              return ListCard(
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: CustomerField(order: order, iconData: iconData, color: color, orderStatus: orderStatus),
                     ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  color: Theme.of(context).colorScheme.surface,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 5,
-                        child: CustomerField(order: order, iconData: iconData, color: color, orderStatus: orderStatus),
-                      ),
-                      const Expanded(
-                        flex: 2,
-                        child: CardMoreButton(),
-                      ),
-                    ],
-                  ),
+                    const Expanded(
+                      flex: 2,
+                      child: CardMoreButton(),
+                    ),
+                  ],
                 ),
               );
             },

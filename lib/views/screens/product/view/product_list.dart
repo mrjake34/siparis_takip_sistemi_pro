@@ -7,6 +7,7 @@ import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/providers/main_providers.dart';
 import 'package:siparis_takip_sistemi_pro/src/bottomsheets/main_bottom_sheets.dart';
+import 'package:siparis_takip_sistemi_pro/src/cards/list_card.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/product/bloc/products_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/product/model/product.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/product/widgets/product_list_bottomsheet.dart';
@@ -46,7 +47,7 @@ class PageBuilder extends StatelessWidget {
                     itemCount: state.productList?.products.length ?? 0,
                     itemBuilder: (BuildContext context, int index) {
                       final product = state.productList?.products[index];
-                      return Card(
+                      return ListCard(
                         child: Row(
                           children: [
                             Expanded(

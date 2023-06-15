@@ -86,8 +86,7 @@ class CourierEditField extends StatelessWidget {
       child: BlocBuilder<CourierBloc, CourierState>(
         builder: (context, state) {
           if (state.courierList != null) {
-            final couriers = state.courierList?.couriers
-                .firstWhere((element) => element.id == id);
+            final couriers = state.courierList?.couriers.firstWhere((element) => element.id == id);
             nameController.text = couriers?.name ?? '';
             emailController.text = couriers?.email ?? '';
             phoneController.text = couriers?.phone ?? '';
@@ -170,16 +169,11 @@ class EditCourierPhoneButtonField extends StatelessWidget {
         const SizedBox(
           width: 10,
         ),
-        if (context
-                .watch<EditCourierChangePhoneReadyOnlyProvider>()
-                .getVisibility ==
-            true)
+        if (context.watch<EditCourierChangePhoneReadyOnlyProvider>().getVisibility == true)
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
             onPressed: () {
-              context
-                  .read<EditCourierChangePhoneReadyOnlyProvider>()
-                  .setVisibility();
+              context.read<EditCourierChangePhoneReadyOnlyProvider>().setVisibility();
             },
             child: Text(LocaleKeys.mainText_edit.tr()),
           )
@@ -187,9 +181,7 @@ class EditCourierPhoneButtonField extends StatelessWidget {
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             onPressed: () {
-              context
-                  .read<EditCourierChangePhoneReadyOnlyProvider>()
-                  .setVisibility();
+              context.read<EditCourierChangePhoneReadyOnlyProvider>().setVisibility();
             },
             child: Text(LocaleKeys.mainText_cancel.tr()),
           ),
@@ -212,9 +204,7 @@ class EditCourierPhoneTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      readOnly: context
-          .watch<EditCourierChangePhoneReadyOnlyProvider>()
-          .getVisibility,
+      readOnly: context.watch<EditCourierChangePhoneReadyOnlyProvider>().getVisibility,
       textInputAction: TextInputAction.done,
       autovalidateMode: AutovalidateMode.disabled,
       controller: phoneController,
@@ -264,16 +254,11 @@ class EditCourierEmailButtonField extends StatelessWidget {
         const SizedBox(
           width: 10,
         ),
-        if (context
-                .watch<EditCourierChangeEmailReadyOnlyProvider>()
-                .getVisibility ==
-            true)
+        if (context.watch<EditCourierChangeEmailReadyOnlyProvider>().getVisibility == true)
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
             onPressed: () {
-              context
-                  .read<EditCourierChangeEmailReadyOnlyProvider>()
-                  .setVisibility();
+              context.read<EditCourierChangeEmailReadyOnlyProvider>().setVisibility();
             },
             child: Text(LocaleKeys.mainText_edit.tr()),
           )
@@ -281,9 +266,7 @@ class EditCourierEmailButtonField extends StatelessWidget {
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             onPressed: () {
-              context
-                  .read<EditCourierChangeEmailReadyOnlyProvider>()
-                  .setVisibility();
+              context.read<EditCourierChangeEmailReadyOnlyProvider>().setVisibility();
             },
             child: Text(LocaleKeys.mainText_cancel.tr()),
           ),
@@ -306,9 +289,7 @@ class EditCourierEmailTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      readOnly: context
-          .watch<EditCourierChangeEmailReadyOnlyProvider>()
-          .getVisibility,
+      readOnly: context.watch<EditCourierChangeEmailReadyOnlyProvider>().getVisibility,
       textInputAction: TextInputAction.done,
       autovalidateMode: AutovalidateMode.disabled,
       controller: emailController,
@@ -348,24 +329,18 @@ class EditCourierNameButtonField extends StatelessWidget {
       children: [
         ElevatedButton(
           onPressed: () {
-            CourierService()
-                .patchCourier('name', nameController.text, couriers?.id ?? '');
+            CourierService().patchCourier('name', nameController.text, couriers?.id ?? '');
           },
           child: Text(LocaleKeys.mainText_save.tr()),
         ),
         const SizedBox(
           width: 10,
         ),
-        if (context
-                .watch<EditCourierChangeNameReadyOnlyProvider>()
-                .getVisibility ==
-            true)
+        if (context.watch<EditCourierChangeNameReadyOnlyProvider>().getVisibility == true)
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
             onPressed: () {
-              context
-                  .read<EditCourierChangeNameReadyOnlyProvider>()
-                  .setVisibility();
+              context.read<EditCourierChangeNameReadyOnlyProvider>().setVisibility();
             },
             child: Text(LocaleKeys.mainText_edit.tr()),
           )
@@ -373,9 +348,7 @@ class EditCourierNameButtonField extends StatelessWidget {
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             onPressed: () {
-              context
-                  .read<EditCourierChangeNameReadyOnlyProvider>()
-                  .setVisibility();
+              context.read<EditCourierChangeNameReadyOnlyProvider>().setVisibility();
             },
             child: Text(LocaleKeys.mainText_cancel.tr()),
           ),
@@ -398,8 +371,7 @@ class EditCourierNameTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      readOnly:
-          context.watch<EditCourierChangeNameReadyOnlyProvider>().getVisibility,
+      readOnly: context.watch<EditCourierChangeNameReadyOnlyProvider>().getVisibility,
       textInputAction: TextInputAction.done,
       autovalidateMode: AutovalidateMode.disabled,
       controller: nameController,

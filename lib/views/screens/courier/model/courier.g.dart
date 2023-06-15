@@ -20,7 +20,7 @@ Map<String, dynamic> _$CourierListToJson(CourierList instance) =>
     };
 
 Courier _$CourierFromJson(Map<String, dynamic> json) => Courier(
-      id: json['id'] as String?,
+      id: json['_id'] as String?,
       shopName: json['shopName'] as String?,
       name: json['name'] as String?,
       phone: json['phone'] as String?,
@@ -39,7 +39,7 @@ Courier _$CourierFromJson(Map<String, dynamic> json) => Courier(
     );
 
 Map<String, dynamic> _$CourierToJson(Courier instance) => <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'shopName': instance.shopName,
       'name': instance.name,
       'phone': instance.phone,

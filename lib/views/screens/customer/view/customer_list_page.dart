@@ -12,6 +12,8 @@ import 'package:siparis_takip_sistemi_pro/views/screens/customer/model/customer.
 import 'package:siparis_takip_sistemi_pro/views/screens/customer/view/bottomsheet/customer_list_bottom_sheet.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/customer/view/customer_details.dart';
 
+import '../../../../src/cards/list_card.dart';
+
 class CustomerListPage extends StatefulWidget {
   const CustomerListPage({super.key});
 
@@ -71,7 +73,7 @@ class CustomerListBuilder extends StatelessWidget {
             itemCount: state.customerList?.customers.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
               final customer = state.customerList?.customers[index];
-              return Card(
+              return ListCard(
                 child: Row(
                   children: [
                     Expanded(
