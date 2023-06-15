@@ -1,9 +1,8 @@
 # Ticari Amaçla Kullanım Hakkı Sadece Efes Bilgi Teknolojileri'ne aittir. Reponun paylaşım amacı topluluğa kaynak oluşturmak içindir.
 
 # Sipariş Takip Sistemi
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis) <a href="https://github.com/felangel/bloc"><img src="https://tinyurl.com/bloc-library" alt="Bloc Library"></a>
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis) <a href="https://github.com/felangel/bloc"><img src="https://tinyurl.com/bloc-library" alt="Bloc Library"></a> [![License](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](LICENSE.txt)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis) <a href="https://github.com/felangel/bloc"><img src="https://tinyurl.com/bloc-library" alt="Bloc Library"></a>
 
 Sipariş Takip Sistemi, işletmelerin siparişlerini kolayca yönetebilmeleri için tasarlanmış bir web ve mobil uygulamadır. Bu uygulama sayesinde işletmeler:
 
@@ -57,4 +56,11 @@ Bu projeyle ilgili herhangi bir sorunuz veya öneriniz varsa, lütfen benimle il
 - Linkedin: https://www.linkedin.com/in/alkan-ata%C5%9F-101482248/
 
 
-...
+## Lisans
+
+Bu proje [CC BY-NC 4.0](LICENSE.md) lisansı altında dağıtılmaktadır. Daha fazla bilgi için lisans dosyasına başvurun.
+
+## License
+
+This project is distributed under the [CC BY-NC 4.0](LICENSE.md) license. For more information, refer to the license file.
+
