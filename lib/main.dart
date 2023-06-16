@@ -96,7 +96,7 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (context) => EditCourierChangePhoneReadyOnlyProvider(),
-        )
+        ),
       ],
       child: EasyLocalization(
         path: AppNetwork.instance.translationPath,

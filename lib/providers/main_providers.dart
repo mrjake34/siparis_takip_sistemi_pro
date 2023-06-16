@@ -18,7 +18,6 @@ class ChangeCurrencyPriceSymbol with ChangeNotifier {
   }
 }
 
-
 class OrderStatusBorderColorProvider with ChangeNotifier {
   Color _color = AppColors.instance.orderPendingColor;
 
@@ -73,8 +72,6 @@ class MembershipAgreementProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
-
-
 
 class OrderDetailProvider with ChangeNotifier {
   List<OrderListProduct> order = [];

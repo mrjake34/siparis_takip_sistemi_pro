@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: must_be_immutable
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,11 +9,12 @@ import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/src/bottomsheets/main_bottom_sheets.dart';
+import 'package:siparis_takip_sistemi_pro/src/cards/cards_more_button.dart';
 import 'package:siparis_takip_sistemi_pro/src/cards/list_card.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/bloc/courier_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/model/courier.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/courier/view/bottomsheet/courier_bottom_sheet.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/courier/service/courier_service.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/courier/view/edit_courier.dart';
 
 class CourierListPage extends StatefulWidget {
   const CourierListPage({super.key});
@@ -101,9 +105,16 @@ class CourierListBuilder extends StatelessWidget {
                       child: CourierCardCourierDetailField(couriers: couriers),
                     ),
                     Expanded(
-                      child: CourierCardMoreButtonField(
-                        appColors: appColors,
-                        couriers: couriers,
+                      child: CardMoreButtonField(
+                        routerWidget: EditCourier(
+                          id: couriers?.id ?? '',
+                        ),
+                        id: couriers?.id,
+                        removeFunction: () {
+                          CourierService().deleteCourier(couriers?.id ?? '').whenComplete(
+                                () => Navigator.pop(context),
+                              );
+                        },
                       ),
                     )
                   ],
@@ -151,37 +162,6 @@ class CourierCardCourierDetailField extends StatelessWidget {
           subtitle: Text(couriers?.phone ?? ''),
         ),
       ],
-    );
-  }
-}
-
-class CourierCardMoreButtonField extends StatelessWidget {
-  const CourierCardMoreButtonField({
-    required this.appColors,
-    required this.couriers,
-    super.key,
-  });
-
-  final AppColors appColors;
-  final Courier? couriers;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        MainBottomSheets().openBottomSheet(
-          context,
-          CourierBottomSheet(
-            appColors: appColors,
-            id: couriers?.id,
-            name: couriers?.name,
-          ),
-        );
-      },
-      child: CircleAvatar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        child: const Icon(Icons.more_vert),
-      ),
     );
   }
 }

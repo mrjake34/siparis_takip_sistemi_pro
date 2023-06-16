@@ -8,9 +8,9 @@ ThemeData darkTheme = ThemeData(
   colorScheme: const ColorScheme(
       brightness: Brightness.dark,
       //Buttons Text and userInteractive
-      primary: Color.fromARGB(255, 238, 238, 238),
+      primary: Color.fromARGB(255, 166, 166, 166),
       onPrimary: Color.fromARGB(255, 166, 166, 166),
-      secondary: Color.fromARGB(255, 166, 166, 166),
+      secondary: Color.fromARGB(255, 7, 40, 189),
       onSecondary: Color.fromARGB(255, 166, 166, 166),
       error: Color.fromARGB(255, 255, 28, 28),
       onError: Color.fromARGB(255, 255, 49, 49),
@@ -18,10 +18,10 @@ ThemeData darkTheme = ThemeData(
       background: Color(0xFF393E46),
       onBackground: Color.fromARGB(255, 166, 166, 166),
       //Appbar Color and Cards
-      surface: Color(0xFF222831),
-      onSurface: Colors.white70,
+      surface: Color.fromARGB(255, 48, 52, 59),
+      onSurface: Color.fromARGB(255, 238, 238, 238),
       //Card Text
-      tertiary: Color.fromARGB(255, 159, 159, 159),
+      tertiary: Color.fromARGB(255, 163, 1, 1),
       onTertiary: Color.fromARGB(255, 166, 166, 166),),
   elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(

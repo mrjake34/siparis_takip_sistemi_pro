@@ -85,7 +85,7 @@ class CourierService with BaseModelView {
     }
   }
 
-  Future<dynamic> deleteCourier(String id, String name) async {
+  Future<dynamic> deleteCourier(String id) async {
     final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
     final shopName = sharedManager.getStringValue(PreferenceKey.shopName);
     final response = await networkService.dio.delete(
