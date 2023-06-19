@@ -8,7 +8,7 @@ import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart'
 import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/core/singletons/translation/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/src/cards/cards_more_button.dart';
 import 'package:siparis_takip_sistemi_pro/src/cards/list_card.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/bloc/courier_bloc.dart';
@@ -105,17 +105,7 @@ class CourierListBuilder extends StatelessWidget {
                       child: CourierCardCourierDetailField(couriers: couriers),
                     ),
                     Expanded(
-                      child: CardMoreButtonField(
-                        routerWidget: EditCourier(
-                          id: couriers?.id ?? '',
-                        ),
-                        id: couriers?.id,
-                        removeFunction: () {
-                          CourierService().deleteCourier(couriers?.id ?? '').whenComplete(
-                                () => Navigator.pop(context),
-                              );
-                        },
-                      ),
+                      child: MoreButton(couriers: couriers),
                     )
                   ],
                 ),
@@ -131,6 +121,30 @@ class CourierListBuilder extends StatelessWidget {
             child: CircularProgressIndicator.adaptive(),
           );
         }
+      },
+    );
+  }
+}
+
+class MoreButton extends StatelessWidget {
+  const MoreButton({
+    required this.couriers,
+    super.key,
+  });
+
+  final Courier? couriers;
+
+  @override
+  Widget build(BuildContext context) {
+    return CardMoreButtonField(
+      routerWidget: EditCourier(
+        id: couriers?.id ?? '',
+      ),
+      id: couriers?.id,
+      removeFunction: () {
+        CourierService().deleteCourier(couriers?.id ?? '').whenComplete(
+              () => Navigator.pop(context),
+            );
       },
     );
   }

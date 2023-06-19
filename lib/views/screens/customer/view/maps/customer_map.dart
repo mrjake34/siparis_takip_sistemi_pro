@@ -6,8 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
-
+import 'package:siparis_takip_sistemi_pro/core/singletons/translation/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/providers/customer_provider.dart';
 
 class AddCustomerGoogleMap extends StatelessWidget {

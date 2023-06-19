@@ -2,7 +2,7 @@
 
 // ignore_for_file: constant_identifier_names
 
-abstract class LocaleKeys {
+abstract class  LocaleKeys {
   static const mainText_title = 'mainText.title';
   static const mainText_homepage = 'mainText.homepage';
   static const mainText_language = 'mainText.language';
@@ -37,8 +37,7 @@ abstract class LocaleKeys {
   static const mainText_edit = 'mainText.edit';
   static const mainText_remove = 'mainText.remove';
   static const mainText_userAgreement = 'mainText.userAgreement';
-  static const mainText_resetPasswordEmailInfo =
-      'mainText.resetPasswordEmailInfo';
+  static const mainText_resetPasswordEmailInfo = 'mainText.resetPasswordEmailInfo';
   static const mainText_searchInProduct = 'mainText.searchInProduct';
   static const mainText_changeCurrencySymbol = 'mainText.changeCurrencySymbol';
   static const mainText_turkishLira = 'mainText.turkishLira';
@@ -73,8 +72,7 @@ abstract class LocaleKeys {
   static const mainText_pageNotFound = 'mainText.pageNotFound';
   static const mainText = 'mainText';
   static const errors_locationPermissionOff = 'errors.locationPermissionOff';
-  static const errors_locationPermissionDenied =
-      'errors.locationPermissionDenied';
+  static const errors_locationPermissionDenied = 'errors.locationPermissionDenied';
   static const errors_locationServiceOff = 'errors.locationServiceOff';
   static const errors_dontLeaveEmpty = 'errors.dontLeaveEmpty';
   static const errors_loginError = 'errors.loginError';
@@ -104,10 +102,8 @@ abstract class LocaleKeys {
   static const errors_customerAlreadyExists = 'errors.customerAlreadyExists';
   static const errors_errorAddingCustomer = 'errors.errorAddingCustomer';
   static const errors_noLocation = 'errors.noLocation';
-  static const errors_errorWhileSendingPasswordResetEmail =
-      'errors.errorWhileSendingPasswordResetEmail';
-  static const errors_locationServiceDeniedForever =
-      'errors.locationServiceDeniedForever';
+  static const errors_errorWhileSendingPasswordResetEmail = 'errors.errorWhileSendingPasswordResetEmail';
+  static const errors_locationServiceDeniedForever = 'errors.locationServiceDeniedForever';
   static const errors = 'errors';
   static const succes_productRemovedFromList = 'succes.productRemovedFromList';
   static const succes_productAdded = 'succes.productAdded';
@@ -119,15 +115,13 @@ abstract class LocaleKeys {
   static const succes_removeSuccessful = 'succes.removeSuccessful';
   static const succes_resetPasswordSent = 'succes.resetPasswordSent';
   static const succes = 'succes';
+  static const alerts_removeAlert = 'alerts.removeAlert';
   static const alerts_customerRemove = 'alerts.customerRemove';
-  static const alerts_customerRemoveFromCustomerList =
-      'alerts.customerRemoveFromCustomerList';
+  static const alerts_customerRemoveFromCustomerList = 'alerts.customerRemoveFromCustomerList';
   static const alerts_courierRemove = 'alerts.courierRemove';
-  static const alerts_courierRemoveFromCustomerList =
-      'alerts.courierRemoveFromCustomerList';
+  static const alerts_courierRemoveFromCustomerList = 'alerts.courierRemoveFromCustomerList';
   static const alerts_productRemove = 'alerts.productRemove';
-  static const alerts_productRemoveFromProductList =
-      'alerts.productRemoveFromProductList';
+  static const alerts_productRemoveFromProductList = 'alerts.productRemoveFromProductList';
   static const alerts_orderRemove = 'alerts.orderRemove';
   static const alerts_logoutAlerts = 'alerts.logoutAlerts';
   static const alerts = 'alerts';
@@ -195,4 +189,5 @@ abstract class LocaleKeys {
   static const courier_editCourier = 'courier.editCourier';
   static const courier_courierInfo = 'courier.courierInfo';
   static const courier = 'courier';
+
 }

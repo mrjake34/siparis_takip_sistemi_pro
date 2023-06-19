@@ -1,4 +1,4 @@
-import 'package:siparis_takip_sistemi_pro/views/screens/orders/model/order.dart';
+import '../model/order.dart';
 
 abstract class IOrderService {
   IOrderService();

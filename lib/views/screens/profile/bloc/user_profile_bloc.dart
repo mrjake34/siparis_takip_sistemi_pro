@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/profile/model/user.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/profile/service/profile_service.dart';
+import '../../../../core/constants/enums/enums.dart';
+import '../model/user.dart';
+import '../service/profile_service.dart';
 
 part 'user_profile_event.dart';
 part 'user_profile_state.dart';

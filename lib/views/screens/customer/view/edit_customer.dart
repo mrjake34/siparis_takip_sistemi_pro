@@ -2,14 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/providers/customer_provider.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/customer/bloc/customer_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/customer/model/customer.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/customer/service/customer_service.dart';
+import '../../../../core/constants/colors/colors.dart';
+import '../../../../core/constants/enums/enums.dart';
+import '../../../../core/constants/size/sizes.dart';
+import '../../../../core/singletons/translation/locale_keys.g.dart';
+import '../../../../providers/customer_provider.dart';
+import '../bloc/customer_bloc.dart';
+import '../model/customer.dart';
+import '../service/customer_service.dart';
 
 class EditCustomer extends StatelessWidget {
   EditCustomer({required this.id, super.key});

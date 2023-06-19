@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/core/singletons/translation/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/src/maps/flutter_map.dart';
 import 'package:siparis_takip_sistemi_pro/src/maps/google_map.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/customer/bloc/customer_bloc.dart';
@@ -43,8 +43,7 @@ class PageBuilder extends StatelessWidget {
       body: BlocBuilder<CustomerBloc, CustomerState>(
         builder: (context, state) {
           if (state.customerList != null) {
-            final customer = state.customerList?.customers
-                .firstWhere((element) => element.id == customerId);
+            final customer = state.customerList?.customers.firstWhere((element) => element.id == customerId);
             final createdTime = customer?.createdAt;
             return SingleChildScrollView(
               padding: const EdgeInsets.all(pagePadding),

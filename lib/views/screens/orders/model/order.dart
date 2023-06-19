@@ -3,6 +3,7 @@
 //     final orderList = orderListFromJson(jsonString);
 
 import 'package:json_annotation/json_annotation.dart';
+
 part 'order.g.dart';
 
 @JsonSerializable()

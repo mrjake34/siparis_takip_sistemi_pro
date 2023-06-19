@@ -20,7 +20,7 @@ Map<String, dynamic> _$CustomerListToJson(CustomerList instance) =>
     };
 
 Customer _$CustomerFromJson(Map<String, dynamic> json) => Customer(
-      id: json['_id'] as String?,
+      id: json['id'] as String?,
       shopName: json['shopName'] as String?,
       name: json['name'] as String?,
       phone: json['phone'] as String?,
@@ -37,7 +37,7 @@ Customer _$CustomerFromJson(Map<String, dynamic> json) => Customer(
     );
 
 Map<String, dynamic> _$CustomerToJson(Customer instance) => <String, dynamic>{
-      '_id': instance.id,
+      'id': instance.id,
       'shopName': instance.shopName,
       'name': instance.name,
       'phone': instance.phone,

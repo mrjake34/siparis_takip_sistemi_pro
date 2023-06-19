@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/icons/icons.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/navigation/navigation_service.dart';
-import 'package:siparis_takip_sistemi_pro/src/bottomsheets/main_bottom_sheets.dart';
+import '../../../../../core/base/models/base_model_view.dart';
+import '../../../../../core/constants/icons/icons.dart';
+import '../../../../../core/constants/navigation/navigation_constants.dart';
+import '../../../../../core/constants/size/sizes.dart';
+import '../../../../../core/singletons/navigation/navigation_service.dart';
+import '../../../../../src/bottomsheets/main_bottom_sheets.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/customer/bloc/customer_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/orders/model/order.dart';

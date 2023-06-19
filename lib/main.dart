@@ -7,17 +7,12 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/network/url.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/navigation/navigation_route.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/navigation/navigation_service.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/translation_manager.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/utils/utils.dart';
-import 'package:siparis_takip_sistemi_pro/providers/courier_providers.dart';
-import 'package:siparis_takip_sistemi_pro/providers/customer_provider.dart';
-import 'package:siparis_takip_sistemi_pro/providers/main_providers.dart';
-import 'package:siparis_takip_sistemi_pro/providers/product_providers.dart';
-import 'package:siparis_takip_sistemi_pro/providers/search_providers.dart';
+import 'package:siparis_takip_sistemi_pro/core/singletons/navigation/navigation_route.dart';
+import 'package:siparis_takip_sistemi_pro/core/singletons/navigation/navigation_service.dart';
+import 'package:siparis_takip_sistemi_pro/core/singletons/notifier/notifier.dart';
+import 'package:siparis_takip_sistemi_pro/core/singletons/translation/translation_manager.dart';
+import 'package:siparis_takip_sistemi_pro/core/singletons/utils/utils.dart';
 import 'package:siparis_takip_sistemi_pro/providers/theme_providers.dart';
-import 'package:siparis_takip_sistemi_pro/providers/user_provider.dart';
 import 'package:siparis_takip_sistemi_pro/theme/dark_theme.dart';
 import 'package:siparis_takip_sistemi_pro/theme/light_theme.dart';
 import 'package:siparis_takip_sistemi_pro/theme/theme_service.dart';
@@ -35,69 +30,7 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   runApp(
     MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => OrderDetailProvider()),
-        ChangeNotifierProvider(create: (context) => OrderStatusIconProvider()),
-        ChangeNotifierProvider(
-          create: (context) => OrderStatusBorderColorProvider(),
-        ),
-        ChangeNotifierProvider(create: (context) => UserDetail()),
-        ChangeNotifierProvider(create: (context) => GetUserLocation()),
-        ChangeNotifierProvider(
-          create: (context) => ChangeCurrencyPriceSymbol(),
-        ),
-        ChangeNotifierProvider(create: (context) => ThemeChange()),
-        ChangeNotifierProvider(create: (context) => CourierSearch()),
-        ChangeNotifierProvider(
-          create: (context) => AddOrderAddCustomerSearchProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => AddOrderAddProductSearchProvider(),
-        ),
-        ChangeNotifierProvider(create: (context) => CustomerMapProvider()),
-        ChangeNotifierProvider(
-          create: (context) => ChangePasswordVisibilityProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => ChangePasswordVisibilityTwoProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => MembershipAgreementProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => AllOrdersListOrderSearchProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => EditProductNameEditButtonProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => EditProductPriceEditButtonProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => CustomerNameEditingStatusProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => CustomerAddressEditingStatusProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => CustomerPhoneEditingStatusProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => ChangePasswordVisibilityAddCourierProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => ChangeRePasswordVisibilityAddCourierProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => EditCourierChangeNameReadyOnlyProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => EditCourierChangeEmailReadyOnlyProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => EditCourierChangePhoneReadyOnlyProvider(),
-        ),
-      ],
+      providers: AppNotifiers.instance.notifierList,
       child: EasyLocalization(
         path: AppNetwork.instance.translationPath,
         supportedLocales: TranslationManager.instance!.supportedLocales,

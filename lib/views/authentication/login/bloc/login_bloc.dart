@@ -5,12 +5,12 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/views/authentication/login/model/login_response_model.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/profile/model/user.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/profile/service/profile_service.dart';
+import '../../../../core/base/models/base_model_view.dart';
+import '../../../../core/constants/enums/enums.dart';
+import '../../../../core/singletons/translation/locale_keys.g.dart';
+import '../model/login_response_model.dart';
+import '../../../screens/profile/model/user.dart';
+import '../../../screens/profile/service/profile_service.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';

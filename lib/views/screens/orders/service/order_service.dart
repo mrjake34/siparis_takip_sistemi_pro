@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:get/get_connect/http/src/status/http_status.dart';
-import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/orders/model/order.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/orders/service/order_service_interface.dart';
+import '../../../../core/base/models/base_model_view.dart';
+import '../../../../core/constants/enums/enums.dart';
+import '../../../../core/singletons/translation/locale_keys.g.dart';
+import '../model/order.dart';
+import 'order_service_interface.dart';
 import 'package:vexana/vexana.dart';
 
 class OrderService extends IOrderService with BaseModelView {

@@ -1,10 +1,13 @@
 import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/enums/network_enums.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/product/model/product.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/product/service/product_service.dart';
+
+import '../../../../core/constants/enums/enums.dart';
+import '../../../../core/constants/enums/network_enums.dart';
+import '../model/product.dart';
+import '../service/product_service.dart';
+
 part 'products_event.dart';
 part 'products_state.dart';
 

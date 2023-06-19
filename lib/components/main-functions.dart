@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/icons/icons.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/cache/shared_manager.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/navigation/navigation_service.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/core/singletons/cache/shared_manager.dart';
+import 'package:siparis_takip_sistemi_pro/core/singletons/navigation/navigation_service.dart';
+import 'package:siparis_takip_sistemi_pro/core/singletons/translation/locale_keys.g.dart';
 
 class MainFunctions {
   MainFunctions._init();

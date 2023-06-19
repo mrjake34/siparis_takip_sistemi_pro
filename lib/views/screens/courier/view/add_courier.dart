@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/utils/utils.dart';
+import 'package:siparis_takip_sistemi_pro/core/singletons/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/core/singletons/utils/utils.dart';
 import 'package:siparis_takip_sistemi_pro/providers/courier_providers.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/bloc/courier_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/service/courier_service.dart';
+
+import '../../../../core/constants/colors/colors.dart';
+import '../../../../core/constants/enums/enums.dart';
 
 class AddCourier extends StatefulWidget {
   const AddCourier({super.key});

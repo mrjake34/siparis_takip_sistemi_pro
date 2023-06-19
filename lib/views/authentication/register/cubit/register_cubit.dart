@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/core/singletons/translation/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/views/authentication/register/cubit/register_state.dart';
 import 'package:siparis_takip_sistemi_pro/views/authentication/register/model/register_request_model.dart';
 import 'package:siparis_takip_sistemi_pro/views/authentication/register/model/register_response_error_model.dart';
@@ -60,7 +60,6 @@ class RegisterCubit extends Cubit<RegisterState> with BaseModelView {
         }
       } on DioException catch (e) {
         if (e.response?.statusCode == 400) {
-          print(e.response?.data);
           final data = RegisterResponseErrorModel.fromJson(
             e.response?.data as Map<String, dynamic>,
           );

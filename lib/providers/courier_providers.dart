@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:siparis_takip_sistemi_pro/views/screens/courier/model/courier.dart';
+import '../views/screens/courier/model/courier.dart';
 
 class ChangePasswordVisibilityAddCourierProvider extends ChangeNotifier {
   bool _visibility = true;

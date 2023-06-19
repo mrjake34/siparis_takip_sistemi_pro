@@ -1,16 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import '../../../../core/constants/colors/colors.dart';
+import '../../../../core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/core/singletons/translation/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/providers/main_providers.dart';
-import 'package:siparis_takip_sistemi_pro/src/bottomsheets/main_bottom_sheets.dart';
+import 'package:siparis_takip_sistemi_pro/src/cards/cards_more_button.dart';
 import 'package:siparis_takip_sistemi_pro/src/cards/list_card.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/product/bloc/products_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/product/model/product.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/product/widgets/product_list_bottomsheet.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/product/service/product_service.dart';
+import 'package:siparis_takip_sistemi_pro/views/screens/product/view/edit_product.dart';
 
 class ProductListPage extends StatelessWidget {
   const ProductListPage({super.key});
@@ -131,11 +132,11 @@ class CardMoreButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        MainBottomSheets().openBottomSheet(context, ProductListBottomSheet(product: product));
+    return CardMoreButtonField(
+      removeFunction: () {
+        ProductService().deleteProduct(product?.id ?? '', product?.name ?? '').whenComplete(() => Navigator.pop(context));
       },
-      child: CircleAvatar(backgroundColor: Theme.of(context).colorScheme.surface, child: const Icon(Icons.more_vert)),
+      routerWidget: EditProduct(id: product?.id ?? ''),
     );
   }
 }

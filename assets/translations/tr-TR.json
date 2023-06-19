@@ -116,6 +116,7 @@
           "resetPasswordSent": "Şifre sıfırlama e-postası gönderildi"
     },
     "alerts": {
+        "removeAlert": "Listeden kaldırmak istediğinize emin misiniz?",
         "customerRemove": "Müşteri",
         "customerRemoveFromCustomerList":
             "müşteri listesinden kaldırılsın mı?",

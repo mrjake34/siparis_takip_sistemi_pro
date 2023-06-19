@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import '../../core/constants/colors/colors.dart';
+import '../../core/constants/enums/enums.dart';
+import '../../core/singletons/translation/locale_keys.g.dart';
 
 class CardMoreButtonField extends StatelessWidget {
   const CardMoreButtonField({
@@ -19,44 +19,23 @@ class CardMoreButtonField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<PopupMenuItemEnum>(
+      onSelected: (value) {
+        if (value == PopupMenuItemEnum.edit) {
+          Navigator.push(context, pageRouterEdit());
+        } else if (value == PopupMenuItemEnum.remove) {
+          openDialog(context);
+        }
+      },
       itemBuilder: (context) {
         return <PopupMenuEntry<PopupMenuItemEnum>>[
           PopupMenuItem(
             value: PopupMenuItemEnum.edit,
             child: Text(
               LocaleKeys.mainText_edit.tr(),
-              style: const TextStyle(color: Colors.blue),
+              style: TextStyle(color: AppColors.instance.editColor),
             ),
-            onTap: () {
-              Navigator.push(context, pageRouterEdit());
-            },
           ),
           PopupMenuItem(
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: Text(
-                      LocaleKeys.mainText_remove.tr(),
-                      style: const TextStyle(fontSize: 15),
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(context, pageRouterEdit());
-                        },
-                        child: Text(LocaleKeys.mainText_cancel.tr()),
-                      ),
-                      TextButton(
-                        onPressed: removeFunction,
-                        child: Text(LocaleKeys.mainText_confirm.tr()),
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
             value: PopupMenuItemEnum.remove,
             child: Text(
               LocaleKeys.mainText_remove.tr(),
@@ -64,6 +43,48 @@ class CardMoreButtonField extends StatelessWidget {
             ),
           )
         ];
+      },
+    );
+  }
+
+  Future<dynamic> openDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          actionsAlignment: MainAxisAlignment.center,
+          shape: const OutlineInputBorder(),
+          content: Text(
+            LocaleKeys.alerts_removeAlert.tr(),
+            textAlign: TextAlign.center,
+          ),
+          title: const Icon(
+            Icons.warning_amber,
+            size: 50,
+          ),
+          actions: [
+            TextButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.3)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                LocaleKeys.mainText_cancel.tr(),
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+            const Spacer(),
+            TextButton(
+              style: ElevatedButton.styleFrom(backgroundColor: AppColors.instance.removeColor),
+              onPressed: removeFunction,
+              child: Text(
+                LocaleKeys.mainText_remove.tr(),
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        );
       },
     );
   }

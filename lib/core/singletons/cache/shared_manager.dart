@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+
+import '../../constants/enums/enums.dart';
 
 class SharedManager {
   SharedManager._init() {

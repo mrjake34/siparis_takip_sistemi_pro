@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
+import '../../core/constants/colors/colors.dart';
 
 class MainElevatedButtonWithoutColor extends StatelessWidget {
   const MainElevatedButtonWithoutColor({

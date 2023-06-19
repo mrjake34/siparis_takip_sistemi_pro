@@ -12,6 +12,7 @@ class AppColors {
   final Color couriersColor = const Color.fromARGB(255, 62, 158, 178);
   final Color ordersColor = const Color.fromARGB(255, 149, 76, 207);
   final Color productsColor = const Color.fromARGB(255, 201, 169, 57);
+  final Color editColor = Colors.blue;
   final Color removeColor = Colors.red;
   final Color orderPendingColor = const Color.fromARGB(255, 217, 134, 36);
   final Color orderInProcessColor = const Color.fromARGB(255, 6, 133, 204);

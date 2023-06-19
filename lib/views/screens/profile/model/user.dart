@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: avoid_setters_without_getters
 import 'package:json_annotation/json_annotation.dart';
+
 part 'user.g.dart';
 
 @JsonSerializable()

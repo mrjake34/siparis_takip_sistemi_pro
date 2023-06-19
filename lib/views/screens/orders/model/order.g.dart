@@ -20,7 +20,7 @@ Map<String, dynamic> _$OrderListToJson(OrderList instance) => <String, dynamic>{
 
 OrderListProduct _$OrderListProductFromJson(Map<String, dynamic> json) =>
     OrderListProduct(
-      id: json['_id'] as String,
+      id: json['id'] as String,
       shopName: json['shopName'] as String,
       customerId: json['customerId'] as String,
       products: (json['products'] as List<dynamic>)
@@ -35,7 +35,7 @@ OrderListProduct _$OrderListProductFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$OrderListProductToJson(OrderListProduct instance) =>
     <String, dynamic>{
-      '_id': instance.id,
+      'id': instance.id,
       'shopName': instance.shopName,
       'customerId': instance.customerId,
       'products': instance.products,
@@ -50,7 +50,7 @@ ProductProduct _$ProductProductFromJson(Map<String, dynamic> json) =>
     ProductProduct(
       productId: json['productId'] as String,
       quantity: json['quantity'] as String,
-      id: json['_id'] as String,
+      id: json['id'] as String,
       productNote: json['productNote'] as String?,
     );
 
@@ -59,5 +59,5 @@ Map<String, dynamic> _$ProductProductToJson(ProductProduct instance) =>
       'productId': instance.productId,
       'quantity': instance.quantity,
       'productNote': instance.productNote,
-      '_id': instance.id,
+      'id': instance.id,
     };

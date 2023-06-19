@@ -118,6 +118,7 @@
         "resetPasswordSent": "Password reset email has been sent"
     },
     "alerts": {
+        "removeAlert": "Are you sure do you want to remove item from list?",
         "customerRemove": "Do you want remove customer",
         "customerRemoveFromCustomerList": "from customer list?",
         "courierRemove": "Do you want remove courier",

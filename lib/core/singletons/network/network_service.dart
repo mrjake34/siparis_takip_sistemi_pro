@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/network/url.dart';
+import '../../constants/network/url.dart';
 
 class NetworkService {
   factory NetworkService() {

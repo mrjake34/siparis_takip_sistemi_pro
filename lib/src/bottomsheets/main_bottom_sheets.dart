@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
+import '../../core/constants/size/sizes.dart';
 
 class MainBottomSheets {
   Future<dynamic> openBottomSheet(BuildContext context, Widget widget) async {

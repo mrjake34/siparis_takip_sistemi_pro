@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/courier/model/courier.dart';
+import '../../../../core/base/models/base_model_view.dart';
+import '../../../../core/constants/enums/enums.dart';
+import '../../../../core/singletons/translation/locale_keys.g.dart';
+import '../model/courier.dart';
 
 class CourierService with BaseModelView {
   Future<dynamic> postCourier(

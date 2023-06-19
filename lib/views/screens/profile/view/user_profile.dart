@@ -2,15 +2,16 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:siparis_takip_sistemi_pro/components/main-functions.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/providers/main_providers.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/profile/bloc/user_profile_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/profile/view/choose_theme_widget.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/profile/view/user_details_widget.dart';
+
+import '../../../../components/main-functions.dart';
+import '../../../../core/constants/colors/colors.dart';
+import '../../../../core/constants/enums/enums.dart';
+import '../../../../core/constants/size/sizes.dart';
+import '../../../../core/singletons/translation/locale_keys.g.dart';
+import '../../../../providers/main_providers.dart';
+import '../bloc/user_profile_bloc.dart';
+import 'choose_theme_widget.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});

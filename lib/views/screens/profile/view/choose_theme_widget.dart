@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/providers/theme_providers.dart';
-import 'package:siparis_takip_sistemi_pro/theme/dark_theme.dart';
-import 'package:siparis_takip_sistemi_pro/theme/light_theme.dart';
-import 'package:siparis_takip_sistemi_pro/theme/theme_service.dart';
+import '../../../../core/constants/colors/colors.dart';
+import '../../../../core/singletons/translation/locale_keys.g.dart';
+import '../../../../providers/theme_providers.dart';
+import '../../../../theme/dark_theme.dart';
+import '../../../../theme/light_theme.dart';
+import '../../../../theme/theme_service.dart';
 
 class ChooseThemeWidget extends StatelessWidget {
   const ChooseThemeWidget({super.key});

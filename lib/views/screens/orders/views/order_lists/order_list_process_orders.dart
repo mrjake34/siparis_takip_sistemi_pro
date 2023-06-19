@@ -6,7 +6,7 @@ import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart'
 import 'package:siparis_takip_sistemi_pro/core/constants/icons/icons.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/navigation/navigation_service.dart';
+import 'package:siparis_takip_sistemi_pro/core/singletons/navigation/navigation_service.dart';
 import 'package:siparis_takip_sistemi_pro/src/bottomsheets/main_bottom_sheets.dart';
 import 'package:siparis_takip_sistemi_pro/src/cards/list_card.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/customer/bloc/customer_bloc.dart';

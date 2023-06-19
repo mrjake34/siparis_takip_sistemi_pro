@@ -2,14 +2,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/providers/courier_providers.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/bloc/courier_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/model/courier.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/service/courier_service.dart';
+
+import '../../../../core/constants/colors/colors.dart';
+import '../../../../core/constants/enums/enums.dart';
+import '../../../../core/constants/size/sizes.dart';
+import '../../../../core/singletons/translation/locale_keys.g.dart';
 
 class EditCourier extends StatelessWidget {
   EditCourier({required this.id, super.key});

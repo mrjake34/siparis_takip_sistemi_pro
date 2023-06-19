@@ -1,18 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/src/bottomsheets/main_bottom_sheets.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/customer/bloc/customer_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/customer/model/customer.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/customer/view/bottomsheet/customer_list_bottom_sheet.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/customer/view/customer_details.dart';
-
+import '../../../../core/base/models/base_model_view.dart';
+import '../../../../core/constants/colors/colors.dart';
+import '../../../../core/constants/enums/enums.dart';
+import '../../../../core/constants/size/sizes.dart';
+import '../../../../core/singletons/translation/locale_keys.g.dart';
+import '../../../../src/cards/cards_more_button.dart';
 import '../../../../src/cards/list_card.dart';
+import '../bloc/customer_bloc.dart';
+import '../model/customer.dart';
+import '../service/customer_service.dart';
+import 'customer_details.dart';
+import 'edit_customer.dart';
 
 class CustomerListPage extends StatefulWidget {
   const CustomerListPage({super.key});
@@ -21,8 +21,7 @@ class CustomerListPage extends StatefulWidget {
   State<CustomerListPage> createState() => _CustomerListPageState();
 }
 
-class _CustomerListPageState extends State<CustomerListPage>
-    with BaseModelView {
+class _CustomerListPageState extends State<CustomerListPage> with BaseModelView {
   @override
   Widget build(BuildContext context) {
     return PageBuilder(appColors: appColors);
@@ -161,20 +160,12 @@ class CustomerListCardButtonField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        MainBottomSheets().openBottomSheet(
-          context,
-          CustomerListBottomSheetWidget(
-            appColors: appColors,
-            id: customer?.id,
-          ),
-        );
+    return CardMoreButtonField(
+      removeFunction: () {
+        CustomerService().deleteCustomer(customer?.id ?? '');
       },
-      child: CircleAvatar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        child: const Icon(Icons.more_vert),
-      ),
+      id: customer?.id,
+      routerWidget: EditCustomer(id: customer?.id ?? ''),
     );
   }
 }

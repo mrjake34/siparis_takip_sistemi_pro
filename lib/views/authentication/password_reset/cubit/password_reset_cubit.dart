@@ -2,8 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
+import '../../../../core/base/models/base_model_view.dart';
+import '../../../../core/constants/enums/enums.dart';
 
 part 'password_reset_state.dart';
 

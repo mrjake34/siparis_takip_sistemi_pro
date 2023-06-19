@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/navigation/navigation_service.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/translation/locale_keys.g.dart';
+import '../../core/constants/navigation/navigation_constants.dart';
+import '../../core/singletons/navigation/navigation_service.dart';
+import '../../core/singletons/translation/locale_keys.g.dart';
 
 class NotFoundPage extends StatelessWidget {
   const NotFoundPage({super.key});

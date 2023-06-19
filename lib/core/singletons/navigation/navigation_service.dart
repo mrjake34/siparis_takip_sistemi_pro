@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:siparis_takip_sistemi_pro/core/init/navigation/inavigation_sevice.dart';
+import 'inavigation_sevice.dart';
 
 class NavigationService implements INavigationService {
   NavigationService._init();
