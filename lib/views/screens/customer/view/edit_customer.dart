@@ -5,7 +5,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import '../../../../core/constants/colors/colors.dart';
 import '../../../../core/constants/enums/enums.dart';
 import '../../../../core/constants/size/sizes.dart';
-import '../../../../core/singletons/translation/locale_keys.g.dart';
+import '../../../../core/utils/translation/locale_keys.g.dart';
 import '../../../../providers/customer_provider.dart';
 import '../bloc/customer_bloc.dart';
 import '../model/customer.dart';

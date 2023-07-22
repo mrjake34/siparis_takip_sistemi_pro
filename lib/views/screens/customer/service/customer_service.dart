@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import '../../../../core/base/models/base_model_view.dart';
 import '../../../../core/constants/enums/enums.dart';
-import '../../../../core/singletons/translation/locale_keys.g.dart';
+import '../../../../core/utils/translation/locale_keys.g.dart';
 import '../model/customer.dart';
 
 class CustomerService with BaseModelView {

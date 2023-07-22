@@ -4,7 +4,7 @@ class RegisterResponseErrorModel {
 
   RegisterResponseErrorModel({this.message});
 
-  RegisterResponseErrorModel.fromJson(Map<String, dynamic> json) {
+ RegisterResponseErrorModel.fromJson(Map<String, dynamic> json) {
     message = json['message'].toString();
   }
   String? message;

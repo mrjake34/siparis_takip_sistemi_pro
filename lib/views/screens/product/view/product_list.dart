@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/colors/colors.dart';
 import '../../../../core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/core/singletons/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/core/utils/translation/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/providers/main_providers.dart';
 import 'package:siparis_takip_sistemi_pro/src/cards/cards_more_button.dart';
 import 'package:siparis_takip_sistemi_pro/src/cards/list_card.dart';

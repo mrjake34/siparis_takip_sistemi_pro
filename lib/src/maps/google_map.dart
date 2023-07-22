@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../core/singletons/translation/locale_keys.g.dart';
+import '../../core/utils/translation/locale_keys.g.dart';
 
 class GoogleMapPage extends StatelessWidget {
   const GoogleMapPage({required this.mapLat, required this.mapLong, super.key});

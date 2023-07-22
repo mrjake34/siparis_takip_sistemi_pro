@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/constants/navigation/navigation_constants.dart';
-import '../../core/singletons/navigation/navigation_service.dart';
-import '../../core/singletons/translation/locale_keys.g.dart';
+import '../../core/utils/navigation/navigation_service.dart';
+import '../../core/utils/translation/locale_keys.g.dart';
 
 class NotFoundPage extends StatelessWidget {
   const NotFoundPage({super.key});

@@ -14,11 +14,11 @@ class RegisterRequestModel {
 
   factory RegisterRequestModel.fromJson(Map<String, dynamic> json) => _$RegisterRequestModelFromJson(json);
 
-  String? name;
-  String? email;
-  String? password;
-  String? phone;
-  String? shopName;
+  final String? name;
+  final String? email;
+  final String? password;
+  final String? phone;
+  final String? shopName;
 
   Map<String, dynamic> toJson() => _$RegisterRequestModelToJson(this);
 }

@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../core/constants/colors/colors.dart';
 import '../../core/constants/enums/enums.dart';
-import '../../core/singletons/translation/locale_keys.g.dart';
+import '../../core/utils/translation/locale_keys.g.dart';
 
 class CardMoreButtonField extends StatelessWidget {
   const CardMoreButtonField({

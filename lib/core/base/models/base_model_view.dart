@@ -3,10 +3,10 @@ import 'package:siparis_takip_sistemi_pro/components/main-functions.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/icons/icons.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/network/url.dart';
-import 'package:siparis_takip_sistemi_pro/core/singletons/cache/shared_manager.dart';
-import 'package:siparis_takip_sistemi_pro/core/singletons/navigation/navigation_service.dart';
-import 'package:siparis_takip_sistemi_pro/core/singletons/network/network_service.dart';
-import 'package:siparis_takip_sistemi_pro/core/singletons/utils/utils.dart';
+import 'package:siparis_takip_sistemi_pro/core/utils/cache/shared_manager.dart';
+import 'package:siparis_takip_sistemi_pro/core/utils/navigation/navigation_service.dart';
+import 'package:siparis_takip_sistemi_pro/core/utils/network/network_service.dart';
+import 'package:siparis_takip_sistemi_pro/core/utils/utils/utils.dart';
 
 mixin class BaseModelView {
   BuildContext? viewContext;

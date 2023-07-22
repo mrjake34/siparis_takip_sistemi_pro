@@ -5,7 +5,7 @@ import '../../../../core/base/models/base_model_view.dart';
 import '../../../../core/constants/colors/colors.dart';
 import '../../../../core/constants/enums/enums.dart';
 import '../../../../core/constants/size/sizes.dart';
-import '../../../../core/singletons/translation/locale_keys.g.dart';
+import '../../../../core/utils/translation/locale_keys.g.dart';
 import '../../../../src/cards/cards_more_button.dart';
 import '../../../../src/cards/list_card.dart';
 import '../bloc/customer_bloc.dart';

@@ -6,10 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/core/singletons/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/core/utils/translation/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/views/authentication/register/cubit/register_state.dart';
 import 'package:siparis_takip_sistemi_pro/views/authentication/register/model/register_request_model.dart';
 import 'package:siparis_takip_sistemi_pro/views/authentication/register/model/register_response_error_model.dart';
+import 'package:vexana/vexana.dart';
+
+import '../../../../core/constants/network/url.dart';
 
 class RegisterCubit extends Cubit<RegisterState> with BaseModelView {
   final TextEditingController? nameController;
@@ -19,6 +22,7 @@ class RegisterCubit extends Cubit<RegisterState> with BaseModelView {
   final TextEditingController? passwordController;
   final TextEditingController? password2Controller;
   final GlobalKey<FormBuilderState>? formKey;
+  late final INetworkManager networkManager;
 
   bool registerFail = false;
   bool isLoading = false;
@@ -34,6 +38,7 @@ class RegisterCubit extends Cubit<RegisterState> with BaseModelView {
   }) : super(const RegisterState());
 
   Future<void> postRegisterModel() async {
+    
     if (passwordController?.text.trim() == password2Controller?.text.trim()) {
       try {
         emit(const RegisterState(status: Status.isLoading));

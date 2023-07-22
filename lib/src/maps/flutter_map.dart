@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
-import '../../core/singletons/translation/locale_keys.g.dart';
+import '../../core/utils/translation/locale_keys.g.dart';
 
 
 class FlutterMapPage extends StatelessWidget {

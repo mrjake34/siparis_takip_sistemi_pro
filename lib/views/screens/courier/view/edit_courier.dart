@@ -10,7 +10,7 @@ import 'package:siparis_takip_sistemi_pro/views/screens/courier/service/courier_
 import '../../../../core/constants/colors/colors.dart';
 import '../../../../core/constants/enums/enums.dart';
 import '../../../../core/constants/size/sizes.dart';
-import '../../../../core/singletons/translation/locale_keys.g.dart';
+import '../../../../core/utils/translation/locale_keys.g.dart';
 
 class EditCourier extends StatelessWidget {
   EditCourier({required this.id, super.key});

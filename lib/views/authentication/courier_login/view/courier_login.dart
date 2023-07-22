@@ -10,8 +10,8 @@ import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart'
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/core/singletons/translation/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/core/singletons/utils/utils.dart';
+import 'package:siparis_takip_sistemi_pro/core/utils/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/core/utils/utils/utils.dart';
 import 'package:siparis_takip_sistemi_pro/providers/main_providers.dart';
 import 'package:siparis_takip_sistemi_pro/src/button/loading_button.dart';
 import 'package:siparis_takip_sistemi_pro/src/button/main_elevated_button.dart';

@@ -5,7 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:get/get_connect/http/src/status/http_status.dart';
 import '../../../../core/base/models/base_model_view.dart';
 import '../../../../core/constants/enums/enums.dart';
-import '../../../../core/singletons/translation/locale_keys.g.dart';
+import '../../../../core/utils/translation/locale_keys.g.dart';
 import '../model/order.dart';
 import 'order_service_interface.dart';
 import 'package:vexana/vexana.dart';

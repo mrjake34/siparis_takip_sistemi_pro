@@ -7,7 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/base/models/base_model_view.dart';
 import '../../../../core/constants/enums/enums.dart';
-import '../../../../core/singletons/translation/locale_keys.g.dart';
+import '../../../../core/utils/translation/locale_keys.g.dart';
 import '../model/login_response_model.dart';
 import '../../../screens/profile/model/user.dart';
 import '../../../screens/profile/service/profile_service.dart';

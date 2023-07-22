@@ -4,7 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 
-import 'package:siparis_takip_sistemi_pro/core/singletons/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/core/utils/translation/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/providers/customer_provider.dart';
 
 class AddCustomerFlutterMap extends StatelessWidget {

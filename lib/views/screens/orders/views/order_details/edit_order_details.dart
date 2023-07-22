@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/base/models/base_model_view.dart';
 import '../../../../../core/constants/size/sizes.dart';
-import '../../../../../core/singletons/translation/locale_keys.g.dart';
+import '../../../../../core/utils/translation/locale_keys.g.dart';
 import '../../../customer/bloc/customer_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/product/bloc/products_bloc.dart';

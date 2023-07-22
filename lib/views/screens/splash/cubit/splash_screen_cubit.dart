@@ -3,9 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../../../core/constants/enums/enums.dart';
-import '../../../../core/singletons/cache/shared_manager.dart';
-import '../../../../core/singletons/translation/locale_keys.g.dart';
-import '../../../../core/singletons/utils/utils.dart';
+import '../../../../core/utils/cache/shared_manager.dart';
+import '../../../../core/utils/translation/locale_keys.g.dart';
+import '../../../../core/utils/utils/utils.dart';
 
 part 'splash_screen_state.dart';
 

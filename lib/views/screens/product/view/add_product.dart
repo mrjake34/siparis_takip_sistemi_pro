@@ -6,8 +6,8 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import '../../../../core/constants/colors/colors.dart';
 import '../../../../core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/core/singletons/translation/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/core/singletons/utils/utils.dart';
+import 'package:siparis_takip_sistemi_pro/core/utils/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/core/utils/utils/utils.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/product/bloc/products_bloc.dart';
 
 class AddProduct extends StatelessWidget {
