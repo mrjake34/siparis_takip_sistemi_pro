@@ -23,7 +23,7 @@ class CustomerService with BaseModelView {
         'phone': customer?.phone,
         'adress': customer?.adress,
         'latitude': customer?.latitude,
-        'longitude': customer?.longitude
+        'longitude': customer?.longitude,
       },
     );
     return response;
@@ -71,7 +71,7 @@ class CustomerService with BaseModelView {
         headers: {'content-type': 'application/json', 'authorization': cookie},
       ),
       data: [
-        {'propName': key, 'value': value}
+        {'propName': key, 'value': value},
       ],
     );
     if (kDebugMode) {

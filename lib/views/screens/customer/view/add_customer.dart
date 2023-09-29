@@ -26,8 +26,7 @@ class AddCustomer extends StatelessWidget {
 
   final TextEditingController customerPhoneController = TextEditingController();
 
-  final TextEditingController customerAddressController =
-      TextEditingController();
+  final TextEditingController customerAddressController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -166,23 +165,11 @@ class AddCustomerAddButtonField extends StatelessWidget {
                           phone: customerPhoneController.text.trim(),
                           adress: customerAddressController.text.trim(),
                           latitude: Platform.isWindows == false
-                              ? context
-                                  .watch<GetUserLocation>()
-                                  .getAlternativeMapLatLng2
-                                  .latitude
-                              : context
-                                  .watch<GetUserLocation>()
-                                  .getGoogleMapLatLng
-                                  .latitude,
+                              ? context.watch<GetUserLocation>().getAlternativeMapLatLng2.latitude
+                              : context.watch<GetUserLocation>().getGoogleMapLatLng.latitude,
                           longitude: Platform.isWindows == false
-                              ? context
-                                  .watch<GetUserLocation>()
-                                  .getAlternativeMapLatLng2
-                                  .longitude
-                              : context
-                                  .watch<GetUserLocation>()
-                                  .getGoogleMapLatLng
-                                  .longitude,
+                              ? context.watch<GetUserLocation>().getAlternativeMapLatLng2.longitude
+                              : context.watch<GetUserLocation>().getGoogleMapLatLng.longitude,
                         ),
                       ),
                     );
@@ -194,7 +181,7 @@ class AddCustomerAddButtonField extends StatelessWidget {
             },
             child: Text(LocaleKeys.customer_addCustomer.tr()),
           ),
-        )
+        ),
       ],
     );
   }
@@ -212,27 +199,21 @@ class AddCustomerAddLocationWithMapField extends StatelessWidget {
         ListTile(
           title: Text(LocaleKeys.mainText_location.tr()),
           subtitle: SelectableText(
-            '${Platform.isWindows == true ? context.watch<GetUserLocation>()
-            .getAlternativeMapLatLng2.latitude 
-            : context.watch<GetUserLocation>().getGoogleMapLatLng.latitude}',
+            '${Platform.isWindows == true ? context.watch<GetUserLocation>().getAlternativeMapLatLng2.latitude : context.watch<GetUserLocation>().getGoogleMapLatLng.latitude}',
           ),
         ),
         ListTile(
           title: Text(LocaleKeys.mainText_location.tr()),
           subtitle: SelectableText(
-            '${Platform.isWindows == true ? context.watch<GetUserLocation>()
-            .getAlternativeMapLatLng2.longitude 
-            : context.watch<GetUserLocation>().getGoogleMapLatLng.longitude}',
+            '${Platform.isWindows == true ? context.watch<GetUserLocation>().getAlternativeMapLatLng2.longitude : context.watch<GetUserLocation>().getGoogleMapLatLng.longitude}',
           ),
         ),
         MainElevatedButtonWithoutColor(
           onPressed: () {
             if (Platform.isWindows) {
-              NavigationService.instance
-                  .navigateToPage(path: NavigationConstants.customerFlutterMap);
+              NavigationService.instance.navigateToPage(path: NavigationConstants.customerFlutterMap);
             } else {
-              NavigationService.instance
-                  .navigateToPage(path: NavigationConstants.customerGoogleMap);
+              NavigationService.instance.navigateToPage(path: NavigationConstants.customerGoogleMap);
             }
           },
           child: Text(
@@ -295,14 +276,16 @@ class CustomerPhoneTextField extends StatelessWidget {
         prefixIcon: const Icon(Icons.phone),
         labelText: LocaleKeys.customer_customerPhone.tr(),
       ),
-      validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(
-          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
-        ),
-        FormBuilderValidators.numeric(
-          errorText: LocaleKeys.errors_justEnterNumber.tr(),
-        )
-      ]),
+      validator: FormBuilderValidators.compose(
+        [
+          FormBuilderValidators.required(
+            errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+          ),
+          FormBuilderValidators.numeric(
+            errorText: LocaleKeys.errors_justEnterNumber.tr(),
+          ),
+        ],
+      ),
     );
   }
 }

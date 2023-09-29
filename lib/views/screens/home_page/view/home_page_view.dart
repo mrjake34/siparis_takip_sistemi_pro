@@ -49,7 +49,7 @@ class BuildPage extends StatelessWidget {
               NavigationService.instance.navigateToPage(path: NavigationConstants.userProfile);
             },
             icon: const Icon(CupertinoIcons.profile_circled),
-          )
+          ),
         ],
       ),
       drawer: DrawerWidget(userRole: userRole ?? ''),

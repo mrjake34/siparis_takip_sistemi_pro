@@ -15,6 +15,8 @@ class GetUserLocation with ChangeNotifier {
     heading: 0,
     speed: 0,
     speedAccuracy: 0,
+    altitudeAccuracy: 0,
+    headingAccuracy: 0,
   );
   LatLng _googleMapLatLng = const LatLng(0, 0);
   latlong2.LatLng _alternativeMapLatLng2 = const latlong2.LatLng(0, 0);

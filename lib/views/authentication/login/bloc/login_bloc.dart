@@ -26,7 +26,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with BaseModelView {
             appNetwork.login,
             data: {
               'email': emailController?.text.trim(),
-              'password': passwordController?.text.trim()
+              'password': passwordController?.text.trim(),
             },
           );
           if (response.statusCode == HttpStatus.ok) {

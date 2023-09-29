@@ -117,11 +117,11 @@ class PageBuilder extends StatelessWidget {
                           ),
                           const SizedBox(
                             height: 15,
-                          )
+                          ),
                         ],
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

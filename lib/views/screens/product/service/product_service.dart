@@ -98,7 +98,7 @@ class ProductService with BaseModelView {
       final response = await networkService.dio.patch(
         appNetwork.productUrlWithSlash + id,
         data: [
-          {'propName': key.toString(), 'value': value}
+          {'propName': key.toString(), 'value': value},
         ],
         options: Options(
           headers: {

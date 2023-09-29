@@ -48,7 +48,7 @@ class OrderListBottomSheetWidget extends StatelessWidget with BaseModelView {
           ),
           const SizedBox(
             height: 30,
-          )
+          ),
         ],
       ),
     );

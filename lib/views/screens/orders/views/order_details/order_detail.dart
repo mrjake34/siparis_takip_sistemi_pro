@@ -203,11 +203,11 @@ class _OrderDetailsState extends State<OrderDetails> with BaseModelView {
                           ),
                           const SizedBox(
                             height: 5,
-                          )
+                          ),
                         ],
                       );
                     },
-                  )
+                  ),
                 ],
               );
             },

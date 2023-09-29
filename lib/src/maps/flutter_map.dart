@@ -33,9 +33,9 @@ class FlutterMapPage extends StatelessWidget {
                 return const Icon(Icons.location_on, color: Colors.blue,);
                 },
 
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );

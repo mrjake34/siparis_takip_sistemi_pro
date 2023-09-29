@@ -211,7 +211,7 @@ class _EditOrderPageState extends State<EditOrderPage> with BaseModelView {
                             ),
                             const SizedBox(
                               height: 5,
-                            )
+                            ),
                           ],
                         );
                       },

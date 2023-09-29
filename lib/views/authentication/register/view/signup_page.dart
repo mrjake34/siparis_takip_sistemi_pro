@@ -191,9 +191,7 @@ class HaveAccountField extends StatelessWidget with BaseModelView {
           LocaleKeys.mainText_haveAccount.tr(),
         ),
         TextButton(
-          onPressed: () {
-            navService.navigateToBack();
-          },
+          onPressed: navService.navigateToBack,
           child: Text(
             LocaleKeys.mainText_login.tr(),
             style: TextStyle(
@@ -201,7 +199,7 @@ class HaveAccountField extends StatelessWidget with BaseModelView {
               color: Theme.of(context).colorScheme.error,
             ),
           ),
-        )
+        ),
       ],
     );
   }
@@ -221,8 +219,7 @@ class RegisterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final agreement =
-        Provider.of<MembershipAgreementProvider>(context).getAgreement;
+    final agreement = Provider.of<MembershipAgreementProvider>(context).getAgreement;
     return Row(
       children: [
         Expanded(
@@ -268,16 +265,14 @@ class MembershipAgreementField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final agreement =
-        Provider.of<MembershipAgreementProvider>(context).getAgreement;
+    final agreement = Provider.of<MembershipAgreementProvider>(context).getAgreement;
     return Row(
       children: [
         Checkbox(
           checkColor: Theme.of(context).colorScheme.background,
           value: agreement,
           onChanged: (bool? newValue) {
-            context.read<MembershipAgreementProvider>().setAgreement =
-                newValue!;
+            context.read<MembershipAgreementProvider>().setAgreement = newValue!;
           },
         ),
         TextButton(
@@ -299,8 +294,7 @@ class PasswordTwoFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final visibility =
-        Provider.of<ChangePasswordVisibilityTwoProvider>(context).getVisibility;
+    final visibility = Provider.of<ChangePasswordVisibilityTwoProvider>(context).getVisibility;
     return TextFormField(
       controller: password2Controller,
       textInputAction: TextInputAction.done,
@@ -317,13 +311,9 @@ class PasswordTwoFormField extends StatelessWidget {
           ),
           onPressed: () {
             if (visibility == true) {
-              context
-                  .read<ChangePasswordVisibilityTwoProvider>()
-                  .setVisibility = false;
+              context.read<ChangePasswordVisibilityTwoProvider>().setVisibility = false;
             } else {
-              context
-                  .read<ChangePasswordVisibilityTwoProvider>()
-                  .setVisibility = true;
+              context.read<ChangePasswordVisibilityTwoProvider>().setVisibility = true;
             }
           },
         ),
@@ -353,8 +343,7 @@ class PasswordFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final visibility =
-        Provider.of<ChangePasswordVisibilityProvider>(context).getVisibility;
+    final visibility = Provider.of<ChangePasswordVisibilityProvider>(context).getVisibility;
     return TextFormField(
       controller: passwordController,
       textInputAction: TextInputAction.next,
@@ -371,11 +360,9 @@ class PasswordFormField extends StatelessWidget {
           ),
           onPressed: () {
             if (visibility == true) {
-              context.read<ChangePasswordVisibilityProvider>().setVisibility =
-                  false;
+              context.read<ChangePasswordVisibilityProvider>().setVisibility = false;
             } else {
-              context.read<ChangePasswordVisibilityProvider>().setVisibility =
-                  true;
+              context.read<ChangePasswordVisibilityProvider>().setVisibility = true;
             }
           },
         ),
@@ -418,11 +405,13 @@ class ShopNameFormField extends StatelessWidget {
         ),
         hintText: LocaleKeys.profile_shopName.tr(),
       ),
-      validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(
-          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
-        )
-      ]),
+      validator: FormBuilderValidators.compose(
+        [
+          FormBuilderValidators.required(
+            errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -490,7 +479,7 @@ class EmailFormField extends StatelessWidget {
         ),
         FormBuilderValidators.email(
           errorText: LocaleKeys.errors_justEnterEmail.tr(),
-        )
+        ),
       ]),
     );
   }
@@ -522,7 +511,7 @@ class NameFormField extends StatelessWidget {
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(
           errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
-        )
+        ),
       ]),
     );
   }

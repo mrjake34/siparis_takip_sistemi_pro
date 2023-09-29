@@ -20,7 +20,7 @@ class GoogleMapPage extends StatelessWidget {
           Marker(
             markerId: MarkerId(LocaleKeys.mainText_location.tr()),
             position: LatLng(mapLat, mapLong),
-          )
+          ),
         },
       ),
     );

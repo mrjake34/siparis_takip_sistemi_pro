@@ -215,14 +215,16 @@ class EditCourierPhoneTextField extends StatelessWidget {
         prefixIcon: const Icon(Icons.phone),
         labelText: LocaleKeys.courier_courierPhone.tr(),
       ),
-      validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(
-          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
-        ),
-        FormBuilderValidators.numeric(
-          errorText: LocaleKeys.errors_justEnterNumber.tr(),
-        )
-      ]),
+      validator: FormBuilderValidators.compose(
+        [
+          FormBuilderValidators.required(
+            errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+          ),
+          FormBuilderValidators.numeric(
+            errorText: LocaleKeys.errors_justEnterNumber.tr(),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -307,7 +309,7 @@ class EditCourierEmailTextField extends StatelessWidget {
         ),
         FormBuilderValidators.email(
           errorText: LocaleKeys.errors_justEnterEmail.tr(),
-        )
+        ),
       ]),
     );
   }

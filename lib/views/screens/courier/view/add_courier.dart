@@ -109,7 +109,7 @@ class PageBuilder extends StatelessWidget {
                     nameController: nameController,
                     emailController: emailController,
                     phoneController: phoneController,
-                  )
+                  ),
                 ],
               ),
             ),
@@ -146,8 +146,7 @@ class AddCourierButtonField extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                if (passwordController.text.trim() ==
-                    password2Controller.text.trim()) {
+                if (passwordController.text.trim() == password2Controller.text.trim()) {
                   CourierService().postCourier(
                     context,
                     nameController.text,
@@ -156,12 +155,10 @@ class AddCourierButtonField extends StatelessWidget {
                     phoneController.text,
                   );
                 } else {
-                  UtilsService.instance
-                      .errorSnackBar(LocaleKeys.errors_passwordDontMatch.tr());
+                  UtilsService.instance.errorSnackBar(LocaleKeys.errors_passwordDontMatch.tr());
                 }
               } else {
-                UtilsService.instance
-                    .errorSnackBar(LocaleKeys.errors_pleaseEnterAllField.tr());
+                UtilsService.instance.errorSnackBar(LocaleKeys.errors_pleaseEnterAllField.tr());
               }
             },
             child: Text(LocaleKeys.mainText_add.tr()),
@@ -186,25 +183,17 @@ class AddCourierRePasswordTextField extends StatelessWidget {
       controller: password2Controller,
       textInputAction: TextInputAction.done,
       autovalidateMode: AutovalidateMode.disabled,
-      obscureText: context
-          .watch<ChangeRePasswordVisibilityAddCourierProvider>()
-          .getVisibility,
+      obscureText: context.watch<ChangeRePasswordVisibilityAddCourierProvider>().getVisibility,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(vertical: 10),
         prefixIcon: const Icon(Icons.lock, size: 20),
         labelText: LocaleKeys.mainText_rePassword.tr(),
         suffixIcon: IconButton(
           icon: Icon(
-            context
-                    .watch<ChangeRePasswordVisibilityAddCourierProvider>()
-                    .getVisibility
-                ? Icons.visibility_off
-                : Icons.visibility,
+            context.watch<ChangeRePasswordVisibilityAddCourierProvider>().getVisibility ? Icons.visibility_off : Icons.visibility,
           ),
           onPressed: () {
-            context
-                .read<ChangeRePasswordVisibilityAddCourierProvider>()
-                .setVisibility();
+            context.read<ChangeRePasswordVisibilityAddCourierProvider>().setVisibility();
           },
         ),
       ),
@@ -237,25 +226,17 @@ class AddCourierPasswordTextField extends StatelessWidget {
       controller: passwordController,
       textInputAction: TextInputAction.done,
       autovalidateMode: AutovalidateMode.disabled,
-      obscureText: context
-          .watch<ChangePasswordVisibilityAddCourierProvider>()
-          .getVisibility,
+      obscureText: context.watch<ChangePasswordVisibilityAddCourierProvider>().getVisibility,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(vertical: 10),
         prefixIcon: const Icon(Icons.lock, size: 20),
         labelText: LocaleKeys.mainText_password.tr(),
         suffixIcon: IconButton(
           icon: Icon(
-            context
-                    .watch<ChangePasswordVisibilityAddCourierProvider>()
-                    .getVisibility
-                ? Icons.visibility_off
-                : Icons.visibility,
+            context.watch<ChangePasswordVisibilityAddCourierProvider>().getVisibility ? Icons.visibility_off : Icons.visibility,
           ),
           onPressed: () {
-            context
-                .read<ChangePasswordVisibilityAddCourierProvider>()
-                .setVisibility();
+            context.read<ChangePasswordVisibilityAddCourierProvider>().setVisibility();
           },
         ),
       ),
@@ -294,14 +275,16 @@ class AddCourierPhoneTextField extends StatelessWidget {
         prefixIcon: const Icon(Icons.phone),
         labelText: LocaleKeys.courier_courierPhone.tr(),
       ),
-      validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(
-          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
-        ),
-        FormBuilderValidators.numeric(
-          errorText: LocaleKeys.errors_justEnterNumber.tr(),
-        )
-      ]),
+      validator: FormBuilderValidators.compose(
+        [
+          FormBuilderValidators.required(
+            errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+          ),
+          FormBuilderValidators.numeric(
+            errorText: LocaleKeys.errors_justEnterNumber.tr(),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -331,7 +314,7 @@ class AddCourierEmailTextField extends StatelessWidget {
         ),
         FormBuilderValidators.email(
           errorText: LocaleKeys.errors_justEnterEmail.tr(),
-        )
+        ),
       ]),
     );
   }

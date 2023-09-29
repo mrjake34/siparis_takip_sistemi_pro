@@ -36,14 +36,8 @@ class AddCustomerFlutterMap extends StatelessWidget {
             markers: [
               Marker(
                 point: LatLng(
-                  context
-                      .watch<GetUserLocation>()
-                      .getAlternativeMapLatLng2
-                      .latitude,
-                  context
-                      .watch<GetUserLocation>()
-                      .getAlternativeMapLatLng2
-                      .longitude,
+                  context.watch<GetUserLocation>().getAlternativeMapLatLng2.latitude,
+                  context.watch<GetUserLocation>().getAlternativeMapLatLng2.longitude,
                 ),
                 builder: (BuildContext context) {
                   return const Icon(
@@ -51,9 +45,9 @@ class AddCustomerFlutterMap extends StatelessWidget {
                     color: Colors.blue,
                   );
                 },
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );

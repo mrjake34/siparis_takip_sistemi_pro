@@ -55,7 +55,6 @@ class CourierService with BaseModelView {
       ),
     );
     if (response.statusCode == 200) {
-
       final courierList = CourierList.fromJson(
         response.data as Map<String, dynamic>,
       );
@@ -117,7 +116,7 @@ class CourierService with BaseModelView {
         },
       ),
       data: [
-        {'propName': key, 'value': value}
+        {'propName': key, 'value': value},
       ],
     );
     if (response.statusCode == 200) {

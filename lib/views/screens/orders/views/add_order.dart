@@ -105,7 +105,7 @@ class PageBuilder extends StatelessWidget {
           ),
           const SizedBox(
             width: 15,
-          )
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -283,7 +283,7 @@ class ProductCard extends StatelessWidget {
                             color: AppColors.instance.removeColor,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                   ProductNoteField(
@@ -478,7 +478,7 @@ class CustomerField extends StatelessWidget {
                         ],
                       );
                     },
-                  )
+                  ),
                 ],
               ),
             ),
@@ -495,7 +495,7 @@ class CustomerField extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/icons/icons.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/strings/appstrings.dart';
 import 'package:siparis_takip_sistemi_pro/core/utils/cache/shared_manager.dart';
 import 'package:siparis_takip_sistemi_pro/core/utils/navigation/navigation_service.dart';
 import 'package:siparis_takip_sistemi_pro/core/utils/translation/locale_keys.g.dart';
@@ -46,50 +47,29 @@ class MainFunctions {
     );
   }
 
-  Color getColorFromOrderStatus({String? orderStatus}) {
-    switch (orderStatus) {
-      case 'waiting':
-        return AppColors.instance.orderPendingColor;
-      case 'inProcess':
-        return AppColors.instance.orderInProcessColor;
-      case 'inDistribution':
-        return AppColors.instance.orderOnTheWayColor;
-      case 'completed':
-        return AppColors.instance.orderIsDoneColor;
-      default:
-        return AppColors.instance.orderPendingColor;
-    }
-  }
+  Color getColorFromOrderStatus({String? orderStatus}) => switch (orderStatus) {
+        AppStrings.inLineOrderString => AppColors.instance.orderPendingColor,
+        AppStrings.inProcessOrderString => AppColors.instance.orderInProcessColor,
+        AppStrings.onTheWayOrderString => AppColors.instance.orderOnTheWayColor,
+        AppStrings.isCompleteOrderString => AppColors.instance.orderIsDoneColor,
+        _ => AppColors.instance.orderPendingColor,
+      };
 
-  IconData getIconFromOrderStatus({String? orderStatus}) {
-    switch (orderStatus) {
-      case 'waiting':
-        return AppIcons.instance.pendingIcon;
-      case 'inProcess':
-        return AppIcons.instance.inProcessIcon;
-      case 'inDistribution':
-        return AppIcons.instance.onTheWayIcon;
-      case 'completed':
-        return AppIcons.instance.isDoneIcon;
-      default:
-        return AppIcons.instance.pendingIcon;
-    }
-  }
+  IconData getIconFromOrderStatus({String? orderStatus}) => switch (orderStatus) {
+        AppStrings.inLineOrderString => AppIcons.instance.pendingIcon,
+        AppStrings.inProcessOrderString => AppIcons.instance.inProcessIcon,
+        AppStrings.isCompleteOrderString => AppIcons.instance.onTheWayIcon,
+        AppStrings.onTheWayOrderString => AppIcons.instance.isDoneIcon,
+        _ => AppIcons.instance.pendingIcon,
+      };
 
-  String getStringFromOrderStatus({String? orderStatus}) {
-    switch (orderStatus) {
-      case 'waiting':
-        return LocaleKeys.order_inLine.tr();
-      case 'inProcess':
-        return LocaleKeys.order_inProcess.tr();
-      case 'inDistribution':
-        return LocaleKeys.order_onTheWay.tr();
-      case 'completed':
-        return LocaleKeys.order_isDone.tr();
-      default:
-        return LocaleKeys.order_inLine.tr();
-    }
-  }
+  String getStringFromOrderStatus({String? orderStatus}) => switch (orderStatus) {
+      AppStrings.inLineOrderString => LocaleKeys.order_inLine.tr(),
+      AppStrings.inProcessOrderString => LocaleKeys.order_inProcess.tr(),
+      AppStrings.isCompleteOrderString => LocaleKeys.order_onTheWay.tr(),
+      AppStrings.onTheWayOrderString => LocaleKeys.order_isDone.tr(),
+      _ => LocaleKeys.order_inLine.tr(),
+    };
 
   double productTotalPriceCalculator({int? quantity, double? price}) {
     if (quantity != null && price != null) {

@@ -106,7 +106,7 @@ class CourierListBuilder extends StatelessWidget {
                     ),
                     Expanded(
                       child: MoreButton(couriers: couriers),
-                    )
+                    ),
                   ],
                 ),
               );

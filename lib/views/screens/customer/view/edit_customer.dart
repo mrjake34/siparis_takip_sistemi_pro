@@ -60,8 +60,7 @@ class PageBuilder extends StatelessWidget {
               child: BlocBuilder<CustomerBloc, CustomerState>(
                 builder: (context, state) {
                   if (state.customerList != null) {
-                    final customer = state.customerList?.customers
-                        .firstWhere((element) => element.id == id);
+                    final customer = state.customerList?.customers.firstWhere((element) => element.id == id);
                     nameController.text = customer?.name ?? '';
                     addressController.text = customer?.adress ?? '';
                     phoneController.text = customer?.phone ?? '';
@@ -155,16 +154,11 @@ class CustomerPhoneButtonField extends StatelessWidget {
         const SizedBox(
           width: 10,
         ),
-        if (context
-                .watch<CustomerPhoneEditingStatusProvider>()
-                .getEditingStatus ==
-            true)
+        if (context.watch<CustomerPhoneEditingStatusProvider>().getEditingStatus == true)
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
             onPressed: () {
-              context
-                  .read<CustomerPhoneEditingStatusProvider>()
-                  .setEditingStatus();
+              context.read<CustomerPhoneEditingStatusProvider>().setEditingStatus();
             },
             child: Text(LocaleKeys.mainText_edit.tr()),
           )
@@ -172,9 +166,7 @@ class CustomerPhoneButtonField extends StatelessWidget {
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             onPressed: () {
-              context
-                  .read<CustomerPhoneEditingStatusProvider>()
-                  .setEditingStatus();
+              context.read<CustomerPhoneEditingStatusProvider>().setEditingStatus();
             },
             child: Text(LocaleKeys.mainText_cancel.tr()),
           ),
@@ -197,8 +189,7 @@ class CustomerPhoneTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      readOnly:
-          context.watch<CustomerPhoneEditingStatusProvider>().getEditingStatus,
+      readOnly: context.watch<CustomerPhoneEditingStatusProvider>().getEditingStatus,
       textInputAction: TextInputAction.done,
       autovalidateMode: AutovalidateMode.disabled,
       controller: phoneController,
@@ -208,14 +199,16 @@ class CustomerPhoneTextField extends StatelessWidget {
         prefixIcon: const Icon(Icons.phone),
         labelText: LocaleKeys.customer_customerPhone.tr(),
       ),
-      validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(
-          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
-        ),
-        FormBuilderValidators.numeric(
-          errorText: LocaleKeys.errors_justEnterNumber.tr(),
-        )
-      ]),
+      validator: FormBuilderValidators.compose(
+        [
+          FormBuilderValidators.required(
+            errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
+          ),
+          FormBuilderValidators.numeric(
+            errorText: LocaleKeys.errors_justEnterNumber.tr(),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -237,16 +230,11 @@ class CustomerAddressButtonField extends StatelessWidget {
         const SizedBox(
           width: 10,
         ),
-        if (context
-                .watch<CustomerAddressEditingStatusProvider>()
-                .getEditingStatus ==
-            true)
+        if (context.watch<CustomerAddressEditingStatusProvider>().getEditingStatus == true)
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
             onPressed: () {
-              context
-                  .read<CustomerAddressEditingStatusProvider>()
-                  .setEditingStatus();
+              context.read<CustomerAddressEditingStatusProvider>().setEditingStatus();
             },
             child: Text(LocaleKeys.mainText_edit.tr()),
           )
@@ -254,9 +242,7 @@ class CustomerAddressButtonField extends StatelessWidget {
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             onPressed: () {
-              context
-                  .read<CustomerAddressEditingStatusProvider>()
-                  .setEditingStatus();
+              context.read<CustomerAddressEditingStatusProvider>().setEditingStatus();
             },
             child: Text(LocaleKeys.mainText_cancel.tr()),
           ),
@@ -279,9 +265,7 @@ class CustomerAddressTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      readOnly: context
-          .watch<CustomerAddressEditingStatusProvider>()
-          .getEditingStatus,
+      readOnly: context.watch<CustomerAddressEditingStatusProvider>().getEditingStatus,
       textInputAction: TextInputAction.done,
       autovalidateMode: AutovalidateMode.disabled,
       controller: addressController,
@@ -297,7 +281,7 @@ class CustomerAddressTextField extends StatelessWidget {
         ),
         FormBuilderValidators.email(
           errorText: LocaleKeys.errors_justEnterEmail.tr(),
-        )
+        ),
       ]),
     );
   }
@@ -331,16 +315,11 @@ class CustomerNameButtonField extends StatelessWidget {
         const SizedBox(
           width: 10,
         ),
-        if (context
-                .watch<CustomerNameEditingStatusProvider>()
-                .getEditingStatus ==
-            true)
+        if (context.watch<CustomerNameEditingStatusProvider>().getEditingStatus == true)
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
             onPressed: () {
-              context
-                  .read<CustomerNameEditingStatusProvider>()
-                  .setEditingStatus();
+              context.read<CustomerNameEditingStatusProvider>().setEditingStatus();
             },
             child: Text(LocaleKeys.mainText_edit.tr()),
           )
@@ -348,9 +327,7 @@ class CustomerNameButtonField extends StatelessWidget {
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
             onPressed: () {
-              context
-                  .read<CustomerNameEditingStatusProvider>()
-                  .setEditingStatus();
+              context.read<CustomerNameEditingStatusProvider>().setEditingStatus();
             },
             child: Text(LocaleKeys.mainText_cancel.tr()),
           ),
@@ -373,8 +350,7 @@ class CustomerNameTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      readOnly:
-          context.watch<CustomerNameEditingStatusProvider>().getEditingStatus,
+      readOnly: context.watch<CustomerNameEditingStatusProvider>().getEditingStatus,
       textInputAction: TextInputAction.done,
       autovalidateMode: AutovalidateMode.disabled,
       controller: nameController,

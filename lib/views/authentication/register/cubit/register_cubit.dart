@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -12,7 +13,8 @@ import 'package:siparis_takip_sistemi_pro/views/authentication/register/model/re
 import 'package:siparis_takip_sistemi_pro/views/authentication/register/model/register_response_error_model.dart';
 import 'package:vexana/vexana.dart';
 
-import '../../../../core/constants/network/url.dart';
+import '../../../../core/constants/enums/network_enums.dart';
+
 
 class RegisterCubit extends Cubit<RegisterState> with BaseModelView {
   final TextEditingController? nameController;
@@ -38,7 +40,6 @@ class RegisterCubit extends Cubit<RegisterState> with BaseModelView {
   }) : super(const RegisterState());
 
   Future<void> postRegisterModel() async {
-    
     if (passwordController?.text.trim() == password2Controller?.text.trim()) {
       try {
         emit(const RegisterState(status: Status.isLoading));
@@ -60,21 +61,18 @@ class RegisterCubit extends Cubit<RegisterState> with BaseModelView {
           appNetwork.signup,
           data: data,
         );
-        if (response.statusCode == 200) {
+        if (response.statusCode == HttpStatus.ok) {
           return emit(const RegisterState(status: Status.isDone));
         }
       } on DioException catch (e) {
-        if (e.response?.statusCode == 400) {
+        if (e.response?.statusCode == HttpStatus.badRequest) {
           final data = RegisterResponseErrorModel.fromJson(
             e.response?.data as Map<String, dynamic>,
           );
-          if (data.message == 'Shopname already exists') {
+          if (data.message == RegisterErrors.shopNameAlreadyExists.error) {
             utils.errorSnackBar(LocaleKeys.errors_shopNameAlreadyExists.tr());
             return emit(const RegisterState(status: Status.isFailed));
-          } else if (data.message == 'Shopname already exists') {
-            utils.errorSnackBar(LocaleKeys.errors_shopNameAlreadyExists.tr());
-            return emit(const RegisterState(status: Status.isFailed));
-          } else if (data.message == 'Email is already in use') {
+          } else if (data.message == RegisterErrors.emailAlreadyExists.error) {
             utils.errorSnackBar(LocaleKeys.errors_emailAlreadyExists.tr());
             return emit(const RegisterState(status: Status.isFailed));
           } else {

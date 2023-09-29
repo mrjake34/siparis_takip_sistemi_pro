@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/profile/view/user_details_widget.dart';
 
-import '../../../../components/main-functions.dart';
+import '../../../../components/main_functions.dart';
 import '../../../../core/constants/colors/colors.dart';
 import '../../../../core/constants/enums/enums.dart';
 import '../../../../core/constants/size/sizes.dart';
@@ -61,7 +61,7 @@ class PageBuilder extends StatelessWidget {
                   ProfilePageLogoutButton(pageSize: pageSize),
                   const SizedBox(
                     height: 30,
-                  )
+                  ),
                 ],
               ),
             ),
@@ -107,7 +107,6 @@ class ChangeLanguageField extends StatelessWidget {
       children: [
         Row(
           children: [
-
             TextButton(
               onPressed: () {
                 context.setLocale(const Locale('en', 'US'));

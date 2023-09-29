@@ -22,7 +22,7 @@ class CourierLoginPageCubit extends Cubit<CourierLoginPageState>
         appNetwork.courierLoginUrl,
         data: {
           'email': emailControlller?.text.trim(),
-          'password': passwordController?.text.trim()
+          'password': passwordController?.text.trim(),
         },
       );
       final cookie =

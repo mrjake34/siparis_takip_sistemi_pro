@@ -130,7 +130,7 @@ class BuildPage extends StatelessWidget {
                             const CourierLoginPageRouterButton(),
                             const SizedBox(
                               height: 20,
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -309,7 +309,7 @@ class RegisterText extends StatelessWidget with BaseModelView {
             navService.navigateToPage(path: NavigationConstants.registerPage);
           },
           child: Text(LocaleKeys.mainText_signup.tr()),
-        )
+        ),
       ],
     );
   }

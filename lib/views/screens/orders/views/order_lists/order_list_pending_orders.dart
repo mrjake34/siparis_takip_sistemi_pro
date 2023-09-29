@@ -12,9 +12,7 @@ import 'package:siparis_takip_sistemi_pro/views/screens/orders/model/order.dart'
 import 'package:siparis_takip_sistemi_pro/views/screens/orders/views/order_lists/bottomsheet_widget/bottomsheet_widget.dart';
 
 import '../../../../../src/cards/list_card.dart';
-
-// ignore: must_be_immutable
-class OrderListPendingOrders extends StatelessWidget with BaseModelView {
+final class OrderListPendingOrders extends StatelessWidget with BaseModelView {
   OrderListPendingOrders({super.key});
 
   @override

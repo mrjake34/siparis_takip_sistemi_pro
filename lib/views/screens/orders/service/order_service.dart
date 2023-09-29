@@ -10,7 +10,7 @@ import '../model/order.dart';
 import 'order_service_interface.dart';
 import 'package:vexana/vexana.dart';
 
-class OrderService extends IOrderService with BaseModelView {
+final class OrderService extends IOrderService with BaseModelView {
   OrderService();
   @override
   Future<dynamic> postOrder(
@@ -88,7 +88,7 @@ class OrderService extends IOrderService with BaseModelView {
         },
       ),
     );
-    if (response.statusCode == 200) {
+    if (response.statusCode == HttpStatus.ok) {
       utils.showSnackBar(LocaleKeys.succes_removeSuccessful);
     }
   }
@@ -99,7 +99,7 @@ class OrderService extends IOrderService with BaseModelView {
     final response = await networkService.dio.patch(
       appNetwork.getOrderUrl + id,
       data: [
-        {'propName': key, 'value': value}
+        {'propName': key, 'value': value},
       ],
       options: Options(
         headers: {
@@ -108,6 +108,6 @@ class OrderService extends IOrderService with BaseModelView {
         },
       ),
     );
-    if (response.statusCode == 200) {}
+    if (response.statusCode == HttpStatus.ok) {}
   }
 }

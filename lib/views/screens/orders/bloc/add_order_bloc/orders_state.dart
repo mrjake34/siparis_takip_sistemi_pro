@@ -36,7 +36,7 @@ class OrdersState extends Equatable {
         doneOrders,
         customer,
         productList,
-        orderCartTotalPrice
+        orderCartTotalPrice,
       ];
 
   OrdersState copyWith({

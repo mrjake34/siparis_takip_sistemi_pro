@@ -7,7 +7,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'order.g.dart';
 
 @JsonSerializable()
-class OrderList {
+final class OrderList {
   OrderList({
     required this.message,
     required this.products,

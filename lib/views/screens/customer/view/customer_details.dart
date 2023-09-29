@@ -55,7 +55,7 @@ class PageBuilder extends StatelessWidget {
                   CustomerDetailCardCustomerCreatedTime(
                     createdTime: createdTime,
                   ),
-                  CustomerDetailCardCustomerLocation(customer: customer)
+                  CustomerDetailCardCustomerLocation(customer: customer),
                 ],
               ),
             );
@@ -120,7 +120,7 @@ class CustomerDetailCardCustomerLocation extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

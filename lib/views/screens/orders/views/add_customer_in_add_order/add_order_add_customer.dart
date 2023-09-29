@@ -119,7 +119,7 @@ class CustomerListField extends StatelessWidget {
                 },
               );
             },
-          )
+          ),
         ],
       ),
     );

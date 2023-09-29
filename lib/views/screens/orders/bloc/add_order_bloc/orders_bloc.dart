@@ -20,33 +20,24 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
     on<OrdersListEvent>((event, emit) async {
       emit(state.copyWith(status: Status.isLoading));
       final response = await OrderService().getOrderList();
-      // print(response.data?.order);
       emit(state.copyWith(status: Status.isDone, orderList: response));
     });
     on<PendingOrdersEvent>((event, emit) {
-      final response = state.orderList?.products
-          .where((element) => element.orderStatus == 'waiting')
-          .toList();
+      final response = state.orderList?.products.where((element) => element.orderStatus == 'waiting').toList();
 
       emit(state.copyWith(pendingOrders: response));
     });
     on<ProcessOrdersEvent>((event, emit) async {
-      final response = state.orderList?.products
-          .where((element) => element.orderStatus == 'inProcess')
-          .toList();
+      final response = state.orderList?.products.where((element) => element.orderStatus == 'inProcess').toList();
       emit(state.copyWith(processOrders: response));
     });
     on<OnTheWayOrdersEvent>((event, emit) {
-      final response = state.orderList?.products
-          .where((element) => element.orderStatus == 'inDistribution')
-          .toList();
+      final response = state.orderList?.products.where((element) => element.orderStatus == 'inDistribution').toList();
 
       emit(state.copyWith(onTheWayOrders: response));
     });
     on<DoneOrdersEvent>((event, emit) {
-      final response = state.orderList?.products
-          .where((element) => element.orderStatus == 'completed')
-          .toList();
+      final response = state.orderList?.products.where((element) => element.orderStatus == 'completed').toList();
       emit(state.copyWith(doneOrders: response));
     });
     on<OrderCartProductsEvent>((event, emit) {
@@ -82,9 +73,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
       }
     });
     on<OrderCartChangeProductCountEvent>((event, emit) {
-      if (event.index != null &&
-          event.count != null &&
-          state.productList != null) {
+      if (event.index != null && event.count != null && state.productList != null) {
         final newList = List<Product>.from(state.productList!);
         newList[event.index!].quantity = event.count!;
         emit(state.copyWith(productList: newList));
@@ -99,9 +88,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
       }
     });
     on<OrderCartChangeProductNoteEvent>((event, emit) {
-      if (event.index != null &&
-          event.note != null &&
-          state.productList != null) {
+      if (event.index != null && event.note != null && state.productList != null) {
         final newList = List<Product>.from(state.productList!);
         newList[event.index!].productNote = event.note;
         emit(state.copyWith(productList: newList));
@@ -125,11 +112,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
       if (state.customer != null && state.productList != null) {
         try {
           for (final Product? product in state.productList!) {
-            orderListPostOut.add({
-              'productId': product?.id,
-              'quantity': product?.quantity,
-              'productNote': product?.productNote
-            });
+            orderListPostOut.add({'productId': product?.id, 'quantity': product?.quantity, 'productNote': product?.productNote});
           }
         } finally {
           OrderService().postOrder(
@@ -139,8 +122,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
           );
         }
       } else {
-        UtilsService.instance
-            .errorSnackBar(LocaleKeys.errors_pleaseEnterAllField.tr());
+        UtilsService.instance.errorSnackBar(LocaleKeys.errors_pleaseEnterAllField.tr());
       }
     });
     on<AddOrderAddCustomerEvent>((event, emit) {

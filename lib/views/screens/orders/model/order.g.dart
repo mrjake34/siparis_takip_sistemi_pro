@@ -8,9 +8,7 @@ part of 'order.dart';
 
 OrderList _$OrderListFromJson(Map<String, dynamic> json) => OrderList(
       message: json['message'] as String,
-      products: (json['products'] as List<dynamic>)
-          .map((e) => OrderListProduct.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      products: (json['products'] as List<dynamic>).map((e) => OrderListProduct.fromJson(e as Map<String, dynamic>)).toList(),
     );
 
 Map<String, dynamic> _$OrderListToJson(OrderList instance) => <String, dynamic>{
@@ -18,14 +16,11 @@ Map<String, dynamic> _$OrderListToJson(OrderList instance) => <String, dynamic>{
       'products': instance.products,
     };
 
-OrderListProduct _$OrderListProductFromJson(Map<String, dynamic> json) =>
-    OrderListProduct(
-      id: json['id'] as String,
+OrderListProduct _$OrderListProductFromJson(Map<String, dynamic> json) => OrderListProduct(
+      id: json['_id'] as String,
       shopName: json['shopName'] as String,
       customerId: json['customerId'] as String,
-      products: (json['products'] as List<dynamic>)
-          .map((e) => ProductProduct.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      products: (json['products'] as List<dynamic>).map((e) => ProductProduct.fromJson(e as Map<String, dynamic>)).toList(),
       orderNote: json['orderNote'] as String,
       totalPrice: (json['totalPrice'] as num).toDouble(),
       orderStatus: json['orderStatus'] as String,
@@ -33,9 +28,8 @@ OrderListProduct _$OrderListProductFromJson(Map<String, dynamic> json) =>
       updatedAt: DateTime.parse(json['updatedAt'] as String),
     );
 
-Map<String, dynamic> _$OrderListProductToJson(OrderListProduct instance) =>
-    <String, dynamic>{
-      'id': instance.id,
+Map<String, dynamic> _$OrderListProductToJson(OrderListProduct instance) => <String, dynamic>{
+      '_id': instance.id,
       'shopName': instance.shopName,
       'customerId': instance.customerId,
       'products': instance.products,
@@ -46,18 +40,16 @@ Map<String, dynamic> _$OrderListProductToJson(OrderListProduct instance) =>
       'updatedAt': instance.updatedAt.toIso8601String(),
     };
 
-ProductProduct _$ProductProductFromJson(Map<String, dynamic> json) =>
-    ProductProduct(
+ProductProduct _$ProductProductFromJson(Map<String, dynamic> json) => ProductProduct(
       productId: json['productId'] as String,
       quantity: json['quantity'] as String,
       id: json['id'] as String,
       productNote: json['productNote'] as String?,
     );
 
-Map<String, dynamic> _$ProductProductToJson(ProductProduct instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$ProductProductToJson(ProductProduct instance) => <String, dynamic>{
       'productId': instance.productId,
       'quantity': instance.quantity,
       'productNote': instance.productNote,
-      'id': instance.id,
+      '_id': instance.id,
     };

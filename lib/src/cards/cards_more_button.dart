@@ -41,7 +41,7 @@ class CardMoreButtonField extends StatelessWidget {
               LocaleKeys.mainText_remove.tr(),
               style: TextStyle(color: AppColors.instance.removeColor),
             ),
-          )
+          ),
         ];
       },
     );
