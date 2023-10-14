@@ -197,7 +197,7 @@ class ProfilePageLogoutButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(elevation: 5, backgroundColor: Colors.red, fixedSize: Size(pageSize.width, 40)),
         onPressed: () {
-          MainFunctions.instance.logOutDialog(context);
+          MainFunctions.logOutDialog(context: context);
         },
         child: Text(LocaleKeys.mainText_logout.tr()),
       ),

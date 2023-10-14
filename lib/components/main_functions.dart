@@ -14,7 +14,7 @@ class MainFunctions {
   static final MainFunctions _instance = MainFunctions._init();
   static MainFunctions get instance => _instance;
 
-  Future<dynamic> logOutDialog(BuildContext context) {
+  static Future<T?> logOutDialog<T>({required BuildContext context}) {
     return showDialog(
       context: context,
       builder: (context) {

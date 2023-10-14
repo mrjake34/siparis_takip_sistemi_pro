@@ -4,7 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../base/models/base_model_view.dart';
 import '../../utils/translation/locale_keys.g.dart';
 
-class MainFuncs with BaseModelView {
+final class OpenMembershipAgreement with BaseModelView {
   Future<void> openMembershipAgreement() async {
     try {
       if (!await launchUrl(

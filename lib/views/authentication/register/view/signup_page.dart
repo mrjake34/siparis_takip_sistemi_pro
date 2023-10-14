@@ -7,7 +7,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/app/main_funcs.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/app/open_membership_agreement.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
@@ -20,7 +20,16 @@ import 'package:siparis_takip_sistemi_pro/src/dialogs/show_dialog.dart';
 import 'package:siparis_takip_sistemi_pro/views/authentication/register/cubit/register_cubit.dart';
 import 'package:siparis_takip_sistemi_pro/views/authentication/register/cubit/register_state.dart';
 
-class SignUpWidget extends StatefulWidget {
+part 'page_builder.dart';
+part 'have_account_field.dart';
+part 'register_button.dart';
+part 'membership_agreement_field.dart';
+part 'password_two_form_field.dart';
+part 'password_form_field.dart';
+part 'shop_name_form_field.dart';
+part 'phone_form_field.dart';
+
+final class SignUpWidget extends StatefulWidget {
   const SignUpWidget({
     super.key,
   });
@@ -29,14 +38,14 @@ class SignUpWidget extends StatefulWidget {
   State<SignUpWidget> createState() => _SignUpWidgetState();
 }
 
-class _SignUpWidgetState extends State<SignUpWidget> with BaseModelView {
+final class _SignUpWidgetState extends State<SignUpWidget> with BaseModelView {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController shopNameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController password2Controller = TextEditingController();
-  final MainFuncs mainFunction = MainFuncs();
+  final OpenMembershipAgreement openMembershipAgreement = OpenMembershipAgreement();
   final formKey = GlobalKey<FormBuilderState>();
 
   @override
@@ -66,7 +75,7 @@ class _SignUpWidgetState extends State<SignUpWidget> with BaseModelView {
           }
         },
         builder: (context, state) {
-          return PageBuilder(
+          return _PageBuilder(
             formKey: formKey,
             nameController: nameController,
             emailController: emailController,
@@ -74,7 +83,7 @@ class _SignUpWidgetState extends State<SignUpWidget> with BaseModelView {
             shopNameController: shopNameController,
             passwordController: passwordController,
             password2Controller: password2Controller,
-            mainFunctions: mainFunction,
+            openMembershipAgreement: openMembershipAgreement,
             utils: utils,
             state: state,
           );
@@ -84,371 +93,7 @@ class _SignUpWidgetState extends State<SignUpWidget> with BaseModelView {
   }
 }
 
-class PageBuilder extends StatelessWidget {
-  const PageBuilder({
-    required this.formKey,
-    required this.nameController,
-    required this.emailController,
-    required this.phoneController,
-    required this.shopNameController,
-    required this.passwordController,
-    required this.password2Controller,
-    required this.mainFunctions,
-    required this.utils,
-    required this.state,
-    super.key,
-  });
 
-  final GlobalKey<FormBuilderState> formKey;
-  final TextEditingController nameController;
-  final TextEditingController emailController;
-  final TextEditingController phoneController;
-  final TextEditingController shopNameController;
-  final TextEditingController passwordController;
-  final TextEditingController password2Controller;
-  final MainFuncs mainFunctions;
-  final UtilsService utils;
-
-  final RegisterState state;
-
-  @override
-  Widget build(BuildContext context) {
-    final pageSize = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(LocaleKeys.mainText_signup.tr()),
-      ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Container(
-            padding: const EdgeInsets.all(pagePadding),
-            constraints: BoxConstraints(
-              maxWidth: pageSize.width >= 800 ? 800 : pageSize.width / 1,
-            ),
-            child: FormBuilder(
-              key: formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const SizedBox(height: 10),
-                  NameFormField(nameController: nameController),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  EmailFormField(emailController: emailController),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  PhoneFormField(phoneController: phoneController),
-                  const SizedBox(
-                    height: 6,
-                  ),
-                  ShopNameFormField(shopNameController: shopNameController),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  PasswordFormField(
-                    passwordController: passwordController,
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  PasswordTwoFormField(
-                    password2Controller: password2Controller,
-                  ),
-                  const SizedBox(height: 20),
-                  MembershipAgreementField(mainFunctions: mainFunctions),
-                  const SizedBox(height: 20),
-                  RegisterButton(
-                    formKey: formKey,
-                    utils: utils,
-                    state: state,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  HaveAccountField(),
-                  const Divider(),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class HaveAccountField extends StatelessWidget with BaseModelView {
-  HaveAccountField({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          LocaleKeys.mainText_haveAccount.tr(),
-        ),
-        TextButton(
-          onPressed: navService.navigateToBack,
-          child: Text(
-            LocaleKeys.mainText_login.tr(),
-            style: TextStyle(
-              decoration: TextDecoration.underline,
-              color: Theme.of(context).colorScheme.error,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class RegisterButton extends StatelessWidget {
-  const RegisterButton({
-    required this.formKey,
-    required this.utils,
-    required this.state,
-    super.key,
-  });
-
-  final GlobalKey<FormBuilderState> formKey;
-  final UtilsService utils;
-  final RegisterState state;
-
-  @override
-  Widget build(BuildContext context) {
-    final agreement = Provider.of<MembershipAgreementProvider>(context).getAgreement;
-    return Row(
-      children: [
-        Expanded(
-          flex: 8,
-          child: state.status == Status.isLoading
-              ? const LoadingButton()
-              : MainElevatedIconButton(
-                  onPressed: () {
-                    if (formKey.currentState?.validate() ?? false) {
-                      if (agreement == true) {
-                        context.read<RegisterCubit>().postRegisterModel();
-                      } else {
-                        utils.errorSnackBar(
-                          LocaleKeys.errors_errorUserAgreement.tr(),
-                        );
-                      }
-                    } else {
-                      utils.errorSnackBar(
-                        LocaleKeys.errors_pleaseEnterAllField.tr(),
-                      );
-                    }
-                  },
-                  label: Text(
-                    LocaleKeys.mainText_signup.tr(),
-                  ),
-                  icon: const Icon(
-                    Icons.account_circle,
-                  ),
-                ),
-        ),
-      ],
-    );
-  }
-}
-
-class MembershipAgreementField extends StatelessWidget {
-  const MembershipAgreementField({
-    required this.mainFunctions,
-    super.key,
-  });
-
-  final MainFuncs mainFunctions;
-
-  @override
-  Widget build(BuildContext context) {
-    final agreement = Provider.of<MembershipAgreementProvider>(context).getAgreement;
-    return Row(
-      children: [
-        Checkbox(
-          checkColor: Theme.of(context).colorScheme.background,
-          value: agreement,
-          onChanged: (bool? newValue) {
-            context.read<MembershipAgreementProvider>().setAgreement = newValue!;
-          },
-        ),
-        TextButton(
-          onPressed: mainFunctions.openMembershipAgreement,
-          child: Text(LocaleKeys.mainText_userAgreement.tr()),
-        ),
-      ],
-    );
-  }
-}
-
-class PasswordTwoFormField extends StatelessWidget {
-  const PasswordTwoFormField({
-    required this.password2Controller,
-    super.key,
-  });
-
-  final TextEditingController password2Controller;
-
-  @override
-  Widget build(BuildContext context) {
-    final visibility = Provider.of<ChangePasswordVisibilityTwoProvider>(context).getVisibility;
-    return TextFormField(
-      controller: password2Controller,
-      textInputAction: TextInputAction.done,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      autofillHints: const [AutofillHints.password],
-      obscureText: visibility,
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 10),
-        prefixIcon: const Icon(Icons.lock_outline, size: 20),
-        hintText: LocaleKeys.mainText_rePassword.tr(),
-        suffixIcon: IconButton(
-          icon: Icon(
-            visibility == false ? Icons.visibility : Icons.visibility_off,
-          ),
-          onPressed: () {
-            if (visibility == true) {
-              context.read<ChangePasswordVisibilityTwoProvider>().setVisibility = false;
-            } else {
-              context.read<ChangePasswordVisibilityTwoProvider>().setVisibility = true;
-            }
-          },
-        ),
-      ),
-      validator: FormBuilderValidators.compose(
-        [
-          FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_errorEnterPassword.tr(),
-          ),
-          FormBuilderValidators.minLength(
-            6,
-            errorText: LocaleKeys.errors_errorPasswordLength.tr(),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class PasswordFormField extends StatelessWidget {
-  const PasswordFormField({
-    required this.passwordController,
-    super.key,
-  });
-
-  final TextEditingController passwordController;
-
-  @override
-  Widget build(BuildContext context) {
-    final visibility = Provider.of<ChangePasswordVisibilityProvider>(context).getVisibility;
-    return TextFormField(
-      controller: passwordController,
-      textInputAction: TextInputAction.next,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      autofillHints: const [AutofillHints.password],
-      obscureText: visibility,
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 10),
-        prefixIcon: const Icon(Icons.lock_outline, size: 20),
-        hintText: LocaleKeys.mainText_password.tr(),
-        suffixIcon: IconButton(
-          icon: Icon(
-            visibility == false ? Icons.visibility : Icons.visibility_off,
-          ),
-          onPressed: () {
-            if (visibility == true) {
-              context.read<ChangePasswordVisibilityProvider>().setVisibility = false;
-            } else {
-              context.read<ChangePasswordVisibilityProvider>().setVisibility = true;
-            }
-          },
-        ),
-      ),
-      validator: FormBuilderValidators.compose(
-        [
-          FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_errorEnterPassword.tr(),
-          ),
-          FormBuilderValidators.minLength(
-            6,
-            errorText: LocaleKeys.errors_errorPasswordLength.tr(),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ShopNameFormField extends StatelessWidget {
-  const ShopNameFormField({
-    required this.shopNameController,
-    super.key,
-  });
-
-  final TextEditingController shopNameController;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: shopNameController,
-      textInputAction: TextInputAction.next,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      autofillHints: const [AutofillHints.organizationName],
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 10),
-        prefixIcon: const Icon(
-          Icons.person_outline_outlined,
-          size: 20,
-        ),
-        hintText: LocaleKeys.profile_shopName.tr(),
-      ),
-      validator: FormBuilderValidators.compose(
-        [
-          FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class PhoneFormField extends StatelessWidget {
-  const PhoneFormField({
-    required this.phoneController,
-    super.key,
-  });
-
-  final TextEditingController phoneController;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: phoneController,
-      maxLength: 21,
-      textInputAction: TextInputAction.next,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      autofillHints: const [AutofillHints.telephoneNumber],
-      keyboardType: TextInputType.number,
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 10),
-        prefixIcon: const Icon(
-          Icons.phone_outlined,
-          size: 20,
-        ),
-        hintText: LocaleKeys.mainText_enterPhoneNumber.tr(),
-      ),
-      validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(
-          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
-        ),
-      ]),
-    );
-  }
-}
 
 class EmailFormField extends StatelessWidget {
   const EmailFormField({
