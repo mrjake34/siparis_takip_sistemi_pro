@@ -6,7 +6,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../core/constants/enums/enums.dart';
 import '../../../../core/utils/translation/locale_keys.g.dart';
-import '../../../../core/utils/utils/utils.dart';
+import '../../../../core/utils/snackbar/snackbar.dart';
 import '../model/customer.dart';
 import '../service/customer_service.dart';
 

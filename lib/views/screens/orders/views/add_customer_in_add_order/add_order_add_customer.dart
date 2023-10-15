@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/constants/size/sizes.dart';
 import '../../../../../core/utils/translation/locale_keys.g.dart';
-import '../../../../../core/utils/utils/utils.dart';
+import '../../../../../core/utils/snackbar/snackbar.dart';
 import '../../../../../providers/search_providers.dart';
 import '../../../../../src/cards/list_card.dart';
 import '../../../../../src/text/autosize_text.dart';

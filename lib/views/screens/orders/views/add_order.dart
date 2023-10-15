@@ -14,7 +14,7 @@ import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/styles/text_styles.dart';
 import 'package:siparis_takip_sistemi_pro/core/utils/navigation/navigation_service.dart';
 import 'package:siparis_takip_sistemi_pro/core/utils/translation/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/core/utils/utils/utils.dart';
+import 'package:siparis_takip_sistemi_pro/core/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/providers/main_providers.dart';
 import 'package:siparis_takip_sistemi_pro/src/bottomsheets/main_bottom_sheets.dart';
 import 'package:siparis_takip_sistemi_pro/src/button/main_elevated_button.dart';

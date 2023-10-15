@@ -5,7 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import '../../../../core/constants/enums/enums.dart';
 import '../../../../core/utils/cache/shared_manager.dart';
 import '../../../../core/utils/translation/locale_keys.g.dart';
-import '../../../../core/utils/utils/utils.dart';
+import '../../../../core/utils/snackbar/snackbar.dart';
 
 part 'splash_screen_state.dart';
 

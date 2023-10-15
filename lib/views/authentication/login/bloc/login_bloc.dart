@@ -11,63 +11,70 @@ import '../../../../core/utils/translation/locale_keys.g.dart';
 import '../model/login_response_model.dart';
 import '../../../screens/profile/model/user.dart';
 import '../../../screens/profile/service/profile_service.dart';
-
 part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> with BaseModelView {
-  LoginBloc({this.emailController, this.passwordController})
-      : super(const LoginState()) {
-    on<DoLoginEvent>(
-      (event, emit) async {
-        emit(state.copyWith(status: Status.isLoading));
-        try {
-          final response = await networkService.dio.post(
-            appNetwork.login,
-            data: {
-              'email': emailController?.text.trim(),
-              'password': passwordController?.text.trim(),
-            },
-          );
-          if (response.statusCode == HttpStatus.ok) {
-            final cookie = response.headers['authorization']?.first;
-            final model = LoginResponseModel.fromJson(
-              response.data as Map<String, dynamic>,
-            );
+  LoginBloc({this.emailController, this.passwordController}) : super(const LoginState()) {
+    on<DoLoginEvent>((event, emit) async {
+      final header = {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      };
+      final data = {
+        'email': emailController?.text.trim(),
+        'password': passwordController?.text.trim(),
+      };
+      emit(state.copyWith(status: Status.isLoading));
 
-            await sharedManager.setStringValue(
-              PreferenceKey.cookie,
-              cookie ?? '',
-            );
-            await sharedManager.setStringValue(
-              PreferenceKey.userId,
-              model.User?.Id ?? '',
-            );
-            final user =
-                await ProfileService().fetchUserDetails();
-            emit(
-              state.copyWith(
-                status: Status.isDone,
-                model: user,
-              ),
-            );
-          } else if (response.statusCode == 400) {
-            utils.errorSnackBar(LocaleKeys.errors_userInfoIncorrect.tr());
-            emit(state.copyWith(status: UserStatus.userNotFound));
-          } else {
-            utils.errorSnackBar(LocaleKeys.errors_loginError.tr());
-            emit(state.copyWith(status: Status.isFailed));
-          }
-        } on DioException catch (e) {
-          if (e.response?.statusCode == 400) {
-            utils.errorSnackBar(LocaleKeys.errors_userInfoIncorrect.tr());
-            return emit(state.copyWith(status: Status.isFailed));
-          }
+      try {
+        final response = await networkService.dio.post(
+          appNetwork.login,
+          data: data,
+          options: Options(headers: header),
+        );
+        print(response.statusCode);
+        if (response.statusCode == HttpStatus.ok) {
+          final cookie = response.headers['authorization']?.first;
+
+          final model = LoginResponseModel.fromJson(
+            response.data as Map<String, dynamic>,
+          );
+
+          await sharedManager.setStringValue(
+            PreferenceKey.cookie,
+            cookie ?? '',
+          );
+          await sharedManager.setStringValue(
+            PreferenceKey.userId,
+            model.User?.Id ?? '',
+          );
+          final user = await ProfileService().fetchUserDetails();
+          emit(
+            state.copyWith(
+              status: Status.isDone,
+              model: user,
+            ),
+          );
+        } else if (response.statusCode == 400) {
+          utils.errorSnackBar(LocaleKeys.errors_userInfoIncorrect.tr());
+          emit(state.copyWith(status: UserStatus.userNotFound));
+        } else {
           utils.errorSnackBar(LocaleKeys.errors_loginError.tr());
+          emit(state.copyWith(status: Status.isFailed));
+        }
+      } on DioException catch (e) {
+        print(e);
+        if (e.response?.statusCode == 400) {
+          utils.errorSnackBar(LocaleKeys.errors_userInfoIncorrect.tr());
           return emit(state.copyWith(status: Status.isFailed));
         }
-      },
-    );
+        utils.errorSnackBar(LocaleKeys.errors_loginError.tr());
+        return emit(state.copyWith(status: Status.isFailed));
+      }
+    });
     on<AutoLoginEvent>((event, emit) async {
       emit(state.copyWith(autoLogin: AutoLogin.isLoading));
       final cookie = sharedManager.getStringValue(PreferenceKey.cookie);

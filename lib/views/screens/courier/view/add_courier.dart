@@ -5,7 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/core/utils/translation/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/core/utils/utils/utils.dart';
+import 'package:siparis_takip_sistemi_pro/core/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/providers/courier_providers.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/bloc/courier_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/service/courier_service.dart';

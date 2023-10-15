@@ -11,7 +11,7 @@ import '../../../../core/constants/navigation/navigation_constants.dart';
 import '../../../../core/constants/size/sizes.dart';
 import '../../../../core/utils/navigation/navigation_service.dart';
 import 'package:siparis_takip_sistemi_pro/core/utils/translation/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/core/utils/utils/utils.dart';
+import 'package:siparis_takip_sistemi_pro/core/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/providers/customer_provider.dart';
 import 'package:siparis_takip_sistemi_pro/src/button/main_elevated_button_without_color.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/customer/bloc/customer_bloc.dart';
