@@ -20,7 +20,7 @@ class SharedManager {
   }
 
   Future<void> removeFromKey(PreferenceKey key) async {
-    await _preferences!.remove(key.name);
+    await _preferences?.remove(key.name);
   }
 
   Future<void> setStringValue(PreferenceKey key, String value) async {

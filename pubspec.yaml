@@ -63,6 +63,7 @@ dependencies:
   shared_preferences: ^2.0.20
   url_launcher: ^6.1.10
   vexana: ^3.4.3
+  kartal: ^3.4.4
 
 
 dependency_overrides:

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';
@@ -39,20 +40,7 @@ class BuildPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(LocaleKeys.mainText_title.tr()),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-              NavigationService.instance.navigateToPage(path: NavigationConstants.userProfile);
-            },
-            icon: const Icon(CupertinoIcons.profile_circled),
-          ),
-        ],
-      ),
-      drawer: DrawerWidget(userRole: userRole ?? ''),
+    return BaseScaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(pagePadding),
         child: Column(
