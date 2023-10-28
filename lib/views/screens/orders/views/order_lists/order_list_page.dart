@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/core/utils/translation/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/orders/views/order_lists/order_list_all_orders.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/orders/views/order_lists/order_list_completed_orders.dart';
@@ -67,12 +68,7 @@ class OrderListPage extends StatelessWidget with BaseModelView {
     if (pageIndex != null) {
       _controller.index = pageIndex ?? 0;
     }
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            LocaleKeys.order_orderList.tr(),
-          ),
-        ),
+    return BaseScaffold(
         body: PersistentTabView(
           context,
           backgroundColor: Theme.of(context).colorScheme.surface,

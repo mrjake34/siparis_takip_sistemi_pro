@@ -20,6 +20,8 @@ import 'package:siparis_takip_sistemi_pro/src/dialogs/show_dialog.dart';
 import 'package:siparis_takip_sistemi_pro/views/authentication/register/cubit/register_cubit.dart';
 import 'package:siparis_takip_sistemi_pro/views/authentication/register/cubit/register_state.dart';
 
+import '../../../../core/base/view/base_scaffold.dart';
+
 part 'page_builder.dart';
 part 'have_account_field.dart';
 part 'register_button.dart';

@@ -5,7 +5,6 @@ part of 'customer.dart';
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
-
 CustomerList _$CustomerListFromJson(Map<String, dynamic> json) => CustomerList(
       message: json['message'] as String,
       customers: (json['customers'] as List<dynamic>)
@@ -20,7 +19,7 @@ Map<String, dynamic> _$CustomerListToJson(CustomerList instance) =>
     };
 
 Customer _$CustomerFromJson(Map<String, dynamic> json) => Customer(
-      id: json['id'] as String?,
+      id: json['_id'] as String?,
       shopName: json['shopName'] as String?,
       name: json['name'] as String?,
       phone: json['phone'] as String?,
@@ -37,7 +36,7 @@ Customer _$CustomerFromJson(Map<String, dynamic> json) => Customer(
     );
 
 Map<String, dynamic> _$CustomerToJson(Customer instance) => <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'shopName': instance.shopName,
       'name': instance.name,
       'phone': instance.phone,

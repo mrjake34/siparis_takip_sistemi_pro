@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/network/url.dart';
@@ -126,15 +127,19 @@ class PageBuilder extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              AddOrderButton(
-                orderNoteController: orderNoteController,
-                utils: utils,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              ClearButton(
-                orderNoteController: orderNoteController,
+              const Divider(),
+              Wrap(
+                runSpacing: 20,
+                spacing: 100,
+                children: [
+                  AddOrderButton(
+                    orderNoteController: orderNoteController,
+                    utils: utils,
+                  ),
+                  ClearButton(
+                    orderNoteController: orderNoteController,
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 40,

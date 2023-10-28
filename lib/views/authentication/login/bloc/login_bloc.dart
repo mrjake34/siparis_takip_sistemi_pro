@@ -1,10 +1,9 @@
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:vexana/vexana.dart';
 import '../../../../core/base/models/base_model_view.dart';
 import '../../../../core/constants/enums/enums.dart';
 import '../../../../core/utils/translation/locale_keys.g.dart';
@@ -17,12 +16,6 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> with BaseModelView {
   LoginBloc({this.emailController, this.passwordController}) : super(const LoginState()) {
     on<DoLoginEvent>((event, emit) async {
-      final header = {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      };
       final data = {
         'email': emailController?.text.trim(),
         'password': passwordController?.text.trim(),
@@ -33,14 +26,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> with BaseModelView {
         final response = await networkService.dio.post(
           appNetwork.login,
           data: data,
-          options: Options(headers: header),
         );
-        print(response.statusCode);
+        print(response.headers);
+
         if (response.statusCode == HttpStatus.ok) {
-          final cookie = response.headers['authorization']?.first;
+          final cookie = response.headers.map[HttpHeaders.authorizationHeader]?.first;
 
           final model = LoginResponseModel.fromJson(
-            response.data as Map<String, dynamic>,
+            response.data! as Map<String, dynamic>,
           );
 
           await sharedManager.setStringValue(

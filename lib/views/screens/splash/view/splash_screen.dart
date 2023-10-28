@@ -24,11 +24,11 @@ class SplashScreen extends StatelessWidget with BaseModelView {
             context.read<SplashScreenCubit>().init();
           }
           if (state.locationService == LocationService.denied) {
-            utils
-                .errorSnackBar(LocaleKeys.errors_locationPermissionDenied.tr());
+            utils.errorSnackBar(LocaleKeys.errors_locationPermissionDenied.tr());
           } else if (state.locationService == LocationService.deniedForever) {
             utils.errorSnackBar(
-                LocaleKeys.errors_locationServiceDeniedForever.tr(),);
+              LocaleKeys.errors_locationServiceDeniedForever.tr(),
+            );
           }
         },
         builder: (context, state) {

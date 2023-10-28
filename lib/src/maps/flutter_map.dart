@@ -1,9 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-
-import '../../core/utils/translation/locale_keys.g.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/view/base_scaffold.dart';
 
 
 class FlutterMapPage extends StatelessWidget {
@@ -12,10 +10,7 @@ class FlutterMapPage extends StatelessWidget {
   final double? mapLng;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(LocaleKeys.mainText_location.tr()),
-      ),
+    return BaseScaffold(
       body: FlutterMap(
         options: MapOptions(
           center: LatLng(mapLat ?? 0.0, mapLng ?? 0.0),

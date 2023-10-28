@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/core/utils/translation/locale_keys.g.dart';
@@ -22,10 +23,7 @@ class PassReset extends StatelessWidget with BaseModelView {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(LocaleKeys.mainText_resetPassword.tr()),
-      ),
+    return BaseScaffold(
       body: BlocProvider(
         create: (context) => PasswordResetCubit(),
         child: BlocConsumer<PasswordResetCubit, PasswordResetState>(

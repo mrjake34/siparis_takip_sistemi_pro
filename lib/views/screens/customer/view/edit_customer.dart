@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/view/base_scaffold.dart';
+import 'package:siparis_takip_sistemi_pro/src/button/edit_page_button_field.dart';
 import '../../../../core/constants/colors/colors.dart';
 import '../../../../core/constants/enums/enums.dart';
 import '../../../../core/constants/size/sizes.dart';
@@ -11,17 +13,20 @@ import '../bloc/customer_bloc.dart';
 import '../model/customer.dart';
 import '../service/customer_service.dart';
 
-class EditCustomer extends StatelessWidget {
+final class EditCustomer extends StatelessWidget {
   EditCustomer({required this.id, super.key});
-  final String id;
+  final String? id;
+
   final TextEditingController nameController = TextEditingController();
+
   final TextEditingController addressController = TextEditingController();
+
   final TextEditingController phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return PageBuilder(
-      id: id,
+      id: id ?? '',
       nameController: nameController,
       addressController: addressController,
       phoneController: phoneController,
@@ -45,12 +50,7 @@ class PageBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          LocaleKeys.customer_editCustomer.tr(),
-        ),
-      ),
+    return BaseScaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -144,36 +144,25 @@ class CustomerPhoneButtonField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        ElevatedButton(
-          onPressed: () {},
-          child: Text(LocaleKeys.mainText_save.tr()),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        if (context.watch<CustomerPhoneEditingStatusProvider>().getEditingStatus == true)
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-            onPressed: () {
-              context.read<CustomerPhoneEditingStatusProvider>().setEditingStatus();
-            },
-            child: Text(LocaleKeys.mainText_edit.tr()),
-          )
-        else
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            onPressed: () {
-              context.read<CustomerPhoneEditingStatusProvider>().setEditingStatus();
-            },
-            child: Text(LocaleKeys.mainText_cancel.tr()),
-          ),
-        const SizedBox(
-          width: 10,
-        ),
-      ],
+    return EditPageButtonField(
+      editingStatus: context.watch<CustomerPhoneEditingStatusProvider>().getEditingStatus,
+      isEditingFunction: () {
+        context.read<CustomerPhoneEditingStatusProvider>().setEditingStatus();
+      },
+      saveFunction: () {
+        context.read<CustomerPhoneEditingStatusProvider>().setEditingStatus();
+        CustomerService().patchCustomer(
+          'phone',
+          context.read<CustomerPhoneTextField>().phoneController.text,
+          context.read<CustomerBloc>().state.customerList?.customers.firstWhere((element) => element.id == context.read<EditCustomer>().id).id ?? '',
+        );
+      },
+      cancelFunction: () {
+        context.read<CustomerPhoneEditingStatusProvider>().setEditingStatus();
+        context.read<CustomerPhoneTextField>().phoneController.text =
+            context.read<CustomerBloc>().state.customerList?.customers.firstWhere((element) => element.id == context.read<EditCustomer>().id).phone ??
+                '';
+      },
     );
   }
 }
@@ -220,36 +209,30 @@ class CustomerAddressButtonField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        ElevatedButton(
-          onPressed: () {},
-          child: Text(LocaleKeys.mainText_save.tr()),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        if (context.watch<CustomerAddressEditingStatusProvider>().getEditingStatus == true)
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-            onPressed: () {
-              context.read<CustomerAddressEditingStatusProvider>().setEditingStatus();
-            },
-            child: Text(LocaleKeys.mainText_edit.tr()),
-          )
-        else
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            onPressed: () {
-              context.read<CustomerAddressEditingStatusProvider>().setEditingStatus();
-            },
-            child: Text(LocaleKeys.mainText_cancel.tr()),
-          ),
-        const SizedBox(
-          width: 10,
-        ),
-      ],
+    return EditPageButtonField(
+      editingStatus: context.watch<CustomerAddressEditingStatusProvider>().getEditingStatus,
+      isEditingFunction: () {
+        context.read<CustomerAddressEditingStatusProvider>().setEditingStatus();
+      },
+      saveFunction: () {
+        context.read<CustomerAddressEditingStatusProvider>().setEditingStatus();
+        CustomerService().patchCustomer(
+          'adress',
+          context.read<CustomerAddressTextField>().addressController.text,
+          context.read<CustomerBloc>().state.customerList?.customers.firstWhere((element) => element.id == context.read<EditCustomer>().id).id ?? '',
+        );
+      },
+      cancelFunction: () {
+        context.read<CustomerAddressEditingStatusProvider>().setEditingStatus();
+        context.read<CustomerAddressTextField>().addressController.text = context
+                .read<CustomerBloc>()
+                .state
+                .customerList
+                ?.customers
+                .firstWhere((element) => element.id == context.read<EditCustomer>().id)
+                .adress ??
+            '';
+      },
     );
   }
 }
@@ -299,42 +282,23 @@ class CustomerNameButtonField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            CustomerService().patchCustomer(
-              customer?.name ?? '',
-              nameController.text,
-              customer?.id ?? '',
-            );
-          },
-          child: Text(LocaleKeys.mainText_save.tr()),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        if (context.watch<CustomerNameEditingStatusProvider>().getEditingStatus == true)
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-            onPressed: () {
-              context.read<CustomerNameEditingStatusProvider>().setEditingStatus();
-            },
-            child: Text(LocaleKeys.mainText_edit.tr()),
-          )
-        else
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            onPressed: () {
-              context.read<CustomerNameEditingStatusProvider>().setEditingStatus();
-            },
-            child: Text(LocaleKeys.mainText_cancel.tr()),
-          ),
-        const SizedBox(
-          width: 10,
-        ),
-      ],
+    return EditPageButtonField(
+      editingStatus: context.watch<CustomerNameEditingStatusProvider>().getEditingStatus,
+      isEditingFunction: () {
+        context.read<CustomerNameEditingStatusProvider>().setEditingStatus();
+      },
+      saveFunction: () {
+        context.read<CustomerNameEditingStatusProvider>().setEditingStatus();
+        CustomerService().patchCustomer(
+          'name',
+          nameController.text,
+          customer?.id ?? '',
+        );
+      },
+      cancelFunction: () {
+        context.read<CustomerNameEditingStatusProvider>().setEditingStatus();
+        nameController.text = customer?.name ?? '';
+      },
     );
   }
 }

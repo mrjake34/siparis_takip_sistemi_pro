@@ -1,7 +1,7 @@
-class NavigationConstants {
+final class NavigationConstants {
   //HomePage Paths
   static const String splashScreen = '/splashScreen';
-  static const String homePageView = '/homePageView';
+  static const String homePageView = '/';
 
   //Auth Page Paths
   static const String loginPage = '/loginPage';

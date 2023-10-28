@@ -20,6 +20,16 @@ final class NavbarButtons extends StatelessWidget {
       children: [
         NavbarButton(
           onPressed: () {
+            navService.navigateToPage(path: NavigationConstants.homePageView);
+          },
+          icon: Icons.home,
+          text: LocaleKeys.mainText_homepage,
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        NavbarButton(
+          onPressed: () {
             navService.navigateToPage(path: NavigationConstants.orderAddPage);
           },
           icon: Icons.add_shopping_cart,

@@ -7,6 +7,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
@@ -30,11 +31,7 @@ class CourierLoginPage extends StatelessWidget with BaseModelView {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(LocaleKeys.mainText_title.tr()),
-        centerTitle: true,
-      ),
+    return BaseScaffold(
       body: BlocProvider(
         create: (context) => CourierLoginPageCubit(),
         child: BlocConsumer<CourierLoginPageCubit, CourierLoginPageState>(

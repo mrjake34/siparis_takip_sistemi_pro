@@ -1,10 +1,14 @@
 import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:kartal/kartal.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/view/base_scaffold.dart';
+import 'package:siparis_takip_sistemi_pro/core/utils/device_info/device_info.dart';
+import 'package:siparis_takip_sistemi_pro/src/button/main_elevated_button.dart';
+import 'package:siparis_takip_sistemi_pro/src/button/main_elevated_icon_button.dart';
 import '../../../../core/constants/colors/colors.dart';
 import '../../../../core/constants/enums/enums.dart';
 import '../../../../core/constants/navigation/navigation_constants.dart';
@@ -17,16 +21,25 @@ import 'package:siparis_takip_sistemi_pro/src/button/main_elevated_button_withou
 import 'package:siparis_takip_sistemi_pro/views/screens/customer/bloc/customer_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/customer/model/customer.dart';
 
-class AddCustomer extends StatelessWidget {
-  AddCustomer({super.key});
+class AddCustomer extends StatefulWidget {
+  const AddCustomer({super.key});
 
+  @override
+  State<AddCustomer> createState() => _AddCustomerState();
+}
+
+class _AddCustomerState extends State<AddCustomer> {
   final _formKey = GlobalKey<FormBuilderState>();
-
   final TextEditingController customerNameController = TextEditingController();
-
   final TextEditingController customerPhoneController = TextEditingController();
-
   final TextEditingController customerAddressController = TextEditingController();
+  late DeviceType deviceType;
+
+  @override
+  void initState() {
+    deviceType = DeviceInfo.getDeviceType();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +48,7 @@ class AddCustomer extends StatelessWidget {
       customerNameController: customerNameController,
       customerPhoneController: customerPhoneController,
       customerAddressController: customerAddressController,
+      deviceType: deviceType,
     );
   }
 }
@@ -45,6 +59,7 @@ class PageBuilder extends StatelessWidget {
     required this.customerNameController,
     required this.customerPhoneController,
     required this.customerAddressController,
+    required this.deviceType,
     super.key,
   }) : _formKey = formKey;
 
@@ -52,15 +67,11 @@ class PageBuilder extends StatelessWidget {
   final TextEditingController customerNameController;
   final TextEditingController customerPhoneController;
   final TextEditingController customerAddressController;
+  final DeviceType deviceType;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          LocaleKeys.customer_addCustomer.tr(),
-        ),
-      ),
+    return BaseScaffold(
       body: Column(
         children: [
           const LinearField(),
@@ -90,10 +101,13 @@ class PageBuilder extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    const AddCustomerAddLocationWithMapField(),
+                    AddCustomerAddLocationWithMapField(
+                      deviceType: deviceType,
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
+                    const Divider(),
                     AddCustomerAddButtonField(
                       formKey: _formKey,
                       customerNameController: customerNameController,
@@ -152,74 +166,74 @@ class AddCustomerAddButtonField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: ElevatedButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                context.read<CustomerBloc>().add(
-                      AddCustomerEvent(
-                        customer: Customer(
-                          name: customerNameController.text.trim(),
-                          phone: customerPhoneController.text.trim(),
-                          adress: customerAddressController.text.trim(),
-                          latitude: Platform.isWindows == false
-                              ? context.watch<GetUserLocation>().getAlternativeMapLatLng2.latitude
-                              : context.watch<GetUserLocation>().getGoogleMapLatLng.latitude,
-                          longitude: Platform.isWindows == false
-                              ? context.watch<GetUserLocation>().getAlternativeMapLatLng2.longitude
-                              : context.watch<GetUserLocation>().getGoogleMapLatLng.longitude,
-                        ),
-                      ),
-                    );
-              } else {
-                UtilsService.instance.errorSnackBar(
-                  LocaleKeys.errors_pleaseEnterAllField.tr(),
-                );
-              }
-            },
-            child: Text(LocaleKeys.customer_addCustomer.tr()),
-          ),
-        ),
-      ],
+    return MainElevatedButton(
+      onPressed: () {
+        if (_formKey.currentState!.validate()) {
+          context.read<CustomerBloc>().add(
+                AddCustomerEvent(
+                  customer: Customer(
+                    name: customerNameController.text.trim(),
+                    phone: customerPhoneController.text.trim(),
+                    adress: customerAddressController.text.trim(),
+                    latitude: context.watch<CustomerMapProvider>().getPosition.latitude,
+                    longitude: context.watch<CustomerMapProvider>().getPosition.longitude,
+                  ),
+                ),
+              );
+        } else {
+          UtilsService.instance.errorSnackBar(
+            LocaleKeys.errors_pleaseEnterAllField.tr(),
+          );
+        }
+      },
+      child: Text(LocaleKeys.customer_addCustomer.tr()),
     );
   }
 }
 
 class AddCustomerAddLocationWithMapField extends StatelessWidget {
   const AddCustomerAddLocationWithMapField({
+    required this.deviceType,
     super.key,
   });
+  final DeviceType deviceType;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         ListTile(
-          title: Text(LocaleKeys.mainText_location.tr()),
+          title: const Text('Latitude'),
           subtitle: SelectableText(
-            '${Platform.isWindows == true ? context.watch<GetUserLocation>().getAlternativeMapLatLng2.latitude : context.watch<GetUserLocation>().getGoogleMapLatLng.latitude}',
+            context.watch<CustomerMapProvider>().getPosition.latitude.toString(),
           ),
         ),
         ListTile(
-          title: Text(LocaleKeys.mainText_location.tr()),
+          title: const Text('Longitude'),
           subtitle: SelectableText(
-            '${Platform.isWindows == true ? context.watch<GetUserLocation>().getAlternativeMapLatLng2.longitude : context.watch<GetUserLocation>().getGoogleMapLatLng.longitude}',
+            context.watch<CustomerMapProvider>().getPosition.longitude.toString(),
           ),
         ),
-        MainElevatedButtonWithoutColor(
-          onPressed: () {
-            if (Platform.isWindows) {
-              NavigationService.instance.navigateToPage(path: NavigationConstants.customerFlutterMap);
-            } else {
-              NavigationService.instance.navigateToPage(path: NavigationConstants.customerGoogleMap);
-            }
-          },
-          child: Text(
-            LocaleKeys.mainText_chooseLocation.tr(),
-            style: const TextStyle(color: Colors.white),
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            MainElevatedButtonWithoutColor(
+              onPressed: () {
+                if (deviceType == DeviceType.windows) {
+                  NavigationService.instance.navigateToPage(path: NavigationConstants.customerFlutterMap);
+                } else {
+                  NavigationService.instance.navigateToPage(path: NavigationConstants.customerGoogleMap);
+                }
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.location_on),
+                  Text(LocaleKeys.mainText_chooseLocation.tr()),
+                ],
+              ),
+            ),
+          ],
         ),
       ],
     );

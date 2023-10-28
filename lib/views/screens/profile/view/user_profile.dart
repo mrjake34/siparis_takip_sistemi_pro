@@ -2,9 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/profile/view/user_details_widget.dart';
 
-import '../../../../components/main_functions.dart';
+import '../../../../core/constants/main_functions.dart';
 import '../../../../core/constants/colors/colors.dart';
 import '../../../../core/constants/enums/enums.dart';
 import '../../../../core/constants/size/sizes.dart';
@@ -39,13 +40,7 @@ class PageBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          LocaleKeys.profile_profileTitle.tr(),
-          style: const TextStyle(fontSize: 18),
-        ),
-      ),
+    return BaseScaffold(
       body: Column(
         children: [
           const LinearField(),

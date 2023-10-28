@@ -3,6 +3,7 @@
 //     final customerList = customerListFromJson(jsonString);
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'customer.g.dart';
@@ -31,7 +32,8 @@ class CustomerList {
 }
 
 @JsonSerializable()
-class Customer extends Equatable {
+@immutable
+final class Customer extends Equatable {
   const Customer({
     this.id,
     this.shopName,

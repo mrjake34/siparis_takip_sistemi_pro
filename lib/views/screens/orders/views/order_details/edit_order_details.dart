@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/view/base_scaffold.dart';
 import '../../../../../core/base/models/base_model_view.dart';
 import '../../../../../core/constants/size/sizes.dart';
 import '../../../../../core/utils/translation/locale_keys.g.dart';
@@ -18,10 +19,7 @@ class EditOrderPage extends StatefulWidget {
 class _EditOrderPageState extends State<EditOrderPage> with BaseModelView {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(LocaleKeys.order_editOrder.tr()),
-      ),
+    return BaseScaffold(
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(pagePadding),

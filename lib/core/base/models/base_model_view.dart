@@ -1,4 +1,4 @@
-import 'package:siparis_takip_sistemi_pro/components/main_functions.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/main_functions.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/icons/icons.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/network/url.dart';

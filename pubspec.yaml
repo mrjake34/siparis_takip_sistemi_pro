@@ -64,6 +64,8 @@ dependencies:
   url_launcher: ^6.1.10
   vexana: ^3.4.3
   kartal: ^3.4.4
+  device_info_plus: ^9.1.0
+  circular_menu: ^2.0.1
 
 
 dependency_overrides:

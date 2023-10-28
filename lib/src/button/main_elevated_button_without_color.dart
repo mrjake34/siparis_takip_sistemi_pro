@@ -20,6 +20,7 @@ class MainElevatedButtonWithoutColor extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         fixedSize: Size(pageSize.width, 40),
+        maximumSize: const Size(300, 40),
         backgroundColor: color ?? AppColors.instance.alternativeButtonColor,
       ),
       onPressed: onPressed,

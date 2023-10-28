@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/view/base_scaffold.dart';
 import '../../../../core/constants/colors/colors.dart';
 import '../../../../core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
@@ -12,6 +13,8 @@ import 'package:siparis_takip_sistemi_pro/views/screens/product/bloc/products_bl
 import 'package:siparis_takip_sistemi_pro/views/screens/product/model/product.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/product/service/product_service.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/product/view/edit_product.dart';
+
+import '../../../../core/constants/navigation/navigation_constants.dart';
 
 class ProductListPage extends StatelessWidget {
   const ProductListPage({super.key});
@@ -30,12 +33,7 @@ class PageBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<ProductsBloc>().add(const ProductListEvent());
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          LocaleKeys.product_productList.tr(),
-        ),
-      ),
+    return BaseScaffold(
       body: Column(
         children: [
           const LinearField(),
@@ -56,7 +54,19 @@ class PageBuilder extends StatelessWidget {
                               child: ProductDetailField(product: product),
                             ),
                             Expanded(
-                              child: CardMoreButton(product: product),
+                              child: GestureDetector(
+                                onTapDown: (details) => CardMoreButton.openMenu(
+                                  context: context,
+                                  path: NavigationConstants.productEditPage,
+                                  id: product?.id ?? '',
+                                  function: () {
+                                    ProductService().deleteProduct(product?.id ?? '').whenComplete(() => Navigator.pop(context));
+                                  },
+                       
+                                  offset: details.globalPosition,
+                                ),
+                                child: const Icon(Icons.more_vert),
+                              ),
                             ),
                           ],
                         ),
@@ -118,25 +128,6 @@ class ProductDetailField extends StatelessWidget {
           subtitle: Text("${product?.price ?? ""} ${context.watch<ChangeCurrencyPriceSymbol>().currencySymbol}"),
         ),
       ],
-    );
-  }
-}
-
-class CardMoreButton extends StatelessWidget {
-  const CardMoreButton({
-    required this.product,
-    super.key,
-  });
-
-  final Product? product;
-
-  @override
-  Widget build(BuildContext context) {
-    return CardMoreButtonField(
-      removeFunction: () {
-        ProductService().deleteProduct(product?.id ?? '', product?.name ?? '').whenComplete(() => Navigator.pop(context));
-      },
-      routerWidget: EditProduct(id: product?.id ?? ''),
     );
   }
 }

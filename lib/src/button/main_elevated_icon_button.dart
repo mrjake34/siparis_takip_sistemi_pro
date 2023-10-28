@@ -16,7 +16,10 @@ class MainElevatedIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final pageSize = MediaQuery.of(context).size;
     return ElevatedButton.icon(
-      style: ElevatedButton.styleFrom(fixedSize: Size(pageSize.width, 40)),
+      style: ElevatedButton.styleFrom(
+        fixedSize: Size(pageSize.width, 40),
+        maximumSize: const Size(300, 40),
+      ),
       onPressed: onPressed,
       icon: icon,
       label: label,

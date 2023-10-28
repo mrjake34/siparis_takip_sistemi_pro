@@ -29,10 +29,7 @@ final class _PageBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pageSize = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(LocaleKeys.mainText_signup.tr()),
-      ),
+    return BaseScaffold(
       body: SingleChildScrollView(
         child: Center(
           child: Container(

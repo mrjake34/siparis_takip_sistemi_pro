@@ -29,7 +29,7 @@ class ProductService with BaseModelView {
     return null;
   }
 
-  Future<dynamic> deleteProduct(String id, String name) async {
+  Future<dynamic> deleteProduct(String id) async {
     final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
     final response = await networkService.dio.delete(
       appNetwork.productUrlWithSlash + id,

@@ -11,8 +11,7 @@ class SideBar extends StatelessWidget {
         color: Theme.of(context).cardColor,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 2,
+            color: Theme.of(context).shadowColor,
             blurRadius: 1,
             offset: const Offset(0, 3),
           ),

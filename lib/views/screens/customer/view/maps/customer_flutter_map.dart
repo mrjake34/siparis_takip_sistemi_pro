@@ -19,12 +19,12 @@ class AddCustomerFlutterMap extends StatelessWidget {
       body: FlutterMap(
         options: MapOptions(
           center: LatLng(
-            context.watch<GetUserLocation>().getAlternativeMapLatLng2.latitude,
-            context.watch<GetUserLocation>().getAlternativeMapLatLng2.longitude,
+            context.watch<CustomerMapProvider>().getPosition.latitude,
+            context.watch<CustomerMapProvider>().getPosition.longitude,
           ),
           zoom: 17,
           onTap: (position, latlong) {
-            context.read<GetUserLocation>().setLatLng2 = latlong;
+            context.read<CustomerMapProvider>().setPosition(latlong.latitude, latlong.longitude);
           },
         ),
         children: [
@@ -36,8 +36,8 @@ class AddCustomerFlutterMap extends StatelessWidget {
             markers: [
               Marker(
                 point: LatLng(
-                  context.watch<GetUserLocation>().getAlternativeMapLatLng2.latitude,
-                  context.watch<GetUserLocation>().getAlternativeMapLatLng2.longitude,
+                  context.watch<CustomerMapProvider>().getPosition.latitude,
+                  context.watch<CustomerMapProvider>().getPosition.longitude,
                 ),
                 builder: (BuildContext context) {
                   return const Icon(

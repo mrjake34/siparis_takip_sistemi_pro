@@ -43,7 +43,7 @@ Map<String, dynamic> _$OrderListProductToJson(OrderListProduct instance) => <Str
 ProductProduct _$ProductProductFromJson(Map<String, dynamic> json) => ProductProduct(
       productId: json['productId'] as String,
       quantity: json['quantity'] as String,
-      id: json['id'] as String,
+      id: json['_id'] as String,
       productNote: json['productNote'] as String?,
     );
 

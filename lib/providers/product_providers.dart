@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class EditProductNameEditButtonProvider extends ChangeNotifier {
-  bool _editing = false;
+  bool _editing = true;
 
   bool get getEditing => _editing;
 
@@ -12,7 +12,7 @@ class EditProductNameEditButtonProvider extends ChangeNotifier {
 }
 
 class EditProductPriceEditButtonProvider extends ChangeNotifier {
-  bool _editing = false;
+  bool _editing = true;
 
   bool get getEditing => _editing;
 

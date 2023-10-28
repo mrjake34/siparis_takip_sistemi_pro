@@ -3,12 +3,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:kartal/kartal.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/network_enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/core/utils/translation/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/providers/product_providers.dart';
+import 'package:siparis_takip_sistemi_pro/src/button/edit_page_button_field.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/product/bloc/products_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/product/model/product.dart';
 
@@ -26,12 +29,7 @@ class _EditProductState extends State<EditProduct> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          LocaleKeys.product_editProduct.tr(),
-        ),
-      ),
+    return BaseScaffold(
       body: Column(
         children: [
           const LinearField(),
@@ -90,30 +88,34 @@ class BodyBuilder extends StatelessWidget {
           final product = state.productList?.products.firstWhere((element) => element.id == widget.id);
           nameController.text = product?.name ?? '';
           priceController.text = product?.price.toString() ?? '';
-          return ListView(
-            padding: const EdgeInsets.all(pagePadding),
-            children: [
-              EditProductNameTextField(nameController: nameController),
-              const SizedBox(
-                height: 10,
-              ),
-              EditProductNameButtonField(
-                nameController: nameController,
-                product: product,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              EditProductPriceTextField(priceController: priceController),
-              const SizedBox(
-                height: 10,
-              ),
-              const EditProductPriceButtonField(),
-              const SizedBox(
-                height: 10,
-              ),
-            ],
-          );
+          if (product != null) {
+            return ListView(
+              padding: const EdgeInsets.all(pagePadding),
+              children: [
+                EditProductNameTextField(nameController: nameController),
+                const SizedBox(
+                  height: 10,
+                ),
+                EditProductNameButtonField(
+                  nameController: nameController,
+                  product: product,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                EditProductPriceTextField(priceController: priceController),
+                const SizedBox(
+                  height: 10,
+                ),
+                EditProductPriceButtonField(priceController: priceController, product: product),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
+            );
+          } else {
+            return const SizedBox();
+          }
         } else if (state.product == null) {
           return Center(
             child: Text(LocaleKeys.errors_failedLoadData.tr()),
@@ -139,7 +141,7 @@ class EditProductNameTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      readOnly: !context.watch<EditProductNameEditButtonProvider>().getEditing,
+      readOnly: context.watch<EditProductNameEditButtonProvider>().getEditing,
       textInputAction: TextInputAction.done,
       autovalidateMode: AutovalidateMode.disabled,
       controller: nameController,
@@ -164,48 +166,31 @@ class EditProductNameButtonField extends StatelessWidget {
   });
 
   final TextEditingController nameController;
-  final Product? product;
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            context.read<ProductsBloc>().add(
-                  EditProductEvent(
-                    key: PatchProductEnums.name,
-                    value: nameController.text.trim(),
-                    id: product?.id,
-                  ),
-                );
-          },
-          child: Text(LocaleKeys.mainText_save.tr()),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        if (context.watch<EditProductNameEditButtonProvider>().getEditing == false)
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-            onPressed: () {
-              context.read<EditProductNameEditButtonProvider>().setEditing();
-            },
-            child: Text(LocaleKeys.mainText_edit.tr()),
-          )
-        else
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            onPressed: () {
-              context.read<EditProductNameEditButtonProvider>().setEditing();
-            },
-            child: Text(LocaleKeys.mainText_cancel.tr()),
-          ),
-        const SizedBox(
-          width: 10,
-        ),
-      ],
+    return EditPageButtonField(
+      editingStatus: context.watch<EditProductNameEditButtonProvider>().getEditing,
+      isEditingFunction: () {
+        context.read<EditProductNameEditButtonProvider>().setEditing();
+      },
+      saveFunction: () {
+        if (nameController.text.ext.isNotNullOrNoEmpty) {
+          context.read<ProductsBloc>().add(
+                EditProductEvent(
+                  key: PatchProductEnums.name,
+                  value: nameController.text,
+                  id: product.id,
+                ),
+              );
+          context.read<EditProductNameEditButtonProvider>().setEditing();
+        }
+      },
+      cancelFunction: () {
+        nameController.text = product.name;
+        context.read<EditProductNameEditButtonProvider>().setEditing();
+      },
     );
   }
 }
@@ -221,7 +206,7 @@ class EditProductPriceTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      readOnly: !context.watch<EditProductPriceEditButtonProvider>().getEditing,
+      readOnly: context.watch<EditProductPriceEditButtonProvider>().getEditing,
       textInputAction: TextInputAction.done,
       autovalidateMode: AutovalidateMode.disabled,
       controller: priceController,
@@ -243,41 +228,35 @@ class EditProductPriceTextField extends StatelessWidget {
 
 class EditProductPriceButtonField extends StatelessWidget {
   const EditProductPriceButtonField({
+    required this.priceController,
+    required this.product,
     super.key,
   });
+  final TextEditingController priceController;
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        ElevatedButton(
-          onPressed: () {},
-          child: Text(LocaleKeys.mainText_save.tr()),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        if (context.watch<EditProductPriceEditButtonProvider>().getEditing == false)
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-            onPressed: () {
-              context.read<EditProductPriceEditButtonProvider>().setEditing();
-            },
-            child: Text(LocaleKeys.mainText_edit.tr()),
-          )
-        else
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            onPressed: () {
-              context.read<EditProductPriceEditButtonProvider>().setEditing();
-            },
-            child: Text(LocaleKeys.mainText_cancel.tr()),
-          ),
-        const SizedBox(
-          width: 10,
-        ),
-      ],
+    return EditPageButtonField(
+      editingStatus: context.watch<EditProductPriceEditButtonProvider>().getEditing,
+      isEditingFunction: () {
+        context.read<EditProductPriceEditButtonProvider>().setEditing();
+      },
+      saveFunction: () {
+        if (priceController.text.ext.isNotNullOrNoEmpty) {
+          context.read<ProductsBloc>().add(
+                EditProductEvent(
+                  key: PatchProductEnums.price,
+                  value: priceController.text,
+                  id: product.id,
+                ),
+              );
+          context.read<EditProductPriceEditButtonProvider>().setEditing();
+        }
+      },
+      cancelFunction: () {
+        context.read<EditProductPriceEditButtonProvider>().setEditing();
+      },
     );
   }
 }

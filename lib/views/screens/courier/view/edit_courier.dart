@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/providers/courier_providers.dart';
+import 'package:siparis_takip_sistemi_pro/src/button/edit_page_button_field.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/bloc/courier_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/model/courier.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/service/courier_service.dart';
@@ -21,12 +23,7 @@ class EditCourier extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          LocaleKeys.courier_editCourier.tr(),
-        ),
-      ),
+    return BaseScaffold(
       body: Column(
         children: [
           const LinearField(),
@@ -154,42 +151,21 @@ class EditCourierPhoneButtonField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            CourierService().patchCourier(
-              'phone',
-              phoneController.text,
-              couriers?.phone ?? '',
-            );
-          },
-          child: Text(LocaleKeys.mainText_save.tr()),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        if (context.watch<EditCourierChangePhoneReadyOnlyProvider>().getVisibility == true)
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-            onPressed: () {
-              context.read<EditCourierChangePhoneReadyOnlyProvider>().setVisibility();
-            },
-            child: Text(LocaleKeys.mainText_edit.tr()),
-          )
-        else
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            onPressed: () {
-              context.read<EditCourierChangePhoneReadyOnlyProvider>().setVisibility();
-            },
-            child: Text(LocaleKeys.mainText_cancel.tr()),
-          ),
-        const SizedBox(
-          width: 10,
-        ),
-      ],
+    return EditPageButtonField(
+      editingStatus: context.watch<EditCourierChangePhoneReadyOnlyProvider>().getVisibility,
+      isEditingFunction: () {
+        context.read<EditCourierChangePhoneReadyOnlyProvider>().setVisibility();
+      },
+      saveFunction: () {
+        CourierService().patchCourier(
+          'phone',
+          phoneController.text,
+          couriers?.phone ?? '',
+        );
+      },
+      cancelFunction: () {
+        context.read<EditCourierChangePhoneReadyOnlyProvider>().setVisibility();
+      },
     );
   }
 }
@@ -241,42 +217,21 @@ class EditCourierEmailButtonField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            CourierService().patchCourier(
-              'email',
-              emailController.text,
-              couriers?.email ?? '',
-            );
-          },
-          child: Text(LocaleKeys.mainText_save.tr()),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        if (context.watch<EditCourierChangeEmailReadyOnlyProvider>().getVisibility == true)
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-            onPressed: () {
-              context.read<EditCourierChangeEmailReadyOnlyProvider>().setVisibility();
-            },
-            child: Text(LocaleKeys.mainText_edit.tr()),
-          )
-        else
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            onPressed: () {
-              context.read<EditCourierChangeEmailReadyOnlyProvider>().setVisibility();
-            },
-            child: Text(LocaleKeys.mainText_cancel.tr()),
-          ),
-        const SizedBox(
-          width: 10,
-        ),
-      ],
+    return EditPageButtonField(
+      editingStatus: context.watch<EditCourierChangeEmailReadyOnlyProvider>().getVisibility,
+      isEditingFunction: () {
+        context.read<EditCourierChangeEmailReadyOnlyProvider>().setVisibility();
+      },
+      saveFunction: () {
+        CourierService().patchCourier(
+          'email',
+          emailController.text,
+          couriers?.email ?? '',
+        );
+      },
+      cancelFunction: () {
+        context.read<EditCourierChangeEmailReadyOnlyProvider>().setVisibility();
+      },
     );
   }
 }
@@ -327,38 +282,21 @@ class EditCourierNameButtonField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            CourierService().patchCourier('name', nameController.text, couriers?.id ?? '');
-          },
-          child: Text(LocaleKeys.mainText_save.tr()),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        if (context.watch<EditCourierChangeNameReadyOnlyProvider>().getVisibility == true)
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-            onPressed: () {
-              context.read<EditCourierChangeNameReadyOnlyProvider>().setVisibility();
-            },
-            child: Text(LocaleKeys.mainText_edit.tr()),
-          )
-        else
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            onPressed: () {
-              context.read<EditCourierChangeNameReadyOnlyProvider>().setVisibility();
-            },
-            child: Text(LocaleKeys.mainText_cancel.tr()),
-          ),
-        const SizedBox(
-          width: 10,
-        ),
-      ],
+    return EditPageButtonField(
+      editingStatus: context.watch<EditCourierChangeNameReadyOnlyProvider>().getVisibility,
+      isEditingFunction: () {
+        context.read<EditCourierChangeNameReadyOnlyProvider>().setVisibility();
+      },
+      saveFunction: () {
+        CourierService().patchCourier(
+          'name',
+          nameController.text,
+          couriers?.name ?? '',
+        );
+      },
+      cancelFunction: () {
+        context.read<EditCourierChangeNameReadyOnlyProvider>().setVisibility();
+      },
     );
   }
 }

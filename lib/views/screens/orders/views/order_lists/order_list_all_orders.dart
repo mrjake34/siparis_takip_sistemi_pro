@@ -3,7 +3,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/components/main_functions.dart';
+import 'package:siparis_takip_sistemi_pro/core/constants/main_functions.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/icons/icons.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/navigation/navigation_constants.dart';

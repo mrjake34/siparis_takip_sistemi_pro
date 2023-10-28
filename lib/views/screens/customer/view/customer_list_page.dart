@@ -1,9 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/view/base_scaffold.dart';
+import 'package:siparis_takip_sistemi_pro/src/dialogs/show_dialog.dart';
 import '../../../../core/base/models/base_model_view.dart';
 import '../../../../core/constants/colors/colors.dart';
 import '../../../../core/constants/enums/enums.dart';
+import '../../../../core/constants/navigation/navigation_constants.dart';
 import '../../../../core/constants/size/sizes.dart';
 import '../../../../core/utils/translation/locale_keys.g.dart';
 import '../../../../src/cards/cards_more_button.dart';
@@ -38,10 +41,7 @@ class PageBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(LocaleKeys.customer_customerList.tr()),
-      ),
+    return BaseScaffold(
       body: Column(
         children: [
           const LinearField(),
@@ -80,9 +80,19 @@ class CustomerListBuilder extends StatelessWidget {
                       child: CustomerListCardCustomerField(customer: customer),
                     ),
                     Expanded(
-                      child: CustomerListCardButtonField(
-                        appColors: appColors,
-                        customer: customer,
+                      child: GestureDetector(
+                        onTapDown: (details) {
+                          CardMoreButton.openMenu(
+                            context: context,
+                            path: NavigationConstants.customerEditPage,
+                            id: customer?.id ?? '',
+                            function: () => CustomerService().deleteCustomer(customer?.id ?? ''),
+                            offset: details.globalPosition,
+                          );
+                        },
+                        child: const Icon(
+                          Icons.more_vert,
+                        ),
                       ),
                     ),
                   ],
@@ -144,28 +154,6 @@ class CustomerListCardCustomerField extends StatelessWidget {
   MaterialPageRoute<dynamic> pageRouterCustomerDetailPage() {
     return MaterialPageRoute(
       builder: (context) => CustomerDetails(customerId: customer?.id),
-    );
-  }
-}
-
-class CustomerListCardButtonField extends StatelessWidget {
-  const CustomerListCardButtonField({
-    required this.appColors,
-    required this.customer,
-    super.key,
-  });
-
-  final AppColors appColors;
-  final Customer? customer;
-
-  @override
-  Widget build(BuildContext context) {
-    return CardMoreButtonField(
-      removeFunction: () {
-        CustomerService().deleteCustomer(customer?.id ?? '');
-      },
-      id: customer?.id,
-      routerWidget: EditCustomer(id: customer?.id ?? ''),
     );
   }
 }

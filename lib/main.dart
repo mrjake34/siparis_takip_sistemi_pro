@@ -1,5 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/network/url.dart';
+import 'package:siparis_takip_sistemi_pro/core/utils/device_info/device_info.dart';
 import 'package:siparis_takip_sistemi_pro/core/utils/navigation/navigation_route.dart';
 import 'package:siparis_takip_sistemi_pro/core/utils/navigation/navigation_service.dart';
 import 'package:siparis_takip_sistemi_pro/core/utils/notifier/notifier.dart';
@@ -75,6 +75,7 @@ class _MyAppState extends State<MyApp> {
   ThemeData? theme;
   @override
   void initState() {
+    DeviceInfo.getDeviceInfo();
     checkTheme();
     super.initState();
   }
@@ -97,6 +98,7 @@ class _MyAppState extends State<MyApp> {
       darkTheme: context.watch<ThemeChange>().getTheme ?? darkTheme,
       localizationsDelegates: context.localizationDelegates,
       locale: context.locale,
+      title: 'Sipariş Takip Sistemi',
       supportedLocales: context.supportedLocales,
       onGenerateRoute: NavigationRoute.instance.generateRoute,
       home: BlocBuilder<LoginBloc, LoginState>(

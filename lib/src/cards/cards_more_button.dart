@@ -1,53 +1,47 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:kartal/kartal.dart';
+import 'package:siparis_takip_sistemi_pro/core/utils/navigation/navigation_service.dart';
 import '../../core/constants/colors/colors.dart';
-import '../../core/constants/enums/enums.dart';
 import '../../core/utils/translation/locale_keys.g.dart';
 
-class CardMoreButtonField extends StatelessWidget {
-  const CardMoreButtonField({
-    required this.removeFunction,
-    required this.routerWidget,
-    this.id,
-    super.key,
-  });
+final class CardMoreButton {
+  const CardMoreButton._();
 
-  final String? id;
-  final void Function() removeFunction;
-  final Widget routerWidget;
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton<PopupMenuItemEnum>(
-      onSelected: (value) {
-        if (value == PopupMenuItemEnum.edit) {
-          Navigator.push(context, pageRouterEdit());
-        } else if (value == PopupMenuItemEnum.remove) {
-          openDialog(context);
-        }
-      },
-      itemBuilder: (context) {
-        return <PopupMenuEntry<PopupMenuItemEnum>>[
-          PopupMenuItem(
-            value: PopupMenuItemEnum.edit,
-            child: Text(
-              LocaleKeys.mainText_edit.tr(),
-              style: TextStyle(color: AppColors.instance.editColor),
-            ),
+  static Future<void> openMenu({
+    required BuildContext context,
+    required Offset offset,
+    required String id,
+    required String path,
+    required void Function() function,
+  }) {
+    return showMenu(
+      context: context,
+      position: RelativeRect.fromLTRB(offset.dx, offset.dy, offset.dx + 200, offset.dy + 100),
+      items: [
+        PopupMenuItem(
+          onTap: () {
+            if (id.ext.isNotNullOrNoEmpty && path.ext.isNotNullOrNoEmpty) {
+              NavigationService.instance.navigateToPage(path: path, object: id);
+            }
+          },
+          child: Text(
+            LocaleKeys.mainText_edit.tr(),
+            style: TextStyle(color: AppColors.instance.editColor),
           ),
-          PopupMenuItem(
-            value: PopupMenuItemEnum.remove,
-            child: Text(
-              LocaleKeys.mainText_remove.tr(),
-              style: TextStyle(color: AppColors.instance.removeColor),
-            ),
+        ),
+        PopupMenuItem(
+          onTap: () => openDialog(context, function: function),
+          child: Text(
+            LocaleKeys.mainText_remove.tr(),
+            style: TextStyle(color: AppColors.instance.removeColor),
           ),
-        ];
-      },
+        ),
+      ],
     );
   }
 
-  Future<dynamic> openDialog(BuildContext context) {
+  static Future<void> openDialog(BuildContext context, {required void Function() function}) {
     return showDialog(
       context: context,
       barrierDismissible: false,
@@ -77,7 +71,7 @@ class CardMoreButtonField extends StatelessWidget {
             const Spacer(),
             TextButton(
               style: ElevatedButton.styleFrom(backgroundColor: AppColors.instance.removeColor),
-              onPressed: removeFunction,
+              onPressed: function,
               child: Text(
                 LocaleKeys.mainText_remove.tr(),
                 style: const TextStyle(color: Colors.white),
@@ -86,12 +80,6 @@ class CardMoreButtonField extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-
-  MaterialPageRoute<dynamic> pageRouterEdit() {
-    return MaterialPageRoute(
-      builder: (context) => routerWidget,
     );
   }
 }

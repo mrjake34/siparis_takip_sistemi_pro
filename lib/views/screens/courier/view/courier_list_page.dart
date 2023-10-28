@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/core/base/models/base_model_view.dart';
+import 'package:siparis_takip_sistemi_pro/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/core/constants/size/sizes.dart';
@@ -15,6 +16,8 @@ import 'package:siparis_takip_sistemi_pro/views/screens/courier/bloc/courier_blo
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/model/courier.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/service/courier_service.dart';
 import 'package:siparis_takip_sistemi_pro/views/screens/courier/view/edit_courier.dart';
+
+import '../../../../core/constants/navigation/navigation_constants.dart';
 
 class CourierListPage extends StatefulWidget {
   const CourierListPage({super.key});
@@ -41,12 +44,7 @@ class PageBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          LocaleKeys.courier_courierList.tr(),
-        ),
-      ),
+    return BaseScaffold(
       body: Column(
         children: [
           const LinearField(),
@@ -136,16 +134,21 @@ class MoreButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CardMoreButtonField(
-      routerWidget: EditCourier(
+    return GestureDetector(
+      onTapDown: (details) => CardMoreButton.openMenu(
+        context: context,
+        path: NavigationConstants.courierEditPage,
         id: couriers?.id ?? '',
+        function: () {
+          CourierService().deleteCourier(couriers?.id ?? '').whenComplete(
+                () => Navigator.pop(context),
+              );
+        },
+        offset: details.globalPosition,
       ),
-      id: couriers?.id,
-      removeFunction: () {
-        CourierService().deleteCourier(couriers?.id ?? '').whenComplete(
-              () => Navigator.pop(context),
-            );
-      },
+      child: const Icon(
+        Icons.more_vert,
+      ),
     );
   }
 }
