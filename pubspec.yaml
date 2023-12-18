@@ -66,6 +66,9 @@ dependencies:
   kartal: ^3.4.4
   device_info_plus: ^9.1.0
   circular_menu: ^2.0.1
+  get_it: ^7.6.4
+  go_router: ^12.1.3
+  auto_route: ^7.8.4
 
 
 dependency_overrides:
@@ -79,6 +82,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   json_serializable: ^6.7.0
   very_good_analysis: ^5.0.0+1
+  auto_route_generator: ^7.3.2
 
   
 

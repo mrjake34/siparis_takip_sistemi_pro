@@ -1,121 +1,48 @@
-// ignore_for_file: use_build_context_synchronously
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/core/constants/network/url.dart';
-import 'package:siparis_takip_sistemi_pro/core/utils/device_info/device_info.dart';
-import 'package:siparis_takip_sistemi_pro/core/utils/navigation/navigation_route.dart';
-import 'package:siparis_takip_sistemi_pro/core/utils/navigation/navigation_service.dart';
-import 'package:siparis_takip_sistemi_pro/core/utils/notifier/notifier.dart';
-import 'package:siparis_takip_sistemi_pro/core/utils/translation/translation_manager.dart';
-import 'package:siparis_takip_sistemi_pro/core/utils/snackbar/snackbar.dart';
-import 'package:siparis_takip_sistemi_pro/providers/theme_providers.dart';
-import 'package:siparis_takip_sistemi_pro/theme/dark_theme.dart';
-import 'package:siparis_takip_sistemi_pro/theme/light_theme.dart';
-import 'package:siparis_takip_sistemi_pro/theme/theme_service.dart';
-import 'package:siparis_takip_sistemi_pro/views/authentication/login/bloc/login_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/views/authentication/login/view/login_page.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/courier/bloc/courier_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/customer/bloc/customer_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/product/bloc/products_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/profile/bloc/user_profile_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/views/screens/splash/view/splash_screen.dart';
+import 'package:siparis_takip_sistemi_pro/feature/authentication/login/bloc/login_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/init/app_initialize.dart';
+import 'package:siparis_takip_sistemi_pro/product/theme/dark_theme.dart';
+import 'package:siparis_takip_sistemi_pro/product/theme/light_theme.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/localization/localization_manager.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/notifier/notifier.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/provider/prodiver_manager.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
+  await AppInitialize.init();
   runApp(
     MultiProvider(
       providers: AppNotifiers.instance.notifierList,
-      child: EasyLocalization(
-        path: AppNetwork.instance.translationPath,
-        supportedLocales: TranslationManager.instance!.supportedLocales,
-        startLocale: TranslationManager.instance!.enLocale,
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => LoginBloc(),
-            ),
-            BlocProvider(
-              create: (context) => CustomerBloc(),
-            ),
-            BlocProvider(
-              create: (context) => CourierBloc(),
-            ),
-            BlocProvider(
-              create: (context) => OrdersBloc(),
-            ),
-            BlocProvider(
-              create: (context) => ProductsBloc(),
-            ),
-            BlocProvider(
-              create: (context) => UserProfileBloc(),
-            ),
-          ],
-          child: const MyApp(),
+      child: LocalizationManager(
+        child: const ProviderManager(
+          child: MyApp(),
         ),
       ),
     ),
   );
-  FlutterNativeSplash.remove();
 }
 
-class MyApp extends StatefulWidget {
+/// This is the main application widget.
+class MyApp extends StatelessWidget {
+  /// This is the main application widget.
   const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  ThemeData? theme;
-  @override
-  void initState() {
-    DeviceInfo.getDeviceInfo();
-    checkTheme();
-    super.initState();
-  }
-
-  Future<void> checkTheme() async {
-    final theme = await ThemeService().getThemeFromSave();
-    if (theme != null) {
-      context.read<ThemeChange>().changeTheme = theme;
-    }
-  }
+  static final _routeManager = RouteManager();
 
   @override
   Widget build(BuildContext context) {
-    context.read<LoginBloc>().add(AutoLoginEvent());
-    return MaterialApp(
+    return MaterialApp.router(
       scaffoldMessengerKey: UtilsService.instance.messengerKey,
-      navigatorKey: NavigationService.instance.navigatorKey,
+      routerConfig: _routeManager.config(),
       debugShowCheckedModeBanner: false,
-      theme: context.watch<ThemeChange>().getTheme ?? lightTheme,
-      darkTheme: context.watch<ThemeChange>().getTheme ?? darkTheme,
+      theme: lightTheme,
+      darkTheme: darkTheme,
       localizationsDelegates: context.localizationDelegates,
       locale: context.locale,
-      title: 'Sipariş Takip Sistemi',
+      title: 'OTS PRO',
       supportedLocales: context.supportedLocales,
-      onGenerateRoute: NavigationRoute.instance.generateRoute,
-      home: BlocBuilder<LoginBloc, LoginState>(
-        builder: (context, state) {
-          if (state.autoLogin == AutoLogin.completed) {
-            return SplashScreen();
-          } else if (state.autoLogin == AutoLogin.failed) {
-            return LoginPage();
-          } else {
-            return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator.adaptive(),
-              ),
-            );
-          }
-        },
-      ),
     );
   }
 }
