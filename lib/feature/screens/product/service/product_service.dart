@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/product/service/interface_product_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import '../../../../product/core/base/models/base_model_view.dart';
@@ -10,11 +14,14 @@ import '../../../../product/core/constants/enums/network_status.dart';
 import '../../../../product/utils/translations/locale_keys.g.dart';
 import '../model/product.dart';
 
-class ProductService with BaseModelView {
-  Future<ProductList?> fetchProductList() async {
-    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final response = await networkService.dio.get(
-      appNetwork.productUrl,
+final class ProductService extends IProductService {
+  @override
+  Future<BaseResponseModel<T>> getProducts<T>() async {
+    final cookie =
+        ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
+    final response =
+        await ProductItems.networkService.get<BaseResponseModel<Product>>(
+      AppNetwork.productPath,
       options: Options(
         headers: {
           'content-type': 'application/json',
@@ -24,19 +31,40 @@ class ProductService with BaseModelView {
     );
 
     if (response.statusCode == 200) {
-      final productList =
-          ProductList.fromJson(response.data as Map<String, dynamic>);
-      return productList;
+      if (response.data == null || response.data?.data == null) {
+        return BaseResponseModel(
+          data: NetworkStatus.userNotFound,
+          statusCode: response.statusCode,
+        ) as BaseResponseModel<T>;
+      } else {
+        final productList =
+            ProductList.fromJson(response.data!.data! as Map<String, dynamic>);
+        return BaseResponseModel(
+          data: productList,
+          statusCode: response.statusCode,
+        ) as BaseResponseModel<T>;
+      }
     } else {
-      utils.errorSnackBar(LocaleKeys.errors_failedLoadData.tr());
+      return BaseResponseModel(
+        data: NetworkStatus.unknownError,
+        statusCode: response.statusCode,
+      ) as BaseResponseModel<T>;
     }
-    return null;
   }
 
-  Future<dynamic> deleteProduct(String id) async {
-    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final response = await networkService.dio.delete(
-      appNetwork.productUrlWithSlash + id,
+  @override
+  Future<BaseResponseModel<T>> deleteProduct<T>({String? id}) async {
+    if (id == null) {
+      return BaseResponseModel<NetworkStatus>(
+        data: NetworkStatus.inputsNotFilled,
+        statusCode: HttpStatus.badRequest,
+      ) as BaseResponseModel<T>;
+    }
+    final cookie =
+        ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
+    final response = await ProductItems.networkService
+        .delete<BaseResponseModel<NetworkStatus>>(
+      '${AppNetwork.productPath}/$id',
       options: Options(
         headers: {
           'content-type': 'application/json',
@@ -45,77 +73,113 @@ class ProductService with BaseModelView {
       ),
     );
     if (response.statusCode == 200) {
-      utils.showSnackBar(LocaleKeys.succes_removeSuccessful.tr());
-      //fetchProductList();
+      return BaseResponseModel<NetworkStatus>(
+        data: NetworkStatus.getStatus(response.data as String),
+        statusCode: response.statusCode,
+      ) as BaseResponseModel<T>;
     } else {
-      utils.errorSnackBar(LocaleKeys.errors_productRemoveError.tr());
+      return BaseResponseModel<NetworkStatus>(
+        data: NetworkStatus.unknownError,
+        statusCode: response.statusCode,
+      ) as BaseResponseModel<T>;
     }
   }
 
-  Future<Response<dynamic>?> addProduct(String name, double price) async {
-    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
+  @override
+  Future<BaseResponseModel<T>> addProduct<T>({Product? product}) async {
+    final cookie =
+        ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
 
-    final response = await networkService.dio.post(
-      appNetwork.productUrl,
+    final response = await ProductItems.networkService
+        .post<BaseResponseModel<NetworkStatus>>(
+      AppNetwork.productPath,
       options: Options(
         headers: {
           'content-type': 'application/json',
           'authorization': cookie,
         },
       ),
-      data: {
-        'name': name,
-        'price': price,
-      },
+      data: product?.toJson(),
     );
-
-    return response;
+    if (response.data != null) {
+      return BaseResponseModel(
+        data: NetworkStatus.getStatus(response.data as String),
+        statusCode: response.statusCode,
+      ) as BaseResponseModel<T>;
+    } else {
+      return BaseResponseModel(
+        data: NetworkStatus.unknownError,
+        statusCode: response.statusCode,
+      ) as BaseResponseModel<T>;
+    }
   }
 
-  Future<Product> getProduct(String id) async {
-    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
+  @override
+  Future<BaseResponseModel<T>> getProduct<T>({String? id}) async {
+    final cookie =
+        ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
 
-    final response = await networkService.dio.get(
-      appNetwork.productUrlWithSlash + id,
+    final response =
+        await ProductItems.networkService.get<BaseResponseModel<Product>>(
+      '${AppNetwork.productPath}/$id',
       options: Options(
         headers: {
-          'content-type': 'application/json',
           'authorization': cookie,
         },
       ),
     );
-    if (kDebugMode) {
-      print(response.data);
-    }
-    final product =
-        Product.fromJson(response.data['product'] as Map<String, dynamic>);
 
-    return product;
+    if (response.statusCode == HttpStatus.ok) {
+      final product = Product.fromJson(
+        response.data!.data! as Map<String, dynamic>,
+      );
+
+      return BaseResponseModel(
+        data: product,
+        statusCode: response.statusCode,
+      ) as BaseResponseModel<T>;
+    } else {
+      return BaseResponseModel(
+        data: NetworkStatus.getStatus(response.data! as String),
+        statusCode: response.statusCode,
+      ) as BaseResponseModel<T>;
+    }
   }
 
-  Future<Response<dynamic>?> patchProduct({
-    PatchProductEnums? key,
-    String? value,
+  @override
+  Future<BaseResponseModel<T>> updateProduct<T>({
+    UpdateModel<PatchProductEnums>? model,
     String? id,
   }) async {
-    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    if (id != null && value != null) {
+    final cookie =
+        ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
+    if (id != null && model != null) {
       final response = await ProductItems.networkService
           .put<BaseResponseModel<NetworkStatus>>(
         '${AppNetwork.productPath}/$id',
-        data: [
-          {'propName': key.toString(), 'value': value},
-        ],
+        data: model.toJson(),
         options: Options(
           headers: {
-            'content-type': 'application/json',
             'authorization': cookie,
           },
         ),
       );
-      return response;
+      if (response.statusCode == HttpStatus.ok) {
+        return BaseResponseModel(
+          data: NetworkStatus.getStatus(response.data! as String),
+          statusCode: response.statusCode,
+        ) as BaseResponseModel<T>;
+      } else {
+        return BaseResponseModel(
+          data: NetworkStatus.getStatus(response.data! as String),
+          statusCode: response.statusCode,
+        ) as BaseResponseModel<T>;
+      }
     } else {
-      return null;
+      return BaseResponseModel(
+        data: NetworkStatus.inputsNotFilled,
+        statusCode: HttpStatus.badRequest,
+      ) as BaseResponseModel<T>;
     }
   }
 }

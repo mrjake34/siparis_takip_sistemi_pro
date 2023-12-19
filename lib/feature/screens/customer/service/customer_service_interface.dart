@@ -1,19 +1,19 @@
-import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/customer.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
 
 /// This class is Interface of CustomerService class
 sealed class CustomerServiceInterface {
   /// This Function Add Customer to DB
-  Future<T> addCustomer<T>(Object value);
+  Future<BaseResponseModel<T>> addCustomer<T>();
 
   /// This function for fetch Customer List from DB
-  Future<T> getCustomersList<T>(Object value);
+  Future<BaseResponseModel<T>> getCustomersList<T>();
 
   /// This function for fetch one customer from db
-  Future<T> getCustomer<T>(Object value);
+  Future<BaseResponseModel<T>> getCustomer<T>();
 
   /// This function for path data of customer
-  Future<T> patchCustomer<T>(CustomerEnum key, String value, String id);
+  Future<BaseResponseModel<T>> patchCustomer<T>();
 
   /// This function detele to customer from Customer List
-  Future<T> deleteCustomer<T>(String id);
+  Future<BaseResponseModel<T>> deleteCustomer<T>();
 }
