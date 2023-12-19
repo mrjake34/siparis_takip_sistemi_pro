@@ -13,7 +13,7 @@ import 'package:siparis_takip_sistemi_pro/feature/authentication/register/model/
 import 'package:siparis_takip_sistemi_pro/feature/authentication/register/model/register_response_error_model.dart';
 import 'package:vexana/vexana.dart';
 
-import '../../../../product/core/constants/enums/network_enums.dart';
+import '../../../../product/core/constants/enums/network_status.dart';
 
 class RegisterCubit extends Cubit<RegisterState> with BaseModelView {
   final TextEditingController? nameController;

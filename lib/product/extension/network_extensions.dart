@@ -1,6 +1,6 @@
 // ignore_for_file: no_default_cases
 
-import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_enums.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 
 extension NetworkTypeExtension on HttpTypes? {
   String? get rawValue {

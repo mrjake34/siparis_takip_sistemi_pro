@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../product/core/constants/enums/enums.dart';
-import '../../../../product/core/constants/enums/network_enums.dart';
+import '../../../../product/core/constants/enums/network_status.dart';
 import '../model/product.dart';
 import '../service/product_service.dart';
 

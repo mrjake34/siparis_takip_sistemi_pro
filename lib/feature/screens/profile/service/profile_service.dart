@@ -1,76 +1,96 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
-import '../../../../product/core/base/models/base_model_view.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 
-class ProfileService with BaseModelView {
-  Future<UserModel?> fetchUserDetails({String? cookie}) async {
-    cookie ??= sharedManager.getStringValue(PreferenceKey.cookie);
-    final id = sharedManager.getStringValue(PreferenceKey.userId);
+import '../../../../product/core/constants/enums/enums.dart';
+import '../model/user.dart';
+import 'interface_profile_service.dart';
+
+final class ProfileService extends IProfileService {
+  @override
+  Future<BaseResponseModel<T>> getProfile<T>({String? cookie}) async {
+    cookie ??= ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
+    final id = ProductItems.sharedManager.getStringValue(PreferenceKey.userId);
     try {
-      final response = await networkService.dio.get(
-        appNetwork.getUserUrl + id,
+      final response =
+          await ProductItems.networkService.get<BaseResponseModel<UserModel>>(
+        '${AppNetwork.userPath}/$id',
         options: Options(
           headers: {
             'authorization': cookie,
-            'Content-Type': 'application/json',
           },
         ),
       );
 
       if (response.statusCode == 200) {
-        final user = UserModel.fromJson(response.data as Map<String, dynamic>);
-        await sharedManager.setStringValue(
+        if (response.data == null) {
+          return BaseResponseModel(
+            data: NetworkStatus.userNotFound,
+            statusCode: response.statusCode,
+          ) as BaseResponseModel<T>;
+        }
+        final userData =
+            UserModel.fromJson(response.data! as Map<String, dynamic>);
+        await ProductItems.sharedManager.setStringValue(
           PreferenceKey.userName,
-          user.user.name ?? '',
+          userData.user.toJson().toString(),
         );
-        await sharedManager.setStringValue(
-          PreferenceKey.userEmail,
-          user.user.email ?? '',
-        );
-        await sharedManager.setStringValue(
-          PreferenceKey.userPhone,
-          user.user.phone ?? '',
-        );
-        await sharedManager.setStringValue(
-          PreferenceKey.shopName,
-          user.user.shopName ?? '',
-        );
-        await sharedManager.setStringValue(
-          PreferenceKey.role,
-          user.user.role ?? '',
-        );
-        await sharedManager.setBoolValue(
-          PreferenceKey.paymentStatus,
-          value: user.user.paymentStatus ?? false,
-        );
-        await sharedManager.setStringValue(
-          PreferenceKey.userUpdatedAt,
-          user.user.updatedAt.toString(),
-        );
-
-        return user;
+        return BaseResponseModel(
+          data: userData,
+          statusCode: response.statusCode,
+        ) as BaseResponseModel<T>;
       }
+      return BaseResponseModel(
+        data: NetworkStatus.userNotFound,
+        statusCode: response.statusCode,
+      ) as BaseResponseModel<T>;
     } on DioException catch (e) {
-      if (kDebugMode) {
-        print('ProfileService Fetch $e');
-      }
+      final response = e.response?.data as Map<String, dynamic>;
+      return BaseResponseModel(
+        data: NetworkStatus.getStatus(response['message'] as String),
+        statusCode: e.response?.statusCode,
+      ) as BaseResponseModel<T>;
     }
-    return null;
   }
 
-  Future<dynamic> patchUser(String id, String key, String value) async {
-    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final response = await networkService.dio.patch(
-      appNetwork.getUserUrl + id,
-      options: Options(
-        headers: {
-          'authorization': cookie,
-          'Content-Type': 'application/json',
-        },
-      ),
-    );
-    if (response.statusCode == 200) {}
+  @override
+  Future<BaseResponseModel<T>> updateProfile<T>(
+    UpdateModel<dynamic>? model,
+    String? id,
+  ) async {
+    final cookie =
+        ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
+    try {
+      final response = await ProductItems.networkService
+          .put<BaseResponseModel<NetworkStatus>>(
+        '${AppNetwork.userPath}/$id',
+        options: Options(
+          headers: {
+            'authorization': cookie,
+          },
+        ),
+        data: model?.toJson(),
+      );
+      if (response.statusCode == 200) {
+        return BaseResponseModel<NetworkStatus>(
+          data: NetworkStatus.updateSuccess,
+          statusCode: response.statusCode,
+        ) as BaseResponseModel<T>;
+      } else {
+        return BaseResponseModel<NetworkStatus>(
+          data: NetworkStatus.updateFailed,
+          statusCode: response.statusCode,
+        ) as BaseResponseModel<T>;
+      }
+    } on DioException catch (e) {
+      final response = e.response?.data as Map<String, dynamic>;
+      return BaseResponseModel<NetworkStatus>(
+        data: NetworkStatus.getStatus(response['message'] as String),
+        statusCode: e.response?.statusCode,
+      ) as BaseResponseModel<T>;
+    }
   }
 }

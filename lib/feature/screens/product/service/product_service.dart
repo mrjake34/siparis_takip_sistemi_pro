@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import '../../../../product/core/base/models/base_model_view.dart';
 import '../../../../product/core/constants/enums/enums.dart';
-import '../../../../product/core/constants/enums/network_enums.dart';
+import '../../../../product/core/constants/enums/network_status.dart';
 import '../../../../product/utils/translations/locale_keys.g.dart';
 import '../model/product.dart';
 
@@ -97,8 +100,9 @@ class ProductService with BaseModelView {
   }) async {
     final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
     if (id != null && value != null) {
-      final response = await networkService.dio.patch(
-        appNetwork.productUrlWithSlash + id,
+      final response = await ProductItems.networkService
+          .put<BaseResponseModel<NetworkStatus>>(
+        '${AppNetwork.productPath}/$id',
         data: [
           {'propName': key.toString(), 'value': value},
         ],

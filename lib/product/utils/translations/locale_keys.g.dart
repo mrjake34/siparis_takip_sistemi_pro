@@ -189,5 +189,34 @@ abstract class  LocaleKeys {
   static const courier_courierInfo = 'courier.courierInfo';
   static const courier_editCourier = 'courier.editCourier';
   static const courier = 'courier';
+  static const apiMessage_registerSuccess = 'apiMessage.registerSuccess';
+  static const apiMessage_createdSuccess = 'apiMessage.createdSuccess';
+  static const apiMessage_updateSuccess = 'apiMessage.updateSuccess';
+  static const apiMessage_deleteSuccess = 'apiMessage.deleteSuccess';
+  static const apiMessage_detailsSuccess = 'apiMessage.detailsSuccess';
+  static const apiMessage_loginSuccess = 'apiMessage.loginSuccess';
+  static const apiMessage_listSuccess = 'apiMessage.listSuccess';
+  static const apiMessage_registerFailed = 'apiMessage.registerFailed';
+  static const apiMessage_createFailed = 'apiMessage.createFailed';
+  static const apiMessage_updateFailed = 'apiMessage.updateFailed';
+  static const apiMessage_deleteFailed = 'apiMessage.deleteFailed';
+  static const apiMessage_detailsFailed = 'apiMessage.detailsFailed';
+  static const apiMessage_loginFailed = 'apiMessage.loginFailed';
+  static const apiMessage_inputsNotFilled = 'apiMessage.inputsNotFilled';
+  static const apiMessage_inputsNotFilledOrTypesWrong = 'apiMessage.inputsNotFilledOrTypesWrong';
+  static const apiMessage_userNotFound = 'apiMessage.userNotFound';
+  static const apiMessage_userIdFailed = 'apiMessage.userIdFailed';
+  static const apiMessage_courierNotFound = 'apiMessage.courierNotFound';
+  static const apiMessage_emailFailed = 'apiMessage.emailFailed';
+  static const apiMessage_shopNameFailed = 'apiMessage.shopNameFailed';
+  static const apiMessage_phoneFailed = 'apiMessage.phoneFailed';
+  static const apiMessage_productNameFailed = 'apiMessage.productNameFailed';
+  static const apiMessage_productNotFound = 'apiMessage.productNotFound';
+  static const apiMessage_orderNotFound = 'apiMessage.orderNotFound';
+  static const apiMessage_customerNotFound = 'apiMessage.customerNotFound';
+  static const apiMessage_phoneOrEmailFailed = 'apiMessage.phoneOrEmailFailed';
+  static const apiMessage_unauthorized = 'apiMessage.unauthorized';
+  static const apiMessage_unknowError = 'apiMessage.unknowError';
+  static const apiMessage = 'apiMessage';
 
 }
