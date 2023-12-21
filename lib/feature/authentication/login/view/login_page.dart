@@ -7,10 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/courier_login/view/courier_login.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/bloc/login_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/password_reset/view/passport_reset.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/product/providers/main_providers.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/loading_button.dart';
@@ -19,8 +21,10 @@ import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.dar
 import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
+import '../model/login_request_model.dart';
+
 @RoutePage()
-class LoginPage extends StatelessWidget {
+final class LoginPage extends StatelessWidget {
   LoginPage({
     super.key,
   });
@@ -34,104 +38,68 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginBloc(
-        emailController: emailController,
-        passwordController: passwordController,
-      ),
-      child: BlocConsumer<LoginBloc, LoginState>(
-        listener: (context, state) {
-          if (state.status == Status.isDone) {
-            context.router.replaceNamed(RoutePath.splashScreen.path);
-          }
-        },
-        builder: (context, state) {
-          return BuildPage(
-            loginKey: loginKey,
-            emailController: emailController,
-            passwordController: passwordController,
-            state: state,
-          );
-        },
-      ),
-    );
-  }
-}
-
-class BuildPage extends StatelessWidget {
-  const BuildPage({
-    required this.loginKey,
-    required this.emailController,
-    required this.passwordController,
-    required this.state,
-    super.key,
-  });
-
-  final GlobalKey<FormBuilderState> loginKey;
-  final TextEditingController emailController;
-  final TextEditingController passwordController;
-
-  final LoginState state;
-
-  @override
-  Widget build(BuildContext context) {
-    final pageSize = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            constraints: BoxConstraints(
-              maxWidth: pageSize.width >= 800 ? 800 : pageSize.width / 1,
-            ),
-            child: FormBuilder(
-              key: loginKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Image.asset(
-                    'assets/images/main-logo.png',
-                    fit: BoxFit.fill,
-                  ),
-                  const SizedBox(
-                    width: 50,
-                  ),
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Column(
-                        children: [
-                          EmailFormField(
-                            emailController: emailController,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          PasswordFormField(
-                            passwordController: passwordController,
-                          ),
-                          const SizedBox(height: 20),
-                          LoginButton(
-                            loginKey: loginKey,
-                          ),
-                          const SizedBox(height: 15),
-                          const ForgetPasswordText(),
-                          RegisterText(),
-                          const Divider(),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          const CourierLoginPageRouterButton(),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                        ],
+      create: (context) => LoginBloc(),
+      child: BaseScaffold(
+        body: Center(
+          child: SingleChildScrollView(
+            child: Container(
+              constraints: BoxConstraints(
+                maxWidth: context.general.mediaSize.width >= 800
+                    ? 800
+                    : context.general.mediaSize.width / 1,
+              ),
+              child: FormBuilder(
+                key: loginKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Image.asset(
+                      'assets/images/main-logo.png',
+                      fit: BoxFit.fill,
+                    ),
+                    const SizedBox(
+                      width: 50,
+                    ),
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Column(
+                          children: [
+                            EmailFormField(
+                              emailController: emailController,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            PasswordFormField(
+                              passwordController: passwordController,
+                            ),
+                            const SizedBox(height: 20),
+                            LoginButton(
+                              loginKey: loginKey,
+                              emailController: emailController,
+                              passwordController: passwordController,
+                            ),
+                            const SizedBox(height: 15),
+                            const ForgetPasswordText(),
+                            const RegisterText(),
+                            const Divider(),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            const CourierLoginPageRouterButton(),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -235,14 +203,24 @@ class PasswordFormField extends StatelessWidget {
 class LoginButton extends StatelessWidget {
   const LoginButton({
     required this.loginKey,
+    required this.emailController,
+    required this.passwordController,
     super.key,
   });
   final GlobalKey<FormBuilderState> loginKey;
+  final TextEditingController? emailController;
+  final TextEditingController? passwordController;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginBloc, LoginState>(
-      buildWhen: (previous, current) => previous.status != current.status,
+    return BlocConsumer<LoginBloc, LoginState>(
+      listener: (context, state) {
+        if (state.status == Status.isFailed) {
+          CustomSnackBar.errorSnackBar(state.errorMessage);
+        } else if (state.status == Status.isDone) {
+          context.router.replaceNamed(RoutePath.homeScreen.path);
+        }
+      },
       builder: (context, state) {
         if (state.status == Status.isLoading) {
           return const LoadingButton();
@@ -250,10 +228,16 @@ class LoginButton extends StatelessWidget {
           return MainElevatedButton(
             onPressed: () {
               if (loginKey.currentState?.validate() ?? false) {
-                context.read<LoginBloc>().add(DoLoginEvent());
+                context.read<LoginBloc>().add(UserLoginEvent(
+                      model: LoginRequestModel(
+                        email: emailController?.text,
+                        password: passwordController?.text,
+                      ),
+                    ));
               } else {
                 CustomSnackBar.errorSnackBar(
-                    LocaleKeys.errors_pleaseEnterAllField.tr());
+                  LocaleKeys.errors_pleaseEnterAllField.tr(),
+                );
               }
             },
             child: Text(

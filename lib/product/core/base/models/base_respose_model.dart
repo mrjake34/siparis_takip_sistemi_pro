@@ -35,7 +35,9 @@ final class BaseResponseModel<T extends IBaseNetworkModel<T>>
       return null;
     }
     final cookie = headers['set-cookie']?.first ?? 'Login Courier Cookie';
-    return cookie as String?;
+    final cookieSplit = cookie.split(';');
+    final cookieString = cookieSplit[0].split('=');
+    return cookieString[1] as String?;
   }
 
   @override

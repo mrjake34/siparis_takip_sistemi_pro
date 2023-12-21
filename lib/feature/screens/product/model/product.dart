@@ -78,4 +78,12 @@ class Product {
     final totalPrice = parsedPrice * quantity;
     return totalPrice.toStringAsFixed(2);
   }
+
+  double productTotalPriceCalculator({int? quantity, double? price}) {
+    if (quantity != null && price != null) {
+      return quantity * price;
+    } else {
+      return 0;
+    }
+  }
 }

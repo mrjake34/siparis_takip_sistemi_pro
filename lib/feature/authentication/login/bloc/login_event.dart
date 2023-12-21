@@ -3,15 +3,24 @@ part of 'login_bloc.dart';
 
 abstract class LoginEvent extends Equatable {}
 
-class DoLoginEvent extends LoginEvent {
-  DoLoginEvent();
+class UserLoginEvent extends LoginEvent {
+  UserLoginEvent({this.model});
+  final LoginRequestModel? model;
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [model];
 }
 
 class AutoLoginEvent extends LoginEvent {
+  AutoLoginEvent({
+    this.autoLogin,
+    this.cookie,
+    this.id,
+  });
+  final bool? autoLogin;
+  final String? cookie;
+  final String? id;
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [autoLogin, cookie, id];
 }
 
 class LogoutEvent extends LoginEvent {

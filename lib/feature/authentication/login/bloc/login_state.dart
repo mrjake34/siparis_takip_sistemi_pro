@@ -2,19 +2,27 @@
 part of 'login_bloc.dart';
 
 class LoginState extends Equatable {
-  const LoginState({this.status, this.validate, this.model, this.autoLogin});
+  const LoginState({
+    this.status,
+    this.validate,
+    this.model,
+    this.autoLogin,
+    this.errorMessage,
+  });
   final Enum? status;
   final Enum? validate;
   final User? model;
-  final Enum? autoLogin;
+  final bool? autoLogin;
+  final String? errorMessage;
   @override
-  List<Object?> get props => [status, validate, model, autoLogin];
+  List<Object?> get props => [status, validate, model, autoLogin, errorMessage];
 
   LoginState copyWith({
     Enum? status,
     Enum? validate,
     User? model,
-    Enum? autoLogin,
+    bool? autoLogin,
+    String? errorMessage,
   }) {
     return LoginState(
       status: status ?? this.status,

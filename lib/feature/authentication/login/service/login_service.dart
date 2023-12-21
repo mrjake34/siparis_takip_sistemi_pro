@@ -29,28 +29,26 @@ final class LoginService implements ILoginService {
   @override
   Future<BaseResponseModel<T>> login<T extends IBaseNetworkModel<T>>({
     LoginRequestModel? loginModel,
+    T? model,
   }) async {
     if (loginModel == null) {
       return BaseResponseModel<T>(
-        data: NetworkStatus.userNotFound.message as T?,
+        error: NetworkStatus.userNotFound.message as NetworkErrorModel?,
         statusCode: HttpStatus.badRequest,
       );
     }
 
-    final response = await ProductItems.networkService.post<LoginResponseModel>(
+    final response = await ProductItems.networkService.post<T>(
       AppNetwork.loginPath,
       data: loginModel.toJson(),
-      model: LoginResponseModel(),
+      model: model,
     );
 
     if (response.statusCode == HttpStatus.ok) {
-      final user = await ProfileService().getProfile<BaseResponseModel<User>>(
-        cookie: response.getCookie(headers: response.headers),
-        id: response.data?.user?.id,
-      );
       return BaseResponseModel<T>(
-        data: user.data as T?,
+        data: response.data,
         statusCode: response.statusCode,
+        headers: response.headers,
       );
     } else if (response.statusCode == HttpStatus.badRequest) {
       return BaseResponseModel<T>(

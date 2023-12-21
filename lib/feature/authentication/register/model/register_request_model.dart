@@ -12,7 +12,8 @@ class RegisterRequestModel {
     this.shopName,
   });
 
-  factory RegisterRequestModel.fromJson(Map<String, dynamic> json) => _$RegisterRequestModelFromJson(json);
+  factory RegisterRequestModel.fromJson(Map<String, dynamic> json) =>
+      _$RegisterRequestModelFromJson(json);
 
   final String? name;
   final String? email;

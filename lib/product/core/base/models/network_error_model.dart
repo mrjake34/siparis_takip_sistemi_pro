@@ -2,23 +2,25 @@ import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_s
 
 final class NetworkErrorModel {
   NetworkErrorModel({
-    this.error,
+    this.message,
   });
   factory NetworkErrorModel.getStatus(String message) {
     return NetworkErrorModel(
-      error: NetworkStatus.getStatus(message),
+      message: NetworkStatus.getStatus(message).message,
     );
   }
 
   NetworkErrorModel fromJson(Map<String, dynamic> json) {
-    // TODO: implement fromJson
-    throw UnimplementedError();
+    return NetworkErrorModel(
+      message: json['message'] as String?,
+    );
   }
 
   Map<String, dynamic>? toJson() {
-    // TODO: implement toJson
-    throw UnimplementedError();
+    return {
+      'message': message,
+    };
   }
 
-  NetworkStatus? error;
+  final String? message;
 }

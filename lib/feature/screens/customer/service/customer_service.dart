@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
@@ -49,9 +50,11 @@ class CustomerService {
     }
   }
 
-  Future<BaseResponseModel<T>> getCustomersList<T>({String? cookie}) async {
-    final response =
-        await ProductItems.networkService.get<BaseResponseModel<CustomerList>>(
+  Future<BaseResponseModel<T>>
+      getCustomersList<T extends IBaseNetworkModel<T>>({
+    String? cookie,
+  }) async {
+    final response = await ProductItems.networkService.get<CustomerList>(
       AppNetwork.customerPath,
       options: Options(
         headers: {'authorization': cookie},

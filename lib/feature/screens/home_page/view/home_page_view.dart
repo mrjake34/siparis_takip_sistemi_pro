@@ -9,6 +9,7 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/customer/bloc/customer
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/bloc/products_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
@@ -27,7 +28,7 @@ class HomePage extends StatelessWidget {
   const HomePage({required this.userModel, super.key});
 
   /// This is the user model
-  final UserModel userModel;
+  final UserResponseModel userModel;
 
   @override
   Widget build(BuildContext context) {

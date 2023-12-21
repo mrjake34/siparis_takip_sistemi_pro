@@ -54,7 +54,8 @@ enum NetworkStatus {
   customerNotFound(LocaleKeys.apiMessage_customerNotFound),
   phoneOrEmailFailed(LocaleKeys.apiMessage_phoneOrEmailFailed),
   unauthorized(LocaleKeys.apiMessage_unauthorized),
-  unknownError(LocaleKeys.apiMessage_unknowError);
+  unknownError(LocaleKeys.apiMessage_unknowError),
+  failedLoadData(LocaleKeys.errors_failedLoadData);
 
   const NetworkStatus(this.message);
   final String? message;

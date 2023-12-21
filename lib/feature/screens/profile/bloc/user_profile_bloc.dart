@@ -15,8 +15,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     final profileService = ProfileService();
     on<FetchUserDetailsEvent>((event, emit) async {
       emit(state.copyWith(status: Status.isLoading));
-      final response = await profileService
-          .getProfile<BaseResponseModel<UserResponseModel>>();
+      final response = await profileService.getProfile<UserResponseModel>();
       if (response.data != null ||
           response.data!.data != null ||
           response.data!.data!.user != null) {

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '../../core/constants/size/sizes.dart';
 
 class MainBottomSheets {
-  Future<dynamic> openBottomSheet(BuildContext context, Widget widget) async {
+  Future<T?> openBottomSheet<T>(BuildContext context, Widget widget) async {
     final pageWidth = MediaQuery.of(context).size.width;
     return showModalBottomSheet(
       constraints: BoxConstraints(
         minWidth: pageWidth,
       ),
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(pagePadding)),
+        borderRadius: BorderRadius.all(Radius.circular(AppSize.pagePadding)),
       ),
       showDragHandle: true,
       useRootNavigator: true,
@@ -22,7 +22,7 @@ class MainBottomSheets {
     );
   }
 
-  Future<dynamic> openBottomSheetNoScrollable(
+  Future<T?> openBottomSheetNoScrollable<T>(
     BuildContext context,
     Widget widget,
   ) async {
@@ -32,7 +32,7 @@ class MainBottomSheets {
         minWidth: pageWidth,
       ),
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(pagePadding)),
+        borderRadius: BorderRadius.all(Radius.circular(AppSize.pagePadding)),
       ),
       showDragHandle: true,
       useRootNavigator: true,

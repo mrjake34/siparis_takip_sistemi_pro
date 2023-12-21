@@ -1,4 +1,5 @@
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/network_error_model.dart';
+import 'package:vexana/vexana.dart';
 
 abstract class IBaseNetworkModel<T> {
   T? data;

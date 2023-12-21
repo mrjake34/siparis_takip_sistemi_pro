@@ -2,7 +2,14 @@
 //
 //     final orderList = orderListFromJson(jsonString);
 
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../../../../product/core/constants/colors/colors.dart';
+import '../../../../product/core/constants/icons/icons.dart';
+import '../../../../product/core/constants/strings/appstrings.dart';
+import '../../../../product/utils/translations/locale_keys.g.dart';
 
 part 'order.g.dart';
 
@@ -13,7 +20,8 @@ final class OrderList {
     required this.products,
   });
 
-  factory OrderList.fromJson(Map<String, dynamic> json) => _$OrderListFromJson(json);
+  factory OrderList.fromJson(Map<String, dynamic> json) =>
+      _$OrderListFromJson(json);
   final String message;
   final List<OrderListProduct> products;
 
@@ -43,7 +51,8 @@ class OrderListProduct {
     required this.updatedAt,
   });
 
-  factory OrderListProduct.fromJson(Map<String, dynamic> json) => _$OrderListProductFromJson(json);
+  factory OrderListProduct.fromJson(Map<String, dynamic> json) =>
+      _$OrderListProductFromJson(json);
   final String id;
   final String shopName;
   final String customerId;
@@ -78,6 +87,33 @@ class OrderListProduct {
       );
 
   Map<String, dynamic> toJson() => _$OrderListProductToJson(this);
+
+  Color getColorFromOrderStatus({String? orderStatus}) => switch (orderStatus) {
+        AppStrings.inLineOrderString => AppColors.instance.orderPendingColor,
+        AppStrings.inProcessOrderString =>
+          AppColors.instance.orderInProcessColor,
+        AppStrings.onTheWayOrderString => AppColors.instance.orderOnTheWayColor,
+        AppStrings.isCompleteOrderString => AppColors.instance.orderIsDoneColor,
+        _ => AppColors.instance.orderPendingColor,
+      };
+
+  IconData getIconFromOrderStatus({String? orderStatus}) =>
+      switch (orderStatus) {
+        AppStrings.inLineOrderString => AppIcons.instance.pendingIcon,
+        AppStrings.inProcessOrderString => AppIcons.instance.inProcessIcon,
+        AppStrings.isCompleteOrderString => AppIcons.instance.onTheWayIcon,
+        AppStrings.onTheWayOrderString => AppIcons.instance.isDoneIcon,
+        _ => AppIcons.instance.pendingIcon,
+      };
+
+  String getStringFromOrderStatus({String? orderStatus}) =>
+      switch (orderStatus) {
+        AppStrings.inLineOrderString => LocaleKeys.order_inLine.tr(),
+        AppStrings.inProcessOrderString => LocaleKeys.order_inProcess.tr(),
+        AppStrings.isCompleteOrderString => LocaleKeys.order_onTheWay.tr(),
+        AppStrings.onTheWayOrderString => LocaleKeys.order_isDone.tr(),
+        _ => LocaleKeys.order_inLine.tr(),
+      };
 }
 
 @JsonSerializable()
@@ -89,7 +125,8 @@ class ProductProduct {
     this.productNote,
   });
 
-  factory ProductProduct.fromJson(Map<String, dynamic> json) => _$ProductProductFromJson(json);
+  factory ProductProduct.fromJson(Map<String, dynamic> json) =>
+      _$ProductProductFromJson(json);
   final String productId;
   final String quantity;
   final String? productNote;

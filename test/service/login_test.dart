@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_request_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/service/login_service.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_manager.dart';
 
@@ -15,16 +14,15 @@ void main() {
 
   test('Login', () async {
     final loginService = LoginService();
-    final response =
-        await loginService.login<BaseResponseModel, LoginResponseModel>(
+    final response = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
-        password: 'alkan12345',
+        password: 'alkan1234',
       ),
       model: LoginResponseModel(),
     );
-    debugPrint(response.data.toString());
+    debugPrint(response.statusCode.toString());
 
-    expect(response.data != null, true);
+    expect(response.data?.user == null, true);
   });
 }

@@ -15,76 +15,45 @@ import 'package:vexana/vexana.dart';
 
 import '../../../../product/core/constants/enums/network_status.dart';
 
-class RegisterCubit extends Cubit<RegisterState> with BaseModelView {
-  final TextEditingController? nameController;
-  final TextEditingController? phoneController;
-  final TextEditingController? emailController;
-  final TextEditingController? shopNameController;
-  final TextEditingController? passwordController;
-  final TextEditingController? password2Controller;
-  final GlobalKey<FormBuilderState>? formKey;
+class RegisterCubit extends Cubit<RegisterState> {
   late final INetworkManager networkManager;
 
   bool registerFail = false;
   bool isLoading = false;
 
-  RegisterCubit({
-    this.nameController,
-    this.phoneController,
-    this.emailController,
-    this.shopNameController,
-    this.passwordController,
-    this.password2Controller,
-    this.formKey,
-  }) : super(const RegisterState());
+  RegisterCubit() : super(const RegisterState());
 
-  Future<void> postRegisterModel() async {
-    if (passwordController?.text.trim() == password2Controller?.text.trim()) {
-      try {
-        emit(const RegisterState(status: Status.isLoading));
-        networkService.dio.options.headers = {
-          'Access-Control-Request-Headers': 'access-control-allow-credentials'
-              'access-control-allow-headers'
-              'access-control-allow-methods'
-              'access-control-allow-origin'
-              'content-type',
-        };
-        final data = RegisterRequestModel(
-          name: nameController?.text.trim(),
-          email: emailController?.text.trim(),
-          phone: phoneController?.text.trim(),
-          password: passwordController?.text.trim(),
-          shopName: shopNameController?.text.trim(),
-        ).toJson();
-        final response = await networkService.dio.post(
-          appNetwork.signup,
-          data: data,
-        );
-        if (response.statusCode == HttpStatus.ok) {
-          return emit(const RegisterState(status: Status.isDone));
-        }
-      } on DioException catch (e) {
-        if (e.response?.statusCode == HttpStatus.badRequest) {
-          final data = RegisterResponseErrorModel.fromJson(
-            e.response?.data as Map<String, dynamic>,
-          );
-          if (data.message == RegisterErrors.shopNameAlreadyExists.error) {
-            utils.errorSnackBar(LocaleKeys.errors_shopNameAlreadyExists.tr());
-            return emit(const RegisterState(status: Status.isFailed));
-          } else if (data.message == RegisterErrors.emailAlreadyExists.error) {
-            utils.errorSnackBar(LocaleKeys.errors_emailAlreadyExists.tr());
-            return emit(const RegisterState(status: Status.isFailed));
-          } else {
-            utils.errorSnackBar(LocaleKeys.errors_errorUserRegister.tr());
-            emit(const RegisterState(status: Status.isFailed));
-          }
-        } else {
-          return emit(const RegisterState(status: Status.isFailed));
-        }
+  Future<void> postRegisterModel({RegisterRequestModel? model}) async {
+    if (model == null) {
+      return emit(const RegisterState(status: Status.isFailed));
+    }
+    try {
+      emit(const RegisterState(status: Status.isLoading));
+      final response = await networkService.dio.post(
+        appNetwork.signup,
+        data: data,
+      );
+      if (response.statusCode == HttpStatus.ok) {
+        return emit(const RegisterState(status: Status.isDone));
       }
-    } else {
-      utils.errorSnackBar(LocaleKeys.errors_passwordDontMatch.tr());
-      emit(const RegisterState(status: Status.isFailed));
+    } on DioException catch (e) {
+      if (e.response?.statusCode == HttpStatus.badRequest) {
+        final data = RegisterResponseErrorModel.fromJson(
+          e.response?.data as Map<String, dynamic>,
+        );
+        if (data.message == RegisterErrors.shopNameAlreadyExists.error) {
+          utils.errorSnackBar(LocaleKeys.errors_shopNameAlreadyExists.tr());
+          return emit(const RegisterState(status: Status.isFailed));
+        } else if (data.message == RegisterErrors.emailAlreadyExists.error) {
+          utils.errorSnackBar(LocaleKeys.errors_emailAlreadyExists.tr());
+          return emit(const RegisterState(status: Status.isFailed));
+        } else {
+          utils.errorSnackBar(LocaleKeys.errors_errorUserRegister.tr());
+          emit(const RegisterState(status: Status.isFailed));
+        }
+      } else {
+        return emit(const RegisterState(status: Status.isFailed));
+      }
     }
   }
 }

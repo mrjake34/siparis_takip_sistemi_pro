@@ -5,19 +5,21 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
 
 part 'customer.g.dart';
 
 @JsonSerializable()
-class CustomerList {
+final class CustomerList extends IBaseNetworkModel<CustomerList> {
   CustomerList({
-    required this.message,
-    required this.customers,
+    this.message,
+    this.customers,
   });
 
-  factory CustomerList.fromJson(Map<String, dynamic> json) => _$CustomerListFromJson(json);
-  final String message;
-  final List<Customer> customers;
+  factory CustomerList.fromJson(Map<String, dynamic> json) =>
+      _$CustomerListFromJson(json);
+  final String? message;
+  final List<Customer>? customers;
 
   CustomerList copyWith({
     String? message,
@@ -28,7 +30,13 @@ class CustomerList {
         customers: customers ?? this.customers,
       );
 
+  @override
   Map<String, dynamic> toJson() => _$CustomerListToJson(this);
+
+  @override
+  CustomerList fromJson(Map<String, dynamic> json) {
+    return CustomerList.fromJson(json);
+  }
 }
 
 @JsonSerializable()
@@ -47,7 +55,8 @@ final class Customer extends Equatable {
     this.updatedAt,
   });
 
-  factory Customer.fromJson(Map<String, dynamic> json) => _$CustomerFromJson(json);
+  factory Customer.fromJson(Map<String, dynamic> json) =>
+      _$CustomerFromJson(json);
   final String? id;
   final String? shopName;
   final String? name;

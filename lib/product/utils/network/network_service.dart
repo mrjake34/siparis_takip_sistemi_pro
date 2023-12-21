@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/interface/interface_base_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 import 'package:vexana/vexana.dart';
 import '../../core/base/interface/base_network_model.dart';
+import '../../core/base/models/network_error_model.dart';
 import '../../core/constants/network/url.dart';
 
 /// This class is used to make network requests.
@@ -15,12 +16,8 @@ final class NetworkService {
       options: BaseOptions(
         baseUrl: AppNetwork.baseUrl,
         headers: headers,
-      ),
-    );
-    _dio = Dio(
-      BaseOptions(
-        baseUrl: AppNetwork.baseUrl,
-        headers: headers,
+        receiveDataWhenStatusError: true,
+        validateStatus: (status) => status != null,
       ),
     );
   }
@@ -29,7 +26,6 @@ final class NetworkService {
   static NetworkService get instance => _instance;
 
   late NetworkManager _networkManager;
-  late Dio _dio;
 
   /// This map is used to set the headers.
   final headers = {
@@ -43,12 +39,46 @@ final class NetworkService {
   Future<BaseResponseModel<T>> get<T extends IBaseNetworkModel<T>>(
     String path, {
     Options? options,
+    T? model,
   }) async {
-    final response = await _networkManager.get<dynamic>(path);
-    return BaseResponseModel(
-      data: response.data as T?,
-      statusCode: response.statusCode,
-    );
+    try {
+      Response<dynamic> response;
+      response = await _networkManager.get<Response<dynamic>>(
+        path,
+        options: options,
+      );
+      if (response.data == null) {
+        return BaseResponseModel(
+          error: NetworkErrorModel(
+            message: NetworkStatus.failedLoadData.message,
+          ),
+          statusCode: response.statusCode,
+        );
+      }
+      final parseModel = _parseModel<T, T>(
+        model: model,
+        resp: response.data,
+      );
+      if (parseModel == null) {
+        return BaseResponseModel(
+          error: NetworkErrorModel(
+            message: NetworkStatus.failedLoadData.message,
+          ),
+          statusCode: response.statusCode,
+        );
+      }
+      return BaseResponseModel(
+        data: parseModel,
+        statusCode: response.statusCode,
+      );
+    } on DioException catch (e) {
+      return BaseResponseModel(
+        error: NetworkErrorModel(
+          message: e.toString(),
+        ),
+        statusCode: 500,
+      );
+    }
   }
 
   /// This method is used to make a Post request.
@@ -71,7 +101,15 @@ final class NetworkService {
       model: model,
       resp: response.data,
     );
-    return BaseResponseModel<T>(
+    if (parseModel == null) {
+      return BaseResponseModel(
+        error: NetworkErrorModel(
+          message: NetworkStatus.failedLoadData.message,
+        ),
+        statusCode: response.statusCode,
+      );
+    }
+    return BaseResponseModel(
       data: parseModel,
       headers: response.headers.map,
       statusCode: response.statusCode,
@@ -79,12 +117,13 @@ final class NetworkService {
   }
 
   /// This method is used to make a Put request.
-  Future<BaseResponseModel<T>> put<E, T extends IBaseNetworkModel<T>>(
+  Future<BaseResponseModel<T>> put<T extends IBaseNetworkModel<T>>(
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
+    T? model,
   }) async {
     final reponse = await _networkManager.put<T>(
       path,
@@ -93,8 +132,28 @@ final class NetworkService {
       options: options,
       cancelToken: cancelToken,
     );
+    if (reponse.data == null) {
+      return BaseResponseModel(
+        error: NetworkErrorModel(
+          message: NetworkStatus.failedLoadData.message,
+        ),
+        statusCode: reponse.statusCode,
+      );
+    }
+    final parseModel = _parseModel<T, T>(
+      model: model,
+      resp: reponse.data,
+    );
+    if (parseModel == null) {
+      return BaseResponseModel(
+        error: NetworkErrorModel(
+          message: NetworkStatus.failedLoadData.message,
+        ),
+        statusCode: reponse.statusCode,
+      );
+    }
     return BaseResponseModel<T>(
-      data: reponse.data,
+      data: parseModel,
       statusCode: reponse.statusCode,
     );
   }
@@ -106,6 +165,7 @@ final class NetworkService {
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
+    T? model,
   }) async {
     final response = await _networkManager.delete<T>(
       path,
@@ -114,8 +174,28 @@ final class NetworkService {
       options: options,
       cancelToken: cancelToken,
     );
-    return BaseResponseModel<T>(
-      data: response.data,
+    if (response.data == null) {
+      return BaseResponseModel(
+        error: NetworkErrorModel(
+          message: NetworkStatus.failedLoadData.message,
+        ),
+        statusCode: response.statusCode,
+      );
+    }
+    final parseModel = _parseModel<T, T>(
+      model: model,
+      resp: response.data,
+    );
+    if (parseModel == null) {
+      return BaseResponseModel(
+        error: NetworkErrorModel(
+          message: NetworkStatus.failedLoadData.message,
+        ),
+        statusCode: response.statusCode,
+      );
+    }
+    return BaseResponseModel(
+      data: parseModel,
       statusCode: response.statusCode,
     );
   }
