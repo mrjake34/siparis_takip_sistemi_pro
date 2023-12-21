@@ -1,1 +1,4 @@
-const double pagePadding = 5;
+final class AppSize {
+  AppSize._();
+  static const double pagePadding = 5;
+}

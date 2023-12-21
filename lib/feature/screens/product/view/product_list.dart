@@ -1,19 +1,16 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
-import '../../../../product/core/constants/colors/colors.dart';
-import '../../../../product/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/product/providers/main_providers.dart';
-import 'package:siparis_takip_sistemi_pro/product/src/cards/cards_more_button.dart';
-import 'package:siparis_takip_sistemi_pro/product/src/cards/list_card.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/bloc/products_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/service/product_service.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/product/view/edit_product.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart';
+import 'package:siparis_takip_sistemi_pro/product/providers/main_providers.dart';
+import 'package:siparis_takip_sistemi_pro/product/src/cards/cards_more_button.dart';
+import 'package:siparis_takip_sistemi_pro/product/src/cards/list_card.dart';
 
+import '../../../../product/core/constants/colors/colors.dart';
+import '../../../../product/core/constants/enums/enums.dart';
 import '../../../../product/core/constants/navigation/navigation_constants.dart';
 
 class ProductListPage extends StatelessWidget {
@@ -42,7 +39,7 @@ class PageBuilder extends StatelessWidget {
               builder: (context, state) {
                 if (state.productList != null) {
                   return ListView.builder(
-                    padding: const EdgeInsets.all(pagePadding),
+                    padding: const EdgeInsets.all(AppSize.pagePadding),
                     itemCount: state.productList?.products.length ?? 0,
                     itemBuilder: (BuildContext context, int index) {
                       final product = state.productList?.products[index];
@@ -60,10 +57,10 @@ class PageBuilder extends StatelessWidget {
                                   path: NavigationConstants.productEditPage,
                                   id: product?.id ?? '',
                                   function: () {
-                                    ProductService()
-                                        .deleteProduct(product?.id ?? '')
-                                        .whenComplete(
-                                            () => Navigator.pop(context));
+                                    // ProductService()
+                                    //     .deleteProduct(product?.id ?? '')
+                                    //     .whenComplete(
+                                    //         () => Navigator.pop(context));
                                   },
                                   offset: details.globalPosition,
                                 ),

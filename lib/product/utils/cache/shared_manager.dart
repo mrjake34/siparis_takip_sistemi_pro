@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user.dart';
 
 import '../../core/constants/enums/enums.dart';
 
@@ -8,23 +9,38 @@ class SharedManager {
   SharedPreferences? _preferences;
   static SharedManager get instance => _instance;
 
-  Future<void> preferencesInit() async =>
+  Future<SharedPreferences> preferencesInit() async =>
       instance._preferences ??= await SharedPreferences.getInstance();
 
-  Future<void> clearAll() async {
-    await _preferences!.clear();
+  Future<bool> clearSavedModel() async {
+    final result = await _preferences?.remove(PreferenceKey.userModel.name);
+    return result ?? false;
   }
 
-  Future<void> removeFromKey(PreferenceKey key) async {
-    await _preferences?.remove(key.name);
+  Future<bool> removeFromKey(PreferenceKey key) async {
+    final result = await _preferences?.remove(key.name);
+    return result ?? false;
   }
 
-  Future<void> setStringValue(PreferenceKey key, String value) async {
-    await _preferences?.setString(key.name, value);
+  Future<bool> setStringValue(PreferenceKey key, String value) async {
+    final result = await _preferences?.setString(key.name, value);
+    return result ?? false;
   }
 
-  Future<void> setBoolValue(PreferenceKey key, {bool? value}) async {
-    await _preferences?.setBool(key.name, value ?? false);
+  Future<bool> setBoolValue(PreferenceKey key, {bool? value}) async {
+    final result = await _preferences?.setBool(key.name, value ?? false);
+    return result ?? false;
+  }
+
+  Future<bool> saveModel<T>({User? model}) async {
+    if (model == null) {
+      return false;
+    }
+    final result = await _preferences?.setString(
+      PreferenceKey.userModel.name,
+      model.toJson().toString(),
+    );
+    return result ?? false;
   }
 
   String getStringValue(PreferenceKey key) =>

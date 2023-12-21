@@ -7,31 +7,32 @@ abstract class ProductsEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class ProductListEvent extends ProductsEvent {
-  const ProductListEvent({this.productList});
-  final ProductList? productList;
+final class ProductListEvent extends ProductsEvent {
+  const ProductListEvent({this.cookie});
+
+  final String? cookie;
 
   @override
-  List<Object?> get props => [productList];
+  List<Object?> get props => [cookie];
 }
 
-class AddProductEvent extends ProductsEvent {
-
-  const AddProductEvent({this.productName, this.productPrice});
-  final String? productName;
-  final double? productPrice;
+final class AddProductEvent extends ProductsEvent {
+  const AddProductEvent({this.product, this.cookie});
+  final Product? product;
+  final String? cookie;
 
   @override
-  List<Object?> get props => [productName, productPrice];
+  List<Object?> get props => [product, cookie];
 }
 
-class EditProductEvent extends ProductsEvent {
-
-  const EditProductEvent({this.key, this.value, this.id});
-  final PatchProductEnums? key;
-  final String? value;
+final class EditProductEvent extends ProductsEvent {
+  const EditProductEvent({this.model, this.id, this.cookie});
+  final UpdateModel<ProductEnum>? model;
   final String? id;
+  final String? cookie;
 
   @override
-  List<Object?> get props => [key, value, id];
+  List<Object?> get props => [model, id, cookie];
 }
+
+final class EditProductNameEditButtonEvent extends ProductsEvent {}

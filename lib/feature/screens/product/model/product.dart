@@ -2,72 +2,80 @@ import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
 
+import 'product_list.dart';
+
 ProductList productListFromJson(String str) =>
     ProductList.fromJson(json.decode(str) as Map<String, dynamic>);
 
 String productListToJson(ProductList data) => json.encode(data.toJson());
 
 @JsonSerializable()
-class ProductList {
-  ProductList({
-    required this.message,
-    required this.products,
-  });
-
-  factory ProductList.fromJson(Map<String, dynamic> json) => ProductList(
-        message: json['message'].toString(),
-        products: List<Product>.from(
-          (json['products'] as List<dynamic>).map(
-            (dynamic x) => Product.fromJson(x as Map<String, dynamic>),
-          ),
-        ),
-      );
-
-  String message;
-  List<Product> products;
-
-  Map<String, dynamic> toJson() => {
-        'message': message,
-        'products': List<dynamic>.from(products.map((x) => x.toJson())),
-      };
-}
-
 class Product {
   Product({
-    required this.id,
-    required this.name,
-    required this.shopName,
-    required this.price,
-    required this.createdAt,
-    required this.updatedAt,
+    this.id,
+    this.name,
+    this.shopName,
+    this.price,
+    this.createdAt,
+    this.updatedAt,
     this.productNote,
+    this.quantity,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         id: json['_id'].toString(),
         name: json['name'].toString(),
         shopName: json['shopName'].toString(),
-        price: double.tryParse(json['price'].toString()) ?? 0.0,
-        createdAt: DateTime.parse(json['createdAt'].toString()),
-        updatedAt: DateTime.parse(json['updatedAt'].toString()),
+        price: json['price'].toString(),
+        createdAt: json['createdAt'].toString(),
+        updatedAt: json['updatedAt'].toString(),
       );
 
-  String id;
-  String name;
-  String shopName;
-  int quantity = 1;
-  String? productNote;
-  double price;
-  DateTime createdAt;
-  DateTime updatedAt;
+  final String? id;
+  final String? name;
+  final String? shopName;
+  final int? quantity;
+  final String? productNote;
+  final String? price;
+  final String? createdAt;
+  final String? updatedAt;
 
   Map<String, dynamic> toJson() => {
         '_id': id,
         'name': name,
         'shopName': shopName,
         'price': price,
-        'createdAt': createdAt.toIso8601String(),
-        'updatedAt': updatedAt.toIso8601String(),
+        'createdAt': createdAt,
+        'updatedAt': updatedAt,
       };
-  double? get totalPrice => price * quantity;
+
+  Product copyWith({
+    String? id,
+    String? name,
+    String? shopName,
+    String? price,
+    String? createdAt,
+    String? updatedAt,
+    String? productNote,
+  }) {
+    return Product(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      shopName: shopName ?? this.shopName,
+      price: price ?? this.price,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      productNote: productNote ?? this.productNote,
+    );
+  }
+
+  String? calculateTotalPrice({String? price, int? quantity}) {
+    if (price == null || quantity == null) {
+      return null;
+    }
+    final priceForDouble = price.replaceAll(',', '');
+    final parsedPrice = double.parse(priceForDouble);
+    final totalPrice = parsedPrice * quantity;
+    return totalPrice.toStringAsFixed(2);
+  }
 }

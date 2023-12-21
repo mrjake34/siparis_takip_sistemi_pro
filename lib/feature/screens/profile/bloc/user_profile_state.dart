@@ -3,14 +3,14 @@ part of 'user_profile_bloc.dart';
 
 class UserProfileState extends Equatable {
   const UserProfileState({this.user, this.status});
-  final UserModel? user;
+  final User? user;
   final Status? status;
 
   @override
   List<Object?> get props => [user, status];
 
   UserProfileState copyWith({
-    UserModel? user,
+    User? user,
     Status? status,
   }) {
     return UserProfileState(

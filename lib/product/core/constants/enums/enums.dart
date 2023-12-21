@@ -1,4 +1,5 @@
 enum PreferenceKey {
+  userModel,
   cookie,
   role,
   id,
@@ -19,7 +20,14 @@ enum UserStatus { userNotFound, userDeleted, userAlreadySignIn }
 
 enum Validate { validateTrue, validateFalse }
 
-enum LocationService { serviceOff, serviceOn, always, denied, deniedForever, whileInUse }
+enum LocationService {
+  serviceOff,
+  serviceOn,
+  always,
+  denied,
+  deniedForever,
+  whileInUse
+}
 
 enum UserRole { user, courier, admin }
 
@@ -30,3 +38,18 @@ enum AutoLogin {
 }
 
 enum PopupMenuItemEnum { remove, edit }
+
+enum ProductEnum {
+  name,
+  price,
+  quantity,
+  description,
+}
+
+enum ProfileEnum {
+  name,
+  email,
+  phone,
+  password,
+  confirmPassword,
+}

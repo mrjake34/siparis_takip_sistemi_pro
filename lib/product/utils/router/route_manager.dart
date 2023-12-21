@@ -10,18 +10,18 @@ final class RouteManager extends $RouteManager {
   List<AutoRoute> get routes => [
         AdaptiveRoute(
           page: SplashRoute.page,
-          path: RouteManagerEnum.splashScreen.path,
+          path: RoutePath.splashScreen.path,
           initial: true,
         ),
         AdaptiveRoute(
           page: HomeRoute.page,
-          path: RouteManagerEnum.homeScreen.path,
+          path: RoutePath.homeScreen.path,
         ),
       ];
 }
 
 /// Route manager enum
-enum RouteManagerEnum {
+enum RoutePath {
   /// Route manager enum splash screen
   splashScreen('/'),
 
@@ -38,7 +38,7 @@ enum RouteManagerEnum {
   homeScreen('/home-screen'),
   ;
 
-  const RouteManagerEnum(this.path);
+  const RoutePath(this.path);
 
   /// Route manager enum path
   final String path;

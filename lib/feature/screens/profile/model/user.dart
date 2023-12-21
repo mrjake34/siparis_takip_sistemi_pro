@@ -1,36 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: avoid_setters_without_getters
 import 'package:json_annotation/json_annotation.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
 
 part 'user.g.dart';
 
 @JsonSerializable()
-class UserModel {
-  final String message;
-  final User user;
-
-  UserModel({
-    required this.message,
-    required this.user,
-  });
-
-  UserModel copyWith({
-    String? message,
-    User? user,
-  }) =>
-      UserModel(
-        message: message ?? this.message,
-        user: user ?? this.user,
-      );
-
-  factory UserModel.fromJson(Map<String, dynamic> json) =>
-      _$UserModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$UserModelToJson(this);
-}
-
-@JsonSerializable()
-class User {
+final class User extends IBaseNetworkModel<User> {
   final String? id;
   final String? name;
   final String? email;
@@ -90,5 +66,11 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$UserToJson(this);
+
+  @override
+  User fromJson(Map<String, dynamic> json) {
+    return User.fromJson(json);
+  }
 }

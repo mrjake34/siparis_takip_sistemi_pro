@@ -4,7 +4,6 @@ part of 'login_bloc.dart';
 abstract class LoginEvent extends Equatable {}
 
 class DoLoginEvent extends LoginEvent {
-
   DoLoginEvent();
   @override
   List<Object?> get props => [];
@@ -13,5 +12,9 @@ class DoLoginEvent extends LoginEvent {
 class AutoLoginEvent extends LoginEvent {
   @override
   List<Object?> get props => [];
+}
 
+class LogoutEvent extends LoginEvent {
+  @override
+  List<Object?> get props => [];
 }

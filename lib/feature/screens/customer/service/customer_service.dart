@@ -10,15 +10,15 @@ import '../../../../product/core/constants/enums/enums.dart';
 import '../model/customer.dart';
 
 class CustomerService {
-  Future<BaseResponseModel<T>> addCustomer<T>({Customer? customer}) async {
-    String? cookie;
-    cookie = ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
+  Future<BaseResponseModel<T>> addCustomer<T>({
+    Customer? customer,
+    String? cookie,
+  }) async {
     final response = await ProductItems.networkService
         .post<Response<BaseResponseModel<NetworkStatus>>>(
       AppNetwork.customerPath,
       options: Options(
         headers: {
-          'content-type': 'application/json',
           'authorization': cookie,
         },
       ),
@@ -49,9 +49,7 @@ class CustomerService {
     }
   }
 
-  Future<BaseResponseModel<T>> getCustomersList<T>() async {
-    String? cookie;
-    cookie = ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
+  Future<BaseResponseModel<T>> getCustomersList<T>({String? cookie}) async {
     final response =
         await ProductItems.networkService.get<BaseResponseModel<CustomerList>>(
       AppNetwork.customerPath,
@@ -60,7 +58,9 @@ class CustomerService {
       ),
     );
     if (response.statusCode == HttpStatus.ok) {
-      if (response.data == null || response.data?.data == null) {
+      if (response.data == null ||
+          response.data?.data == null ||
+          response.data?.data is! Map<String, dynamic>) {
         return BaseResponseModel<NetworkStatus>(
           data: NetworkStatus.customerNotFound,
           statusCode: response.statusCode,

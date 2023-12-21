@@ -8,28 +8,26 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_model_view.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/navigation/navigation_constants.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
-import 'package:siparis_takip_sistemi_pro/product/providers/main_providers.dart';
-import 'package:siparis_takip_sistemi_pro/product/src/button/loading_button.dart';
-import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/courier_login/view/courier_login.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/bloc/login_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/password_reset/view/passport_reset.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/product/providers/main_providers.dart';
+import 'package:siparis_takip_sistemi_pro/product/src/button/loading_button.dart';
+import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
 @RoutePage()
-class LoginPage extends StatelessWidget with BaseModelView {
+class LoginPage extends StatelessWidget {
   LoginPage({
     super.key,
   });
 
-  final TextEditingController emailController = TextEditingController();
+  final emailController = TextEditingController();
 
-  final TextEditingController passwordController = TextEditingController();
+  final passwordController = TextEditingController();
 
   final loginKey = GlobalKey<FormBuilderState>();
 
@@ -43,9 +41,7 @@ class LoginPage extends StatelessWidget with BaseModelView {
       child: BlocConsumer<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state.status == Status.isDone) {
-            navService.navigateToPageRemoveAll(
-              path: NavigationConstants.splashScreen,
-            );
+            context.router.replaceNamed(RoutePath.splashScreen.path);
           }
         },
         builder: (context, state) {
@@ -87,58 +83,55 @@ class BuildPage extends StatelessWidget {
             constraints: BoxConstraints(
               maxWidth: pageSize.width >= 800 ? 800 : pageSize.width / 1,
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(pagePadding),
-              child: FormBuilder(
-                key: loginKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Image.asset(
-                      'assets/images/main-logo.png',
-                      fit: BoxFit.fill,
-                    ),
-                    const SizedBox(
-                      width: 50,
-                    ),
-                    Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Column(
-                          children: [
-                            EmailFormField(
-                              emailController: emailController,
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            PasswordFormField(
-                              passwordController: passwordController,
-                            ),
-                            const SizedBox(height: 20),
-                            LoginButton(
-                              loginKey: loginKey,
-                            ),
-                            const SizedBox(height: 15),
-                            const ForgetPasswordText(),
-                            RegisterText(),
-                            const Divider(),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            const CourierLoginPageRouterButton(),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                          ],
-                        ),
+            child: FormBuilder(
+              key: loginKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Image.asset(
+                    'assets/images/main-logo.png',
+                    fit: BoxFit.fill,
+                  ),
+                  const SizedBox(
+                    width: 50,
+                  ),
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Column(
+                        children: [
+                          EmailFormField(
+                            emailController: emailController,
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          PasswordFormField(
+                            passwordController: passwordController,
+                          ),
+                          const SizedBox(height: 20),
+                          LoginButton(
+                            loginKey: loginKey,
+                          ),
+                          const SizedBox(height: 15),
+                          const ForgetPasswordText(),
+                          RegisterText(),
+                          const Divider(),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          const CourierLoginPageRouterButton(),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -259,8 +252,8 @@ class LoginButton extends StatelessWidget {
               if (loginKey.currentState?.validate() ?? false) {
                 context.read<LoginBloc>().add(DoLoginEvent());
               } else {
-                UtilsService.instance
-                    .errorSnackBar(LocaleKeys.errors_pleaseEnterAllField.tr());
+                CustomSnackBar.errorSnackBar(
+                    LocaleKeys.errors_pleaseEnterAllField.tr());
               }
             },
             child: Text(
@@ -299,8 +292,8 @@ class ForgetPasswordText extends StatelessWidget {
   }
 }
 
-class RegisterText extends StatelessWidget with BaseModelView {
-  RegisterText({
+class RegisterText extends StatelessWidget {
+  const RegisterText({
     super.key,
   });
 
@@ -312,7 +305,7 @@ class RegisterText extends StatelessWidget with BaseModelView {
         Text(LocaleKeys.mainText_haventAccount.tr()),
         TextButton(
           onPressed: () {
-            navService.navigateToPage(path: NavigationConstants.registerPage);
+            context.router.replaceNamed(RoutePath.registerScreen.path);
           },
           child: Text(LocaleKeys.mainText_signup.tr()),
         ),

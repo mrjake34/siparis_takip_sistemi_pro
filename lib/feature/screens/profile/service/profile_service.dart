@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
@@ -6,17 +9,17 @@ import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dar
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 
 import '../../../../product/core/constants/enums/enums.dart';
-import '../model/user.dart';
 import 'interface_profile_service.dart';
 
 final class ProfileService extends IProfileService {
   @override
-  Future<BaseResponseModel<T>> getProfile<T>({String? cookie}) async {
-    cookie ??= ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
-    final id = ProductItems.sharedManager.getStringValue(PreferenceKey.userId);
+  Future<BaseResponseModel<T>> getProfile<T>({
+    String? cookie,
+    String? id,
+  }) async {
     try {
-      final response =
-          await ProductItems.networkService.get<BaseResponseModel<UserModel>>(
+      final response = await ProductItems.networkService
+          .get<BaseResponseModel<UserResponseModel>>(
         '${AppNetwork.userPath}/$id',
         options: Options(
           headers: {
@@ -25,18 +28,20 @@ final class ProfileService extends IProfileService {
         ),
       );
 
-      if (response.statusCode == 200) {
-        if (response.data == null) {
+      if (response.statusCode == HttpStatus.ok) {
+        if (response.data == null ||
+            response.data!.data == null ||
+            response.data!.data! is! Map) {
           return BaseResponseModel(
             data: NetworkStatus.userNotFound,
             statusCode: response.statusCode,
           ) as BaseResponseModel<T>;
         }
         final userData =
-            UserModel.fromJson(response.data! as Map<String, dynamic>);
+            UserResponseModel.fromJson(response.data! as Map<String, dynamic>);
         await ProductItems.sharedManager.setStringValue(
           PreferenceKey.userName,
-          userData.user.toJson().toString(),
+          userData.user!.toJson().toString(),
         );
         return BaseResponseModel(
           data: userData,
@@ -57,12 +62,16 @@ final class ProfileService extends IProfileService {
   }
 
   @override
-  Future<BaseResponseModel<T>> updateProfile<T>(
+  Future<BaseResponseModel<T>> updateProfile<T>({
     UpdateModel<dynamic>? model,
     String? id,
-  ) async {
-    final cookie =
-        ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
+    String? cookie,
+  }) async {
+    if (model == null || id == null || cookie == null) {
+      return BaseResponseModel<NetworkStatus>(
+        data: NetworkStatus.inputsNotFilled,
+      ) as BaseResponseModel<T>;
+    }
     try {
       final response = await ProductItems.networkService
           .put<BaseResponseModel<NetworkStatus>>(
@@ -72,7 +81,7 @@ final class ProfileService extends IProfileService {
             'authorization': cookie,
           },
         ),
-        data: model?.toJson(),
+        data: model.toJson(),
       );
       if (response.statusCode == 200) {
         return BaseResponseModel<NetworkStatus>(

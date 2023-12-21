@@ -1,10 +1,8 @@
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 
-import '../interface/interface_base_error_model.dart';
-
-final class NetworkErrorModel implements IBaseErrorModel {
+final class NetworkErrorModel {
   NetworkErrorModel({
-    required this.error,
+    this.error,
   });
   factory NetworkErrorModel.getStatus(String message) {
     return NetworkErrorModel(
@@ -12,6 +10,15 @@ final class NetworkErrorModel implements IBaseErrorModel {
     );
   }
 
-  @override
-  NetworkStatus error;
+  NetworkErrorModel fromJson(Map<String, dynamic> json) {
+    // TODO: implement fromJson
+    throw UnimplementedError();
+  }
+
+  Map<String, dynamic>? toJson() {
+    // TODO: implement toJson
+    throw UnimplementedError();
+  }
+
+  NetworkStatus? error;
 }

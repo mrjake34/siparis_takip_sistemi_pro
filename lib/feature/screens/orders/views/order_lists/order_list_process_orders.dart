@@ -2,23 +2,22 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_model_view.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/icons/icons.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/navigation/navigation_constants.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/navigation/navigation_service.dart';
-import 'package:siparis_takip_sistemi_pro/product/src/bottomsheets/main_bottom_sheets.dart';
-import 'package:siparis_takip_sistemi_pro/product/src/cards/list_card.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/customer/bloc/customer_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/model/order.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/views/order_lists/bottomsheet_widget/bottomsheet_widget.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/icons/icons.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/main_functions.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/navigation/navigation_constants.dart';
+import 'package:siparis_takip_sistemi_pro/product/src/bottomsheets/main_bottom_sheets.dart';
+import 'package:siparis_takip_sistemi_pro/product/src/cards/list_card.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/navigation/navigation_service.dart';
 
-class OrderListProcessOrders extends StatelessWidget with BaseModelView {
-  OrderListProcessOrders({super.key});
+class OrderListProcessOrders extends StatelessWidget {
+  const OrderListProcessOrders({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BaseScaffold(
       body: BlocBuilder<OrdersBloc, OrdersState>(
         buildWhen: (previous, current) =>
             previous.processOrders != current.processOrders,
@@ -26,12 +25,11 @@ class OrderListProcessOrders extends StatelessWidget with BaseModelView {
           state.processOrders
               ?.sort((a, b) => b.createdAt.compareTo(a.createdAt));
           return ListView.builder(
-            padding: const EdgeInsets.all(pagePadding),
             shrinkWrap: true,
             itemCount: state.processOrders?.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
               final order = state.processOrders?[index];
-              final orderStatus = mainFunctions.getStringFromOrderStatus(
+              final orderStatus = MainFunctions.getStringFromOrderStatus(
                   orderStatus: order?.orderStatus);
               final iconData = mainFunctions.getIconFromOrderStatus(
                   orderStatus: order?.orderStatus);

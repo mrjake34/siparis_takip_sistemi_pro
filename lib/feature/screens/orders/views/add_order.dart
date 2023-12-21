@@ -1,29 +1,30 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_model_view.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/orders/views/add_customer_in_add_order/add_order_add_customer.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/orders/views/add_order_product_list/add_order_product_list.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/navigation/navigation_constants.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/styles/text_styles.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/navigation/navigation_service.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/product/providers/main_providers.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/bottomsheets/main_bottom_sheets.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button_without_color.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/views/add_customer_in_add_order/add_order_add_customer.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/views/add_order_product_list/add_order_product_list.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/navigation/navigation_service.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
+
+import '../../../../product/utils/router/route_manager.dart';
 
 class AddOrder extends StatefulWidget {
   const AddOrder({super.key});
@@ -32,11 +33,10 @@ class AddOrder extends StatefulWidget {
   State<AddOrder> createState() => _AddOrderState();
 }
 
-class _AddOrderState extends State<AddOrder> with BaseModelView {
-  TextEditingController orderNoteController = TextEditingController();
-
-  TextEditingController orderProductNoteController = TextEditingController();
-  final OrdersBloc _ordersBloc = OrdersBloc();
+final class _AddOrderState extends State<AddOrder> {
+  final orderNoteController = TextEditingController();
+  final orderProductNoteController = TextEditingController();
+  final _ordersBloc = OrdersBloc();
 
   @override
   void dispose() {
@@ -47,42 +47,14 @@ class _AddOrderState extends State<AddOrder> with BaseModelView {
 
   @override
   Widget build(BuildContext context) {
-    return PageBuilder(
-      navService: navService,
-      orderNoteController: orderNoteController,
-      utils: utils,
-      appNetwork: appNetwork,
-    );
-  }
-}
-
-class PageBuilder extends StatelessWidget {
-  const PageBuilder({
-    required this.navService,
-    required this.orderNoteController,
-    required this.utils,
-    required this.appNetwork,
-    super.key,
-  });
-
-  final NavigationService navService;
-  final TextEditingController orderNoteController;
-  final UtilsService utils;
-  final AppNetwork appNetwork;
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
           LocaleKeys.order_addOrder.tr(),
         ),
         leading: IconButton(
-          onPressed: () {
-            navService.navigateToPageRemoveAll(
-              path: NavigationConstants.splashScreen,
-            );
-          },
+          onPressed: () =>
+              context.router.replaceNamed(RoutePath.splashScreen.path),
           icon: const Icon(Icons.arrow_back),
         ),
         actions: [
@@ -92,7 +64,6 @@ class PageBuilder extends StatelessWidget {
             labelStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
             label: Row(
               children: [
-                Text(context.watch<ChangeCurrencyPriceSymbol>().currencySymbol),
                 BlocBuilder<OrdersBloc, OrdersState>(
                   buildWhen: (previous, current) =>
                       previous.orderCartTotalPrice !=
@@ -112,42 +83,35 @@ class PageBuilder extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(pagePadding),
-          child: Column(
-            children: [
-              const CustomerField(),
-              OrderNoteField(orderNoteController: orderNoteController),
-              const AddProductHeader(),
-              const SizedBox(
-                height: 10,
-              ),
-              ProductCard(
-                utils: utils,
-                appNetwork: appNetwork,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Divider(),
-              Wrap(
-                runSpacing: 20,
-                spacing: 100,
-                children: [
-                  AddOrderButton(
-                    orderNoteController: orderNoteController,
-                    utils: utils,
-                  ),
-                  ClearButton(
-                    orderNoteController: orderNoteController,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-            ],
-          ),
+        child: Column(
+          children: [
+            const CustomerField(),
+            OrderNoteField(orderNoteController: orderNoteController),
+            const AddProductHeader(),
+            const SizedBox(
+              height: 10,
+            ),
+            ProductCard(),
+            const SizedBox(
+              height: 20,
+            ),
+            const Divider(),
+            Wrap(
+              runSpacing: 20,
+              spacing: 100,
+              children: [
+                AddOrderButton(
+                  orderNoteController: orderNoteController,
+                ),
+                ClearButton(
+                  orderNoteController: orderNoteController,
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+          ],
         ),
       ),
     );
@@ -176,12 +140,10 @@ class ClearButton extends StatelessWidget {
 class AddOrderButton extends StatelessWidget {
   const AddOrderButton({
     required this.orderNoteController,
-    required this.utils,
     super.key,
   });
 
   final TextEditingController orderNoteController;
-  final UtilsService utils;
 
   @override
   Widget build(BuildContext context) {
@@ -233,10 +195,7 @@ class AddProductHeader extends StatelessWidget {
 }
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({required this.utils, required this.appNetwork, super.key});
-
-  final UtilsService utils;
-  final AppNetwork appNetwork;
+  const ProductCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -262,7 +221,7 @@ class ProductCard extends StatelessWidget {
                         child: ListTile(
                           title: Text(product?.name ?? ''),
                           subtitle: Text(
-                            "${product?.price ?? ""} ${context.watch<ChangeCurrencyPriceSymbol>().currencySymbol}",
+                            product?.price ?? '',
                           ),
                         ),
                       ),
@@ -282,7 +241,7 @@ class ProductCard extends StatelessWidget {
                                     ),
                                   );
                             } finally {
-                              utils.showSnackBar(
+                              CustomSnackBar.showSnackBar(
                                 LocaleKeys.succes_productRemovedFromList.tr(),
                               );
                             }

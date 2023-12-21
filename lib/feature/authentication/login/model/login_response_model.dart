@@ -2,28 +2,36 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../../product/core/base/interface/base_network_model.dart';
+
 part 'login_response_model.g.dart';
 
 @JsonSerializable()
-class LoginResponseModel {
-  LoginResponseModel({this.message, this.User});
+final class LoginResponseModel extends IBaseNetworkModel<LoginResponseModel> {
+  LoginResponseModel({this.message, this.user});
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) =>
       _$LoginResponseModelFromJson(json);
-  String? message;
-  LoginModel? User;
+  final String? message;
+  final LoginModel? user;
+  @override
   Map<String, dynamic> toJson() => _$LoginResponseModelToJson(this);
+
+  @override
+  LoginResponseModel fromJson(Map<String, dynamic> json) {
+    return LoginResponseModel.fromJson(json);
+  }
 }
 
 @JsonSerializable()
 class LoginModel {
   const LoginModel({
-    required this.Id,
+    required this.id,
     required this.shopName,
     required this.role,
   });
   factory LoginModel.fromJson(Map<String, String> json) =>
       _$LoginModelFromJson(json);
-  final String Id;
+  final String id;
   final String shopName;
   final String role;
   Map<String, dynamic> toJson() => _$LoginModelToJson(this);

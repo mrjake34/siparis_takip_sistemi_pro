@@ -1,15 +1,9 @@
 mixin class AppNetwork {
   AppNetwork._init();
-  static final AppNetwork _instance = AppNetwork._init();
-  static AppNetwork get instance => _instance;
-
-  final String translationPath = 'assets/translations';
 
   //Links
-  Uri membershipAgreementLink = Uri.parse(
-    'https://docs.google.com/document/d/1GbY7iw8yARRuZWVmnEo7nzTI96z_4eH6G5VkUWDaI34',
-  );
-  final String baseUrl = 'https://api.efes.tech';
+  static String get membershipAgreementLink =>
+      'https://docs.google.com/document/d/1GbY7iw8yARRuZWVmnEo7nzTI96z_4eH6G5VkUWDaI34';
   final login = '/login';
   final signup = '/signup';
   @Deprecated('Use path')
@@ -40,7 +34,7 @@ mixin class AppNetwork {
   final String productUrlWithSlash = 'https://api.efes.tech/products/';
 
   /// Url Paths
-  static String get baseUrlGet => 'https://api.efes.tech';
+  static String get baseUrl => 'https://api.efes.tech';
   static String get loginPath => '/login';
   static String get signupPath => '/signup';
   static String get refreshPath => '/refresh/';

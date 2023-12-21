@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      scaffoldMessengerKey: UtilsService.instance.messengerKey,
+      scaffoldMessengerKey: CustomSnackBar.messengerKey,
       routerConfig: _routeManager.config(),
       debugShowCheckedModeBanner: false,
       theme: lightTheme,

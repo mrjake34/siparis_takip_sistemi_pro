@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:kartal/kartal.dart';
+import 'package:siparis_takip_sistemi_pro/feature/authentication/login/bloc/login_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/strings/appstrings.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 import '../../../../product/core/constants/colors/colors.dart';
 import '../../../../product/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/product/bloc/products_bloc.dart';
+import '../../../../product/utils/translations/locale_keys.g.dart';
+import '../bloc/products_bloc.dart';
 
 class AddProduct extends StatelessWidget {
   AddProduct({super.key});
@@ -49,7 +53,7 @@ class PageBuilder extends StatelessWidget {
           FormBuilder(
             key: _formKey,
             child: Padding(
-              padding: const EdgeInsets.all(pagePadding),
+              padding: const EdgeInsets.all(AppSize.pagePadding),
               child: Column(
                 children: [
                   const SizedBox(
@@ -63,9 +67,10 @@ class PageBuilder extends StatelessWidget {
                     height: 10,
                   ),
                   AddProductButton(
-                      formKey: _formKey,
-                      productNameController: productNameController,
-                      productPriceController: productPriceController),
+                    formKey: _formKey,
+                    productNameController: productNameController,
+                    productPriceController: productPriceController,
+                  ),
                 ],
               ),
             ),
@@ -83,17 +88,20 @@ class LinearField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductsBloc, ProductsState>(
-      buildWhen: (previous, current) => previous.status != current.status,
-      builder: (context, state) {
-        if (state.status == Status.isLoading) {
-          return LinearProgressIndicator(
-            color: AppColors.instance.alternativeButtonColor,
-          );
-        } else {
-          return Container();
-        }
-      },
+    return BlocProvider(
+      create: (context) => ProductsBloc(),
+      child: BlocBuilder<ProductsBloc, ProductsState>(
+        buildWhen: (previous, current) => previous.status != current.status,
+        builder: (context, state) {
+          if (state.status == Status.isLoading) {
+            return LinearProgressIndicator(
+              color: AppColors.instance.alternativeButtonColor,
+            );
+          } else {
+            return Container();
+          }
+        },
+      ),
     );
   }
 }
@@ -118,13 +126,27 @@ class AddProductButton extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                context.read<ProductsBloc>().add(AddProductEvent(
-                    productName: productNameController.text,
-                    productPrice:
-                        double.tryParse(productPriceController.text)));
+                context.read<ProductsBloc>().add(
+                      AddProductEvent(
+                        product: Product(
+                          name: productNameController.text,
+                          price: productPriceController.text,
+                          createdAt: AppStrings.dateTimeNow,
+                          shopName: context
+                                  .read<LoginBloc>()
+                                  .state
+                                  .model
+                                  ?.user
+                                  .shopName ??
+                              '',
+                          quantity: 1,
+                        ),
+                      ),
+                    );
               } else {
-                UtilsService.instance
-                    .errorSnackBar(LocaleKeys.errors_dontLeaveEmpty.tr());
+                CustomSnackBar.errorSnackBar(
+                  LocaleKeys.errors_dontLeaveEmpty.tr(),
+                );
               }
             },
             child: Text(LocaleKeys.product_addProduct.tr()),

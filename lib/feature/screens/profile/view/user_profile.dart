@@ -2,15 +2,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/view/user_details_widget.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 
-import '../../../../product/core/constants/main_functions.dart';
 import '../../../../product/core/constants/colors/colors.dart';
 import '../../../../product/core/constants/enums/enums.dart';
-import '../../../../product/core/constants/size/sizes.dart';
-import '../../../../product/utils/translations/locale_keys.g.dart';
+import '../../../../product/core/constants/main_functions.dart';
 import '../../../../product/providers/main_providers.dart';
+import '../../../../product/utils/translations/locale_keys.g.dart';
+import '../../../authentication/login/bloc/login_bloc.dart';
 import '../bloc/user_profile_bloc.dart';
 import 'choose_theme_widget.dart';
 
@@ -46,7 +46,6 @@ class PageBuilder extends StatelessWidget {
           const LinearField(),
           Flexible(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(pagePadding),
               child: Column(
                 children: [
                   const UserDetailWidget(),
@@ -195,7 +194,9 @@ class ProfilePageLogoutButton extends StatelessWidget {
             backgroundColor: Colors.red,
             fixedSize: Size(pageSize.width, 40)),
         onPressed: () {
-          MainFunctions.logOutDialog(context: context);
+          context
+            ..read<UserProfileBloc>().add(UserLogoutEvent())
+            ..read<LoginBloc>().add(UserLogoutEvent());
         },
         child: Text(LocaleKeys.mainText_logout.tr()),
       ),

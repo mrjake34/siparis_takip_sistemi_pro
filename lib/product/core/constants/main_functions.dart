@@ -1,4 +1,7 @@
 // ignore_for_file: file_names
+import 'dart:async';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/colors/colors.dart';
@@ -6,46 +9,15 @@ import 'package:siparis_takip_sistemi_pro/product/core/constants/icons/icons.dar
 import 'package:siparis_takip_sistemi_pro/product/core/constants/navigation/navigation_constants.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/strings/appstrings.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/cache/shared_manager.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/navigation/navigation_service.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
-class MainFunctions {
+final class MainFunctions {
   MainFunctions._init();
   static final MainFunctions _instance = MainFunctions._init();
   static MainFunctions get instance => _instance;
-
-  static Future<T?> logOutDialog<T>({required BuildContext context}) {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(
-            LocaleKeys.mainText_logout.tr(),
-            style: const TextStyle(fontSize: 15),
-          ),
-          content: Text(LocaleKeys.alerts_logoutAlerts.tr()),
-          actions: [
-            TextButton(
-              onPressed: () {
-                NavigationService.instance.navigateToBack();
-              },
-              child: Text(LocaleKeys.mainText_cancel.tr()),
-            ),
-            TextButton(
-              onPressed: () async {
-                await SharedManager.instance.clearAll().whenComplete(() {
-                  NavigationService.instance.navigateToPageRemoveAll(
-                    path: NavigationConstants.loginPage,
-                  );
-                });
-              },
-              child: Text(LocaleKeys.mainText_confirm.tr()),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   Color getColorFromOrderStatus({String? orderStatus}) => switch (orderStatus) {
         AppStrings.inLineOrderString => AppColors.instance.orderPendingColor,

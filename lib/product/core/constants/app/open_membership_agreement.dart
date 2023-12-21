@@ -1,18 +1,17 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../base/models/base_model_view.dart';
-import '../../../utils/translations/locale_keys.g.dart';
-
-final class OpenMembershipAgreement with BaseModelView {
-  Future<void> openMembershipAgreement() async {
-    try {
-      if (!await launchUrl(
-        appNetwork.membershipAgreementLink,
+final class OpenMembershipAgreement {
+  Future<bool> openMembershipAgreement() async {
+    if (!await canLaunchUrl(
+      Uri.parse(AppNetwork.membershipAgreementLink),
+    )) {
+      return launchUrl(
+        Uri.parse(AppNetwork.membershipAgreementLink),
         mode: LaunchMode.externalApplication,
-      )) {}
-    } catch (e) {
-      utils.errorSnackBar(LocaleKeys.errors_errorGoogleDocs.tr());
+      );
+    } else {
+      return false;
     }
   }
 }

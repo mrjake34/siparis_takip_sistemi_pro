@@ -5,12 +5,12 @@ final class UpdateModel<T> {
   });
 
   UpdateModel.fromJson(Map<String, dynamic> json) {
-    propName = json['propName'] as String?;
-    value = json['value'] as T?;
+    propName = json['propName'] as T?;
+    value = json['value'] as String?;
   }
 
-  String? propName;
-  T? value;
+  T? propName;
+  String? value;
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};

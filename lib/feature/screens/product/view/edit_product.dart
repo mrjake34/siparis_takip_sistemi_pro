@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:kartal/kartal.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/product/providers/product_providers.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/edit_page_button_field.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/product/bloc/products_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
+
+import '../bloc/products_bloc.dart';
 
 class EditProduct extends StatefulWidget {
   final String id;
@@ -30,17 +31,20 @@ class _EditProductState extends State<EditProduct> {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      body: Column(
-        children: [
-          const LinearField(),
-          Flexible(
-            child: BodyBuilder(
-              widget: widget,
-              nameController: nameController,
-              priceController: priceController,
+      body: BlocProvider(
+        create: (context) => ProductsBloc(),
+        child: Column(
+          children: [
+            const LinearField(),
+            Flexible(
+              child: BodyBuilder(
+                widget: widget,
+                nameController: nameController,
+                priceController: priceController,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -91,7 +95,7 @@ class BodyBuilder extends StatelessWidget {
           priceController.text = product?.price.toString() ?? '';
           if (product != null) {
             return ListView(
-              padding: const EdgeInsets.all(pagePadding),
+              padding: const EdgeInsets.all(AppSize.pagePadding),
               children: [
                 EditProductNameTextField(nameController: nameController),
                 const SizedBox(
@@ -182,8 +186,10 @@ class EditProductNameButtonField extends StatelessWidget {
         if (nameController.text.ext.isNotNullOrNoEmpty) {
           context.read<ProductsBloc>().add(
                 EditProductEvent(
-                  key: PatchProductEnums.name,
-                  value: nameController.text,
+                  model: UpdateModel<ProductEnum>(
+                    propName: ProductEnum.name,
+                    value: nameController.text,
+                  ),
                   id: product.id,
                 ),
               );
@@ -191,7 +197,6 @@ class EditProductNameButtonField extends StatelessWidget {
         }
       },
       cancelFunction: () {
-        nameController.text = product.name;
         context.read<EditProductNameEditButtonProvider>().setEditing();
       },
     );
@@ -241,25 +246,27 @@ class EditProductPriceButtonField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EditPageButtonField(
-      editingStatus:
-          context.watch<EditProductPriceEditButtonProvider>().getEditing,
+      editingStatus: context.watch<ProductsBloc>().state.isEditing ?? false,
       isEditingFunction: () {
-        context.read<EditProductPriceEditButtonProvider>().setEditing();
+        context.read<ProductsBloc>().add(EditProductNameEditButtonEvent());
       },
       saveFunction: () {
         if (priceController.text.ext.isNotNullOrNoEmpty) {
-          context.read<ProductsBloc>().add(
-                EditProductEvent(
-                  key: PatchProductEnums.price,
+          context.read<ProductsBloc>()
+            ..add(
+              EditProductEvent(
+                model: UpdateModel<ProductEnum>(
+                  propName: ProductEnum.price,
                   value: priceController.text,
-                  id: product.id,
                 ),
-              );
-          context.read<EditProductPriceEditButtonProvider>().setEditing();
+                id: product.id,
+              ),
+            )
+            ..add(EditProductNameEditButtonEvent());
         }
       },
       cancelFunction: () {
-        context.read<EditProductPriceEditButtonProvider>().setEditing();
+        context.read<ProductsBloc>().add(EditProductNameEditButtonEvent());
       },
     );
   }
