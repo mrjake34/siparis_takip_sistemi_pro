@@ -111,7 +111,7 @@ final class NetworkService {
     CancelToken? cancelToken,
     T? model,
   }) async {
-    final reponse = await _networkManager.put<T>(
+    final reponse = await _networkManager.put<dynamic>(
       path,
       data: data,
       queryParameters: queryParameters,

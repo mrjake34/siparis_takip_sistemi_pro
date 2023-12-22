@@ -171,7 +171,7 @@ final class ProductService extends IProductService {
       );
     } else {
       return BaseResponseModel(
-        networkStatus: NetworkStatus.getStatus(response.data! as String),
+        networkStatus: NetworkStatus.getStatus(response.data?.message ?? ''),
         statusCode: response.statusCode,
       );
     }
@@ -179,7 +179,7 @@ final class ProductService extends IProductService {
 
   @override
   Future<BaseResponseModel<T>> updateProduct<T extends IBaseNetworkModel<T>>({
-    UpdateModel<ProductEnum>? data,
+    UpdateModel? data,
     String? id,
     String? cookie,
     T? model,
@@ -198,6 +198,7 @@ final class ProductService extends IProductService {
       );
       if (response.statusCode == HttpStatus.ok) {
         return BaseResponseModel(
+          networkStatus: NetworkStatus.updateSuccess,
           statusCode: response.statusCode,
         );
       } else {

@@ -27,7 +27,7 @@ final class AddProductEvent extends ProductsEvent {
 
 final class EditProductEvent extends ProductsEvent {
   const EditProductEvent({this.data, this.id, this.cookie});
-  final UpdateModel<ProductEnum>? data;
+  final UpdateModel? data;
   final String? id;
   final String? cookie;
 

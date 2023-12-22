@@ -9,6 +9,8 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product.
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product_list.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/service/product_service.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_manager.dart';
 
@@ -125,6 +127,56 @@ void main() {
       if (response.statusCode == HttpStatus.ok) {
         debugPrint(
           'Product Response ${response.statusCode}',
+        );
+
+        expect(response.statusCode == HttpStatus.ok, true);
+      } else {
+        debugPrint(
+          'Product Response NetworkStatus: ${response.networkStatus}',
+        );
+        expect(response.networkStatus != null, true);
+      }
+    } else {
+      debugPrint(loginResponse.networkStatus.toString());
+      expect(loginResponse.networkStatus != null, true);
+    }
+  });
+
+  test('Update Product', () async {
+    final loginService = LoginService();
+    final productService = ProductService();
+    final loginResponse = await loginService.login<LoginResponseModel>(
+      loginModel: LoginRequestModel(
+        email: 'alkanatas34@gmail.com',
+        password: 'alkan12345',
+      ),
+      model: LoginResponseModel(),
+    );
+
+    if (loginResponse.statusCode == HttpStatus.ok) {
+      debugPrint('Login Response ID ${loginResponse.data?.user?.id}');
+
+      final cookie = loginResponse.getCookie(headers: loginResponse.headers);
+      final productList = await productService.getProducts<ProductList>(
+        cookie: cookie,
+        model: ProductList(),
+      );
+      final product = productList.data?.products?.first;
+      debugPrint(
+        'Product Response NetworkStatus: ${product?.id}',
+      );
+      final response = await productService.updateProduct<ProductResponseModel>(
+        cookie: cookie,
+        model: ProductResponseModel(),
+        id: productList.data?.products?.first.id,
+        data: UpdateModel(
+          propName: ProductEnum.name.name,
+          value: '${product?.name} Updated',
+        ),
+      );
+      if (response.statusCode == HttpStatus.ok) {
+        debugPrint(
+          'Update Response ${response.statusCode}',
         );
 
         expect(response.statusCode == HttpStatus.ok, true);

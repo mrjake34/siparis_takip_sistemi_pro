@@ -1,15 +1,15 @@
-final class UpdateModel<T> {
+final class UpdateModel {
   UpdateModel({
     this.propName,
     this.value,
   });
 
   UpdateModel.fromJson(Map<String, dynamic> json) {
-    propName = json['propName'] as T?;
+    propName = json['propName'] as String?;
     value = json['value'] as String?;
   }
 
-  T? propName;
+  String? propName;
   String? value;
 
   Map<String, dynamic> toJson() {
