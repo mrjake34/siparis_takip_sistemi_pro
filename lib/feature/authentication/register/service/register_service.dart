@@ -17,7 +17,8 @@ final class RegisterService {
       model: model,
     );
     return BaseResponseModel(
-      error: NetworkErrorModel.getStatus(response.error?.message ?? ''),
+      statusCode: response.statusCode,
+      networkStatus: NetworkErrorModel.getStatus(response.data?.message ?? ''),
     );
   }
 }

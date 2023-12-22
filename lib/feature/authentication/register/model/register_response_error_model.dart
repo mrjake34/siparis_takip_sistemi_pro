@@ -1,10 +1,10 @@
 import '../../../../product/core/base/interface/base_network_model.dart';
 
-final class RegisterResponseErrorModel
-    extends IBaseNetworkModel<RegisterResponseErrorModel> {
-  RegisterResponseErrorModel({this.message});
+final class RegisterResponseModel
+    extends IBaseNetworkModel<RegisterResponseModel> {
+  RegisterResponseModel({this.message});
 
-  RegisterResponseErrorModel.fromJson(Map<String, dynamic> json) {
+  RegisterResponseModel.fromJson(Map<String, dynamic> json) {
     message = json['message'].toString();
   }
   String? message;
@@ -17,7 +17,7 @@ final class RegisterResponseErrorModel
   }
 
   @override
-  RegisterResponseErrorModel fromJson(Map<String, dynamic> json) {
-    return RegisterResponseErrorModel.fromJson(json);
+  RegisterResponseModel fromJson(Map<String, dynamic> json) {
+    return RegisterResponseModel.fromJson(json);
   }
 }

@@ -4,10 +4,8 @@ final class NetworkErrorModel {
   NetworkErrorModel({
     this.message,
   });
-  factory NetworkErrorModel.getStatus(String message) {
-    return NetworkErrorModel(
-      message: NetworkStatus.getStatus(message).message,
-    );
+  static NetworkStatus getStatus(String message) {
+    return NetworkStatus.getStatus(message);
   }
 
   NetworkErrorModel fromJson(Map<String, dynamic> json) {

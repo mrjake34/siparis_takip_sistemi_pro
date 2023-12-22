@@ -1,16 +1,12 @@
 import 'dart:io';
 
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_request_model.dart';
-import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/models/network_error_model.dart';
 
 import '../../../../product/core/constants/enums/network_status.dart';
 import '../../../../product/core/constants/network/url.dart';
 import '../../../../product/utils/getit/product_items.dart';
-import '../../../screens/profile/model/user.dart';
-import '../../../screens/profile/service/profile_service.dart';
 import 'interface_login_service.dart';
 
 final class LoginService implements ILoginService {
@@ -33,7 +29,7 @@ final class LoginService implements ILoginService {
   }) async {
     if (loginModel == null) {
       return BaseResponseModel<T>(
-        error: NetworkStatus.userNotFound.message as NetworkErrorModel?,
+        networkStatus: NetworkStatus.userNotFound,
         statusCode: HttpStatus.badRequest,
       );
     }
@@ -52,14 +48,12 @@ final class LoginService implements ILoginService {
       );
     } else if (response.statusCode == HttpStatus.badRequest) {
       return BaseResponseModel<T>(
-        error: NetworkErrorModel.getStatus(
-          NetworkStatus.userNotFound.message!,
-        ) as NetworkErrorModel?,
+        networkStatus: NetworkStatus.userNotFound,
         statusCode: response.statusCode,
       );
     }
     return BaseResponseModel<T>(
-      error: NetworkStatus.userNotFound.message as NetworkErrorModel?,
+      networkStatus: NetworkStatus.userNotFound,
       statusCode: response.statusCode,
     );
   }

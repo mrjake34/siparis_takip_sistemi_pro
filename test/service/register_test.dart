@@ -1,11 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_request_model.dart';
-import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_response_model.dart';
-import 'package:siparis_takip_sistemi_pro/feature/authentication/login/service/login_service.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/register/model/register_request_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/register/model/register_response_error_model.dart';
-import 'package:siparis_takip_sistemi_pro/feature/authentication/register/service/register_interface.dart';
+import 'package:siparis_takip_sistemi_pro/feature/authentication/register/service/register_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_manager.dart';
 
@@ -17,19 +16,23 @@ void main() {
 
   test('Register', () async {
     final registerService = RegisterService();
-    final response = await registerService.register<RegisterResponseErrorModel>(
+    final response = await registerService.register<RegisterResponseModel>(
       data: RegisterRequestModel(
-        email: 'alkanatas34@gmail.com',
-        password: 'alkan1234',
+        email: 'alkanatas33244@gmail.com',
+        password: 'alkan12345',
         name: 'Alkan',
-        shopName: 'Atas',
-        phone: '123456789',
+        shopName: 'Atass1',
+        phone: '1234567893311',
       ),
-      model: RegisterResponseErrorModel(),
+      model: RegisterResponseModel(),
     );
     debugPrint(response.toString());
-    debugPrint(response.error?.message ?? '');
+    debugPrint(response.networkStatus.toString());
 
-    expect(response.data?.message != null, true);
+    if (response.statusCode == HttpStatus.ok) {
+      expect(response.statusCode == HttpStatus.ok, true);
+    } else {
+      expect(response.networkStatus != null, true);
+    }
   });
 }

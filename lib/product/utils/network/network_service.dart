@@ -41,44 +41,31 @@ final class NetworkService {
     Options? options,
     T? model,
   }) async {
-    try {
-      Response<dynamic> response;
-      response = await _networkManager.get<Response<dynamic>>(
-        path,
-        options: options,
-      );
-      if (response.data == null) {
-        return BaseResponseModel(
-          error: NetworkErrorModel(
-            message: NetworkStatus.failedLoadData.message,
-          ),
-          statusCode: response.statusCode,
-        );
-      }
-      final parseModel = _parseModel<T, T>(
-        model: model,
-        resp: response.data,
-      );
-      if (parseModel == null) {
-        return BaseResponseModel(
-          error: NetworkErrorModel(
-            message: NetworkStatus.failedLoadData.message,
-          ),
-          statusCode: response.statusCode,
-        );
-      }
+    Response<dynamic> response;
+    response = await _networkManager.get<Response<dynamic>>(
+      path,
+      options: options,
+    );
+    if (response.data == null) {
       return BaseResponseModel(
-        data: parseModel,
+        networkStatus: NetworkStatus.failedLoadData,
         statusCode: response.statusCode,
       );
-    } on DioException catch (e) {
+    }
+    final parseModel = _parseModel<T, T>(
+      model: model,
+      resp: response.data,
+    );
+    if (parseModel == null) {
       return BaseResponseModel(
-        error: NetworkErrorModel(
-          message: e.toString(),
-        ),
-        statusCode: 500,
+        networkStatus: NetworkStatus.failedLoadData,
+        statusCode: response.statusCode,
       );
     }
+    return BaseResponseModel(
+      data: parseModel,
+      statusCode: response.statusCode,
+    );
   }
 
   /// This method is used to make a Post request.
@@ -103,9 +90,7 @@ final class NetworkService {
     );
     if (parseModel == null) {
       return BaseResponseModel(
-        error: NetworkErrorModel(
-          message: NetworkStatus.failedLoadData.message,
-        ),
+        networkStatus: NetworkStatus.failedLoadData,
         statusCode: response.statusCode,
       );
     }
@@ -134,9 +119,7 @@ final class NetworkService {
     );
     if (reponse.data == null) {
       return BaseResponseModel(
-        error: NetworkErrorModel(
-          message: NetworkStatus.failedLoadData.message,
-        ),
+        networkStatus: NetworkStatus.failedLoadData,
         statusCode: reponse.statusCode,
       );
     }
@@ -146,9 +129,7 @@ final class NetworkService {
     );
     if (parseModel == null) {
       return BaseResponseModel(
-        error: NetworkErrorModel(
-          message: NetworkStatus.failedLoadData.message,
-        ),
+        networkStatus: NetworkStatus.failedLoadData,
         statusCode: reponse.statusCode,
       );
     }
@@ -176,9 +157,7 @@ final class NetworkService {
     );
     if (response.data == null) {
       return BaseResponseModel(
-        error: NetworkErrorModel(
-          message: NetworkStatus.failedLoadData.message,
-        ),
+        networkStatus: NetworkStatus.failedLoadData,
         statusCode: response.statusCode,
       );
     }
@@ -188,9 +167,7 @@ final class NetworkService {
     );
     if (parseModel == null) {
       return BaseResponseModel(
-        error: NetworkErrorModel(
-          message: NetworkStatus.failedLoadData.message,
-        ),
+        networkStatus: NetworkStatus.failedLoadData,
         statusCode: response.statusCode,
       );
     }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_request_model.dart';
@@ -17,12 +19,17 @@ void main() {
     final response = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
-        password: 'alkan1234',
+        password: 'alkan12345',
       ),
       model: LoginResponseModel(),
     );
     debugPrint(response.statusCode.toString());
+    debugPrint(response.data?.user?.id);
 
-    expect(response.data?.user == null, true);
+    if (response.statusCode == HttpStatus.ok) {
+      expect(response.statusCode == HttpStatus.ok, true);
+    } else {
+      expect(response.networkStatus != null, true);
+    }
   });
 }

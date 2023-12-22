@@ -1,6 +1,7 @@
 import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/interface/interface_base_response_model.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/models/network_error_model.dart';
+
+import '../../constants/enums/network_status.dart';
 
 /// Base response model for all api responses
 final class BaseResponseModel<T extends IBaseNetworkModel<T>>
@@ -10,7 +11,7 @@ final class BaseResponseModel<T extends IBaseNetworkModel<T>>
     this.data,
     this.statusCode,
     this.headers,
-    this.error,
+    this.networkStatus,
   });
   @override
   final T? data;
@@ -19,7 +20,7 @@ final class BaseResponseModel<T extends IBaseNetworkModel<T>>
   @override
   final Map<String, List<dynamic>>? headers;
   @override
-  NetworkErrorModel? error;
+  NetworkStatus? networkStatus;
 
   @override
   BaseResponseModel<T> fromJson(Map<String, dynamic> json) {
