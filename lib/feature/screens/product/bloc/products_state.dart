@@ -8,7 +8,7 @@ class ProductsState extends Equatable {
     this.status,
     this.isEditing,
   });
-  final ProductList? productList;
+  final List<Product>? productList;
   final Product? product;
   final Status? status;
   final bool? isEditing;
@@ -17,7 +17,7 @@ class ProductsState extends Equatable {
   List<Object?> get props => [productList, product, status, isEditing];
 
   ProductsState copyWith({
-    ProductList? productList,
+    List<Product>? productList,
     Product? product,
     Status? status,
     bool? isEditing,

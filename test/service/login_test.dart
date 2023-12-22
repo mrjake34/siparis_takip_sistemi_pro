@@ -19,15 +19,17 @@ void main() {
     final response = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
-        password: 'alkan12345',
+        password: 'alkan1234',
       ),
       model: LoginResponseModel(),
     );
-    debugPrint(response.statusCode.toString());
-    debugPrint(response.data?.user?.id);
+    debugPrint(response.toString());
+
     if (response.statusCode == HttpStatus.ok) {
+      debugPrint(response.data?.user?.id);
       expect(response.statusCode == HttpStatus.ok, true);
     } else {
+      debugPrint(response.networkStatus.toString());
       expect(response.networkStatus != null, true);
     }
   });

@@ -1,16 +1,12 @@
-import 'dart:convert';
-
 import 'package:json_annotation/json_annotation.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
 
-import 'product_list.dart';
+part 'product.g.dart';
 
-ProductList productListFromJson(String str) =>
-    ProductList.fromJson(json.decode(str) as Map<String, dynamic>);
-
-String productListToJson(ProductList data) => json.encode(data.toJson());
-
-@JsonSerializable()
-class Product {
+@JsonSerializable(
+  includeIfNull: true,
+)
+final class Product extends IBaseNetworkModel<Product> {
   Product({
     this.id,
     this.name,
@@ -22,38 +18,26 @@ class Product {
     this.quantity,
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
-        id: json['_id'].toString(),
-        name: json['name'].toString(),
-        shopName: json['shopName'].toString(),
-        price: json['price'].toString(),
-        createdAt: json['createdAt'].toString(),
-        updatedAt: json['updatedAt'].toString(),
-      );
+  factory Product.fromJson(Map<String, dynamic> json) =>
+      _$ProductFromJson(json);
 
   final String? id;
   final String? name;
   final String? shopName;
   final int? quantity;
   final String? productNote;
-  final String? price;
+  final num? price;
   final String? createdAt;
   final String? updatedAt;
 
-  Map<String, dynamic> toJson() => {
-        '_id': id,
-        'name': name,
-        'shopName': shopName,
-        'price': price,
-        'createdAt': createdAt,
-        'updatedAt': updatedAt,
-      };
+  @override
+  Map<String, dynamic> toJson() => _$ProductToJson(this);
 
   Product copyWith({
     String? id,
     String? name,
     String? shopName,
-    String? price,
+    num? price,
     String? createdAt,
     String? updatedAt,
     String? productNote,
@@ -86,4 +70,7 @@ class Product {
       return 0;
     }
   }
+
+  @override
+  Product fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
 }

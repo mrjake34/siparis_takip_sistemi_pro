@@ -26,13 +26,13 @@ final class AddProductEvent extends ProductsEvent {
 }
 
 final class EditProductEvent extends ProductsEvent {
-  const EditProductEvent({this.model, this.id, this.cookie});
-  final UpdateModel<ProductEnum>? model;
+  const EditProductEvent({this.data, this.id, this.cookie});
+  final UpdateModel<ProductEnum>? data;
   final String? id;
   final String? cookie;
 
   @override
-  List<Object?> get props => [model, id, cookie];
+  List<Object?> get props => [data, id, cookie];
 }
 
 final class EditProductNameEditButtonEvent extends ProductsEvent {}

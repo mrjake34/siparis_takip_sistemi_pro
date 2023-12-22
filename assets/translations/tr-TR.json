@@ -198,6 +198,7 @@
         "editCourier": "Kurye Düzenle"
     },
     "apiMessage": {
+        "success": "İşlem Başarılı",
         "registerSuccess": "Kullanıcı eklendi, giriş yapabilirsiniz",
         "createdSuccess": "Oluşturma işlemi başarılı",
         "updateSuccess": "Güncelleme işlemi başarılı",

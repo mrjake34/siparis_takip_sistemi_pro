@@ -4,34 +4,56 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../../../product/core/base/interface/base_network_model.dart';
 
-part 'login_response_model.g.dart';
-
 @JsonSerializable()
 final class LoginResponseModel extends IBaseNetworkModel<LoginResponseModel> {
-  LoginResponseModel({this.user});
-  factory LoginResponseModel.fromJson(Map<String, dynamic> json) =>
-      _$LoginResponseModelFromJson(json);
+  LoginResponseModel({
+    this.user,
+    this.message,
+  });
+
   final LoginModel? user;
+  final String? message;
   @override
-  Map<String, dynamic> toJson() => _$LoginResponseModelToJson(this);
+  Map<String, dynamic> toJson() {
+    return {
+      'User': user,
+      'message': message,
+    };
+  }
 
   @override
   LoginResponseModel fromJson(Map<String, dynamic> json) {
-    return LoginResponseModel.fromJson(json);
+    return LoginResponseModel(
+      user: json['User'] == null
+          ? null
+          : LoginModel.fromJson(Map<String, String>.from(json['User'] as Map)),
+      message: json['message'] as String?,
+    );
   }
 }
 
 @JsonSerializable()
 class LoginModel {
   const LoginModel({
-    required this.id,
-    required this.shopName,
-    required this.role,
+    this.id,
+    this.shopName,
+    this.role,
   });
-  factory LoginModel.fromJson(Map<String, String> json) =>
-      _$LoginModelFromJson(json);
-  final String id;
-  final String shopName;
-  final String role;
-  Map<String, dynamic> toJson() => _$LoginModelToJson(this);
+  factory LoginModel.fromJson(Map<String, String> json) {
+    return LoginModel(
+      id: json['Id'],
+      shopName: json['shopName'],
+      role: json['role'],
+    );
+  }
+  final String? id;
+  final String? shopName;
+  final String? role;
+  Map<String, dynamic> toJson() {
+    return {
+      'Id': id,
+      'shopName': shopName,
+      'role': role,
+    };
+  }
 }

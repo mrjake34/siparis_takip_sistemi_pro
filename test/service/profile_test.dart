@@ -28,7 +28,7 @@ void main() {
     );
 
     debugPrint('Login Response Status Code: ${loginResponse.statusCode}');
-    debugPrint('Login Response Data: ${loginResponse.data?.user?.id}');
+    debugPrint('Login Response Data: ${loginResponse.data!.user?.id}');
 
     if (loginResponse.statusCode == HttpStatus.ok) {
       final cookie = loginResponse.getCookie(headers: loginResponse.headers);

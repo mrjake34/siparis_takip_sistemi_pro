@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product_list.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/service/interface_product_service.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
@@ -9,96 +12,99 @@ import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dar
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 
 import '../../../../product/core/constants/enums/network_status.dart';
+import '../../../authentication/register/model/register_response_model.dart';
 import '../model/product.dart';
-import '../model/product_list.dart';
 
 final class ProductService extends IProductService {
   @override
-  Future<BaseResponseModel<T>> getProducts<T>({
+  Future<BaseResponseModel<T>> getProducts<T extends IBaseNetworkModel<T>>({
     String? cookie,
+    T? model,
   }) async {
     if (cookie == null) {
-      return BaseResponseModel<NetworkStatus>(
-        data: NetworkStatus.inputsNotFilled,
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
         statusCode: HttpStatus.badRequest,
-      ) as BaseResponseModel<T>;
+      );
     }
-    final response =
-        await ProductItems.networkService.get<BaseResponseModel<Product>>(
+    final response = await ProductItems.networkService.get<ProductList>(
       AppNetwork.productPath,
+      model: ProductList(),
       options: Options(
         headers: {
-          'authorization': cookie,
+          'authorization': 'Bearer $cookie',
         },
       ),
     );
 
     if (response.statusCode == 200) {
-      if (response.data == null || response.data?.data == null) {
+      if (response.data == null || response.data == null) {
         return BaseResponseModel(
-          data: NetworkStatus.userNotFound,
+          networkStatus: NetworkStatus.userNotFound,
           statusCode: response.statusCode,
-        ) as BaseResponseModel<T>;
+        );
       } else {
-        final productList =
-            ProductList.fromJson(response.data!.data! as Map<String, dynamic>);
-        return BaseResponseModel(
-          data: productList,
+        return BaseResponseModel<T>(
+          data: response.data as T?,
           statusCode: response.statusCode,
-        ) as BaseResponseModel<T>;
+        );
       }
     } else {
-      return BaseResponseModel(
-        data: NetworkStatus.unknownError,
+      return BaseResponseModel<T>(
+        networkStatus:
+            NetworkStatus.getStatusFromCode(response.statusCode ?? 0),
         statusCode: response.statusCode,
-      ) as BaseResponseModel<T>;
+      );
     }
   }
 
   @override
-  Future<BaseResponseModel<T>> deleteProduct<T>({
+  Future<BaseResponseModel<T>> deleteProduct<T extends IBaseNetworkModel<T>>({
     String? id,
     String? cookie,
+    T? model,
   }) async {
     if (id == null || cookie == null) {
-      return BaseResponseModel<NetworkStatus>(
-        data: NetworkStatus.inputsNotFilled,
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
         statusCode: HttpStatus.badRequest,
-      ) as BaseResponseModel<T>;
+      );
     }
-    final response = await ProductItems.networkService
-        .delete<BaseResponseModel<NetworkStatus>>(
+    final response =
+        await ProductItems.networkService.delete<ProductResponseModel>(
       '${AppNetwork.productPath}/$id',
+      model: ProductResponseModel(),
       options: Options(
         headers: {
-          'authorization': cookie,
+          'authorization': 'Bearer $cookie',
         },
       ),
     );
     if (response.statusCode == 200) {
-      if (response.data == null) {
-        return BaseResponseModel<NetworkStatus>(
-          data: NetworkStatus.userNotFound,
+      if (response.statusCode == HttpStatus.ok) {
+        return BaseResponseModel<T>(
+          networkStatus: NetworkStatus.deleteSuccess,
           statusCode: response.statusCode,
-        ) as BaseResponseModel<T>;
+        );
       } else {
-        return BaseResponseModel<NetworkStatus>(
-          data: NetworkStatus.getStatus(response.data! as String),
+        return BaseResponseModel<T>(
+          networkStatus: NetworkStatus.getStatus(response.data?.message ?? ''),
           statusCode: response.statusCode,
-        ) as BaseResponseModel<T>;
+        );
       }
     } else {
-      return BaseResponseModel<NetworkStatus>(
-        data: NetworkStatus.unknownError,
+      return BaseResponseModel<T>(
+        networkStatus: NetworkStatus.unknownError,
         statusCode: response.statusCode,
-      ) as BaseResponseModel<T>;
+      );
     }
   }
 
   @override
-  Future<BaseResponseModel<T>> addProduct<T>({
+  Future<BaseResponseModel<T>> addProduct<T extends IBaseNetworkModel<T>>({
     Product? product,
     String? cookie,
+    T? model,
   }) async {
     if (product == null || cookie == null) {
       return BaseResponseModel<NetworkStatus>(
@@ -106,100 +112,105 @@ final class ProductService extends IProductService {
         statusCode: HttpStatus.badRequest,
       ) as BaseResponseModel<T>;
     }
-    final response = await ProductItems.networkService
-        .post<BaseResponseModel<NetworkStatus>>(
+    final response =
+        await ProductItems.networkService.post<ProductResponseModel>(
       AppNetwork.productPath,
+      model: ProductResponseModel(),
       options: Options(
         headers: {
-          'authorization': cookie,
+          'authorization': 'Bearer $cookie',
         },
       ),
       data: product.toJson(),
     );
-    if (response.data != null) {
-      return BaseResponseModel(
-        data: NetworkStatus.getStatus(response.data! as String),
+    if (response.statusCode == HttpStatus.ok) {
+      return BaseResponseModel<T>(
+        networkStatus: NetworkStatus.createdSuccess,
         statusCode: response.statusCode,
-      ) as BaseResponseModel<T>;
+      );
+    } else if (response.data != null) {
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.getStatus(response.data?.message ?? ''),
+        statusCode: response.statusCode,
+      );
     } else {
-      return BaseResponseModel(
-        data: NetworkStatus.unknownError,
+      return BaseResponseModel<T>(
+        networkStatus: NetworkStatus.productNotFound,
         statusCode: response.statusCode,
-      ) as BaseResponseModel<T>;
+      );
     }
   }
 
   @override
-  Future<BaseResponseModel<T>> getProduct<T>({
+  Future<BaseResponseModel<T>> getProduct<T extends IBaseNetworkModel<T>>({
     String? id,
     String? cookie,
+    T? model,
   }) async {
     if (id == null || cookie == null) {
-      return BaseResponseModel<NetworkStatus>(
-        data: NetworkStatus.inputsNotFilled,
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
         statusCode: HttpStatus.badRequest,
-      ) as BaseResponseModel<T>;
+      );
     }
     final response =
-        await ProductItems.networkService.get<BaseResponseModel<Product>>(
+        await ProductItems.networkService.get<ProductResponseModel>(
       '${AppNetwork.productPath}/$id',
+      model: ProductResponseModel(),
       options: Options(
         headers: {
-          'authorization': cookie,
+          'authorization': 'Bearer $cookie',
         },
       ),
     );
 
     if (response.statusCode == HttpStatus.ok) {
-      final product = Product.fromJson(
-        response.data!.data! as Map<String, dynamic>,
-      );
-
       return BaseResponseModel(
-        data: product,
+        networkStatus: NetworkStatus.success,
         statusCode: response.statusCode,
-      ) as BaseResponseModel<T>;
+      );
     } else {
       return BaseResponseModel(
-        data: NetworkStatus.getStatus(response.data! as String),
+        networkStatus: NetworkStatus.getStatus(response.data! as String),
         statusCode: response.statusCode,
-      ) as BaseResponseModel<T>;
+      );
     }
   }
 
   @override
-  Future<BaseResponseModel<T>> updateProduct<T>({
-    UpdateModel<ProductEnum>? model,
+  Future<BaseResponseModel<T>> updateProduct<T extends IBaseNetworkModel<T>>({
+    UpdateModel<ProductEnum>? data,
     String? id,
     String? cookie,
+    T? model,
   }) async {
-    if (id != null && model != null && cookie != null) {
-      final response = await ProductItems.networkService
-          .put<BaseResponseModel<NetworkStatus>>(
+    if (id != null && data != null && cookie != null) {
+      final response =
+          await ProductItems.networkService.put<RegisterResponseModel>(
         '${AppNetwork.productPath}/$id',
-        data: model.toJson(),
+        data: data.toJson(),
         options: Options(
           headers: {
-            'authorization': cookie,
+            'authorization': 'Bearer $cookie',
           },
         ),
+        model: RegisterResponseModel(),
       );
       if (response.statusCode == HttpStatus.ok) {
         return BaseResponseModel(
-          data: NetworkStatus.getStatus(response.data! as String),
           statusCode: response.statusCode,
-        ) as BaseResponseModel<T>;
+        );
       } else {
-        return BaseResponseModel(
-          data: NetworkStatus.getStatus(response.data! as String),
+        return BaseResponseModel<T>(
+          networkStatus: NetworkStatus.getStatus(response.data?.message ?? ''),
           statusCode: response.statusCode,
-        ) as BaseResponseModel<T>;
+        );
       }
     } else {
       return BaseResponseModel(
-        data: NetworkStatus.inputsNotFilled,
+        networkStatus: NetworkStatus.inputsNotFilled,
         statusCode: HttpStatus.badRequest,
-      ) as BaseResponseModel<T>;
+      );
     }
   }
 }

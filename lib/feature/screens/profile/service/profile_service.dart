@@ -31,10 +31,10 @@ final class ProfileService extends IProfileService {
       ),
       model: UserResponseModel(),
     );
-    if (response.data != null) {
+    if (response.data?.user != null) {
       await ProductItems.sharedManager.setStringValue(
         PreferenceKey.userName,
-        response.data!.user!.toJson().toString(),
+        response.data!.user?.toJson().toString() ?? '',
       );
       return BaseResponseModel(
         data: response.data?.user as T?,
@@ -77,7 +77,7 @@ final class ProfileService extends IProfileService {
     } else {
       return BaseResponseModel(
         networkStatus: NetworkStatus.getStatus(
-          response.data?.error?.message ?? '',
+          response.data?.message ?? '',
         ),
         statusCode: response.statusCode,
       );

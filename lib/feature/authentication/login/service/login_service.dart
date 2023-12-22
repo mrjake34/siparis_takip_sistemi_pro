@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_request_model.dart';
+import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
 
@@ -28,33 +29,35 @@ final class LoginService implements ILoginService {
     T? model,
   }) async {
     if (loginModel == null) {
-      return BaseResponseModel<T>(
+      return BaseResponseModel(
         networkStatus: NetworkStatus.userNotFound,
         statusCode: HttpStatus.badRequest,
       );
     }
-
-    final response = await ProductItems.networkService.post<T>(
+    final response = await ProductItems.networkService.post<LoginResponseModel>(
       AppNetwork.loginPath,
       data: loginModel.toJson(),
-      model: model,
+      model: LoginResponseModel(),
     );
     if (response.statusCode == HttpStatus.ok) {
+      if (response.data == null || response.data == null) {
+        return BaseResponseModel(
+          networkStatus: NetworkStatus.userNotFound,
+          statusCode: response.statusCode,
+        );
+      } else {
+        return BaseResponseModel<T>(
+          data: response.data as T?,
+          statusCode: response.statusCode,
+          headers: response.headers,
+        );
+      }
+    } else {
       return BaseResponseModel<T>(
-        data: response.data,
-        statusCode: response.statusCode,
-        headers: response.headers,
-      );
-    } else if (response.statusCode == HttpStatus.badRequest) {
-      return BaseResponseModel<T>(
-        networkStatus: NetworkStatus.userNotFound,
+        networkStatus: NetworkStatus.getStatus(response.data?.message ?? ''),
         statusCode: response.statusCode,
       );
     }
-    return BaseResponseModel<T>(
-      networkStatus: NetworkStatus.userNotFound,
-      statusCode: response.statusCode,
-    );
   }
 
   @override

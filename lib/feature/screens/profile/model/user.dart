@@ -19,6 +19,7 @@ final class User extends IBaseNetworkModel<User> {
   final DateTime? updatedAt;
   final String? ip;
   final String? refreshToken;
+  final String? message;
 
   User({
     this.id,
@@ -33,6 +34,7 @@ final class User extends IBaseNetworkModel<User> {
     this.updatedAt,
     this.ip,
     this.refreshToken,
+    this.message,
   });
 
   User copyWith({
@@ -48,6 +50,7 @@ final class User extends IBaseNetworkModel<User> {
     DateTime? updatedAt,
     String? ip,
     String? refreshToken,
+    String? message,
   }) =>
       User(
         id: id ?? this.id,
@@ -62,6 +65,7 @@ final class User extends IBaseNetworkModel<User> {
         updatedAt: updatedAt ?? this.updatedAt,
         ip: ip ?? this.ip,
         refreshToken: refreshToken ?? this.refreshToken,
+        message: message ?? this.message,
       );
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

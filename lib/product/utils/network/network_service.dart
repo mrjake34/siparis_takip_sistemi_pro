@@ -1,9 +1,10 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 import 'package:vexana/vexana.dart';
 import '../../core/base/interface/base_network_model.dart';
-import '../../core/base/models/network_error_model.dart';
 import '../../core/constants/network/url.dart';
 
 /// This class is used to make network requests.
@@ -140,7 +141,7 @@ final class NetworkService {
   }
 
   /// This method is used to make a Delete request.
-  Future<BaseResponseModel<T>> delete<E, T extends IBaseNetworkModel<T>>(
+  Future<BaseResponseModel<T>> delete<T extends IBaseNetworkModel<T>>(
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
@@ -148,7 +149,7 @@ final class NetworkService {
     CancelToken? cancelToken,
     T? model,
   }) async {
-    final response = await _networkManager.delete<T>(
+    final response = await _networkManager.delete<dynamic>(
       path,
       data: data,
       queryParameters: queryParameters,

@@ -1,4 +1,3 @@
-import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/interface/interface_base_response_model.dart';
 
 import '../../constants/enums/network_status.dart';
@@ -11,6 +10,7 @@ final class BaseResponseModel<T> implements IBaseResponseModel<T> {
     this.statusCode,
     this.headers,
     this.networkStatus,
+    this.message,
   });
   @override
   final T? data;
@@ -19,7 +19,9 @@ final class BaseResponseModel<T> implements IBaseResponseModel<T> {
   @override
   final Map<String, List<dynamic>>? headers;
   @override
-  NetworkStatus? networkStatus;
+  final NetworkStatus? networkStatus;
+  @override
+  final String? message;
 
   @override
   BaseResponseModel<T> fromJson(Map<String, dynamic> json) {
@@ -27,17 +29,22 @@ final class BaseResponseModel<T> implements IBaseResponseModel<T> {
       data: json['data'] as T?,
       statusCode: json['statusCode'] as int?,
       headers: json['cookie'] as Map<String, List<dynamic>>?,
+      networkStatus: NetworkStatus.values[json['networkStatus'] as int? ?? 0],
+      message: json['message'] as String?,
     );
   }
 
+  static String? fromError(Map<String, dynamic> json) {
+    return json['message'] as String?;
+  }
+
   String? getCookie({Map<String, List<dynamic>>? headers}) {
-    if (headers == null) {
-      return null;
-    }
-    final cookie = headers['set-cookie']?.first ?? 'Login Courier Cookie';
+    if (headers == null) return null;
+    final cookie = headers['set-cookie']?.first as String?;
+    if (cookie == null) return null;
     final cookieSplit = cookie.split(';');
     final cookieString = cookieSplit[0].split('=');
-    return cookieString[1] as String?;
+    return cookieString[1];
   }
 
   @override
@@ -46,20 +53,39 @@ final class BaseResponseModel<T> implements IBaseResponseModel<T> {
       'data': data,
       'statusCode': statusCode,
       'cookie': headers,
+      'networkStatus': networkStatus?.index,
+      'error': message ?? '',
     };
   }
 
   @override
   String toString() {
-    return 'BaseResponseModel(data: $data, statusCode: $statusCode, headers: $headers)';
+    return 'BaseResponseModel(data: $data, statusCode:'
+        ' $statusCode, headers: $headers)';
   }
 
   @override
-  set data(T? data) {}
+  set data(T? data) {
+    // TODO: implement data
+  }
 
   @override
-  set headers(Map<String, dynamic>? headers) {}
+  set message(String? message) {
+    // TODO: implement error
+  }
 
   @override
-  set statusCode(int? statusCode) {}
+  set headers(Map<String, List<dynamic>>? headers) {
+    // TODO: implement headers
+  }
+
+  @override
+  set networkStatus(NetworkStatus? networkStatus) {
+    // TODO: implement networkStatus
+  }
+
+  @override
+  set statusCode(int? statusCode) {
+    // TODO: implement statusCode
+  }
 }

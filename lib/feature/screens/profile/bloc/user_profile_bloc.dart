@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 import '../../../../product/core/constants/enums/enums.dart';
 import '../../../../product/utils/getit/product_items.dart';
 import '../model/user.dart';
@@ -16,13 +16,12 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     on<FetchUserDetailsEvent>((event, emit) async {
       emit(state.copyWith(status: Status.isLoading));
       final response = await profileService.getProfile<UserResponseModel>();
-      if (response.data != null ||
-          response.data!.data != null ||
-          response.data!.data!.user != null) {
+      if (response.data != null || response.data?.user != null) {
         emit(
           state.copyWith(
             status: Status.isDone,
-            user: response.data!.data!.user,
+            user: response.data?.user,
+            networkStatus: response.networkStatus,
           ),
         );
       } else {

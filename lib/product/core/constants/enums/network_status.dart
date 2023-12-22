@@ -25,8 +25,9 @@ enum LoginErrors {
 }
 
 enum NetworkStatus {
+  success(LocaleKeys.apiMessage_success),
   registerSuccess(LocaleKeys.apiMessage_registerSuccess),
-  creatdSuccess(LocaleKeys.apiMessage_createdSuccess),
+  createdSuccess(LocaleKeys.apiMessage_createdSuccess),
   updateSuccess(LocaleKeys.apiMessage_updateSuccess),
   deleteSuccess(LocaleKeys.apiMessage_deleteSuccess),
   detailsSuccess(LocaleKeys.apiMessage_detailsSuccess),
@@ -63,7 +64,7 @@ enum NetworkStatus {
   static NetworkStatus getStatus(String value) => switch (value) {
         'Register process completed successfully' =>
           NetworkStatus.registerSuccess,
-        'Create process completed successfully' => NetworkStatus.creatdSuccess,
+        'Create process completed successfully' => NetworkStatus.createdSuccess,
         'Update process completed successfully' => NetworkStatus.updateSuccess,
         'Delete process completed successfully' => NetworkStatus.deleteSuccess,
         'Detail process completed successfully' => NetworkStatus.detailsSuccess,
@@ -92,6 +93,19 @@ enum NetworkStatus {
         'Phone or Email is already in use' => NetworkStatus.phoneOrEmailFailed,
         'Unauthorized' => NetworkStatus.unauthorized,
         'Unknown error' => NetworkStatus.unknownError,
+        _ => NetworkStatus.unknownError,
+      };
+
+  static NetworkStatus getStatusFromCode(int code) => switch (code) {
+        200 => NetworkStatus.success,
+        201 => NetworkStatus.createdSuccess,
+        204 => NetworkStatus.deleteSuccess,
+        400 => NetworkStatus.inputsNotFilled,
+        401 => NetworkStatus.unauthorized,
+        403 => NetworkStatus.unauthorized,
+        404 => NetworkStatus.failedLoadData,
+        409 => NetworkStatus.failedLoadData,
+        500 => NetworkStatus.failedLoadData,
         _ => NetworkStatus.unknownError,
       };
 }

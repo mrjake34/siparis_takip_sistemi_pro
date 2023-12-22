@@ -198,6 +198,7 @@
         "courierInfo": "Courier Information"
     },
     "apiMessage": {
+        "success": "Process success",
         "registerSuccess": "Register success, you can login",
         "createdSuccess": "Created process success",
         "updateSuccess": "Update process success",

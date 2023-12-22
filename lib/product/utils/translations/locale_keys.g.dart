@@ -189,6 +189,7 @@ abstract class  LocaleKeys {
   static const courier_courierInfo = 'courier.courierInfo';
   static const courier_editCourier = 'courier.editCourier';
   static const courier = 'courier';
+  static const apiMessage_success = 'apiMessage.success';
   static const apiMessage_registerSuccess = 'apiMessage.registerSuccess';
   static const apiMessage_createdSuccess = 'apiMessage.createdSuccess';
   static const apiMessage_updateSuccess = 'apiMessage.updateSuccess';

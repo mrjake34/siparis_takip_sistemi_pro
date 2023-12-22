@@ -1,28 +1,24 @@
-import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+import '../../../../product/core/base/interface/base_network_model.dart';
 import 'product.dart';
 
-@immutable
-final class ProductList {
-  const ProductList({
-    required this.message,
-    required this.products,
+part 'product_list.g.dart';
+
+@JsonSerializable(
+  includeIfNull: true,
+)
+final class ProductList extends IBaseNetworkModel<ProductList> {
+  ProductList({
+    this.products,
   });
 
-  factory ProductList.fromJson(Map<String, dynamic> json) => ProductList(
-        message: json['message'].toString(),
-        products: List<Product>.from(
-          (json['products'] as List<dynamic>).map(
-            (dynamic x) => Product.fromJson(x as Map<String, dynamic>),
-          ),
-        ),
-      );
+  final List<Product>? products;
 
-  final String message;
-  final List<Product> products;
+  @override
+  Map<String, dynamic> toJson() => _$ProductListToJson(this);
 
-  Map<String, dynamic> toJson() => {
-        'message': message,
-        'products': List<dynamic>.from(products.map((x) => x.toJson())),
-      };
+  @override
+  ProductList fromJson(Map<String, dynamic> json) =>
+      _$ProductListFromJson(json);
 }

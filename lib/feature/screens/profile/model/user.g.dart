@@ -7,7 +7,7 @@ part of 'user.dart';
 // **************************************************************************
 
 User _$UserFromJson(Map<String, dynamic> json) => User(
-      id: json['_id'] as String?,
+      id: json['id'] as String?,
       name: json['name'] as String?,
       email: json['email'] as String?,
       password: json['password'] as String?,
@@ -23,10 +23,11 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
           : DateTime.parse(json['updatedAt'] as String),
       ip: json['ip'] as String?,
       refreshToken: json['refreshToken'] as String?,
+      message: json['message'] as String?,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
-      '_id': instance.id,
+      'id': instance.id,
       'name': instance.name,
       'email': instance.email,
       'password': instance.password,
@@ -38,4 +39,5 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'updatedAt': instance.updatedAt?.toIso8601String(),
       'ip': instance.ip,
       'refreshToken': instance.refreshToken,
+      'message': instance.message,
     };

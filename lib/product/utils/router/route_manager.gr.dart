@@ -20,7 +20,8 @@ import 'package:siparis_takip_sistemi_pro/feature/authentication/register/view/s
     as _i5;
 import 'package:siparis_takip_sistemi_pro/feature/screens/home_page/view/home_page_view.dart'
     as _i2;
-import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart'
+    as _i9;
 import 'package:siparis_takip_sistemi_pro/feature/screens/splash/view/splash_screen.dart'
     as _i6;
 
@@ -111,7 +112,7 @@ class CourierLoginRouteArgs {
 /// [_i2.HomePage]
 class HomeRoute extends _i7.PageRouteInfo<HomeRouteArgs> {
   HomeRoute({
-    required UserResponseModel userModel,
+    required _i9.UserResponseModel userModel,
     _i8.Key? key,
     List<_i7.PageRouteInfo>? children,
   }) : super(
@@ -135,7 +136,7 @@ class HomeRouteArgs {
     this.key,
   });
 
-  final UserResponseModel userModel;
+  final _i9.UserResponseModel userModel;
 
   final _i8.Key? key;
 
