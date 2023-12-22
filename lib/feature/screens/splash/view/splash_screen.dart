@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/bloc/login_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.dart';
 
 /// This class is an starter screen for the app
@@ -33,11 +34,11 @@ class _SplashScreenState extends State<SplashScreen> {
       child: BlocConsumer<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state.model != null) {
-            context.router.replaceNamed(RouteManagerEnum.splashScreen.path);
+            context.router.replaceNamed(RoutePath.splashScreen.path);
           }
         },
         builder: (context, state) {
-          return const Scaffold(
+          return const BaseScaffold(
             body: Center(
               child: CircularProgressIndicator.adaptive(),
             ),

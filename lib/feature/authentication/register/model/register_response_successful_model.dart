@@ -1,10 +1,10 @@
 import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
 
-final class RegisterSuccessfulModel
-    extends IBaseNetworkModel<RegisterSuccessfulModel> {
-  RegisterSuccessfulModel({this.message});
+final class RegisterResponseSuccessModel
+    extends IBaseNetworkModel<RegisterResponseSuccessModel> {
+  RegisterResponseSuccessModel({this.message});
 
-  RegisterSuccessfulModel.fromJson(Map<String, dynamic> json) {
+  RegisterResponseSuccessModel.fromJson(Map<String, dynamic> json) {
     message = json['Message'].toString();
   }
   String? message;
@@ -17,7 +17,7 @@ final class RegisterSuccessfulModel
   }
 
   @override
-  RegisterSuccessfulModel fromJson(Map<String, dynamic> json) {
-    return RegisterSuccessfulModel.fromJson(json);
+  RegisterResponseSuccessModel fromJson(Map<String, dynamic> json) {
+    return RegisterResponseSuccessModel.fromJson(json);
   }
 }

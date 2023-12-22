@@ -12,7 +12,7 @@ class FlutterMapPage extends StatelessWidget {
     return BaseScaffold(
       body: FlutterMap(
         options: MapOptions(
-          center: LatLng(mapLat ?? 0.0, mapLng ?? 0.0),
+          initialCenter: LatLng(mapLat ?? 0.0, mapLng ?? 0.0),
         ),
         children: [
           TileLayer(
@@ -23,12 +23,10 @@ class FlutterMapPage extends StatelessWidget {
             markers: [
               Marker(
                 point: LatLng(mapLat ?? 0.0, mapLng ?? 0.0),
-                builder: (BuildContext context) {
-                  return const Icon(
-                    Icons.location_on,
-                    color: Colors.blue,
-                  );
-                },
+                child: const Icon(
+                  Icons.location_on,
+                  color: Colors.blue,
+                ),
               ),
             ],
           ),

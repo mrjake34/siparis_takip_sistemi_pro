@@ -7,7 +7,6 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.d
 
 import '../../../../product/core/constants/colors/colors.dart';
 import '../../../../product/core/constants/enums/enums.dart';
-import '../../../../product/core/constants/main_functions.dart';
 import '../../../../product/providers/main_providers.dart';
 import '../../../../product/utils/translations/locale_keys.g.dart';
 import '../../../authentication/login/bloc/login_bloc.dart';
@@ -190,13 +189,14 @@ class ProfilePageLogoutButton extends StatelessWidget {
       padding: const EdgeInsets.all(5),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            elevation: 5,
-            backgroundColor: Colors.red,
-            fixedSize: Size(pageSize.width, 40)),
+          elevation: 5,
+          backgroundColor: Colors.red,
+          fixedSize: Size(pageSize.width, 40),
+        ),
         onPressed: () {
           context
             ..read<UserProfileBloc>().add(UserLogoutEvent())
-            ..read<LoginBloc>().add(UserLogoutEvent());
+            ..read<LoginBloc>().add(LogoutEvent());
         },
         child: Text(LocaleKeys.mainText_logout.tr()),
       ),
