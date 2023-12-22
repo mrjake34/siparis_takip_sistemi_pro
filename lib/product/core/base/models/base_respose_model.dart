@@ -4,8 +4,7 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/interface/interface_
 import '../../constants/enums/network_status.dart';
 
 /// Base response model for all api responses
-final class BaseResponseModel<T extends IBaseNetworkModel<T>>
-    implements IBaseResponseModel<T> {
+final class BaseResponseModel<T> implements IBaseResponseModel<T> {
   /// Base response model contructor method
   BaseResponseModel({
     this.data,

@@ -8,10 +8,9 @@ part 'login_response_model.g.dart';
 
 @JsonSerializable()
 final class LoginResponseModel extends IBaseNetworkModel<LoginResponseModel> {
-  LoginResponseModel({this.message, this.user});
+  LoginResponseModel({this.user});
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) =>
       _$LoginResponseModelFromJson(json);
-  final String? message;
   final LoginModel? user;
   @override
   Map<String, dynamic> toJson() => _$LoginResponseModelToJson(this);

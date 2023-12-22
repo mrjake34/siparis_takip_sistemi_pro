@@ -8,8 +8,6 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
-
-import '../../../../product/core/base/models/network_error_model.dart';
 import '../../../../product/core/constants/enums/enums.dart';
 import 'interface_profile_service.dart';
 
@@ -21,19 +19,18 @@ final class ProfileService extends IProfileService {
   }) async {
     if (cookie == null || id == null) {
       return BaseResponseModel(
-        error: NetworkStatus.inputsNotFilled.message as NetworkErrorModel?,
+        networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
     final response = await ProductItems.networkService.get<UserResponseModel>(
-      '${AppNetwork.userPath}/$id',
+      '${AppNetwork.userPath}$id',
       options: Options(
         headers: {
-          'Authorization': 'Bearer $cookie',
+          'authorization': 'Bearer $cookie',
         },
       ),
       model: UserResponseModel(),
     );
-
     if (response.data != null) {
       await ProductItems.sharedManager.setStringValue(
         PreferenceKey.userName,
@@ -45,7 +42,7 @@ final class ProfileService extends IProfileService {
       );
     } else {
       return BaseResponseModel(
-        error: response.error,
+        networkStatus: NetworkStatus.getStatus(response.data?.message ?? ''),
         statusCode: response.statusCode,
       );
     }
@@ -59,15 +56,15 @@ final class ProfileService extends IProfileService {
   }) async {
     if (model == null || id == null || cookie == null) {
       return BaseResponseModel(
-        error: NetworkStatus.inputsNotFilled.message as NetworkErrorModel?,
+        networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
 
     final response = await ProductItems.networkService.put<UserResponseModel>(
-      '${AppNetwork.userPath}/$id',
+      '${AppNetwork.userPath}$id',
       options: Options(
         headers: {
-          'authorization': cookie,
+          'authorization': 'Bearer $cookie',
         },
       ),
       data: model.toJson(),
@@ -79,7 +76,9 @@ final class ProfileService extends IProfileService {
       );
     } else {
       return BaseResponseModel(
-        error: response.error,
+        networkStatus: NetworkStatus.getStatus(
+          response.data?.error?.message ?? '',
+        ),
         statusCode: response.statusCode,
       );
     }

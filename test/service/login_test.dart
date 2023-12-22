@@ -25,7 +25,6 @@ void main() {
     );
     debugPrint(response.statusCode.toString());
     debugPrint(response.data?.user?.id);
-
     if (response.statusCode == HttpStatus.ok) {
       expect(response.statusCode == HttpStatus.ok, true);
     } else {

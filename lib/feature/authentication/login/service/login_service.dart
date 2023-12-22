@@ -39,7 +39,6 @@ final class LoginService implements ILoginService {
       data: loginModel.toJson(),
       model: model,
     );
-
     if (response.statusCode == HttpStatus.ok) {
       return BaseResponseModel<T>(
         data: response.data,

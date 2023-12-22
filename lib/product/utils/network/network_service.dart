@@ -42,7 +42,7 @@ final class NetworkService {
     T? model,
   }) async {
     Response<dynamic> response;
-    response = await _networkManager.get<Response<dynamic>>(
+    response = await _networkManager.get<dynamic>(
       path,
       options: options,
     );
@@ -69,7 +69,7 @@ final class NetworkService {
   }
 
   /// This method is used to make a Post request.
-  Future<BaseResponseModel<T>> post<T extends IBaseNetworkModel<T>>(
+  Future<BaseResponseModel<T>> post<T extends IBaseNetworkModel<dynamic>>(
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
@@ -177,7 +177,7 @@ final class NetworkService {
     );
   }
 
-  R? _parseModel<R, T extends IBaseNetworkModel<T>>({
+  R? _parseModel<R, T extends IBaseNetworkModel<dynamic>>({
     T? model,
     dynamic resp,
   }) {
