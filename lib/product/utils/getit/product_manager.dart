@@ -3,7 +3,6 @@ import 'package:siparis_takip_sistemi_pro/product/utils/cache/shared_manager.dar
 import 'package:siparis_takip_sistemi_pro/product/utils/device_info/device_info.dart';
 
 import '../../theme/theme_service.dart';
-import '../navigation/navigation_service.dart';
 import '../network/network_service.dart';
 
 final class ProductManager {
@@ -12,7 +11,6 @@ final class ProductManager {
   static void setup() {
     _getIt
       ..registerSingleton<SharedManager>(SharedManager.instance)
-      ..registerSingleton<NavigationService>(NavigationService.instance)
       ..registerSingleton<NetworkService>(NetworkService.instance)
       ..registerSingleton<ThemeService>(ThemeService.instance)
       ..registerSingleton<DeviceInfo>(DeviceInfo.instance);

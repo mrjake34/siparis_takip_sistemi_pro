@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user.dart';
 
 import '../../../../product/utils/translations/locale_keys.g.dart';
 import '../bloc/user_profile_bloc.dart';
@@ -12,57 +13,71 @@ class UserDetailWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<UserProfileBloc, UserProfileState>(
       builder: (context, state) {
-        if (state.user != null) {
-          final user = state.user?.user;
-          return ListView(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              UserProfileCardName(name: user?.name),
-              UserProfileCardEmail(
-                email: user?.email,
-              ),
-              UserProfileCardPhone(
-                phone: user?.phone,
-              ),
-              UserProfileCardShopName(
-                shopName: user?.shopName,
-              ),
-              UserProfileCardExpirationDate(
-                dateTime: user?.updatedAt,
-              ),
-            ],
-          );
-        } else if (state.user == null) {
-          return Center(
-            child: Text(LocaleKeys.errors_failedLoadData.tr()),
-          );
-        } else {
-          return const Center(
-            child: CircularProgressIndicator.adaptive(),
-          );
-        }
+        if (state.user == null) return const _FailedLoadData();
+        if (state.user != null) return _PageFields(user: state.user);
+        return const Center(child: CircularProgressIndicator.adaptive());
       },
     );
   }
 }
 
-class UserProfileCardExpirationDate extends StatelessWidget {
-  const UserProfileCardExpirationDate({super.key, this.dateTime});
-  final DateTime? dateTime;
+class _FailedLoadData extends StatelessWidget {
+  const _FailedLoadData();
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Text(LocaleKeys.errors_failedLoadData.tr()));
+  }
+}
+
+class _PageFields extends StatelessWidget {
+  const _PageFields({
+    required this.user,
+  });
+
+  final User user;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      children: [
+        _UserProfileCardName(name: user.name),
+        _UserProfileCardEmail(
+          email: user.email,
+        ),
+        _UserProfileCardPhone(
+          phone: user.phone,
+        ),
+        _UserProfileCardShopName(
+          shopName: user.shopName,
+        ),
+        _UserProfileCardExpirationDate(
+          dateTime: user.updatedAt ?? DateTime.now(),
+        ),
+      ],
+    );
+  }
+}
+
+final class _UserProfileCardExpirationDate extends StatelessWidget {
+  const _UserProfileCardExpirationDate({
+    required this.dateTime,
+  });
+  final DateTime dateTime;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(LocaleKeys.profile_expirationDate.tr()),
-      subtitle:
-          Text(DateFormat('dd/MM/yyyy').format(dateTime ?? DateTime.now())),
+      subtitle: Text(DateFormat('dd/MM/yyyy').format(dateTime)),
     );
   }
 }
 
-class UserProfileCardShopName extends StatelessWidget {
-  const UserProfileCardShopName({super.key, this.shopName});
+final class _UserProfileCardShopName extends StatelessWidget {
+  const _UserProfileCardShopName({this.shopName});
   final String? shopName;
 
   @override

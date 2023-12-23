@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/models/network_error_model.dart';
 
 import '../../../../product/core/base/interface/base_network_model.dart';
 
@@ -8,16 +9,16 @@ import '../../../../product/core/base/interface/base_network_model.dart';
 final class LoginResponseModel extends IBaseNetworkModel<LoginResponseModel> {
   LoginResponseModel({
     this.user,
-    this.message,
+    this.error,
   });
 
   final LoginModel? user;
-  final String? message;
+  final NetworkErrorModel? error;
   @override
   Map<String, dynamic> toJson() {
     return {
       'User': user,
-      'message': message,
+      'message': error?.toJson(),
     };
   }
 
@@ -27,7 +28,13 @@ final class LoginResponseModel extends IBaseNetworkModel<LoginResponseModel> {
       user: json['User'] == null
           ? null
           : LoginModel.fromJson(Map<String, String>.from(json['User'] as Map)),
-      message: json['message'] as String?,
+      error: json['message'] is String
+          ? NetworkErrorModel(message: json['message'] as String?)
+          : json['message'] is Map
+              ? NetworkErrorModel.fromJson(
+                  Map<String, dynamic>.from(json['message'] as Map),
+                )
+              : null,
     );
   }
 }

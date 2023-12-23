@@ -1,18 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:kartal/kartal.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/navigation/navigation_service.dart';
 import '../../core/constants/colors/colors.dart';
 import '../../utils/translations/locale_keys.g.dart';
 
 final class CardMoreButton {
   const CardMoreButton._();
 
-  static Future<void> openMenu({
+  static Future<T?> openMenu<T>({
     required BuildContext context,
     required Offset offset,
     required String id,
-    required String path,
     required void Function() function,
   }) {
     return showMenu(
@@ -21,11 +18,7 @@ final class CardMoreButton {
           offset.dx, offset.dy, offset.dx + 200, offset.dy + 100),
       items: [
         PopupMenuItem(
-          onTap: () {
-            if (id.ext.isNotNullOrNoEmpty && path.ext.isNotNullOrNoEmpty) {
-              NavigationService.instance.navigateToPage(path: path, object: id);
-            }
-          },
+          onTap: () {},
           child: Text(
             LocaleKeys.mainText_edit.tr(),
             style: TextStyle(color: AppColors.instance.editColor),
@@ -42,7 +35,7 @@ final class CardMoreButton {
     );
   }
 
-  static Future<void> openDialog(BuildContext context,
+  static Future<T?> openDialog<T>(BuildContext context,
       {required void Function() function}) {
     return showDialog(
       context: context,

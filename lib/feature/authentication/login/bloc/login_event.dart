@@ -1,17 +1,21 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'login_bloc.dart';
 
-abstract class LoginEvent extends Equatable {}
+abstract class LoginEvent extends Equatable {
+  const LoginEvent();
+  @override
+  List<Object?> get props => [];
+}
 
 class UserLoginEvent extends LoginEvent {
-  UserLoginEvent({this.model});
+  const UserLoginEvent({this.model});
   final LoginRequestModel? model;
   @override
   List<Object?> get props => [model];
 }
 
 class AutoLoginEvent extends LoginEvent {
-  AutoLoginEvent({
+  const AutoLoginEvent({
     this.autoLogin,
     this.cookie,
     this.id,
@@ -27,3 +31,5 @@ class LogoutEvent extends LoginEvent {
   @override
   List<Object?> get props => [];
 }
+
+final class PasswordVisibilityEvent extends LoginEvent {}

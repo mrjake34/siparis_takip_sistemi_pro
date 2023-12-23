@@ -17,4 +17,9 @@ final class LoginRequestModel {
       _$LoginRequestModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$LoginRequestModelToJson(this);
+
+  @override
+  String toString() {
+    return 'LoginRequestModel(email: $email, password: $password)';
+  }
 }

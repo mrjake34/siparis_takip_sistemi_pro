@@ -1,4 +1,4 @@
-part of 'signup_page.dart';
+part of 'register_page.dart';
 
 final class _PageBuilder extends StatelessWidget {
   const _PageBuilder({
@@ -10,7 +10,6 @@ final class _PageBuilder extends StatelessWidget {
     required this.passwordController,
     required this.password2Controller,
     required this.openMembershipAgreement,
-    required this.utils,
     required this.state,
   });
 
@@ -22,7 +21,6 @@ final class _PageBuilder extends StatelessWidget {
   final TextEditingController passwordController;
   final TextEditingController password2Controller;
   final OpenMembershipAgreement openMembershipAgreement;
-  final UtilsService utils;
 
   final RegisterState state;
 
@@ -69,7 +67,8 @@ final class _PageBuilder extends StatelessWidget {
                     password2Controller: password2Controller,
                   ),
                   const SizedBox(height: 20),
-                  _MembershipAgreementField(openMembershipAgreement: openMembershipAgreement),
+                  _MembershipAgreementField(
+                      openMembershipAgreement: openMembershipAgreement),
                   const SizedBox(height: 20),
                   _RegisterButton(
                     formKey: formKey,

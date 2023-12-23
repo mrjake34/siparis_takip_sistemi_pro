@@ -14,25 +14,25 @@ class ProviderManager extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers: [
-      BlocProvider(
-        create: (context) => LoginBloc(),
-      ),
-      BlocProvider(
-        create: (context) => CustomerBloc(),
-      ),
-      BlocProvider(
-        create: (context) => CourierBloc(),
-      ),
-      BlocProvider(
-        create: (context) => OrdersBloc(),
-      ),
-      BlocProvider(
-        create: (context) => ProductsBloc(),
-      ),
-      BlocProvider(
-        create: (context) => UserProfileBloc(),
-      ),
-    ], child: child);
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CustomerBloc(),
+        ),
+        BlocProvider(
+          create: (context) => CourierBloc(),
+        ),
+        BlocProvider(
+          create: (context) => OrdersBloc(),
+        ),
+        BlocProvider(
+          create: (context) => ProductsBloc(),
+        ),
+        BlocProvider(
+          create: (context) => UserProfileBloc(),
+        ),
+      ],
+      child: child,
+    );
   }
 }

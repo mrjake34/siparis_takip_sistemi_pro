@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart';
+
 import '../../../src/drawer/drawer.dart';
 import '../../../src/navbar/sidebar.dart';
-import '../../constants/navigation/navigation_constants.dart';
-import '../../../utils/navigation/navigation_service.dart';
 import '../../../utils/translations/locale_keys.g.dart';
+import '../../constants/navigation/navigation_constants.dart';
 
 /// This is the main Scaffold widget.
 final class BaseScaffold extends StatelessWidget {
@@ -31,10 +31,7 @@ final class BaseScaffold extends StatelessWidget {
                 context.general.mediaSize.width < 800 ? null : const SizedBox(),
             actions: [
               IconButton(
-                onPressed: () {
-                  NavigationService.instance
-                      .navigateToPage(path: NavigationConstants.userProfile);
-                },
+                onPressed: () {},
                 icon: const Icon(CupertinoIcons.profile_circled),
               ),
             ],
