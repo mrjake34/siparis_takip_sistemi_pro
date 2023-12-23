@@ -2,7 +2,8 @@ import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dar
 import 'package:url_launcher/url_launcher.dart';
 
 final class OpenMembershipAgreement {
-  Future<bool> openMembershipAgreement() async {
+  OpenMembershipAgreement._init();
+  static Future<bool> openMembershipAgreement() async {
     if (!await canLaunchUrl(
       Uri.parse(AppNetwork.membershipAgreementLink),
     )) {

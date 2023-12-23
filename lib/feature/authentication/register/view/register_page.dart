@@ -14,18 +14,21 @@ import 'package:siparis_takip_sistemi_pro/product/providers/main_providers.dart'
 import 'package:siparis_takip_sistemi_pro/product/src/button/loading_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_icon_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/dialogs/show_dialog.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
 import '../../../../product/core/base/view/base_scaffold.dart';
+import '../model/register_request_model.dart';
 
 part 'have_account_field.dart';
 part 'membership_agreement_field.dart';
-part 'page_builder.dart';
 part 'password_form_field.dart';
 part 'password_two_form_field.dart';
 part 'phone_form_field.dart';
 part 'register_button.dart';
 part 'shop_name_form_field.dart';
+part 'register_page_mixin.dart';
 
 @RoutePage()
 final class RegisterPage extends StatefulWidget {
@@ -37,48 +40,108 @@ final class RegisterPage extends StatefulWidget {
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
-final class _RegisterPageState extends State<RegisterPage> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController shopNameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController password2Controller = TextEditingController();
-  final OpenMembershipAgreement openMembershipAgreement =
-      OpenMembershipAgreement();
-  final formKey = GlobalKey<FormBuilderState>();
-
+final class _RegisterPageState extends State<RegisterPage>
+    with RegisterPageMixin {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => RegisterCubit(),
-      child: BlocConsumer<RegisterCubit, RegisterState>(
-        listener: (context, state) {
-          if (state.status == Status.isFailed) {
-            utils.errorSnackBar(LocaleKeys.errors_errorUserRegister.tr());
-          } else if (state.status == Status.isDone) {
-            navService.navigateToPageRemoveAll(
-              path: NavigationConstants.loginPage,
-            );
-            CustomDialog().showCustomDialog(
-              context,
-              Text(LocaleKeys.succes_registerSuccess.tr()),
-            );
-          }
-        },
-        builder: (context, state) {
-          return _PageBuilder(
-            formKey: formKey,
-            nameController: nameController,
-            emailController: emailController,
-            phoneController: phoneController,
-            shopNameController: shopNameController,
-            passwordController: passwordController,
-            password2Controller: password2Controller,
-            openMembershipAgreement: openMembershipAgreement,
-            state: state,
-          );
-        },
+      child: BlocListener<RegisterCubit, RegisterState>(
+        listener: (context, state) => _registerListener(state),
+        child: _PageField(
+          formKey: _formKey,
+          nameController: _nameController,
+          emailController: _emailController,
+          phoneController: _phoneController,
+          shopNameController: _shopNameController,
+          passwordController: _passwordController,
+          password2Controller: _password2Controller,
+        ),
+      ),
+    );
+  }
+}
+
+final class _PageField extends StatelessWidget {
+  const _PageField({
+    required this.formKey,
+    required this.nameController,
+    required this.emailController,
+    required this.phoneController,
+    required this.shopNameController,
+    required this.passwordController,
+    required this.password2Controller,
+  });
+
+  final GlobalKey<FormBuilderState> formKey;
+  final TextEditingController nameController;
+  final TextEditingController emailController;
+  final TextEditingController phoneController;
+  final TextEditingController shopNameController;
+  final TextEditingController passwordController;
+  final TextEditingController password2Controller;
+
+  @override
+  Widget build(BuildContext context) {
+    final pageSize = MediaQuery.of(context).size;
+    return BaseScaffold(
+      body: SingleChildScrollView(
+        child: Center(
+          child: Container(
+            constraints: BoxConstraints(
+              maxWidth: pageSize.width >= 800 ? 800 : pageSize.width / 1,
+            ),
+            child: FormBuilder(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const SizedBox(height: 10),
+                  NameFormField(nameController: nameController),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  EmailFormField(emailController: emailController),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  _PhoneFormField(phoneController: phoneController),
+                  const SizedBox(
+                    height: 6,
+                  ),
+                  _ShopNameFormField(shopNameController: shopNameController),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  _PasswordFormField(passwordController: passwordController),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  _PasswordTwoFormField(
+                    password2Controller: password2Controller,
+                  ),
+                  const SizedBox(height: 20),
+                  const _MembershipAgreementField(),
+                  const SizedBox(height: 20),
+                  _RegisterButton(
+                    formKey: formKey,
+                    nameController: nameController,
+                    emailController: emailController,
+                    phoneController: phoneController,
+                    shopNameController: shopNameController,
+                    passwordController: passwordController,
+                    password2Controller: password2Controller,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const _HaveAccountField(),
+                  const Divider(),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

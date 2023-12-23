@@ -10,10 +10,10 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.d
 import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/strings/appstrings.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
-import '../../../../product/core/constants/colors/colors.dart';
-import '../../../../product/core/constants/enums/enums.dart';
-import '../../../../product/utils/translations/locale_keys.g.dart';
-import '../bloc/products_bloc.dart';
+import '../../../../../product/core/constants/colors/colors.dart';
+import '../../../../../product/core/constants/enums/enums.dart';
+import '../../../../../product/utils/translations/locale_keys.g.dart';
+import '../../bloc/products_bloc.dart';
 
 class AddProduct extends StatelessWidget {
   AddProduct({super.key});

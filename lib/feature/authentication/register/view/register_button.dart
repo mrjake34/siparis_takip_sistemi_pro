@@ -3,47 +3,58 @@ part of 'register_page.dart';
 final class _RegisterButton extends StatelessWidget {
   const _RegisterButton({
     required this.formKey,
-    required this.state,
+    required this.nameController,
+    required this.emailController,
+    required this.phoneController,
+    required this.shopNameController,
+    required this.passwordController,
+    required this.password2Controller,
   });
 
   final GlobalKey<FormBuilderState> formKey;
-  final RegisterState state;
+  final TextEditingController nameController;
+  final TextEditingController emailController;
+  final TextEditingController phoneController;
+  final TextEditingController shopNameController;
+  final TextEditingController passwordController;
+  final TextEditingController password2Controller;
 
   @override
   Widget build(BuildContext context) {
-    final agreement =
-        Provider.of<MembershipAgreementProvider>(context).getAgreement;
-    return Row(
-      children: [
-        Expanded(
-          flex: 8,
-          child: state.status == Status.isLoading
-              ? const LoadingButton()
-              : MainElevatedIconButton(
-                  onPressed: () {
-                    if (formKey.currentState?.validate() ?? false) {
-                      if (agreement == true) {
-                        context.read<RegisterCubit>().postRegisterModel();
-                      } else {
-                        utils.errorSnackBar(
-                          LocaleKeys.errors_errorUserAgreement.tr(),
-                        );
-                      }
-                    } else {
-                      utils.errorSnackBar(
-                        LocaleKeys.errors_pleaseEnterAllField.tr(),
-                      );
-                    }
-                  },
-                  label: Text(
-                    LocaleKeys.mainText_signup.tr(),
-                  ),
-                  icon: const Icon(
-                    Icons.account_circle,
-                  ),
-                ),
-        ),
-      ],
+    return BlocBuilder<RegisterCubit, RegisterState>(
+      builder: (context, state) {
+        if (state.status == Status.isLoading) return const LoadingButton();
+        return MainElevatedIconButton(
+          onPressed: () {
+            if (formKey.currentState?.validate() ?? false) {
+              if (state.agreementCheck ?? false) {
+                context.read<RegisterCubit>().postRegisterModel(
+                        data: RegisterRequestModel(
+                      name: nameController.text.trim(),
+                      email: emailController.text.trim(),
+                      phone: phoneController.text.trim(),
+                      shopName: shopNameController.text.trim(),
+                      password: passwordController.text.trim(),
+                    ));
+              } else {
+                CustomSnackBar.errorSnackBar(
+                  LocaleKeys.errors_errorUserAgreement.tr(),
+                );
+              }
+            } else {
+              CustomSnackBar.errorSnackBar(
+                LocaleKeys.errors_pleaseEnterAllField.tr(),
+              );
+            }
+          },
+          label: Text(
+            LocaleKeys.mainText_signup.tr(),
+          ),
+          icon: const Icon(
+            Icons.account_circle,
+          ),
+        );
+      },
     );
   }
 }

@@ -83,7 +83,7 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
         state.copyWith(
           status: Status.isFailed,
           networkStatus: response.networkStatus,
-          errorMessage: response.data?.message ?? '',
+          errorMessage: response.data?.error?.message ?? '',
         ),
       );
     }
