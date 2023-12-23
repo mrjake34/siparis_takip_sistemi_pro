@@ -14,7 +14,7 @@ import 'package:siparis_takip_sistemi_pro/product/providers/product_providers.da
 import 'package:siparis_takip_sistemi_pro/product/src/button/edit_page_button_field.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
-import '../bloc/products_bloc.dart';
+import '../../bloc/products_bloc.dart';
 
 class EditProduct extends StatefulWidget {
   final String id;

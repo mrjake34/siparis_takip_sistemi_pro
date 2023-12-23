@@ -9,9 +9,9 @@ import 'package:siparis_takip_sistemi_pro/product/providers/main_providers.dart'
 import 'package:siparis_takip_sistemi_pro/product/src/cards/cards_more_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/cards/list_card.dart';
 
-import '../../../../product/core/constants/colors/colors.dart';
-import '../../../../product/core/constants/enums/enums.dart';
-import '../../../../product/core/constants/navigation/navigation_constants.dart';
+import '../../../../../product/core/constants/colors/colors.dart';
+import '../../../../../product/core/constants/enums/enums.dart';
+import '../../../../../product/core/constants/navigation/navigation_constants.dart';
 
 class ProductListPage extends StatelessWidget {
   const ProductListPage({super.key});

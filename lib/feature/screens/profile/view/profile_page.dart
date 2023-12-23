@@ -3,16 +3,31 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/profile/view/profile_detail.dart';
+import 'package:kartal/kartal.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/provider/theme/theme_cubit.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/localization/localization_manager.dart';
 
 import '../../../../product/core/constants/colors/colors.dart';
-import '../../../../product/core/constants/enums/enums.dart';
 import '../../../../product/providers/main_providers.dart';
+import '../../../../product/theme/light_theme.dart';
+import '../../../../product/theme/theme_service.dart';
+import '../../../../product/utils/getit/product_items.dart';
 import '../../../../product/utils/translations/locale_keys.g.dart';
 import '../../../authentication/login/bloc/login_bloc.dart';
-import '../bloc/user_profile_bloc.dart';
-import 'choose_theme_widget.dart';
+import '../bloc/profile_page_bloc.dart';
+import '../model/user.dart';
+
+part 'profile_detail_field.dart';
+part 'failed_load_data.dart';
+part 'user_profile_card_expiration_data.dart';
+part 'user_profile_card_name.dart';
+part 'user_profile_card_phone.dart';
+part 'user_profile_card_shopname.dart';
+part 'user_profile_card_email.dart';
+part 'page_fields.dart';
+part 'change_language_field.dart';
+part 'choose_theme_field.dart';
 
 @RoutePage()
 final class ProfilePage extends StatefulWidget {
@@ -24,37 +39,26 @@ final class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   @override
-  Widget build(BuildContext context) {
-    context.read<UserProfileBloc>().add(const FetchUserDetailsEvent());
-    final pageSize = MediaQuery.of(context).size;
-    return PageBuilder(pageSize: pageSize);
+  void initState() {
+    context.read<ProfilePageBloc>().add(const FetchUserDetailsEvent());
+    super.initState();
   }
-}
-
-class PageBuilder extends StatelessWidget {
-  const PageBuilder({
-    required this.pageSize,
-    super.key,
-  });
-
-  final Size pageSize;
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
+    return const BaseScaffold(
       body: Column(
         children: [
-          const LinearField(),
           Flexible(
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const UserDetailWidget(),
-                  const ChooseThemeWidget(),
-                  const ChangeLanguageField(),
-                  const ChangeCurrencySymbolField(),
-                  ProfilePageLogoutButton(pageSize: pageSize),
-                  const SizedBox(
+                  _ProfileDetailField(),
+                  _ChooseThemeField(),
+                  _ChangeLanguageField(),
+                  _ChangeCurrencySymbolField(),
+                  _ProfilePageLogoutButton(),
+                  SizedBox(
                     height: 30,
                   ),
                 ],
@@ -67,64 +71,8 @@ class PageBuilder extends StatelessWidget {
   }
 }
 
-class LinearField extends StatelessWidget {
-  const LinearField({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<UserProfileBloc, UserProfileState>(
-      buildWhen: (previous, current) => previous.status != current.status,
-      builder: (context, state) {
-        if (state.status == Status.isLoading) {
-          return LinearProgressIndicator(
-            color: AppColors.instance.alternativeButtonColor,
-          );
-        } else {
-          return Container();
-        }
-      },
-    );
-  }
-}
-
-class ChangeLanguageField extends StatelessWidget {
-  const ChangeLanguageField({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ExpansionTile(
-      trailing: const Icon(Icons.keyboard_double_arrow_down),
-      title: Text(LocaleKeys.profile_changeLanguage.tr()),
-      children: [
-        Row(
-          children: [
-            TextButton(
-              onPressed: () {
-                context.setLocale(const Locale('en', 'US'));
-              },
-              child: Text(LocaleKeys.mainText_english.tr()),
-            ),
-            TextButton(
-              onPressed: () {
-                context.setLocale(const Locale('tr', 'TR'));
-              },
-              child: Text(LocaleKeys.mainText_turkish.tr()),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class ChangeCurrencySymbolField extends StatelessWidget {
-  const ChangeCurrencySymbolField({
-    super.key,
-  });
+final class _ChangeCurrencySymbolField extends StatelessWidget {
+  const _ChangeCurrencySymbolField();
 
   @override
   Widget build(BuildContext context) {
@@ -177,13 +125,8 @@ class ChangeCurrencySymbolField extends StatelessWidget {
   }
 }
 
-class ProfilePageLogoutButton extends StatelessWidget {
-  const ProfilePageLogoutButton({
-    required this.pageSize,
-    super.key,
-  });
-
-  final Size pageSize;
+final class _ProfilePageLogoutButton extends StatelessWidget {
+  const _ProfilePageLogoutButton();
 
   @override
   Widget build(BuildContext context) {
@@ -193,11 +136,11 @@ class ProfilePageLogoutButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           elevation: 5,
           backgroundColor: Colors.red,
-          fixedSize: Size(pageSize.width, 40),
+          fixedSize: Size(context.general.mediaSize.width, 40),
         ),
         onPressed: () {
           context
-            ..read<UserProfileBloc>().add(UserLogoutEvent())
+            ..read<ProfilePageBloc>().add(UserLogoutEvent())
             ..read<LoginBloc>().add(LogoutEvent());
         },
         child: Text(LocaleKeys.mainText_logout.tr()),

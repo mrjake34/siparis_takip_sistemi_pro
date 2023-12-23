@@ -60,4 +60,24 @@ class RegisterCubit extends BaseCubit<RegisterState> {
       safeEmit(state.copyWith(status: Status.isFailed));
     }
   }
+
+  void agreementCheck({bool? value}) {
+    safeEmit(state.copyWith(agreementCheck: value));
+  }
+
+  void passwordVisibility() {
+    safeEmit(
+      state.copyWith(
+        passwordVisibility: !(state.passwordVisibility ?? true),
+      ),
+    );
+  }
+
+  void passwordAgainVisibility() {
+    safeEmit(
+      state.copyWith(
+        passwordAgainVisibility: !(state.passwordAgainVisibility ?? true),
+      ),
+    );
+  }
 }

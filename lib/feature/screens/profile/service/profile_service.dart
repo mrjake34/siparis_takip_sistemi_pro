@@ -50,7 +50,7 @@ final class ProfileService extends IProfileService {
 
   @override
   Future<BaseResponseModel<T>> updateProfile<T extends IBaseNetworkModel<T>>({
-    UpdateModel<ProfileEnum>? model,
+    UpdateModel? model,
     String? id,
     String? cookie,
   }) async {
