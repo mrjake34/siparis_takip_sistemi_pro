@@ -45,7 +45,7 @@ Bu projeyi çalıştırmak için aşağıdaki adımları izleyin:
 - Projeyi GitHub'dan klonlayın veya indirin:
 
 ```bash
-git clone https://github.com/mrjake34/siparis-takip-sistemi.git
+git clone https://github.com/mrjake34/siparis_takip_sistemi_pro.git
 ```
 
 ## İletişim
