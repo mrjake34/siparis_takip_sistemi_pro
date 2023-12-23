@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:equatable/equatable.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.dart';
 
@@ -13,58 +12,70 @@ part 'products_event.dart';
 part 'products_state.dart';
 
 final class ProductsBloc extends BaseBloc<ProductsEvent, ProductsState> {
-  ProductsBloc() : super(const ProductsState()) {
-    final productService = ProductService();
+  ProductsBloc({required this.productService}) : super(const ProductsState()) {
     on<ProductListEvent>((event, emit) async {
-      emit(state.copyWith(status: Status.isLoading));
-      final response = await productService.getProducts<ProductList>(
-        cookie: event.cookie,
-      );
-      if (response.data != null) {
-        emit(
-          state.copyWith(
-            status: Status.isDone,
-            productList: response.data?.products,
-          ),
-        );
-      } else {
-        emit(state.copyWith(status: Status.isFailed));
-      }
+      await _fetchProductList(event);
     });
     on<AddProductEvent>((event, emit) async {
-      emit(state.copyWith(status: Status.isLoading));
-      final response = await productService.addProduct<ProductList>(
-        product: event.product,
-        cookie: event.cookie,
-      );
-      if (response.statusCode == HttpStatus.ok) {
-        emit(state.copyWith(status: Status.isDone));
-      } else {
-        emit(state.copyWith(status: Status.isFailed));
-      }
+      await _addProductList(event);
     });
     on<EditProductEvent>((event, emit) async {
-      emit(state.copyWith(status: Status.isLoading));
-      if (event.data == null || event.id == null) {
-        emit(state.copyWith(status: Status.isFailed));
-      } else {
-        final response = await productService.updateProduct<Product>(
-          model: Product(),
-          data: UpdateModel(
-            propName: event.data?.propName,
-            value: event.data?.value,
-          ),
-          id: event.id,
-        );
-        if (response.statusCode == HttpStatus.ok) {
-          emit(state.copyWith(status: Status.isDone));
-        } else {
-          emit(state.copyWith(status: Status.isFailed));
-        }
-      }
+      await _editProductList(event);
     });
     on<EditProductNameEditButtonEvent>((event, emit) async {
       safeEmit(state.copyWith(isEditing: !(state.isEditing ?? false)));
     });
+  }
+  late final ProductService productService;
+
+  Future<void> _editProductList(EditProductEvent event) async {
+    safeEmit(state.copyWith(status: Status.isLoading));
+    if (event.data == null || event.id == null) {
+      safeEmit(state.copyWith(status: Status.isFailed));
+    } else {
+      final response = await productService.updateProduct<Product>(
+        model: Product(),
+        data: UpdateModel(
+          propName: event.data?.propName,
+          value: event.data?.value,
+        ),
+        id: event.id,
+      );
+      if (response.statusCode == HttpStatus.ok) {
+        safeEmit(state.copyWith(status: Status.isDone));
+      } else {
+        safeEmit(state.copyWith(status: Status.isFailed));
+      }
+    }
+  }
+
+  Future<void> _addProductList(AddProductEvent event) async {
+    safeEmit(state.copyWith(status: Status.isLoading));
+    final response = await productService.addProduct<ProductList>(
+      product: event.product,
+      cookie: event.cookie,
+    );
+    if (response.statusCode == HttpStatus.ok) {
+      safeEmit(state.copyWith(status: Status.isDone));
+    } else {
+      safeEmit(state.copyWith(status: Status.isFailed));
+    }
+  }
+
+  Future<void> _fetchProductList(ProductListEvent event) async {
+    safeEmit(state.copyWith(status: Status.isLoading));
+    final response = await productService.getProducts<ProductList>(
+      cookie: event.cookie,
+    );
+    if (response.data != null) {
+      safeEmit(
+        state.copyWith(
+          status: Status.isDone,
+          productList: response.data?.products,
+        ),
+      );
+    } else {
+      safeEmit(state.copyWith(status: Status.isFailed));
+    }
   }
 }

@@ -10,7 +10,7 @@ import '../model/order.dart';
 import 'order_service_interface.dart';
 import 'package:vexana/vexana.dart';
 
-final class OrderService extends IOrderService with BaseModelView {
+final class OrderService extends IOrderService {
   OrderService();
   @override
   Future<dynamic> postOrder(

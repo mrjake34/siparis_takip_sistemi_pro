@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import '../../utils/translations/locale_keys.g.dart';
 
 class EditPageButtonField extends StatelessWidget {
-  const EditPageButtonField(
-      {required this.editingStatus,
-      required this.isEditingFunction,
-      required this.saveFunction,
-      required this.cancelFunction,
-      super.key});
+  const EditPageButtonField({
+    required this.editingStatus,
+    required this.isEditingFunction,
+    required this.saveFunction,
+    required this.cancelFunction,
+    super.key,
+  });
   final bool editingStatus;
   final void Function() isEditingFunction;
   final void Function() saveFunction;
