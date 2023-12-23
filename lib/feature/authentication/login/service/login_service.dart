@@ -54,7 +54,8 @@ final class LoginService implements ILoginService {
       }
     } else {
       return BaseResponseModel<T>(
-        networkStatus: NetworkStatus.getStatus(response.data?.message ?? ''),
+        networkStatus:
+            NetworkStatus.getStatus(response.data!.error?.message ?? ''),
         statusCode: response.statusCode,
       );
     }

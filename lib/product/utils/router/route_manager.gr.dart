@@ -8,39 +8,39 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i7;
-import 'package:flutter/material.dart' as _i8;
-import 'package:siparis_takip_sistemi_pro/feature/authentication/courier_login/view/courier_login.dart'
+import 'package:auto_route/auto_route.dart' as _i8;
+import 'package:flutter/material.dart' as _i10;
+import 'package:siparis_takip_sistemi_pro/feature/authentication/courier_login/view/courier_login_page.dart'
     as _i1;
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/view/login_page.dart'
     as _i3;
 import 'package:siparis_takip_sistemi_pro/feature/authentication/password_reset/view/passport_reset.dart'
     as _i4;
-import 'package:siparis_takip_sistemi_pro/feature/authentication/register/view/signup_page.dart'
-    as _i5;
+import 'package:siparis_takip_sistemi_pro/feature/authentication/register/view/register_page.dart'
+    as _i6;
 import 'package:siparis_takip_sistemi_pro/feature/screens/home_page/view/home_page_view.dart'
     as _i2;
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart'
     as _i9;
+import 'package:siparis_takip_sistemi_pro/feature/screens/profile/view/profile_page.dart'
+    as _i5;
 import 'package:siparis_takip_sistemi_pro/feature/screens/splash/view/splash_screen.dart'
-    as _i6;
+    as _i7;
 
-abstract class $RouteManager extends _i7.RootStackRouter {
+abstract class $RouteManager extends _i8.RootStackRouter {
   $RouteManager({super.navigatorKey});
 
   @override
-  final Map<String, _i7.PageFactory> pagesMap = {
+  final Map<String, _i8.PageFactory> pagesMap = {
     CourierLoginRoute.name: (routeData) {
-      final args = routeData.argsAs<CourierLoginRouteArgs>(
-          orElse: () => const CourierLoginRouteArgs());
-      return _i7.AutoRoutePage<dynamic>(
+      return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i1.CourierLoginPage(key: args.key),
+        child: const _i1.CourierLoginPage(),
       );
     },
     HomeRoute.name: (routeData) {
       final args = routeData.argsAs<HomeRouteArgs>();
-      return _i7.AutoRoutePage<dynamic>(
+      return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i2.HomePage(
           userModel: args.userModel,
@@ -49,31 +49,35 @@ abstract class $RouteManager extends _i7.RootStackRouter {
       );
     },
     LoginRoute.name: (routeData) {
-      final args = routeData.argsAs<LoginRouteArgs>(
-          orElse: () => const LoginRouteArgs());
-      return _i7.AutoRoutePage<dynamic>(
+      return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i3.LoginPage(key: args.key),
+        child: const _i3.LoginPage(),
       );
     },
     PassReset.name: (routeData) {
       final args =
           routeData.argsAs<PassResetArgs>(orElse: () => const PassResetArgs());
-      return _i7.AutoRoutePage<dynamic>(
+      return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i4.PassReset(key: args.key),
       );
     },
-    SignUpWidget.name: (routeData) {
-      return _i7.AutoRoutePage<dynamic>(
+    ProfileRoute.name: (routeData) {
+      return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i5.SignUpWidget(),
+        child: const _i5.ProfilePage(),
+      );
+    },
+    RegisterRoute.name: (routeData) {
+      return _i8.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i6.RegisterPage(),
       );
     },
     SplashRoute.name: (routeData) {
-      return _i7.AutoRoutePage<dynamic>(
+      return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i6.SplashScreen(),
+        child: const _i7.SplashScreen(),
       );
     },
   };
@@ -81,40 +85,25 @@ abstract class $RouteManager extends _i7.RootStackRouter {
 
 /// generated route for
 /// [_i1.CourierLoginPage]
-class CourierLoginRoute extends _i7.PageRouteInfo<CourierLoginRouteArgs> {
-  CourierLoginRoute({
-    _i8.Key? key,
-    List<_i7.PageRouteInfo>? children,
-  }) : super(
+class CourierLoginRoute extends _i8.PageRouteInfo<void> {
+  const CourierLoginRoute({List<_i8.PageRouteInfo>? children})
+      : super(
           CourierLoginRoute.name,
-          args: CourierLoginRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'CourierLoginRoute';
 
-  static const _i7.PageInfo<CourierLoginRouteArgs> page =
-      _i7.PageInfo<CourierLoginRouteArgs>(name);
-}
-
-class CourierLoginRouteArgs {
-  const CourierLoginRouteArgs({this.key});
-
-  final _i8.Key? key;
-
-  @override
-  String toString() {
-    return 'CourierLoginRouteArgs{key: $key}';
-  }
+  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i2.HomePage]
-class HomeRoute extends _i7.PageRouteInfo<HomeRouteArgs> {
+class HomeRoute extends _i8.PageRouteInfo<HomeRouteArgs> {
   HomeRoute({
     required _i9.UserResponseModel userModel,
-    _i8.Key? key,
-    List<_i7.PageRouteInfo>? children,
+    _i10.Key? key,
+    List<_i8.PageRouteInfo>? children,
   }) : super(
           HomeRoute.name,
           args: HomeRouteArgs(
@@ -126,8 +115,8 @@ class HomeRoute extends _i7.PageRouteInfo<HomeRouteArgs> {
 
   static const String name = 'HomeRoute';
 
-  static const _i7.PageInfo<HomeRouteArgs> page =
-      _i7.PageInfo<HomeRouteArgs>(name);
+  static const _i8.PageInfo<HomeRouteArgs> page =
+      _i8.PageInfo<HomeRouteArgs>(name);
 }
 
 class HomeRouteArgs {
@@ -138,7 +127,7 @@ class HomeRouteArgs {
 
   final _i9.UserResponseModel userModel;
 
-  final _i8.Key? key;
+  final _i10.Key? key;
 
   @override
   String toString() {
@@ -148,39 +137,24 @@ class HomeRouteArgs {
 
 /// generated route for
 /// [_i3.LoginPage]
-class LoginRoute extends _i7.PageRouteInfo<LoginRouteArgs> {
-  LoginRoute({
-    _i8.Key? key,
-    List<_i7.PageRouteInfo>? children,
-  }) : super(
+class LoginRoute extends _i8.PageRouteInfo<void> {
+  const LoginRoute({List<_i8.PageRouteInfo>? children})
+      : super(
           LoginRoute.name,
-          args: LoginRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'LoginRoute';
 
-  static const _i7.PageInfo<LoginRouteArgs> page =
-      _i7.PageInfo<LoginRouteArgs>(name);
-}
-
-class LoginRouteArgs {
-  const LoginRouteArgs({this.key});
-
-  final _i8.Key? key;
-
-  @override
-  String toString() {
-    return 'LoginRouteArgs{key: $key}';
-  }
+  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i4.PassReset]
-class PassReset extends _i7.PageRouteInfo<PassResetArgs> {
+class PassReset extends _i8.PageRouteInfo<PassResetArgs> {
   PassReset({
-    _i8.Key? key,
-    List<_i7.PageRouteInfo>? children,
+    _i10.Key? key,
+    List<_i8.PageRouteInfo>? children,
   }) : super(
           PassReset.name,
           args: PassResetArgs(key: key),
@@ -189,14 +163,14 @@ class PassReset extends _i7.PageRouteInfo<PassResetArgs> {
 
   static const String name = 'PassReset';
 
-  static const _i7.PageInfo<PassResetArgs> page =
-      _i7.PageInfo<PassResetArgs>(name);
+  static const _i8.PageInfo<PassResetArgs> page =
+      _i8.PageInfo<PassResetArgs>(name);
 }
 
 class PassResetArgs {
   const PassResetArgs({this.key});
 
-  final _i8.Key? key;
+  final _i10.Key? key;
 
   @override
   String toString() {
@@ -205,23 +179,37 @@ class PassResetArgs {
 }
 
 /// generated route for
-/// [_i5.SignUpWidget]
-class SignUpWidget extends _i7.PageRouteInfo<void> {
-  const SignUpWidget({List<_i7.PageRouteInfo>? children})
+/// [_i5.ProfilePage]
+class ProfileRoute extends _i8.PageRouteInfo<void> {
+  const ProfileRoute({List<_i8.PageRouteInfo>? children})
       : super(
-          SignUpWidget.name,
+          ProfileRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'SignUpWidget';
+  static const String name = 'ProfileRoute';
 
-  static const _i7.PageInfo<void> page = _i7.PageInfo<void>(name);
+  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i6.SplashScreen]
-class SplashRoute extends _i7.PageRouteInfo<void> {
-  const SplashRoute({List<_i7.PageRouteInfo>? children})
+/// [_i6.RegisterPage]
+class RegisterRoute extends _i8.PageRouteInfo<void> {
+  const RegisterRoute({List<_i8.PageRouteInfo>? children})
+      : super(
+          RegisterRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'RegisterRoute';
+
+  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i7.SplashScreen]
+class SplashRoute extends _i8.PageRouteInfo<void> {
+  const SplashRoute({List<_i8.PageRouteInfo>? children})
       : super(
           SplashRoute.name,
           initialChildren: children,
@@ -229,5 +217,5 @@ class SplashRoute extends _i7.PageRouteInfo<void> {
 
   static const String name = 'SplashRoute';
 
-  static const _i7.PageInfo<void> page = _i7.PageInfo<void>(name);
+  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
 }

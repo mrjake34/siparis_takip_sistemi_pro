@@ -1,4 +1,4 @@
-part of 'signup_page.dart';
+part of 'register_page.dart';
 
 final class _ShopNameFormField extends StatelessWidget {
   const _ShopNameFormField({

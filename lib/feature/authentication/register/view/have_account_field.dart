@@ -1,7 +1,7 @@
-part of 'signup_page.dart';
+part of 'register_page.dart';
 
-final class _HaveAccountField extends StatelessWidget with BaseModelView {
-  _HaveAccountField();
+final class _HaveAccountField extends StatelessWidget {
+  const _HaveAccountField();
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/profile/view/user_details_widget.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/profile/view/profile_detail.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 
 import '../../../../product/core/constants/colors/colors.dart';
@@ -13,14 +14,15 @@ import '../../../authentication/login/bloc/login_bloc.dart';
 import '../bloc/user_profile_bloc.dart';
 import 'choose_theme_widget.dart';
 
-class UserProfile extends StatefulWidget {
-  const UserProfile({super.key});
+@RoutePage()
+final class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
 
   @override
-  State<UserProfile> createState() => _UserProfileState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _UserProfileState extends State<UserProfile> {
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     context.read<UserProfileBloc>().add(const FetchUserDetailsEvent());

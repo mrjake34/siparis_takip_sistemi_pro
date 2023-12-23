@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:siparis_takip_sistemi_pro/feature/authentication/courier_login/service/courier_login_service.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_request_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_response_model.dart';
-import 'package:siparis_takip_sistemi_pro/feature/authentication/login/service/login_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_manager.dart';
 
@@ -14,12 +14,12 @@ void main() {
     ProductItems.networkService.start();
   });
 
-  test('Login', () async {
-    final loginService = LoginService();
-    final response = await loginService.login<LoginResponseModel>(
-      loginModel: LoginRequestModel(
+  test('Courier Login', () async {
+    final courierLoginService = CourierLoginService();
+    final response = await courierLoginService.login<LoginResponseModel>(
+      data: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
-        password: 'alkan1222',
+        password: 'alkan1234',
       ),
       model: LoginResponseModel(),
     );

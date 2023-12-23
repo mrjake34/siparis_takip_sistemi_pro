@@ -17,6 +17,22 @@ final class RouteManager extends $RouteManager {
           page: HomeRoute.page,
           path: RoutePath.homeScreen.path,
         ),
+        AdaptiveRoute(
+          page: LoginRoute.page,
+          path: RoutePath.loginScreen.path,
+        ),
+        AdaptiveRoute(
+          page: RegisterRoute.page,
+          path: RoutePath.registerScreen.path,
+        ),
+        AdaptiveRoute(
+          page: ProfileRoute.page,
+          path: RoutePath.userProfileScreen.path,
+        ),
+        AdaptiveRoute(
+          page: CourierLoginRoute.page,
+          path: RoutePath.courierLoginScreen.path,
+        ),
       ];
 }
 
@@ -36,6 +52,9 @@ enum RoutePath {
 
   /// Route manager enum add home screen
   homeScreen('/home-screen'),
+
+  /// Courier Login Page
+  courierLoginScreen('/courier-login-screen'),
   ;
 
   const RoutePath(this.path);

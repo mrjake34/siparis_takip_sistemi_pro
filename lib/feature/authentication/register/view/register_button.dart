@@ -1,19 +1,18 @@
-part of 'signup_page.dart';
+part of 'register_page.dart';
 
 final class _RegisterButton extends StatelessWidget {
   const _RegisterButton({
     required this.formKey,
-    required this.utils,
     required this.state,
   });
 
   final GlobalKey<FormBuilderState> formKey;
-  final UtilsService utils;
   final RegisterState state;
 
   @override
   Widget build(BuildContext context) {
-    final agreement = Provider.of<MembershipAgreementProvider>(context).getAgreement;
+    final agreement =
+        Provider.of<MembershipAgreementProvider>(context).getAgreement;
     return Row(
       children: [
         Expanded(

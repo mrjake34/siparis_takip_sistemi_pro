@@ -1,4 +1,4 @@
-part of 'signup_page.dart';
+part of 'register_page.dart';
 
 final class _PasswordTwoFormField extends StatelessWidget {
   const _PasswordTwoFormField({
@@ -9,7 +9,8 @@ final class _PasswordTwoFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final visibility = Provider.of<ChangePasswordVisibilityTwoProvider>(context).getVisibility;
+    final visibility =
+        Provider.of<ChangePasswordVisibilityTwoProvider>(context).getVisibility;
     return TextFormField(
       controller: password2Controller,
       textInputAction: TextInputAction.done,
@@ -26,9 +27,13 @@ final class _PasswordTwoFormField extends StatelessWidget {
           ),
           onPressed: () {
             if (visibility == true) {
-              context.read<ChangePasswordVisibilityTwoProvider>().setVisibility = false;
+              context
+                  .read<ChangePasswordVisibilityTwoProvider>()
+                  .setVisibility = false;
             } else {
-              context.read<ChangePasswordVisibilityTwoProvider>().setVisibility = true;
+              context
+                  .read<ChangePasswordVisibilityTwoProvider>()
+                  .setVisibility = true;
             }
           },
         ),
