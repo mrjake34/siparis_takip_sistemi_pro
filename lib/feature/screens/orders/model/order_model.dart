@@ -6,75 +6,53 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../../product/core/base/interface/base_network_model.dart';
 import '../../../../product/core/constants/colors/colors.dart';
 import '../../../../product/core/constants/icons/icons.dart';
 import '../../../../product/core/constants/strings/appstrings.dart';
 import '../../../../product/utils/translations/locale_keys.g.dart';
+import 'order_product_model.dart';
 
-part 'order.g.dart';
-
-@JsonSerializable()
-final class OrderList {
-  OrderList({
-    required this.message,
-    required this.products,
-  });
-
-  factory OrderList.fromJson(Map<String, dynamic> json) =>
-      _$OrderListFromJson(json);
-  final String message;
-  final List<OrderListProduct> products;
-
-  OrderList copyWith({
-    String? message,
-    List<OrderListProduct>? products,
-  }) =>
-      OrderList(
-        message: message ?? this.message,
-        products: products ?? this.products,
-      );
-
-  Map<String, dynamic> toJson() => _$OrderListToJson(this);
-}
+part 'order_model.g.dart';
 
 @JsonSerializable()
-class OrderListProduct {
-  OrderListProduct({
-    required this.id,
-    required this.shopName,
-    required this.customerId,
-    required this.products,
-    required this.orderNote,
-    required this.totalPrice,
-    required this.orderStatus,
-    required this.createdAt,
-    required this.updatedAt,
+final class OrderModel extends IBaseNetworkModel<OrderModel> {
+  OrderModel({
+    this.id,
+    this.shopName,
+    this.customerId,
+    this.products,
+    this.orderNote,
+    this.totalPrice,
+    this.orderStatus,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  factory OrderListProduct.fromJson(Map<String, dynamic> json) =>
-      _$OrderListProductFromJson(json);
-  final String id;
-  final String shopName;
-  final String customerId;
-  final List<ProductProduct> products;
-  final String orderNote;
-  final double totalPrice;
-  final String orderStatus;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  factory OrderModel.fromJson(Map<String, dynamic> json) =>
+      _$OrderModelFromJson(json);
+  final String? id;
+  final String? shopName;
+  final String? customerId;
+  final List<OrderProductModel>? products;
+  final String? orderNote;
+  final double? totalPrice;
+  final String? orderStatus;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
-  OrderListProduct copyWith({
+  OrderModel copyWith({
     String? id,
     String? shopName,
     String? customerId,
-    List<ProductProduct>? products,
+    List<OrderProductModel>? products,
     String? orderNote,
     double? totalPrice,
     String? orderStatus,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) =>
-      OrderListProduct(
+      OrderModel(
         id: id ?? this.id,
         shopName: shopName ?? this.shopName,
         customerId: customerId ?? this.customerId,
@@ -86,7 +64,8 @@ class OrderListProduct {
         updatedAt: updatedAt ?? this.updatedAt,
       );
 
-  Map<String, dynamic> toJson() => _$OrderListProductToJson(this);
+  @override
+  Map<String, dynamic> toJson() => _$OrderModelToJson(this);
 
   Color getColorFromOrderStatus({String? orderStatus}) => switch (orderStatus) {
         AppStrings.inLineOrderString => AppColors.instance.orderPendingColor,
@@ -114,36 +93,22 @@ class OrderListProduct {
         AppStrings.onTheWayOrderString => LocaleKeys.order_isDone.tr(),
         _ => LocaleKeys.order_inLine.tr(),
       };
-}
 
-@JsonSerializable()
-class ProductProduct {
-  ProductProduct({
-    required this.productId,
-    required this.quantity,
-    required this.id,
-    this.productNote,
-  });
+  @override
+  OrderModel fromJson(Map<String, dynamic> json) {
+    return OrderModel.fromJson(json);
+  }
 
-  factory ProductProduct.fromJson(Map<String, dynamic> json) =>
-      _$ProductProductFromJson(json);
-  final String productId;
-  final String quantity;
-  final String? productNote;
-  final String id;
-
-  ProductProduct copyWith({
-    String? productId,
-    String? quantity,
-    String? productNote,
-    String? id,
-  }) =>
-      ProductProduct(
-        productId: productId ?? this.productId,
-        quantity: quantity ?? this.quantity,
-        productNote: productNote ?? this.productNote,
-        id: id ?? this.id,
-      );
-
-  Map<String, dynamic> toJson() => _$ProductProductToJson(this);
+  @override
+  List<Object?> get props => [
+        id,
+        shopName,
+        customerId,
+        products,
+        orderNote,
+        totalPrice,
+        orderStatus,
+        createdAt,
+        updatedAt,
+      ];
 }

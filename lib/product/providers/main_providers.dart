@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/icons/icons.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/model/order.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/orders/model/order_model.dart';
 
 class ChangeCurrencyPriceSymbol with ChangeNotifier {
   String currencySymbol = '₺';

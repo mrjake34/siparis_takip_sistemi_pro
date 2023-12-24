@@ -9,8 +9,8 @@ import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart
 import 'package:siparis_takip_sistemi_pro/product/utils/navigation/navigation_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/bottomsheets/main_bottom_sheets.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/customer/bloc/customer_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/model/order.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order/orders_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/orders/model/order_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/views/order_lists/bottomsheet_widget/bottomsheet_widget.dart';
 
 import '../../../../../product/src/cards/list_card.dart';

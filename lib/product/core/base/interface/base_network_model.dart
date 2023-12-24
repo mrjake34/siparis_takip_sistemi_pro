@@ -1,6 +1,6 @@
-import 'package:siparis_takip_sistemi_pro/product/core/base/models/network_error_model.dart';
+import 'package:equatable/equatable.dart';
 
-abstract class IBaseNetworkModel<T> {
+abstract class IBaseNetworkModel<T> extends Equatable {
   Map<String, dynamic>? toJson();
   T fromJson(Map<String, dynamic> json);
 }

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/courier/bloc/courier_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/customer/bloc/customer_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order/orders_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/bloc/products_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart';

@@ -104,7 +104,7 @@ class AddOrderAddCustomerEvent extends OrdersEvent {
 class ChooseAnOrder extends OrdersEvent {
   const ChooseAnOrder({this.order});
 
-  final OrderListProduct? order;
+  final OrderModel? order;
   @override
   List<Object?> get props => [order];
 }

@@ -6,7 +6,7 @@ import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/product/providers/main_providers.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/customer/bloc/customer_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order/orders_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/bloc/products_bloc.dart';
 
 // ignore: must_be_immutable
@@ -17,7 +17,7 @@ class OrderDetails extends StatefulWidget {
   State<OrderDetails> createState() => _OrderDetailsState();
 }
 
-class _OrderDetailsState extends State<OrderDetails> with BaseModelView {
+class _OrderDetailsState extends State<OrderDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

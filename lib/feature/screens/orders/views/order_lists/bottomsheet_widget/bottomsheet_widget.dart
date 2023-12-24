@@ -6,8 +6,8 @@ import '../../../../../../product/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/navigation/navigation_constants.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/navigation/navigation_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/model/order.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order/orders_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/orders/model/order_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/service/order_service.dart';
 
 // ignore: must_be_immutable

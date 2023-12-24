@@ -12,7 +12,7 @@ import 'package:siparis_takip_sistemi_pro/product/providers/main_providers.dart'
 import 'package:siparis_takip_sistemi_pro/product/providers/search_providers.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/cards/list_card.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/text/autosize_text.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order/orders_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/bloc/products_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product.dart';
 

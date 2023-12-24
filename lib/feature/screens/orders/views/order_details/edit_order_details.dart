@@ -6,7 +6,7 @@ import '../../../../../product/core/base/models/base_model_view.dart';
 import '../../../../../product/core/constants/size/sizes.dart';
 import '../../../../../product/utils/translations/locale_keys.g.dart';
 import '../../../customer/bloc/customer_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order/orders_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/bloc/products_bloc.dart';
 
 class EditOrderPage extends StatefulWidget {

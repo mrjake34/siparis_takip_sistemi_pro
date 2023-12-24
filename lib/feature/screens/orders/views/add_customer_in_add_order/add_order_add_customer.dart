@@ -8,8 +8,8 @@ import '../../../../../product/providers/search_providers.dart';
 import '../../../../../product/src/cards/list_card.dart';
 import '../../../../../product/src/text/autosize_text.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/customer/bloc/customer_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/views/add_order.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order/orders_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/orders/views/add_order/add_order.dart';
 
 class AddOrderAddCustomer extends StatefulWidget {
   const AddOrderAddCustomer({super.key});

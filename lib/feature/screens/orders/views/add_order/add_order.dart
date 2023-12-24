@@ -7,24 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order/orders_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/views/add_customer_in_add_order/add_order_add_customer.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/views/add_order_product_list/add_order_product_list.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/colors/colors.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/navigation/navigation_constants.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/styles/text_styles.dart';
-import 'package:siparis_takip_sistemi_pro/product/providers/main_providers.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/bottomsheets/main_bottom_sheets.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button_without_color.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/navigation/navigation_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
-import '../../../../product/utils/router/route_manager.dart';
+import '../../../../../product/utils/router/route_manager.dart';
 
 class AddOrder extends StatefulWidget {
   const AddOrder({super.key});

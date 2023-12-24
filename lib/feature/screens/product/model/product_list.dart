@@ -21,4 +21,9 @@ final class ProductList extends IBaseNetworkModel<ProductList> {
   @override
   ProductList fromJson(Map<String, dynamic> json) =>
       _$ProductListFromJson(json);
+
+  @override
+  List<Object?> get props => [
+        products,
+      ];
 }

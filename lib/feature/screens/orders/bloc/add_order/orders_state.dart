@@ -14,16 +14,16 @@ class OrdersState extends Equatable {
     this.orderList,
     this.order,
   });
-  final OrderList? orderList;
+  final List<OrderModel>? orderList;
   final double? orderCartTotalPrice;
   final List<Product>? productList;
-  final OrderListProduct? order;
+  final OrderModel? order;
   final Customer? customer;
   final Status? status;
-  final List<OrderListProduct>? pendingOrders;
-  final List<OrderListProduct>? processOrders;
-  final List<OrderListProduct>? onTheWayOrders;
-  final List<OrderListProduct>? doneOrders;
+  final List<OrderModel>? pendingOrders;
+  final List<OrderModel>? processOrders;
+  final List<OrderModel>? onTheWayOrders;
+  final List<OrderModel>? doneOrders;
 
   @override
   List<Object?> get props => [
@@ -40,15 +40,15 @@ class OrdersState extends Equatable {
       ];
 
   OrdersState copyWith({
-    OrderList? orderList,
+    List<OrderModel>? orderList,
     double? orderCartTotalPrice,
-    OrderListProduct? order,
+    OrderModel? order,
     Customer? customer,
     Status? status,
-    List<OrderListProduct>? pendingOrders,
-    List<OrderListProduct>? processOrders,
-    List<OrderListProduct>? onTheWayOrders,
-    List<OrderListProduct>? doneOrders,
+    List<OrderModel>? pendingOrders,
+    List<OrderModel>? processOrders,
+    List<OrderModel>? onTheWayOrders,
+    List<OrderModel>? doneOrders,
     List<Product>? productList,
   }) {
     return OrdersState(
