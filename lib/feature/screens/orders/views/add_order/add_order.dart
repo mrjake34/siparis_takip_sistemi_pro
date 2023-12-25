@@ -16,12 +16,16 @@ import 'package:siparis_takip_sistemi_pro/product/core/constants/styles/text_sty
 import 'package:siparis_takip_sistemi_pro/product/src/bottomsheets/main_bottom_sheets.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button_without_color.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
+import 'package:siparis_takip_sistemi_pro/product/src/text/failed_load_data_text.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
 import '../../../../../product/utils/router/route_manager.dart';
 
-class AddOrder extends StatefulWidget {
+/// This page is used to add orders.
+/// not finished yet.
+/// when editing is finished, it will be used.
+@RoutePage()
+final class AddOrder extends StatefulWidget {
   const AddOrder({super.key});
 
   @override
@@ -86,7 +90,7 @@ final class _AddOrderState extends State<AddOrder> {
             const SizedBox(
               height: 10,
             ),
-            ProductCard(),
+            const ProductCard(),
             const SizedBox(
               height: 20,
             ),
@@ -175,8 +179,10 @@ class AddProductHeader extends StatelessWidget {
         Expanded(
           child: IconButton(
             onPressed: () {
-              MainBottomSheets()
-                  .openBottomSheet(context, AddOrderProductList());
+              CustomBottomSheets.openBottomSheet<void>(
+                context,
+                const AddOrderProductList(),
+              );
             },
             icon: Icon(
               Icons.add_circle_outline,
@@ -189,24 +195,24 @@ class AddProductHeader extends StatelessWidget {
   }
 }
 
-class ProductCard extends StatelessWidget {
+final class ProductCard extends StatelessWidget {
   const ProductCard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OrdersBloc, OrdersState>(
-      buildWhen: (previous, current) =>
-          previous.productList != current.productList,
-      builder: (context, state) {
-        return Card(
-          color: Theme.of(context).colorScheme.surface,
-          child: ListView.builder(
+    return Card(
+      color: Theme.of(context).colorScheme.surface,
+      child: BlocBuilder<OrdersBloc, OrdersState>(
+        builder: (context, state) {
+          if (state.productList == null) return const FailedLoadDataText();
+          return ListView.builder(
             key: UniqueKey(),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: state.productList?.length ?? 0,
+            itemCount: state.productList?.length,
             itemBuilder: (BuildContext context, int index) {
               final product = state.productList?[index];
+              if (product == null) return const SizedBox();
               return Column(
                 children: [
                   Row(
@@ -214,9 +220,9 @@ class ProductCard extends StatelessWidget {
                       Expanded(
                         flex: 2,
                         child: ListTile(
-                          title: Text(product?.name ?? ''),
+                          title: Text(product.name ?? ''),
                           subtitle: Text(
-                            product?.price ?? '',
+                            product.price?.toStringAsFixed(2) ?? '0.00',
                           ),
                         ),
                       ),
@@ -228,22 +234,10 @@ class ProductCard extends StatelessWidget {
                       ),
                       Expanded(
                         child: IconButton(
-                          onPressed: () {
-                            try {
-                              context.read<OrdersBloc>().add(
-                                    OrderCartRemoveProductEvent(
-                                      index: index,
-                                    ),
-                                  );
-                            } finally {
-                              CustomSnackBar.showSnackBar(
-                                LocaleKeys.succes_productRemovedFromList.tr(),
-                              );
-                            }
-                          },
-                          icon: Icon(
+                          onPressed: () {},
+                          icon: const Icon(
                             Icons.delete,
-                            color: AppColors.instance.removeColor,
+                            color: AppColors.removeColor,
                           ),
                         ),
                       ),
@@ -256,9 +250,9 @@ class ProductCard extends StatelessWidget {
                 ],
               );
             },
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
@@ -450,7 +444,7 @@ class CustomerField extends StatelessWidget {
             Expanded(
               child: IconButton(
                 onPressed: () {
-                  MainBottomSheets().openBottomSheetNoScrollable(
+                  CustomBottomSheets.openBottomSheetNoScrollable<void>(
                     context,
                     const AddOrderAddCustomer(),
                   );

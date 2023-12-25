@@ -8,16 +8,13 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/courier/bloc/courier_b
 import 'package:siparis_takip_sistemi_pro/feature/screens/customer/bloc/customer_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order/orders_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/bloc/products_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/navigation/navigation_constants.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/text/autosize_number.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/text/autosize_text.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/navigation/navigation_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
 @RoutePage()
@@ -93,7 +90,7 @@ class _DoneOrdersCountField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.instance.orderIsDoneColor,
+      color: AppColors.orderIsDoneColor,
       child: ListTile(
         style: ListTileStyle.list,
         title: CustomAutoSizeText(
@@ -108,8 +105,10 @@ class _DoneOrdersCountField extends StatelessWidget {
           },
           child: BlocBuilder<OrdersBloc, OrdersState>(
             builder: (context, state) {
+              final doneOrders = state.doneOrders;
+              if (doneOrders == null) return const SizedBox();
               return CustomAutoSizeNumber(
-                data: '${state.doneOrders?.length ?? 0}',
+                data: '${doneOrders.length}',
                 textColor: Colors.white,
               );
             },
@@ -126,7 +125,7 @@ class _OnTheWayOrdersCountField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.instance.orderOnTheWayColor,
+      color: AppColors.orderOnTheWayColor,
       child: ListTile(
         style: ListTileStyle.list,
         title: CustomAutoSizeText(
@@ -141,8 +140,10 @@ class _OnTheWayOrdersCountField extends StatelessWidget {
           },
           child: BlocBuilder<OrdersBloc, OrdersState>(
             builder: (context, state) {
+              final onTheWayOrders = state.onTheWayOrders;
+              if (onTheWayOrders == null) return const SizedBox();
               return CustomAutoSizeNumber(
-                data: '${state.onTheWayOrders?.length ?? 0}',
+                data: '${onTheWayOrders.length}',
                 textColor: Colors.white,
               );
             },
@@ -159,7 +160,7 @@ class _ProcessOrdersCountField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.instance.orderInProcessColor,
+      color: AppColors.orderInProcessColor,
       child: ListTile(
         style: ListTileStyle.list,
         title: CustomAutoSizeText(
@@ -192,7 +193,7 @@ class _PendingOrdersCountField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.instance.orderPendingColor,
+      color: AppColors.orderPendingColor,
       child: ListTile(
         style: ListTileStyle.list,
         title: CustomAutoSizeText(
@@ -227,12 +228,9 @@ class _FetchProductsCountBox extends StatelessWidget {
     context.read<ProductsBloc>().add(const ProductListEvent());
     return Flexible(
       child: GestureDetector(
-        onTap: () {
-          NavigationService.instance
-              .navigateToPage(path: NavigationConstants.productListPage);
-        },
+        onTap: () {},
         child: Card(
-          color: AppColors.instance.productsColor,
+          color: AppColors.productsColor,
           child: Container(
             constraints: const BoxConstraints(
               minHeight: 110,
@@ -245,8 +243,10 @@ class _FetchProductsCountBox extends StatelessWidget {
               ),
               subtitle: BlocBuilder<ProductsBloc, ProductsState>(
                 builder: (context, state) {
+                  final productList = state.productList;
+                  if (productList == null) return const SizedBox();
                   return CustomAutoSizeNumber(
-                    data: '${state.productList?.products.length ?? 0}',
+                    data: '${productList.length}',
                     textColor: Colors.white,
                   );
                 },
@@ -267,12 +267,9 @@ class _FetchOrdersCountBox extends StatelessWidget {
     context.read<OrdersBloc>().add(OrdersListEvent());
     return Flexible(
       child: GestureDetector(
-        onTap: () {
-          NavigationService.instance
-              .navigateToPage(path: NavigationConstants.orderListPage);
-        },
+        onTap: () {},
         child: Card(
-          color: AppColors.instance.ordersColor,
+          color: AppColors.ordersColor,
           child: Container(
             constraints: const BoxConstraints(
               minHeight: 110,
@@ -285,8 +282,10 @@ class _FetchOrdersCountBox extends StatelessWidget {
               ),
               subtitle: BlocBuilder<OrdersBloc, OrdersState>(
                 builder: (context, state) {
+                  final orderList = state.orderList;
+                  if (orderList == null) return const SizedBox();
                   return CustomAutoSizeNumber(
-                    data: '${state.orderList?.products.length ?? 0}',
+                    data: '${orderList.length}',
                     textColor: Colors.white,
                   );
                 },
@@ -307,12 +306,9 @@ class _FetchCouriersCountBox extends StatelessWidget {
     context.read<CourierBloc>().add(const CourierEvent());
     return Flexible(
       child: GestureDetector(
-        onTap: () {
-          NavigationService.instance
-              .navigateToPage(path: NavigationConstants.courierListPage);
-        },
+        onTap: () {},
         child: Card(
-          color: AppColors.instance.couriersColor,
+          color: AppColors.couriersColor,
           child: Container(
             constraints: const BoxConstraints(
               minHeight: 110,
@@ -325,8 +321,10 @@ class _FetchCouriersCountBox extends StatelessWidget {
               ),
               subtitle: BlocBuilder<CourierBloc, CourierState>(
                 builder: (context, state) {
+                  final courierList = state.courierList;
+                  if (courierList == null) return const SizedBox();
                   return CustomAutoSizeNumber(
-                    data: '${state.courierList?.couriers.length ?? 0}',
+                    data: '${courierList.couriers.length}',
                     textColor: Colors.white,
                   );
                 },
@@ -347,12 +345,9 @@ class _FetchCustomersCountBox extends StatelessWidget {
     context.read<CustomerBloc>().add(FetchCustomerListEvent());
     return Flexible(
       child: GestureDetector(
-        onTap: () {
-          NavigationService.instance
-              .navigateToPage(path: NavigationConstants.customerListPage);
-        },
+        onTap: () {},
         child: Card(
-          color: AppColors.instance.customersColor,
+          color: AppColors.customersColor,
           child: Container(
             constraints: const BoxConstraints(
               minHeight: 110,
@@ -365,8 +360,10 @@ class _FetchCustomersCountBox extends StatelessWidget {
               ),
               subtitle: BlocBuilder<CustomerBloc, CustomerState>(
                 builder: (context, state) {
+                  final customerList = state.customerList?.customers;
+                  if (customerList == null) return const SizedBox();
                   return CustomAutoSizeNumber(
-                    data: '${state.customerList?.customers.length ?? 0}',
+                    data: '${customerList.length}',
                     textColor: Colors.white,
                   );
                 },

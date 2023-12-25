@@ -14,8 +14,8 @@ final class LinearField extends StatelessWidget {
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         if (state.status == Status.isLoading) {
-          return LinearProgressIndicator(
-            color: AppColors.instance.alternativeButtonColor,
+          return const LinearProgressIndicator(
+            color: AppColors.alternativeButtonColor,
           );
         } else {
           return Container();

@@ -8,55 +8,69 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i11;
-import 'package:flutter/material.dart' as _i13;
+import 'package:auto_route/auto_route.dart' as _i12;
+import 'package:flutter/material.dart' as _i14;
 import 'package:siparis_takip_sistemi_pro/feature/authentication/courier_login/view/courier_login_page.dart'
     as _i2;
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/view/login_page.dart'
-    as _i5;
-import 'package:siparis_takip_sistemi_pro/feature/authentication/password_reset/view/passport_reset.dart'
     as _i6;
+import 'package:siparis_takip_sistemi_pro/feature/authentication/password_reset/view/passport_reset.dart'
+    as _i7;
 import 'package:siparis_takip_sistemi_pro/feature/authentication/register/view/register_page.dart'
-    as _i9;
+    as _i10;
 import 'package:siparis_takip_sistemi_pro/feature/screens/home_page/view/home_page_view.dart'
-    as _i4;
+    as _i5;
+import 'package:siparis_takip_sistemi_pro/feature/screens/orders/model/order_model.dart'
+    as _i13;
+import 'package:siparis_takip_sistemi_pro/feature/screens/orders/views/edit_order/edit_order_details.dart'
+    as _i3;
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product.dart'
-    as _i12;
+    as _i15;
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/view/add_product/add_product_page.dart'
     as _i1;
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/view/edit_product/index.dart'
-    as _i3;
+    as _i4;
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/view/product_list/product_list_page.dart'
-    as _i7;
-import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart'
-    as _i14;
-import 'package:siparis_takip_sistemi_pro/feature/screens/profile/view/profile_page.dart'
     as _i8;
+import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart'
+    as _i16;
+import 'package:siparis_takip_sistemi_pro/feature/screens/profile/view/profile_page.dart'
+    as _i9;
 import 'package:siparis_takip_sistemi_pro/feature/screens/splash/view/splash_screen.dart'
-    as _i10;
+    as _i11;
 
-abstract class $RouteManager extends _i11.RootStackRouter {
+abstract class $RouteManager extends _i12.RootStackRouter {
   $RouteManager({super.navigatorKey});
 
   @override
-  final Map<String, _i11.PageFactory> pagesMap = {
+  final Map<String, _i12.PageFactory> pagesMap = {
     AddProductRoute.name: (routeData) {
-      return _i11.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i1.AddProductPage(),
       );
     },
     CourierLoginRoute.name: (routeData) {
-      return _i11.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i2.CourierLoginPage(),
       );
     },
+    EditOrderRoute.name: (routeData) {
+      final args = routeData.argsAs<EditOrderRouteArgs>();
+      return _i12.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i3.EditOrderPage(
+          order: args.order,
+          key: args.key,
+        ),
+      );
+    },
     EditProductRoute.name: (routeData) {
       final args = routeData.argsAs<EditProductRouteArgs>();
-      return _i11.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i3.EditProductPage(
+        child: _i4.EditProductPage(
           product: args.product,
           key: args.key,
         ),
@@ -64,50 +78,50 @@ abstract class $RouteManager extends _i11.RootStackRouter {
     },
     HomeRoute.name: (routeData) {
       final args = routeData.argsAs<HomeRouteArgs>();
-      return _i11.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i4.HomePage(
+        child: _i5.HomePage(
           userModel: args.userModel,
           key: args.key,
         ),
       );
     },
     LoginRoute.name: (routeData) {
-      return _i11.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i5.LoginPage(),
+        child: const _i6.LoginPage(),
       );
     },
     PassReset.name: (routeData) {
       final args =
           routeData.argsAs<PassResetArgs>(orElse: () => const PassResetArgs());
-      return _i11.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i6.PassReset(key: args.key),
+        child: _i7.PassReset(key: args.key),
       );
     },
     ProductListRoute.name: (routeData) {
-      return _i11.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i7.ProductListPage(),
+        child: const _i8.ProductListPage(),
       );
     },
     ProfileRoute.name: (routeData) {
-      return _i11.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i8.ProfilePage(),
+        child: const _i9.ProfilePage(),
       );
     },
     RegisterRoute.name: (routeData) {
-      return _i11.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i9.RegisterPage(),
+        child: const _i10.RegisterPage(),
       );
     },
     SplashRoute.name: (routeData) {
-      return _i11.AutoRoutePage<dynamic>(
+      return _i12.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i10.SplashScreen(),
+        child: const _i11.SplashScreen(),
       );
     },
   };
@@ -115,8 +129,8 @@ abstract class $RouteManager extends _i11.RootStackRouter {
 
 /// generated route for
 /// [_i1.AddProductPage]
-class AddProductRoute extends _i11.PageRouteInfo<void> {
-  const AddProductRoute({List<_i11.PageRouteInfo>? children})
+class AddProductRoute extends _i12.PageRouteInfo<void> {
+  const AddProductRoute({List<_i12.PageRouteInfo>? children})
       : super(
           AddProductRoute.name,
           initialChildren: children,
@@ -124,13 +138,13 @@ class AddProductRoute extends _i11.PageRouteInfo<void> {
 
   static const String name = 'AddProductRoute';
 
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i2.CourierLoginPage]
-class CourierLoginRoute extends _i11.PageRouteInfo<void> {
-  const CourierLoginRoute({List<_i11.PageRouteInfo>? children})
+class CourierLoginRoute extends _i12.PageRouteInfo<void> {
+  const CourierLoginRoute({List<_i12.PageRouteInfo>? children})
       : super(
           CourierLoginRoute.name,
           initialChildren: children,
@@ -138,16 +152,54 @@ class CourierLoginRoute extends _i11.PageRouteInfo<void> {
 
   static const String name = 'CourierLoginRoute';
 
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i3.EditProductPage]
-class EditProductRoute extends _i11.PageRouteInfo<EditProductRouteArgs> {
+/// [_i3.EditOrderPage]
+class EditOrderRoute extends _i12.PageRouteInfo<EditOrderRouteArgs> {
+  EditOrderRoute({
+    required _i13.OrderModel order,
+    _i14.Key? key,
+    List<_i12.PageRouteInfo>? children,
+  }) : super(
+          EditOrderRoute.name,
+          args: EditOrderRouteArgs(
+            order: order,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'EditOrderRoute';
+
+  static const _i12.PageInfo<EditOrderRouteArgs> page =
+      _i12.PageInfo<EditOrderRouteArgs>(name);
+}
+
+class EditOrderRouteArgs {
+  const EditOrderRouteArgs({
+    required this.order,
+    this.key,
+  });
+
+  final _i13.OrderModel order;
+
+  final _i14.Key? key;
+
+  @override
+  String toString() {
+    return 'EditOrderRouteArgs{order: $order, key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i4.EditProductPage]
+class EditProductRoute extends _i12.PageRouteInfo<EditProductRouteArgs> {
   EditProductRoute({
-    required _i12.Product product,
-    _i13.Key? key,
-    List<_i11.PageRouteInfo>? children,
+    required _i15.Product product,
+    _i14.Key? key,
+    List<_i12.PageRouteInfo>? children,
   }) : super(
           EditProductRoute.name,
           args: EditProductRouteArgs(
@@ -159,8 +211,8 @@ class EditProductRoute extends _i11.PageRouteInfo<EditProductRouteArgs> {
 
   static const String name = 'EditProductRoute';
 
-  static const _i11.PageInfo<EditProductRouteArgs> page =
-      _i11.PageInfo<EditProductRouteArgs>(name);
+  static const _i12.PageInfo<EditProductRouteArgs> page =
+      _i12.PageInfo<EditProductRouteArgs>(name);
 }
 
 class EditProductRouteArgs {
@@ -169,9 +221,9 @@ class EditProductRouteArgs {
     this.key,
   });
 
-  final _i12.Product product;
+  final _i15.Product product;
 
-  final _i13.Key? key;
+  final _i14.Key? key;
 
   @override
   String toString() {
@@ -180,12 +232,12 @@ class EditProductRouteArgs {
 }
 
 /// generated route for
-/// [_i4.HomePage]
-class HomeRoute extends _i11.PageRouteInfo<HomeRouteArgs> {
+/// [_i5.HomePage]
+class HomeRoute extends _i12.PageRouteInfo<HomeRouteArgs> {
   HomeRoute({
-    required _i14.UserResponseModel userModel,
-    _i13.Key? key,
-    List<_i11.PageRouteInfo>? children,
+    required _i16.UserResponseModel userModel,
+    _i14.Key? key,
+    List<_i12.PageRouteInfo>? children,
   }) : super(
           HomeRoute.name,
           args: HomeRouteArgs(
@@ -197,8 +249,8 @@ class HomeRoute extends _i11.PageRouteInfo<HomeRouteArgs> {
 
   static const String name = 'HomeRoute';
 
-  static const _i11.PageInfo<HomeRouteArgs> page =
-      _i11.PageInfo<HomeRouteArgs>(name);
+  static const _i12.PageInfo<HomeRouteArgs> page =
+      _i12.PageInfo<HomeRouteArgs>(name);
 }
 
 class HomeRouteArgs {
@@ -207,9 +259,9 @@ class HomeRouteArgs {
     this.key,
   });
 
-  final _i14.UserResponseModel userModel;
+  final _i16.UserResponseModel userModel;
 
-  final _i13.Key? key;
+  final _i14.Key? key;
 
   @override
   String toString() {
@@ -218,9 +270,9 @@ class HomeRouteArgs {
 }
 
 /// generated route for
-/// [_i5.LoginPage]
-class LoginRoute extends _i11.PageRouteInfo<void> {
-  const LoginRoute({List<_i11.PageRouteInfo>? children})
+/// [_i6.LoginPage]
+class LoginRoute extends _i12.PageRouteInfo<void> {
+  const LoginRoute({List<_i12.PageRouteInfo>? children})
       : super(
           LoginRoute.name,
           initialChildren: children,
@@ -228,15 +280,15 @@ class LoginRoute extends _i11.PageRouteInfo<void> {
 
   static const String name = 'LoginRoute';
 
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i6.PassReset]
-class PassReset extends _i11.PageRouteInfo<PassResetArgs> {
+/// [_i7.PassReset]
+class PassReset extends _i12.PageRouteInfo<PassResetArgs> {
   PassReset({
-    _i13.Key? key,
-    List<_i11.PageRouteInfo>? children,
+    _i14.Key? key,
+    List<_i12.PageRouteInfo>? children,
   }) : super(
           PassReset.name,
           args: PassResetArgs(key: key),
@@ -245,14 +297,14 @@ class PassReset extends _i11.PageRouteInfo<PassResetArgs> {
 
   static const String name = 'PassReset';
 
-  static const _i11.PageInfo<PassResetArgs> page =
-      _i11.PageInfo<PassResetArgs>(name);
+  static const _i12.PageInfo<PassResetArgs> page =
+      _i12.PageInfo<PassResetArgs>(name);
 }
 
 class PassResetArgs {
   const PassResetArgs({this.key});
 
-  final _i13.Key? key;
+  final _i14.Key? key;
 
   @override
   String toString() {
@@ -261,9 +313,9 @@ class PassResetArgs {
 }
 
 /// generated route for
-/// [_i7.ProductListPage]
-class ProductListRoute extends _i11.PageRouteInfo<void> {
-  const ProductListRoute({List<_i11.PageRouteInfo>? children})
+/// [_i8.ProductListPage]
+class ProductListRoute extends _i12.PageRouteInfo<void> {
+  const ProductListRoute({List<_i12.PageRouteInfo>? children})
       : super(
           ProductListRoute.name,
           initialChildren: children,
@@ -271,13 +323,13 @@ class ProductListRoute extends _i11.PageRouteInfo<void> {
 
   static const String name = 'ProductListRoute';
 
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i8.ProfilePage]
-class ProfileRoute extends _i11.PageRouteInfo<void> {
-  const ProfileRoute({List<_i11.PageRouteInfo>? children})
+/// [_i9.ProfilePage]
+class ProfileRoute extends _i12.PageRouteInfo<void> {
+  const ProfileRoute({List<_i12.PageRouteInfo>? children})
       : super(
           ProfileRoute.name,
           initialChildren: children,
@@ -285,13 +337,13 @@ class ProfileRoute extends _i11.PageRouteInfo<void> {
 
   static const String name = 'ProfileRoute';
 
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i9.RegisterPage]
-class RegisterRoute extends _i11.PageRouteInfo<void> {
-  const RegisterRoute({List<_i11.PageRouteInfo>? children})
+/// [_i10.RegisterPage]
+class RegisterRoute extends _i12.PageRouteInfo<void> {
+  const RegisterRoute({List<_i12.PageRouteInfo>? children})
       : super(
           RegisterRoute.name,
           initialChildren: children,
@@ -299,13 +351,13 @@ class RegisterRoute extends _i11.PageRouteInfo<void> {
 
   static const String name = 'RegisterRoute';
 
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i10.SplashScreen]
-class SplashRoute extends _i11.PageRouteInfo<void> {
-  const SplashRoute({List<_i11.PageRouteInfo>? children})
+/// [_i11.SplashScreen]
+class SplashRoute extends _i12.PageRouteInfo<void> {
+  const SplashRoute({List<_i12.PageRouteInfo>? children})
       : super(
           SplashRoute.name,
           initialChildren: children,
@@ -313,5 +365,5 @@ class SplashRoute extends _i11.PageRouteInfo<void> {
 
   static const String name = 'SplashRoute';
 
-  static const _i11.PageInfo<void> page = _i11.PageInfo<void>(name);
+  static const _i12.PageInfo<void> page = _i12.PageInfo<void>(name);
 }

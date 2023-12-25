@@ -1,72 +1,55 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_model_view.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
-import 'package:siparis_takip_sistemi_pro/product/providers/main_providers.dart';
-import 'package:siparis_takip_sistemi_pro/product/providers/search_providers.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/product/bloc/products_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/cards/list_card.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/text/autosize_text.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order/orders_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/product/bloc/products_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
-class AddOrderProductList extends StatelessWidget with BaseModelView {
-  AddOrderProductList({
+import '../../../../../product/src/text/failed_load_data_text.dart';
+import '../../../../../product/src/widgets/adaptive_indicator.dart';
+import '../../../product/model/product.dart';
+
+final class AddOrderProductList extends StatelessWidget {
+  const AddOrderProductList({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    context.read<ProductsBloc>().add(const ProductListEvent());
-    return Padding(
-      padding: const EdgeInsets.all(pagePadding),
-      child: Column(
-        children: [
-          const SearchField(),
-          Flexible(
-            child: BlocBuilder<ProductsBloc, ProductsState>(
-              builder: (context, state) {
-                if (state.status == Status.isDone) {
-                  final productList = state.productList?.products
-                      .where((element) => element.name.toLowerCase().contains(
-                          context
-                              .watch<AddOrderAddProductSearchProvider>()
-                              .getSearchValue))
-                      .toList();
-                  return ListView.builder(
-                    key: UniqueKey(),
-                    shrinkWrap: true,
-                    itemCount: productList?.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final product = productList?[index];
-                      return ProductCard(
-                        product: product,
-                        utils: utils,
-                        index: index,
-                        state: state,
-                      );
-                    },
-                  );
-                } else if (state.status == Status.isFailed) {
-                  return Center(
-                    child: Text(LocaleKeys.errors_failedLoadData.tr()),
-                  );
-                } else {
-                  return const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  );
-                }
-              },
-            ),
-          ),
-        ],
-      ),
+    return Column(
+      children: [
+        const SearchField(),
+        BlocBuilder<ProductsBloc, ProductsState>(
+          builder: (context, state) {
+            if (state.productList == null) return const FailedLoadDataText();
+            if (state.productList != null) {
+              return ListViewBuilder(productList: state.productList ?? []);
+            }
+            return const AdaptiveIndicator();
+          },
+        ),
+      ],
+    );
+  }
+}
+
+final class ListViewBuilder extends StatelessWidget {
+  const ListViewBuilder({
+    required this.productList,
+    super.key,
+  });
+  final List<Product> productList;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      key: UniqueKey(),
+      shrinkWrap: true,
+      itemCount: productList.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ProductCard(product: productList[index]);
+      },
     );
   }
 }
@@ -74,16 +57,10 @@ class AddOrderProductList extends StatelessWidget with BaseModelView {
 class ProductCard extends StatelessWidget {
   const ProductCard({
     required this.product,
-    required this.utils,
-    required this.state,
-    required this.index,
     super.key,
   });
 
   final Product? product;
-  final UtilsService utils;
-  final ProductsState state;
-  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -99,17 +76,14 @@ class ProductCard extends StatelessWidget {
                 ListTile(
                   title: Text(product?.name ?? ''),
                   subtitle: Text(
-                      "${product?.price ?? ""} ${context.watch<ChangeCurrencyPriceSymbol>().currencySymbol}"),
+                    '${product?.price ?? 0.0}',
+                  ),
                 ),
               ],
             ),
           ),
-          Expanded(
-            child: AddProductButton(
-              utils: utils,
-              index: index,
-              state: state,
-            ),
+          const Expanded(
+            child: AddProductButton(),
           ),
         ],
       ),
@@ -119,29 +93,13 @@ class ProductCard extends StatelessWidget {
 
 class AddProductButton extends StatelessWidget {
   const AddProductButton({
-    required this.utils,
-    required this.state,
-    required this.index,
     super.key,
   });
-
-  final UtilsService utils;
-  final ProductsState state;
-  final int index;
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () {
-        try {
-          if (state.productList?.products != null) {
-            context.read<OrdersBloc>().add(OrderCartProductsEvent(
-                product: state.productList?.products[index]));
-          }
-        } finally {
-          utils.showSnackBar(LocaleKeys.succes_productAdded.tr());
-        }
-      },
+      onPressed: () {},
       icon: Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
     );
   }
@@ -162,19 +120,14 @@ class SearchField extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 10),
           child: TextFormField(
-            initialValue: context
-                .watch<AddOrderAddProductSearchProvider>()
-                .getSearchValue,
+            initialValue: '',
             decoration: InputDecoration(
               filled: true,
               fillColor: Theme.of(context).colorScheme.surface,
               border: InputBorder.none,
               suffixIcon: const Icon(Icons.search),
             ),
-            onChanged: (value) {
-              context.read<AddOrderAddProductSearchProvider>().setSearchValue =
-                  value.toLowerCase();
-            },
+            onChanged: (value) {},
           ),
         ),
       ],

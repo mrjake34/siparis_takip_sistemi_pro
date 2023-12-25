@@ -67,33 +67,6 @@ final class OrderModel extends IBaseNetworkModel<OrderModel> {
   @override
   Map<String, dynamic> toJson() => _$OrderModelToJson(this);
 
-  Color getColorFromOrderStatus({String? orderStatus}) => switch (orderStatus) {
-        AppStrings.inLineOrderString => AppColors.instance.orderPendingColor,
-        AppStrings.inProcessOrderString =>
-          AppColors.instance.orderInProcessColor,
-        AppStrings.onTheWayOrderString => AppColors.instance.orderOnTheWayColor,
-        AppStrings.isCompleteOrderString => AppColors.instance.orderIsDoneColor,
-        _ => AppColors.instance.orderPendingColor,
-      };
-
-  IconData getIconFromOrderStatus({String? orderStatus}) =>
-      switch (orderStatus) {
-        AppStrings.inLineOrderString => AppIcons.instance.pendingIcon,
-        AppStrings.inProcessOrderString => AppIcons.instance.inProcessIcon,
-        AppStrings.isCompleteOrderString => AppIcons.instance.onTheWayIcon,
-        AppStrings.onTheWayOrderString => AppIcons.instance.isDoneIcon,
-        _ => AppIcons.instance.pendingIcon,
-      };
-
-  String getStringFromOrderStatus({String? orderStatus}) =>
-      switch (orderStatus) {
-        AppStrings.inLineOrderString => LocaleKeys.order_inLine.tr(),
-        AppStrings.inProcessOrderString => LocaleKeys.order_inProcess.tr(),
-        AppStrings.isCompleteOrderString => LocaleKeys.order_onTheWay.tr(),
-        AppStrings.onTheWayOrderString => LocaleKeys.order_isDone.tr(),
-        _ => LocaleKeys.order_inLine.tr(),
-      };
-
   @override
   OrderModel fromJson(Map<String, dynamic> json) {
     return OrderModel.fromJson(json);
@@ -111,4 +84,57 @@ final class OrderModel extends IBaseNetworkModel<OrderModel> {
         createdAt,
         updatedAt,
       ];
+}
+
+enum OrderStatusEnum {
+  @JsonValue(AppStrings.inLineOrderString)
+  inLine(
+    color: AppColors.orderPendingColor,
+    icon: AppIcons.pendingIcon,
+    localeKeys: LocaleKeys.order_inLine,
+    name: AppStrings.inLineOrderString,
+  ),
+  @JsonValue(AppStrings.inProcessOrderString)
+  inProcess(
+    color: AppColors.orderInProcessColor,
+    icon: AppIcons.inProcessIcon,
+    localeKeys: LocaleKeys.order_inProcess,
+    name: AppStrings.inProcessOrderString,
+  ),
+  @JsonValue(AppStrings.onTheWayOrderString)
+  onTheWay(
+    color: AppColors.orderOnTheWayColor,
+    icon: AppIcons.onTheWayIcon,
+    localeKeys: LocaleKeys.order_onTheWay,
+    name: AppStrings.onTheWayOrderString,
+  ),
+  @JsonValue(AppStrings.isCompleteOrderString)
+  isComplete(
+    color: AppColors.orderIsDoneColor,
+    icon: AppIcons.isDoneIcon,
+    localeKeys: LocaleKeys.order_isDone,
+    name: AppStrings.isCompleteOrderString,
+  ),
+  ;
+
+  const OrderStatusEnum({
+    required this.color,
+    required this.icon,
+    required this.localeKeys,
+    required this.name,
+  });
+
+  final Color color;
+  final IconData icon;
+  final String localeKeys;
+  final String name;
+
+  static OrderStatusEnum getStatusValueFromOrderStatus({String? orderStatus}) =>
+      switch (orderStatus) {
+        AppStrings.inLineOrderString => OrderStatusEnum.inLine,
+        AppStrings.inProcessOrderString => OrderStatusEnum.inProcess,
+        AppStrings.onTheWayOrderString => OrderStatusEnum.onTheWay,
+        AppStrings.isCompleteOrderString => OrderStatusEnum.isComplete,
+        _ => OrderStatusEnum.inLine,
+      };
 }
