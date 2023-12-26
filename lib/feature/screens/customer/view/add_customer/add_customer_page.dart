@@ -7,7 +7,6 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/customer/bloc/customer_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/customer/model/customer.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
-import 'package:siparis_takip_sistemi_pro/product/providers/customer_provider.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button_without_color.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/device_info/device_info.dart';
@@ -133,14 +132,8 @@ class AddCustomerAddButtonField extends StatelessWidget {
                     name: customerNameController.text.trim(),
                     phone: customerPhoneController.text.trim(),
                     adress: customerAddressController.text.trim(),
-                    latitude: context
-                        .watch<CustomerMapProvider>()
-                        .getPosition
-                        .latitude,
-                    longitude: context
-                        .watch<CustomerMapProvider>()
-                        .getPosition
-                        .longitude,
+                    latitude: 28.9784,
+                    longitude: 41.0082,
                   ),
                 ),
               );

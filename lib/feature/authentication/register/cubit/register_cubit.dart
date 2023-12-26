@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/register/cubit/register_state.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/register/model/register_request_model.dart';
-import 'package:siparis_takip_sistemi_pro/feature/authentication/register/model/register_response_error_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/register/service/register_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_cubit.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
@@ -12,12 +11,10 @@ import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys
 import 'package:vexana/vexana.dart';
 
 import '../../../../product/core/constants/enums/network_status.dart';
+import '../model/register_response_model.dart';
 
 class RegisterCubit extends BaseCubit<RegisterState> {
   late final INetworkManager networkManager;
-
-  bool registerFail = false;
-  bool isLoading = false;
 
   RegisterCubit() : super(const RegisterState());
 
@@ -36,7 +33,7 @@ class RegisterCubit extends BaseCubit<RegisterState> {
       if (response.data == null) {
         return safeEmit(state.copyWith(status: Status.isFailed));
       }
-      final data = RegisterResponseModel.fromJson(
+      final data = RegisterResponseModel().fromJson(
         response.data! as Map<String, dynamic>,
       );
       if (data.message == RegisterErrors.shopNameAlreadyExists.error) {
