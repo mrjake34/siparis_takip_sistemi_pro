@@ -1,126 +1,127 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import '../../../../product/core/base/models/base_model_view.dart';
-import '../../../../product/core/constants/enums/enums.dart';
-import '../../../../product/utils/translations/locale_keys.g.dart';
-import '../model/courier.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/courier/model/courier_model.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
+import 'interface_courier_service.dart';
 
-class CourierService with BaseModelView {
-  Future<dynamic> postCourier(
-    BuildContext context,
-    String name,
-    String email,
-    String password,
-    String phone,
-  ) async {
-    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final response = await networkService.dio.post(
-      appNetwork.getCouriersUrl,
-      options: Options(
-        headers: {
-          'content-type': 'application/json',
-          'authorization': cookie,
-        },
-      ),
-      data: jsonEncode({
-        'name': name,
-        'email': email,
-        'password': password,
-        'phone': phone,
-      }),
-    );
-    if (response.statusCode == 200) {
-      utils.showSnackBar(LocaleKeys.succes_courierAdded.tr());
-      navService.navigateToBack();
-    } else if (response.statusCode == 500) {
-      utils.errorSnackBar(LocaleKeys.errors_phoneAlreadyExists.tr());
-      navService.navigateToBack();
-    } else {
-      utils.errorSnackBar(LocaleKeys.errors_errorUserRegister.tr());
-      navService.navigateToBack();
-    }
-  }
-
-  Future<CourierList?> getCouriers() async {
-    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final response = await networkService.dio.get(
-      appNetwork.getCouriersUrl,
-      options: Options(
-        headers: {
-          'content-type': 'application/json',
-          'authorization': cookie,
-        },
-      ),
-    );
-    if (response.statusCode == 200) {
-      final courierList = CourierList.fromJson(
-        response.data as Map<String, dynamic>,
+final class CourierService implements ICourierService {
+  @override
+  Future<BaseResponseModel<T>> postCourier<T extends IBaseNetworkModel<T>>({
+    CourierModel? data,
+    String? cookie,
+    T? model,
+  }) async {
+    if (data == null || cookie == null) {
+      return BaseResponseModel<T>(
+        networkStatus: NetworkStatus.inputsNotFilled,
       );
-
-      return courierList;
-    } else {
-      throw Exception('Failed to load orders');
     }
-  }
-
-  Future<Courier?> getCourier(String id) async {
-    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final response = await networkService.dio.get(
-      appNetwork.deleteCourierUrl + id,
+    final response = await ProductItems.networkService.post<T>(
+      AppNetwork.courierPath,
       options: Options(
         headers: {
-          'content-type': 'application/json',
-          'authorization': cookie,
+          'authorization': 'Bearer $cookie',
         },
       ),
+      data: data.toJson(),
+      model: model,
     );
-    if (response.statusCode == 200) {
-      final courier =
-          Courier.fromJson(response.data['courier'] as Map<String, String>);
-      return courier;
-    } else {
-      throw Exception('Failed to load orders');
-    }
+    return response;
   }
 
-  Future<dynamic> deleteCourier(String id) async {
-    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final shopName = sharedManager.getStringValue(PreferenceKey.shopName);
-    final response = await networkService.dio.delete(
-      appNetwork.deleteCourierUrl + id,
+  @override
+  Future<BaseResponseModel<T>> putCourier<T extends IBaseNetworkModel<T>>({
+    CourierModel? data,
+    String? cookie,
+    T? model,
+  }) async {
+    if (data == null || cookie == null) {
+      return BaseResponseModel<T>(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
+    }
+    final response = await ProductItems.networkService.put<T>(
+      AppNetwork.courierPath,
       options: Options(
         headers: {
-          'content-type': 'application/json',
-          'authorization': cookie,
+          'authorization': 'Bearer $cookie',
         },
       ),
-      data: {'_id': id, 'shopName': shopName},
+      data: data.toJson(),
+      model: model,
     );
-    if (response.statusCode == 200) {
-      utils.showSnackBar(LocaleKeys.succes_removeSuccessful.tr());
-      await getCouriers();
-    } else {
-      utils.errorSnackBar(LocaleKeys.errors_courierRemoveError.tr());
-    }
+    return response;
   }
 
-  Future<dynamic> patchCourier(String key, String value, String id) async {
-    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final response = await networkService.dio.patch(
-      appNetwork.deleteCourierUrl + id,
+  @override
+  Future<BaseResponseModel<T>> deleteCourier<T extends IBaseNetworkModel<T>>({
+    CourierModel? data,
+    String? cookie,
+    T? model,
+  }) async {
+    if (data == null || cookie == null) {
+      return BaseResponseModel<T>(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
+    }
+    final response = await ProductItems.networkService.delete<T>(
+      AppNetwork.courierPath,
       options: Options(
         headers: {
-          'content-type': 'application/json',
-          'authorization': cookie,
+          'authorization': 'Bearer $cookie',
         },
       ),
-      data: [
-        {'propName': key, 'value': value},
-      ],
+      data: data.toJson(),
+      model: model,
     );
-    if (response.statusCode == 200) {
-    } else {}
+    return response;
+  }
+
+  @override
+  Future<BaseResponseModel<T>> getCourier<T extends IBaseNetworkModel<T>>({
+    String? id,
+    String? cookie,
+    T? model,
+  }) async {
+    if (id == null || cookie == null) {
+      return BaseResponseModel<T>(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
+    }
+    final response = await ProductItems.networkService.get<T>(
+      '${AppNetwork.courierPath}/$id',
+      options: Options(
+        headers: {
+          'authorization': 'Bearer $cookie',
+        },
+      ),
+      model: model,
+    );
+    return response;
+  }
+
+  @override
+  Future<BaseResponseModel<T>> getCouriers<T extends IBaseNetworkModel<T>>({
+    String? cookie,
+    T? model,
+  }) async {
+    if (cookie == null) {
+      return BaseResponseModel<T>(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
+    }
+    final response = await ProductItems.networkService.get<T>(
+      AppNetwork.courierPath,
+      options: Options(
+        headers: {
+          'authorization': 'Bearer $cookie',
+        },
+      ),
+      model: model,
+    );
+    return response;
   }
 }

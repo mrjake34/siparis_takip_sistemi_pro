@@ -1,25 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'courier.dart';
+part of 'courier_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CourierList _$CourierListFromJson(Map<String, dynamic> json) => CourierList(
-      message: json['message'] as String,
-      couriers: (json['couriers'] as List<dynamic>)
-          .map((e) => Courier.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-Map<String, dynamic> _$CourierListToJson(CourierList instance) =>
-    <String, dynamic>{
-      'message': instance.message,
-      'couriers': instance.couriers,
-    };
-
-Courier _$CourierFromJson(Map<String, dynamic> json) => Courier(
+CourierModel _$CourierModelFromJson(Map<String, dynamic> json) => CourierModel(
       id: json['id'] as String?,
       shopName: json['shopName'] as String?,
       name: json['name'] as String?,
@@ -38,7 +25,8 @@ Courier _$CourierFromJson(Map<String, dynamic> json) => Courier(
       refreshToken: json['refreshToken'] as String?,
     );
 
-Map<String, dynamic> _$CourierToJson(Courier instance) => <String, dynamic>{
+Map<String, dynamic> _$CourierModelToJson(CourierModel instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'shopName': instance.shopName,
       'name': instance.name,

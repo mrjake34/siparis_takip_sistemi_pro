@@ -4,70 +4,34 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_model_view.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/customer/model/customer.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/maps/flutter_map.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/maps/google_map.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/customer/bloc/customer_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/customer/model/customer.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
-class CustomerDetails extends StatelessWidget with BaseModelView {
-  CustomerDetails({
-    required this.customerId,
+final class CustomerDetails extends StatelessWidget {
+  const CustomerDetails({
+    required this.customer,
     super.key,
   });
-  final String? customerId;
-
-  @override
-  Widget build(BuildContext context) {
-    return PageBuilder(customerId: customerId);
-  }
-}
-
-class PageBuilder extends StatelessWidget {
-  const PageBuilder({
-    required this.customerId,
-    super.key,
-  });
-
-  final String? customerId;
+  final Customer customer;
 
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      body: BlocBuilder<CustomerBloc, CustomerState>(
-        builder: (context, state) {
-          if (state.customerList != null) {
-            final customer = state.customerList?.customers
-                .firstWhere((element) => element.id == customerId);
-            final createdTime = customer?.createdAt;
-            return SingleChildScrollView(
-              padding: const EdgeInsets.all(pagePadding),
-              child: Column(
-                children: [
-                  CustomerDetailCardCustomerName(customer: customer),
-                  CustomerDetailCardCustomerAddress(customer: customer),
-                  CustomerDetailCardCustomerPhone(customer: customer),
-                  CustomerDetailCardCustomerCreatedTime(
-                    createdTime: createdTime,
-                  ),
-                  CustomerDetailCardCustomerLocation(customer: customer),
-                ],
-              ),
-            );
-          } else if (state.customerList == null) {
-            return Center(
-              child: Text(LocaleKeys.errors_failedLoadData.tr()),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator.adaptive(),
-            );
-          }
-        },
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            CustomerDetailCardCustomerName(customer: customer),
+            CustomerDetailCardCustomerAddress(customer: customer),
+            CustomerDetailCardCustomerPhone(customer: customer),
+            CustomerDetailCardCustomerCreatedTime(
+              createdTime: customer.createdAt,
+            ),
+            CustomerDetailCardCustomerLocation(customer: customer),
+          ],
+        ),
       ),
     );
   }

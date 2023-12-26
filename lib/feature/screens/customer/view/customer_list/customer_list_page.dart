@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/feature/authentication/login/bloc/login_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/text/failed_load_data_text.dart';
 
@@ -65,8 +66,11 @@ class CustomerListBuilder extends StatelessWidget {
                         CardMoreButton.openMenu<void>(
                           context: context,
                           id: customer.id ?? '',
-                          function: () => CustomerService()
-                              .deleteCustomer<void>(customer.id ?? ''),
+                          function: () =>
+                              CustomerService().deleteCustomer<CustomerList>(
+                            id: customer.id ?? '',
+                            cookie: context.read<LoginBloc>().state.cookie,
+                          ),
                           offset: details.globalPosition,
                         );
                       },

@@ -10,6 +10,7 @@ final class LoginState extends Equatable {
     this.errorMessage,
     this.networkStatus,
     this.passwordVisibility,
+    this.cookie,
   });
   final Enum? status;
   final Enum? validate;
@@ -18,6 +19,7 @@ final class LoginState extends Equatable {
   final String? errorMessage;
   final NetworkStatus? networkStatus;
   final bool? passwordVisibility;
+  final String? cookie;
   @override
   List<Object?> get props => [
         status,
@@ -27,6 +29,7 @@ final class LoginState extends Equatable {
         errorMessage,
         networkStatus,
         passwordVisibility,
+        cookie,
       ];
 
   LoginState copyWith({
@@ -37,6 +40,7 @@ final class LoginState extends Equatable {
     String? errorMessage,
     NetworkStatus? networkStatus,
     bool? passwordVisibility,
+    String? cookie,
   }) {
     return LoginState(
       status: status ?? this.status,
@@ -46,6 +50,7 @@ final class LoginState extends Equatable {
       errorMessage: errorMessage ?? this.errorMessage,
       networkStatus: networkStatus ?? this.networkStatus,
       passwordVisibility: passwordVisibility ?? this.passwordVisibility,
+      cookie: cookie ?? this.cookie,
     );
   }
 }

@@ -1,126 +1,82 @@
-import 'dart:io';
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:kartal/kartal.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/device_info/device_info.dart';
-import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button.dart';
-import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_icon_button.dart';
-import '../../../../product/core/constants/colors/colors.dart';
-import '../../../../product/core/constants/enums/enums.dart';
-import '../../../../product/core/constants/navigation/navigation_constants.dart';
-import '../../../../product/core/constants/size/sizes.dart';
-import '../../../../product/utils/getit/product_items.dart';
-import '../../../../product/utils/navigation/navigation_service.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
-import 'package:siparis_takip_sistemi_pro/product/providers/customer_provider.dart';
-import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button_without_color.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/customer/bloc/customer_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/customer/model/customer.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
+import 'package:siparis_takip_sistemi_pro/product/providers/customer_provider.dart';
+import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button.dart';
+import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button_without_color.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/device_info/device_info.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
-class AddCustomer extends StatefulWidget {
-  const AddCustomer({super.key});
+import '../../../../../product/core/constants/colors/colors.dart';
+import '../../../../../product/core/constants/enums/enums.dart';
+import '../../../../../product/utils/getit/product_items.dart';
+
+part 'add_customer_page_mixin.dart';
+
+@RoutePage()
+final class AddCustomerPage extends StatefulWidget {
+  const AddCustomerPage({super.key});
 
   @override
-  State<AddCustomer> createState() => _AddCustomerState();
+  State<AddCustomerPage> createState() => _AddCustomerPageState();
 }
 
-class _AddCustomerState extends State<AddCustomer> {
-  final _formKey = GlobalKey<FormBuilderState>();
-  final TextEditingController customerNameController = TextEditingController();
-  final TextEditingController customerPhoneController = TextEditingController();
-  final TextEditingController customerAddressController =
-      TextEditingController();
-  late DeviceType deviceType;
-
-  @override
-  void initState() {
-    deviceType = ProductItems.deviceInfo.getDeviceType();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return PageBuilder(
-      formKey: _formKey,
-      customerNameController: customerNameController,
-      customerPhoneController: customerPhoneController,
-      customerAddressController: customerAddressController,
-      deviceType: deviceType,
-    );
-  }
-}
-
-class PageBuilder extends StatelessWidget {
-  const PageBuilder({
-    required GlobalKey<FormBuilderState> formKey,
-    required this.customerNameController,
-    required this.customerPhoneController,
-    required this.customerAddressController,
-    required this.deviceType,
-    super.key,
-  }) : _formKey = formKey;
-
-  final GlobalKey<FormBuilderState> _formKey;
-  final TextEditingController customerNameController;
-  final TextEditingController customerPhoneController;
-  final TextEditingController customerAddressController;
-  final DeviceType deviceType;
-
+final class _AddCustomerPageState extends State<AddCustomerPage>
+    with _AddCustomerPageMixin {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
       body: Column(
         children: [
           const LinearField(),
-          Padding(
-            padding: const EdgeInsets.all(pagePadding),
-            child: FormBuilder(
-              key: _formKey,
-              autovalidateMode: AutovalidateMode.disabled,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    CustomerNameTextField(
-                      customerNameController: customerNameController,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    CustomerPhoneTextField(
-                      customerPhoneController: customerPhoneController,
-                    ),
-                    const SizedBox(
-                      height: 4,
-                    ),
-                    CustomerAddressTextField(
-                      customerAddressController: customerAddressController,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    AddCustomerAddLocationWithMapField(
-                      deviceType: deviceType,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Divider(),
-                    AddCustomerAddButtonField(
-                      formKey: _formKey,
-                      customerNameController: customerNameController,
-                      customerPhoneController: customerPhoneController,
-                      customerAddressController: customerAddressController,
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                  ],
-                ),
+          FormBuilder(
+            key: _formKey,
+            autovalidateMode: AutovalidateMode.disabled,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  CustomerNameTextField(
+                    customerNameController: _customerNameController,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  CustomerPhoneTextField(
+                    customerPhoneController: _customerPhoneController,
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  CustomerAddressTextField(
+                    customerAddressController: _customerAddressController,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  AddCustomerAddLocationWithMapField(
+                    deviceType: _deviceType,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Divider(),
+                  AddCustomerAddButtonField(
+                    formKey: _formKey,
+                    customerNameController: _customerNameController,
+                    customerPhoneController: _customerPhoneController,
+                    customerAddressController: _customerAddressController,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                ],
               ),
             ),
           ),
@@ -141,8 +97,8 @@ class LinearField extends StatelessWidget {
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         if (state.status == Status.isLoading) {
-          return LinearProgressIndicator(
-            color: AppColors.instance.alternativeButtonColor,
+          return const LinearProgressIndicator(
+            color: AppColors.alternativeButtonColor,
           );
         } else {
           return Container();
@@ -189,7 +145,7 @@ class AddCustomerAddButtonField extends StatelessWidget {
                 ),
               );
         } else {
-          UtilsService.instance.errorSnackBar(
+          CustomSnackBar.errorSnackBar(
             LocaleKeys.errors_pleaseEnterAllField.tr(),
           );
         }
@@ -210,39 +166,23 @@ class AddCustomerAddLocationWithMapField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ListTile(
-          title: const Text('Latitude'),
+        const ListTile(
+          title: Text('Latitude'),
           subtitle: SelectableText(
-            context
-                .watch<CustomerMapProvider>()
-                .getPosition
-                .latitude
-                .toString(),
+            '28.9784',
           ),
         ),
-        ListTile(
-          title: const Text('Longitude'),
+        const ListTile(
+          title: Text('Longitude'),
           subtitle: SelectableText(
-            context
-                .watch<CustomerMapProvider>()
-                .getPosition
-                .longitude
-                .toString(),
+            '41.0082',
           ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             MainElevatedButtonWithoutColor(
-              onPressed: () {
-                if (deviceType == DeviceType.windows) {
-                  NavigationService.instance.navigateToPage(
-                      path: NavigationConstants.customerFlutterMap);
-                } else {
-                  NavigationService.instance.navigateToPage(
-                      path: NavigationConstants.customerGoogleMap);
-                }
-              },
+              onPressed: () {},
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

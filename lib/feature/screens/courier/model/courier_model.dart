@@ -2,36 +2,12 @@
 // avoid_equals_and_hash_code_on_mutable_classes
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
 
-part 'courier.g.dart';
-
-@JsonSerializable()
-class CourierList {
-  final String message;
-  final List<Courier> couriers;
-
-  CourierList({
-    required this.message,
-    required this.couriers,
-  });
-
-  CourierList copyWith({
-    String? message,
-    List<Courier>? couriers,
-  }) =>
-      CourierList(
-        message: message ?? this.message,
-        couriers: couriers ?? this.couriers,
-      );
-
-  factory CourierList.fromJson(Map<String, dynamic> json) =>
-      _$CourierListFromJson(json);
-
-  Map<String, dynamic> toJson() => _$CourierListToJson(this);
-}
+part 'courier_model.g.dart';
 
 @JsonSerializable()
-class Courier {
+final class CourierModel extends IBaseNetworkModel<CourierModel> {
   final String? id;
   final String? shopName;
   final String? name;
@@ -45,7 +21,7 @@ class Courier {
   final String? ip;
   final String? refreshToken;
 
-  Courier({
+  CourierModel({
     this.id,
     this.shopName,
     this.name,
@@ -60,7 +36,7 @@ class Courier {
     this.refreshToken,
   });
 
-  Courier copyWith({
+  CourierModel copyWith({
     String? id,
     String? shopName,
     String? name,
@@ -74,7 +50,7 @@ class Courier {
     String? ip,
     String? refreshToken,
   }) =>
-      Courier(
+      CourierModel(
         id: id ?? this.id,
         shopName: shopName ?? this.shopName,
         name: name ?? this.name,
@@ -89,8 +65,29 @@ class Courier {
         refreshToken: refreshToken ?? this.refreshToken,
       );
 
-  factory Courier.fromJson(Map<String, dynamic> json) =>
-      _$CourierFromJson(json);
+  factory CourierModel.fromJson(Map<String, dynamic> json) =>
+      _$CourierModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$CourierToJson(this);
+  Map<String, dynamic> toJson() => _$CourierModelToJson(this);
+
+  @override
+  CourierModel fromJson(Map<String, dynamic> json) {
+    return _$CourierModelFromJson(json);
+  }
+
+  @override
+  List<Object?> get props => [
+        id,
+        shopName,
+        name,
+        phone,
+        email,
+        password,
+        role,
+        orders,
+        createdAt,
+        updatedAt,
+        ip,
+        refreshToken,
+      ];
 }

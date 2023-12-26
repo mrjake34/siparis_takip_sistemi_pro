@@ -324,7 +324,7 @@ class _FetchCouriersCountBox extends StatelessWidget {
                   final courierList = state.courierList;
                   if (courierList == null) return const SizedBox();
                   return CustomAutoSizeNumber(
-                    data: '${courierList.couriers.length}',
+                    data: '${courierList.length}',
                     textColor: Colors.white,
                   );
                 },
