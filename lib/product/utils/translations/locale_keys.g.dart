@@ -1,6 +1,8 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class  LocaleKeys {
+// ignore_for_file: constant_identifier_names
+
+abstract class LocaleKeys {
   static const mainText_title = 'mainText.title';
   static const mainText_homepage = 'mainText.homepage';
   static const mainText_language = 'mainText.language';
@@ -35,7 +37,8 @@ abstract class  LocaleKeys {
   static const mainText_edit = 'mainText.edit';
   static const mainText_remove = 'mainText.remove';
   static const mainText_userAgreement = 'mainText.userAgreement';
-  static const mainText_resetPasswordEmailInfo = 'mainText.resetPasswordEmailInfo';
+  static const mainText_resetPasswordEmailInfo =
+      'mainText.resetPasswordEmailInfo';
   static const mainText_searchInProduct = 'mainText.searchInProduct';
   static const mainText_changeCurrencySymbol = 'mainText.changeCurrencySymbol';
   static const mainText_turkishLira = 'mainText.turkishLira';
@@ -70,7 +73,8 @@ abstract class  LocaleKeys {
   static const mainText_pageNotFound = 'mainText.pageNotFound';
   static const mainText = 'mainText';
   static const errors_locationPermissionOff = 'errors.locationPermissionOff';
-  static const errors_locationPermissionDenied = 'errors.locationPermissionDenied';
+  static const errors_locationPermissionDenied =
+      'errors.locationPermissionDenied';
   static const errors_locationServiceOff = 'errors.locationServiceOff';
   static const errors_dontLeaveEmpty = 'errors.dontLeaveEmpty';
   static const errors_loginError = 'errors.loginError';
@@ -100,8 +104,10 @@ abstract class  LocaleKeys {
   static const errors_customerAlreadyExists = 'errors.customerAlreadyExists';
   static const errors_errorAddingCustomer = 'errors.errorAddingCustomer';
   static const errors_noLocation = 'errors.noLocation';
-  static const errors_errorWhileSendingPasswordResetEmail = 'errors.errorWhileSendingPasswordResetEmail';
-  static const errors_locationServiceDeniedForever = 'errors.locationServiceDeniedForever';
+  static const errors_errorWhileSendingPasswordResetEmail =
+      'errors.errorWhileSendingPasswordResetEmail';
+  static const errors_locationServiceDeniedForever =
+      'errors.locationServiceDeniedForever';
   static const errors_unknowError = 'errors.unknowError';
   static const errors_wrongPassword = 'errors.wrongPassword';
   static const errors = 'errors';
@@ -117,11 +123,14 @@ abstract class  LocaleKeys {
   static const succes = 'succes';
   static const alerts_removeAlert = 'alerts.removeAlert';
   static const alerts_customerRemove = 'alerts.customerRemove';
-  static const alerts_customerRemoveFromCustomerList = 'alerts.customerRemoveFromCustomerList';
+  static const alerts_customerRemoveFromCustomerList =
+      'alerts.customerRemoveFromCustomerList';
   static const alerts_courierRemove = 'alerts.courierRemove';
-  static const alerts_courierRemoveFromCustomerList = 'alerts.courierRemoveFromCustomerList';
+  static const alerts_courierRemoveFromCustomerList =
+      'alerts.courierRemoveFromCustomerList';
   static const alerts_productRemove = 'alerts.productRemove';
-  static const alerts_productRemoveFromProductList = 'alerts.productRemoveFromProductList';
+  static const alerts_productRemoveFromProductList =
+      'alerts.productRemoveFromProductList';
   static const alerts_orderRemove = 'alerts.orderRemove';
   static const alerts_logoutAlerts = 'alerts.logoutAlerts';
   static const alerts = 'alerts';
@@ -204,7 +213,8 @@ abstract class  LocaleKeys {
   static const apiMessage_detailsFailed = 'apiMessage.detailsFailed';
   static const apiMessage_loginFailed = 'apiMessage.loginFailed';
   static const apiMessage_inputsNotFilled = 'apiMessage.inputsNotFilled';
-  static const apiMessage_inputsNotFilledOrTypesWrong = 'apiMessage.inputsNotFilledOrTypesWrong';
+  static const apiMessage_inputsNotFilledOrTypesWrong =
+      'apiMessage.inputsNotFilledOrTypesWrong';
   static const apiMessage_userNotFound = 'apiMessage.userNotFound';
   static const apiMessage_userIdFailed = 'apiMessage.userIdFailed';
   static const apiMessage_courierNotFound = 'apiMessage.courierNotFound';
@@ -219,5 +229,4 @@ abstract class  LocaleKeys {
   static const apiMessage_unauthorized = 'apiMessage.unauthorized';
   static const apiMessage_unknowError = 'apiMessage.unknowError';
   static const apiMessage = 'apiMessage';
-
 }

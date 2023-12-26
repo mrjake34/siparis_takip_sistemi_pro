@@ -2,7 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class NavbarButton extends StatelessWidget {
-  const NavbarButton({required this.icon, required this.text, required this.onPressed, super.key});
+  const NavbarButton({
+    required this.icon,
+    required this.text,
+    required this.onPressed,
+    super.key,
+  });
   final IconData icon;
   final String text;
   final void Function() onPressed;

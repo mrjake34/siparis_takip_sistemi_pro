@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';

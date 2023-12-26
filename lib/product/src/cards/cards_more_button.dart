@@ -15,7 +15,11 @@ final class CardMoreButton {
     return showMenu(
       context: context,
       position: RelativeRect.fromLTRB(
-          offset.dx, offset.dy, offset.dx + 200, offset.dy + 100),
+        offset.dx,
+        offset.dy,
+        offset.dx + 200,
+        offset.dy + 100,
+      ),
       items: [
         PopupMenuItem(
           onTap: () {},
@@ -57,8 +61,9 @@ final class CardMoreButton {
           actions: [
             TextButton(
               style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      Theme.of(context).colorScheme.primary.withOpacity(0.3)),
+                backgroundColor:
+                    Theme.of(context).colorScheme.primary.withOpacity(0.3),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -70,7 +75,8 @@ final class CardMoreButton {
             const Spacer(),
             TextButton(
               style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.removeColor),
+                backgroundColor: AppColors.removeColor,
+              ),
               onPressed: function,
               child: Text(
                 LocaleKeys.mainText_remove.tr(),

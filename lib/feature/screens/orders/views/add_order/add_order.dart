@@ -330,7 +330,9 @@ class ProductNoteField extends StatelessWidget {
               if (value.isNotEmpty) {
                 context.read<OrdersBloc>().add(
                       OrderCartChangeProductNoteEvent(
-                          index: index, note: value),
+                        index: index,
+                        note: value,
+                      ),
                     );
               }
             },

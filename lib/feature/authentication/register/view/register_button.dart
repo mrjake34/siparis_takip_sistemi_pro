@@ -29,13 +29,14 @@ final class _RegisterButton extends StatelessWidget {
             if (formKey.currentState?.validate() ?? false) {
               if (state.agreementCheck ?? false) {
                 context.read<RegisterCubit>().postRegisterModel(
-                        data: RegisterRequestModel(
-                      name: nameController.text.trim(),
-                      email: emailController.text.trim(),
-                      phone: phoneController.text.trim(),
-                      shopName: shopNameController.text.trim(),
-                      password: passwordController.text.trim(),
-                    ));
+                      data: RegisterRequestModel(
+                        name: nameController.text.trim(),
+                        email: emailController.text.trim(),
+                        phone: phoneController.text.trim(),
+                        shopName: shopNameController.text.trim(),
+                        password: passwordController.text.trim(),
+                      ),
+                    );
               } else {
                 CustomSnackBar.errorSnackBar(
                   LocaleKeys.errors_errorUserAgreement.tr(),

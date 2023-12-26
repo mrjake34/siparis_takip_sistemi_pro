@@ -27,12 +27,14 @@ final class _LoginButton extends StatelessWidget {
           return MainElevatedButton(
             onPressed: () {
               if (loginKey.currentState?.validate() ?? false) {
-                context.read<LoginBloc>().add(UserLoginEvent(
-                      model: LoginRequestModel(
-                        email: emailController?.text,
-                        password: passwordController?.text,
+                context.read<LoginBloc>().add(
+                      UserLoginEvent(
+                        model: LoginRequestModel(
+                          email: emailController?.text,
+                          password: passwordController?.text,
+                        ),
                       ),
-                    ));
+                    );
               } else {
                 CustomSnackBar.errorSnackBar(
                   LocaleKeys.errors_pleaseEnterAllField.tr(),

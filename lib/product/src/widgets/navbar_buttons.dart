@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/navbar_button.dart';
 
-import '../../core/constants/navigation/navigation_constants.dart';
 import '../../utils/translations/locale_keys.g.dart';
 
 final class NavbarButtons extends StatelessWidget {

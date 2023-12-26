@@ -1,7 +1,3 @@
-import 'package:siparis_takip_sistemi_pro/product/core/base/interface/interface_base_response_model.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/models/network_error_model.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
-
 final class BaseResponseErrorModel<T> {
   BaseResponseErrorModel({
     this.error,

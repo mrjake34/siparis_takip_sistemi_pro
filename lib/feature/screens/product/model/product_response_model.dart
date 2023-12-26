@@ -1,13 +1,8 @@
-import 'package:json_annotation/json_annotation.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product.dart';
 
 import '../../../../product/core/base/interface/base_network_model.dart';
 
-part 'product_response_model.g.dart';
-
-@JsonSerializable(
-  includeIfNull: true,
-)
+/// Will add JsonSerializable to the class
 final class ProductResponseModel
     extends IBaseNetworkModel<ProductResponseModel> {
   ProductResponseModel({

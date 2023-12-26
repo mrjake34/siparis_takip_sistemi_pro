@@ -116,7 +116,7 @@ final class CustomerService {
         );
       } else {
         return BaseResponseModel(
-          data: response.data as T,
+          data: response.data! as T,
           statusCode: response.statusCode,
         );
       }
