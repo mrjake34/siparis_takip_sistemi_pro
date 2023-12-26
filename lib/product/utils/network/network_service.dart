@@ -70,7 +70,7 @@ final class NetworkService {
   }
 
   /// This method is used to make a Post request.
-  Future<BaseResponseModel<T>> post<T extends IBaseNetworkModel<dynamic>>(
+  Future<BaseResponseModel<T>> post<T extends IBaseNetworkModel<T>>(
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,

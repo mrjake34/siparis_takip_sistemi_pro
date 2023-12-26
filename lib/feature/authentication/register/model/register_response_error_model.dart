@@ -20,4 +20,7 @@ final class RegisterResponseModel
   RegisterResponseModel fromJson(Map<String, dynamic> json) {
     return RegisterResponseModel.fromJson(json);
   }
+
+  @override
+  List<Object?> get props => [message];
 }

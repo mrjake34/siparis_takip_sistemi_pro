@@ -19,4 +19,7 @@ final class RegisterResponseModel
       message: json['message'].toString(),
     );
   }
+
+  @override
+  List<Object?> get props => [message];
 }
