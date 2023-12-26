@@ -1,18 +1,18 @@
-# Commercial Use Rights Reserved Only to Efes Information Technologies. The purpose of sharing the repository is to contribute to the community as a resource.
+# Ticari Amaçla Kullanım Hakkı Sadece Efes Bilgi Teknolojileri'ne aittir. Reponun paylaşım amacı topluluğa kaynak oluşturmak içindir.
 
-# Order Tracking System
+# Sipariş Takip Sistemi
 [![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis) <a href="https://github.com/felangel/bloc"><img src="https://tinyurl.com/bloc-library" alt="Bloc Library"></a> [![License](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](LICENSE.txt)
 
 
-The Order Tracking System is a web and mobile application designed to enable businesses to easily manage their orders. Through this application, businesses can:
+Sipariş Takip Sistemi, işletmelerin siparişlerini kolayca yönetebilmeleri için tasarlanmış bir web ve mobil uygulamadır. Bu uygulama sayesinde işletmeler:
 
-## Business Login
-- Can view the live courier location on the map.
-- Can perform product addition, listing, editing, and deletion operations.
-- Can perform customer addition, listing, editing, and deletion operations.
-- Can perform order addition, listing, editing, and deletion operations.
-## Courier Login
-- The courier can view customer information, map location, and order details assigned to them.
+## İşletme Girişi
+- Canlı kurye konumunu harita üzerinde görebilir
+- Ürün ekleme, listeleme, düzenleme ve silme işlemlerini yapabilir
+- Müşteri ekleme, listeleme, düzenleme ve silme işlemlerini yapabilir
+- Sipariş ekleme, listeleme, düzenleme ve silme işlemlerini yapabilir
+## Kurye Girişi
+- Kurye kendisine atanan siparişe ait müşteri bilgilerini, harita konumunu ve sipariş detaylarını görüntüleyebilir.
 
 # Mobil Screenshots
 
@@ -38,27 +38,27 @@ The Order Tracking System is a web and mobile application designed to enable bus
 <img alt="desktop ss1" src="https://github.com/mrjake34/siparis_takip_sistemi_pro/assets/121731273/7f0095c7-6e26-4e49-aa59-3346601a164c" width ="50%" height="50%">
 </picture>
 
-## Setup
+## Kurulum
 
-To run this project, follow the steps below:
+Bu projeyi çalıştırmak için aşağıdaki adımları izleyin:
 
-- Clone or download the project from GitHub:
+- Projeyi GitHub'dan klonlayın veya indirin:
 
 ```bash
-git clone https://github.com/mrjake34/siparis_takip_sistemi_pro.git
+git clone https://github.com/mrjake34/siparis-takip-sistemi.git
 ```
 
-## Contact
+## İletişim
 
-If you have any questions or suggestions regarding this project, please feel free to contact me:
+Bu projeyle ilgili herhangi bir sorunuz veya öneriniz varsa, lütfen benimle iletişime geçin:
 
-- E-email: alkanatas34@gmail.com
+- E-posta: alkanatas34@gmail.com
 - Linkedin: https://www.linkedin.com/in/alkan-ata%C5%9F-101482248/
 
 
 ## Lisans
 
-Bu proje [CC BY-NC 4.0](LICENSE-TR.md) lisansı altında dağıtılmaktadır. Daha fazla bilgi için lisans dosyasına başvurun.
+Bu proje [CC BY-NC 4.0](LICENSE.md) lisansı altında dağıtılmaktadır. Daha fazla bilgi için lisans dosyasına başvurun.
 
 ## License
 
