@@ -1,119 +1,121 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:get/get_connect/http/src/status/http_status.dart';
-import '../../../../product/core/base/models/base_model_view.dart';
-import '../../../../product/core/constants/enums/enums.dart';
-import '../../../../product/utils/translations/locale_keys.g.dart';
-import '../model/order.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'order_service_interface.dart';
-import 'package:vexana/vexana.dart';
 
 final class OrderService extends IOrderService {
-  OrderService();
   @override
-  Future<dynamic> postOrder(
-    String customerId,
-    String orderNote,
-    List<dynamic> orderListPostOut,
-  ) async {
-    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final body = jsonEncode({
-      'customerId': customerId,
-      'orderNote': orderNote,
-      'products': orderListPostOut
-    });
-    final response = await networkService.dio.post(
-      appNetwork.postOrderUrl,
+  Future<BaseResponseModel<T>> postOrder<T extends IBaseNetworkModel<T>>({
+    String? customerId,
+    String? orderNote,
+    List<dynamic>? orderListPostOut,
+    String? cookie,
+    T? model,
+  }) async {
+    final response = await ProductItems.networkService.post<T>(
+      AppNetwork.orderPath,
+      model: model,
       options: Options(
         headers: {
-          'content-type': 'application/json',
-          'authorization': cookie,
+          'authorization': 'Bearer $cookie',
         },
       ),
-      data: body,
+      data: {
+        'customerId': customerId,
+        'orderNote': orderNote,
+        'orderListPostOut': orderListPostOut,
+      },
     );
-    if (response.statusCode == 200) {
-      utils.showSnackBar(LocaleKeys.succes_orderAdded.tr());
-    } else {
-      utils.errorSnackBar(LocaleKeys.errors_emailAlreadyExists.tr());
+    return response;
+  }
+
+  @override
+  Future<BaseResponseModel<T>> getOrderList<T extends IBaseNetworkModel<T>>({
+    String? cookie,
+    T? model,
+  }) async {
+    final response = await ProductItems.networkService.get<T>(
+      AppNetwork.orderPath,
+      options: Options(
+        headers: {
+          'authorization': 'Bearer $cookie',
+        },
+      ),
+      model: model,
+    );
+    return response;
+  }
+
+  @override
+  Future<BaseResponseModel<T>> getOrder<T extends IBaseNetworkModel<T>>({
+    String? id,
+    String? cookie,
+    T? model,
+  }) async {
+    if (id == null || cookie == null) {
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
     }
+    final response = await ProductItems.networkService.get<T>(
+      AppNetwork.orderPath + id,
+      options: Options(
+        headers: {
+          'authorization': 'Bearer $cookie',
+        },
+      ),
+      model: model,
+    );
+    return response;
   }
 
   @override
-  Future<OrderList?> getOrderList({String? cookie}) async {
-    cookie ??= sharedManager.getStringValue(PreferenceKey.cookie);
-    final response = await networkService.dio.get(
-      appNetwork.postOrderUrl,
-      options: Options(
-        headers: {
-          'content-type': 'application/json',
-          'authorization': cookie,
-        },
-      ),
-    );
-    if (response.statusCode == HttpStatus.ok) {
-      final orderList =
-          OrderList.fromJson(response.data as Map<String, dynamic>);
-      return orderList;
-    } else if (response.statusCode == HttpStatus.badRequest) {
-      return null;
-    } else {
-      return null;
+  Future<BaseResponseModel<T>> deleteOrder<T extends IBaseNetworkModel<T>>({
+    String? id,
+    String? cookie,
+    T? model,
+  }) async {
+    if (id == null || cookie == null) {
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
     }
+    final response = await ProductItems.networkService.delete<T>(
+      AppNetwork.orderPath + id,
+      options: Options(
+        headers: {
+          'authorization': 'Bearer $cookie',
+        },
+      ),
+      model: model,
+    );
+    return response;
   }
 
   @override
-  Future<OrderListProduct> getOrder(String id) async {
-    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-
-    final response = await networkService.dio.get(
-      appNetwork.getOrderUrl + id,
-      options: Options(
-        headers: {
-          'content-type': 'application/json',
-          'authorization': cookie,
-        },
-      ),
-    );
-    final order =
-        OrderListProduct.fromJson(response.data as Map<String, dynamic>);
-    return order;
-  }
-
-  @override
-  Future<dynamic> deleteOrder(String id) async {
-    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final response = await networkService.dio.delete(
-      appNetwork.getOrderUrl + id,
-      options: Options(
-        headers: {
-          'content-type': 'application/json',
-          'authorization': cookie,
-        },
-      ),
-    );
-    if (response.statusCode == HttpStatus.ok) {
-      utils.showSnackBar(LocaleKeys.succes_removeSuccessful);
+  Future<BaseResponseModel<T>> patchOrder<T extends IBaseNetworkModel<T>>({
+    String? id,
+    UpdateModel? updateModel,
+    String? cookie,
+  }) async {
+    if (id == null || updateModel == null || cookie == null) {
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
     }
-  }
-
-  @override
-  Future<dynamic> patchOrder(String id, String key, String value) async {
-    final cookie = sharedManager.getStringValue(PreferenceKey.cookie);
-    final response = await networkService.dio.patch(
-      appNetwork.getOrderUrl + id,
-      data: [
-        {'propName': key, 'value': value},
-      ],
+    final response = await ProductItems.networkService.put<T>(
+      AppNetwork.orderPath + id,
+      data: updateModel.toJson(),
       options: Options(
         headers: {
-          'content-type': 'application/json',
-          'authorization': cookie,
+          'authorization': 'Bearer $cookie',
         },
       ),
     );
-    if (response.statusCode == HttpStatus.ok) {}
+    return response;
   }
 }

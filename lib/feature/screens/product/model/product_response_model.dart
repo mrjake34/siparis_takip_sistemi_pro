@@ -35,4 +35,10 @@ final class ProductResponseModel
       'message': message,
     };
   }
+
+  @override
+  List<Object?> get props => [
+        data,
+        message,
+      ];
 }

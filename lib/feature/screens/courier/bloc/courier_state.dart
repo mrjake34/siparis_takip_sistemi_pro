@@ -2,23 +2,42 @@
 part of 'courier_bloc.dart';
 
 class CourierState extends Equatable {
-  const CourierState({this.courierList, this.courier, this.status});
-  final CourierList? courierList;
-  final Courier? courier;
-  final Enum? status;
+  const CourierState({
+    this.courierList,
+    this.courierModel,
+    this.status,
+    this.isPasswordVisible,
+    this.isPasswordAgainVisible,
+  });
+  final List<CourierModel>? courierList;
+  final CourierModel? courierModel;
+  final Status? status;
+  final bool? isPasswordVisible;
+  final bool? isPasswordAgainVisible;
 
   @override
-  List<Object?> get props => [status, courier, courierList];
+  List<Object?> get props => [
+        status,
+        courierModel,
+        courierList,
+        isPasswordVisible,
+        isPasswordAgainVisible,
+      ];
 
   CourierState copyWith({
-    CourierList? courierList,
-    Courier? courier,
-    Enum? status,
+    List<CourierModel>? courierList,
+    CourierModel? courierModel,
+    Status? status,
+    bool? isPasswordVisible,
+    bool? isPasswordAgainVisible,
   }) {
     return CourierState(
       courierList: courierList ?? this.courierList,
-      courier: courier ?? this.courier,
+      courierModel: courierModel ?? this.courierModel,
       status: status ?? this.status,
+      isPasswordVisible: isPasswordVisible ?? this.isPasswordVisible,
+      isPasswordAgainVisible:
+          isPasswordAgainVisible ?? this.isPasswordAgainVisible,
     );
   }
 }

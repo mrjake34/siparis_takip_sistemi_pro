@@ -21,22 +21,24 @@ final class CardMoreButton {
           onTap: () {},
           child: Text(
             LocaleKeys.mainText_edit.tr(),
-            style: TextStyle(color: AppColors.instance.editColor),
+            style: const TextStyle(color: AppColors.editColor),
           ),
         ),
         PopupMenuItem(
-          onTap: () => openDialog(context, function: function),
+          onTap: () => openDialog<void>(context, function: function),
           child: Text(
             LocaleKeys.mainText_remove.tr(),
-            style: TextStyle(color: AppColors.instance.removeColor),
+            style: const TextStyle(color: AppColors.removeColor),
           ),
         ),
       ],
     );
   }
 
-  static Future<T?> openDialog<T>(BuildContext context,
-      {required void Function() function}) {
+  static Future<T?> openDialog<T>(
+    BuildContext context, {
+    required void Function() function,
+  }) {
     return showDialog(
       context: context,
       barrierDismissible: false,
@@ -68,7 +70,7 @@ final class CardMoreButton {
             const Spacer(),
             TextButton(
               style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.instance.removeColor),
+                  backgroundColor: AppColors.removeColor),
               onPressed: function,
               child: Text(
                 LocaleKeys.mainText_remove.tr(),

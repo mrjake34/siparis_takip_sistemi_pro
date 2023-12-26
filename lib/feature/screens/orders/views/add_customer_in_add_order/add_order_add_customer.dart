@@ -1,34 +1,28 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../product/core/constants/size/sizes.dart';
-import '../../../../../product/utils/translations/locale_keys.g.dart';
-import '../../../../../product/utils/snackbar/snackbar.dart';
-import '../../../../../product/providers/search_providers.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/customer/bloc/customer_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/customer/model/customer.dart';
+import 'package:siparis_takip_sistemi_pro/product/src/text/failed_load_data_text.dart';
 import '../../../../../product/src/cards/list_card.dart';
 import '../../../../../product/src/text/autosize_text.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/customer/bloc/customer_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/views/add_order.dart';
+import '../../../../../product/utils/translations/locale_keys.g.dart';
 
-class AddOrderAddCustomer extends StatefulWidget {
+final class AddOrderAddCustomer extends StatefulWidget {
   const AddOrderAddCustomer({super.key});
 
   @override
   State<AddOrderAddCustomer> createState() => _AddOrderAddCustomerState();
 }
 
-class _AddOrderAddCustomerState extends State<AddOrderAddCustomer> {
+final class _AddOrderAddCustomerState extends State<AddOrderAddCustomer> {
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(pagePadding),
-      child: Column(
-        children: [
-          SearchBarAndTitle(),
-          Flexible(child: CustomerListField()),
-        ],
-      ),
+    return const Column(
+      children: [
+        SearchBarAndTitle(),
+        Flexible(child: CustomerListField()),
+      ],
     );
   }
 }
@@ -45,94 +39,77 @@ class CustomerListField extends StatelessWidget {
         children: [
           BlocBuilder<CustomerBloc, CustomerState>(
             builder: (context, state) {
-              final customerList = state.customerList?.customers
-                  .where(
-                    (element) => element.name.toString().toLowerCase().contains(
-                          context
-                              .watch<AddOrderAddCustomerSearchProvider>()
-                              .getSearchValue,
-                        ),
-                  )
-                  .toList();
-              return ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: customerList?.length,
-                itemBuilder: (context, index) {
-                  final customer = customerList?[index];
-                  return ListCard(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 15,
-                                  top: 10,
-                                ),
-                                child: Text(
-                                  customer?.name ?? '',
-                                  style: const TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              ListTile(
-                                title: Text(customer?.adress ?? ''),
-                                subtitle: Text(customer?.phone ?? ''),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: IconButton(
-                            onPressed: () {
-                              try {
-                                // context
-                                //     .read<AddOrderAddCustomerProvider>()
-                                //     .setCustomer = customer ?? Customer();
-                                context.read<OrdersBloc>().add(
-                                      AddOrderAddCustomerEvent(
-                                        customer: customer,
-                                      ),
-                                    );
-                              } finally {
-                                UtilsService.instance.showSnackBar(
-                                  LocaleKeys.succes_customerAdded.tr(),
-                                );
-                                Navigator.pushAndRemoveUntil(
-                                  context,
-                                  pageRouterAddOrder(),
-                                  (route) => false,
-                                );
-                              }
-                            },
-                            icon: const Icon(Icons.add),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              );
+              final customerList = state.customerList?.customers;
+              if (customerList == null) return const FailedLoadDataText();
+              return _ListViewBuilder(customerList: customerList);
             },
           ),
         ],
       ),
     );
   }
+}
 
-  MaterialPageRoute<dynamic> pageRouterAddOrder() {
-    return MaterialPageRoute(builder: (context) => const AddOrder());
+class _ListViewBuilder extends StatelessWidget {
+  const _ListViewBuilder({
+    required this.customerList,
+  });
+
+  final List<Customer?> customerList;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: customerList.length,
+      itemBuilder: (context, index) {
+        final customer = customerList[index];
+        if (customer == null) return const SizedBox();
+        return ListCard(
+          child: Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 15,
+                        top: 10,
+                      ),
+                      child: Text(
+                        customer.name ?? '',
+                        style: const TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    ListTile(
+                      title: Text(customer.adress ?? ''),
+                      subtitle: Text(customer.phone ?? ''),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.add),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
 
-class SearchBarAndTitle extends StatelessWidget {
+final class SearchBarAndTitle extends StatelessWidget {
   const SearchBarAndTitle({
     super.key,
   });
@@ -147,19 +124,14 @@ class SearchBarAndTitle extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 10),
           child: TextFormField(
-            initialValue: context
-                .watch<AddOrderAddCustomerSearchProvider>()
-                .getSearchValue,
+            initialValue: '',
             decoration: InputDecoration(
               filled: true,
               fillColor: Theme.of(context).colorScheme.surface,
               border: InputBorder.none,
               suffixIcon: const Icon(Icons.search),
             ),
-            onChanged: (value) {
-              context.read<AddOrderAddCustomerSearchProvider>().setSearchValue =
-                  value.toLowerCase();
-            },
+            onChanged: (value) {},
           ),
         ),
       ],

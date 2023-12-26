@@ -9,11 +9,8 @@ import 'package:siparis_takip_sistemi_pro/feature/authentication/register/cubit/
 import 'package:siparis_takip_sistemi_pro/feature/authentication/register/cubit/register_state.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/app/open_membership_agreement.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/navigation/navigation_constants.dart';
-import 'package:siparis_takip_sistemi_pro/product/providers/main_providers.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/loading_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_icon_button.dart';
-import 'package:siparis_takip_sistemi_pro/product/src/dialogs/show_dialog.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';

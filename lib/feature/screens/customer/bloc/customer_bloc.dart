@@ -1,13 +1,7 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_model_view.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
-
-import '../../../../product/core/base/models/network_error_model.dart';
 import '../../../../product/core/constants/enums/enums.dart';
 import '../model/customer.dart';
 import '../service/customer_service.dart';
@@ -25,7 +19,7 @@ class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
     on<AddCustomerEvent>((event, emit) async {
       emit(state.copyWith(status: Status.isLoading));
       if (event.customer != null) {
-        final response = await CustomerService().addCustomer<NetworkErrorModel>(
+        final response = await CustomerService().addCustomer<CustomerList>(
           customer: event.customer,
         );
         if (response.statusCode == HttpStatus.ok) {

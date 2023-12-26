@@ -31,4 +31,7 @@ final class UserResponseModel extends IBaseNetworkModel<UserResponseModel> {
   UserResponseModel fromJson(Map<String, dynamic> json) {
     return UserResponseModel.fromJson(json);
   }
+
+  @override
+  List<Object?> get props => [message, user];
 }

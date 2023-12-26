@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final customerList = customerListFromJson(jsonString);
-
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
@@ -37,12 +32,15 @@ final class CustomerList extends IBaseNetworkModel<CustomerList> {
   CustomerList fromJson(Map<String, dynamic> json) {
     return CustomerList.fromJson(json);
   }
+
+  @override
+  List<Object?> get props => [message, customers];
 }
 
 @JsonSerializable()
 @immutable
-final class Customer extends Equatable {
-  const Customer({
+final class Customer extends IBaseNetworkModel<Customer> {
+  Customer({
     this.id,
     this.shopName,
     this.name,
@@ -93,6 +91,7 @@ final class Customer extends Equatable {
         updatedAt: updatedAt ?? this.updatedAt,
       );
 
+  @override
   Map<String, dynamic> toJson() => _$CustomerToJson(this);
 
   @override
@@ -108,4 +107,9 @@ final class Customer extends Equatable {
         createdAt,
         updatedAt,
       ];
+
+  @override
+  Customer fromJson(Map<String, dynamic> json) {
+    return Customer.fromJson(json);
+  }
 }

@@ -1,92 +1,55 @@
-// ignore_for_file: must_be_immutable
-
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/main_functions.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_model_view.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order/orders_bloc.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/orders/model/order_model.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/icons/icons.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/navigation/navigation_constants.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/navigation/navigation_service.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
-import 'package:siparis_takip_sistemi_pro/product/src/bottomsheets/main_bottom_sheets.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/customer/bloc/customer_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order_bloc/orders_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/model/order.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/orders/views/order_lists/bottomsheet_widget/bottomsheet_widget.dart';
 
 import '../../../../../product/src/cards/list_card.dart';
+import '../../../../../product/src/text/failed_load_data_text.dart';
 
-class OrderListAllOrders extends StatelessWidget with BaseModelView {
-  OrderListAllOrders({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return PageBuilder(mainFunctions: mainFunctions);
-  }
-}
-
-class PageBuilder extends StatelessWidget {
-  const PageBuilder({
-    required this.mainFunctions,
-    super.key,
-  });
-
-  final MainFunctions mainFunctions;
+class OrderListAllOrders extends StatelessWidget {
+  const OrderListAllOrders({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BaseScaffold(
       body: BlocBuilder<OrdersBloc, OrdersState>(
-        buildWhen: (previous, current) =>
-            previous.orderList != current.orderList,
         builder: (context, state) {
-          final orderList = state.orderList;
-          orderList?.products
-              .sort((a, b) => b.createdAt.compareTo(a.createdAt));
-          if (orderList?.products != null) {
-            return ListView.builder(
-              padding: const EdgeInsets.all(pagePadding),
-              shrinkWrap: true,
-              itemCount: orderList?.products.length ?? 0,
-              itemBuilder: (BuildContext context, int index) {
-                final order = orderList?.products[index];
-                final orderStatusText = mainFunctions.getStringFromOrderStatus(
-                    orderStatus: order?.orderStatus);
-                final iconData = mainFunctions.getIconFromOrderStatus(
-                    orderStatus: order?.orderStatus);
-                final color = mainFunctions.getColorFromOrderStatus(
-                    orderStatus: order?.orderStatus);
-                return ListCard(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 5,
-                        child: CustomerField(
-                            order: order,
-                            iconData: iconData,
-                            color: color,
-                            orderStatusText: orderStatusText),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: CardMoreButton(order: order),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            );
-          } else if (orderList?.products == null) {
-            return Center(
-              child: Text(LocaleKeys.errors_failedLoadData.tr()),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator.adaptive(),
-            );
-          }
+          final List<OrderModel?>? orderList = state.orderList;
+          if (orderList == null) return const FailedLoadDataText();
+          orderList.sort((a, b) {
+            if (a?.createdAt == null ||
+                b?.createdAt == null ||
+                a == null ||
+                b == null) {
+              return 0;
+            }
+            return b.createdAt!.compareTo(a.createdAt!);
+          });
+
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: orderList.length,
+            itemBuilder: (BuildContext context, int index) {
+              final order = orderList[index];
+              if (order == null) return const SizedBox();
+              return ListCard(
+                child: Row(
+                  children: [
+                    const Expanded(
+                      flex: 5,
+                      child: Text('Customer'),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: CardMoreButton(order: order),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
         },
       ),
     );
@@ -99,64 +62,16 @@ class CardMoreButton extends StatelessWidget {
     super.key,
   });
 
-  final OrderListProduct? order;
+  final OrderModel order;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        MainBottomSheets().openBottomSheet(
-          context,
-          OrderListBottomSheetWidget(
-            order: order,
-          ),
-        );
-      },
+      onTap: () {},
       child: CircleAvatar(
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          child: Icon(AppIcons.instance.moreIcon)),
-    );
-  }
-}
-
-class CustomerField extends StatelessWidget {
-  const CustomerField({
-    required this.order,
-    required this.iconData,
-    required this.color,
-    required this.orderStatusText,
-    super.key,
-  });
-  final OrderListProduct? order;
-  final IconData iconData;
-  final Color color;
-  final String orderStatusText;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        BlocBuilder<CustomerBloc, CustomerState>(
-          buildWhen: (previous, current) =>
-              previous.customerList != current.customerList,
-          builder: (context, state) {
-            final customer = state.customerList?.customers
-                .firstWhere((element) => element.id == order?.customerId);
-            return ListTile(
-              onTap: () {
-                context.read<OrdersBloc>().add(ChooseAnOrder(order: order));
-                NavigationService.instance
-                    .navigateToPage(path: NavigationConstants.orderDetailsPage);
-              },
-              leading: Icon(iconData, color: color),
-              title: Text(customer?.name ?? ' '),
-              subtitle: Text(orderStatusText),
-            );
-          },
-        ),
-      ],
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        child: const Icon(AppIcons.moreIcon),
+      ),
     );
   }
 }

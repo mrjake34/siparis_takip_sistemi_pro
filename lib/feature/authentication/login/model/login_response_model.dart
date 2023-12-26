@@ -37,6 +37,9 @@ final class LoginResponseModel extends IBaseNetworkModel<LoginResponseModel> {
               : null,
     );
   }
+
+  @override
+  List<Object?> get props => [user, error];
 }
 
 @JsonSerializable()

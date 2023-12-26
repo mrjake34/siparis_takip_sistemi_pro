@@ -16,8 +16,10 @@ part 'login_event.dart';
 part 'login_state.dart';
 
 final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
-  LoginBloc({required this.loginService, required this.profileService})
-      : super(
+  LoginBloc({
+    required this.loginService,
+    required this.profileService,
+  }) : super(
           const LoginState(),
         ) {
     on<UserLoginEvent>((event, emit) async {
@@ -97,6 +99,7 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
         status: Status.isDone,
         model: user.data,
         networkStatus: NetworkStatus.loginSuccess,
+        cookie: cookie,
       ),
     );
   }

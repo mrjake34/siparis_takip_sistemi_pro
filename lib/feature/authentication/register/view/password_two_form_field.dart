@@ -9,46 +9,42 @@ final class _PasswordTwoFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final visibility =
-        Provider.of<ChangePasswordVisibilityTwoProvider>(context).getVisibility;
-    return TextFormField(
-      controller: password2Controller,
-      textInputAction: TextInputAction.done,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      autofillHints: const [AutofillHints.password],
-      obscureText: visibility,
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 10),
-        prefixIcon: const Icon(Icons.lock_outline, size: 20),
-        hintText: LocaleKeys.mainText_rePassword.tr(),
-        suffixIcon: IconButton(
-          icon: Icon(
-            visibility == false ? Icons.visibility : Icons.visibility_off,
+    return BlocBuilder<RegisterCubit, RegisterState>(
+      builder: (context, state) {
+        return TextFormField(
+          controller: password2Controller,
+          textInputAction: TextInputAction.done,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          autofillHints: const [AutofillHints.password],
+          obscureText: state.passwordAgainVisibility ?? true,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.symmetric(vertical: 10),
+            prefixIcon: const Icon(Icons.lock_outline, size: 20),
+            hintText: LocaleKeys.mainText_rePassword.tr(),
+            suffixIcon: IconButton(
+              icon: Icon(
+                state.passwordAgainVisibility == false
+                    ? Icons.visibility
+                    : Icons.visibility_off,
+              ),
+              onPressed: () {
+                context.read<RegisterCubit>().passwordAgainVisibility();
+              },
+            ),
           ),
-          onPressed: () {
-            if (visibility == true) {
-              context
-                  .read<ChangePasswordVisibilityTwoProvider>()
-                  .setVisibility = false;
-            } else {
-              context
-                  .read<ChangePasswordVisibilityTwoProvider>()
-                  .setVisibility = true;
-            }
-          },
-        ),
-      ),
-      validator: FormBuilderValidators.compose(
-        [
-          FormBuilderValidators.required(
-            errorText: LocaleKeys.errors_errorEnterPassword.tr(),
+          validator: FormBuilderValidators.compose(
+            [
+              FormBuilderValidators.required(
+                errorText: LocaleKeys.errors_errorEnterPassword.tr(),
+              ),
+              FormBuilderValidators.minLength(
+                6,
+                errorText: LocaleKeys.errors_errorPasswordLength.tr(),
+              ),
+            ],
           ),
-          FormBuilderValidators.minLength(
-            6,
-            errorText: LocaleKeys.errors_errorPasswordLength.tr(),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

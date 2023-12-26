@@ -1,12 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:siparis_takip_sistemi_pro/feature/authentication/login/bloc/login_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/init/app_initialize.dart';
 import 'package:siparis_takip_sistemi_pro/product/theme/dark_theme.dart';
 import 'package:siparis_takip_sistemi_pro/product/theme/light_theme.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/localization/localization_manager.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/notifier/notifier.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/provider/prodiver_manager.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
@@ -16,12 +14,9 @@ import 'product/core/base/provider/theme/theme_cubit.dart';
 void main() async {
   await AppInitialize.init();
   runApp(
-    MultiProvider(
-      providers: AppNotifiers.instance.notifierList,
-      child: LocalizationManager(
-        child: const ProviderManager(
-          child: MyApp(),
-        ),
+    LocalizationManager(
+      child: const ProviderManager(
+        child: MyApp(),
       ),
     ),
   );

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../core/constants/size/sizes.dart';
 
-class MainBottomSheets {
-  Future<T?> openBottomSheet<T>(BuildContext context, Widget widget) async {
+final class CustomBottomSheets {
+  CustomBottomSheets._();
+  static Future<T?> openBottomSheet<T>(
+      BuildContext context, Widget widget) async {
     final pageWidth = MediaQuery.of(context).size.width;
     return showModalBottomSheet(
       constraints: BoxConstraints(
@@ -22,7 +24,7 @@ class MainBottomSheets {
     );
   }
 
-  Future<T?> openBottomSheetNoScrollable<T>(
+  static Future<T?> openBottomSheetNoScrollable<T>(
     BuildContext context,
     Widget widget,
   ) async {

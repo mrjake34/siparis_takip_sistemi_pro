@@ -9,8 +9,6 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.d
 import 'package:siparis_takip_sistemi_pro/product/utils/localization/localization_manager.dart';
 
 import '../../../../product/core/constants/colors/colors.dart';
-import '../../../../product/providers/main_providers.dart';
-import '../../../../product/theme/light_theme.dart';
 import '../../../../product/theme/theme_service.dart';
 import '../../../../product/utils/getit/product_items.dart';
 import '../../../../product/utils/translations/locale_keys.g.dart';
@@ -83,39 +81,27 @@ final class _ChangeCurrencySymbolField extends StatelessWidget {
         Wrap(
           children: [
             IconButton(
-              onPressed: () {
-                context.read<ChangeCurrencyPriceSymbol>().changeSymbol = '₺';
-              },
+              onPressed: () {},
               icon: const Icon(FontAwesomeIcons.turkishLiraSign),
             ),
             IconButton(
-              onPressed: () {
-                context.read<ChangeCurrencyPriceSymbol>().changeSymbol = '€';
-              },
+              onPressed: () {},
               icon: const Icon(FontAwesomeIcons.euroSign),
             ),
             IconButton(
-              onPressed: () {
-                context.read<ChangeCurrencyPriceSymbol>().changeSymbol = r'$';
-              },
+              onPressed: () {},
               icon: const Icon(FontAwesomeIcons.dollarSign),
             ),
             IconButton(
-              onPressed: () {
-                context.read<ChangeCurrencyPriceSymbol>().changeSymbol = '£';
-              },
+              onPressed: () {},
               icon: const Icon(FontAwesomeIcons.sterlingSign),
             ),
             IconButton(
-              onPressed: () {
-                context.read<ChangeCurrencyPriceSymbol>().changeSymbol = '₽';
-              },
+              onPressed: () {},
               icon: const Icon(FontAwesomeIcons.rubleSign),
             ),
             IconButton(
-              onPressed: () {
-                context.read<ChangeCurrencyPriceSymbol>().changeSymbol = '₼';
-              },
+              onPressed: () {},
               icon: const Icon(FontAwesomeIcons.manatSign),
             ),
           ],

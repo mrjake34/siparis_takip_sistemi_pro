@@ -77,4 +77,21 @@ final class User extends IBaseNetworkModel<User> {
   User fromJson(Map<String, dynamic> json) {
     return User.fromJson(json);
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        name,
+        email,
+        password,
+        phone,
+        shopName,
+        role,
+        paymentStatus,
+        createdAt,
+        updatedAt,
+        ip,
+        refreshToken,
+        message,
+      ];
 }
