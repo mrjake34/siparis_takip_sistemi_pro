@@ -27,7 +27,7 @@ mixin CourierLoginPageMixin on State<CourierLoginPage> {
     if (state.status == Status.isDone) {
       CustomSnackBar.showSnackBar(LocaleKeys.succes_loginSuccess.tr());
       context.router.pushNamed(RoutePath.splashScreen.path);
-    } else if (state.status == UserStatus.userNotFound) {
+    } else if (state.networkStatus == NetworkStatus.userNotFound) {
       CustomSnackBar.errorSnackBar(
         LocaleKeys.errors_userInfoIncorrect.tr(),
       );

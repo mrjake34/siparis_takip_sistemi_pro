@@ -4,7 +4,9 @@ import '../../core/constants/size/sizes.dart';
 final class CustomBottomSheets {
   CustomBottomSheets._();
   static Future<T?> openBottomSheet<T>(
-      BuildContext context, Widget widget) async {
+    BuildContext context,
+    Widget widget,
+  ) async {
     final pageWidth = MediaQuery.of(context).size.width;
     return showModalBottomSheet(
       constraints: BoxConstraints(

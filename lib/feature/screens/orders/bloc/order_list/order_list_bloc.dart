@@ -6,8 +6,6 @@ part 'order_list_state.dart';
 
 class OrderListBloc extends Bloc<OrderListEvent, OrderListState> {
   OrderListBloc() : super(OrderListInitial()) {
-    on<OrderListEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<OrderListEvent>((event, emit) {});
   }
 }

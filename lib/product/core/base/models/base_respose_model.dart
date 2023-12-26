@@ -65,27 +65,17 @@ final class BaseResponseModel<T> implements IBaseResponseModel<T> {
   }
 
   @override
-  set data(T? data) {
-    // TODO: implement data
-  }
+  set data(T? data) {}
 
   @override
-  set message(String? message) {
-    // TODO: implement error
-  }
+  set message(String? message) {}
 
   @override
-  set headers(Map<String, List<dynamic>>? headers) {
-    // TODO: implement headers
-  }
+  set headers(Map<String, List<dynamic>>? headers) {}
 
   @override
-  set networkStatus(NetworkStatus? networkStatus) {
-    // TODO: implement networkStatus
-  }
+  set networkStatus(NetworkStatus? networkStatus) {}
 
   @override
-  set statusCode(int? statusCode) {
-    // TODO: implement statusCode
-  }
+  set statusCode(int? statusCode) {}
 }

@@ -13,8 +13,6 @@ final class AppStrings {
 
   static const String appName = 'Sipariş Takip Sistemi Pro';
   static const String appVersion = 'v1.0.0';
-  static const String appDescription =
-      'Sipariş Takip Sistemi Pro, Flutter ile geliştirilmiş, sipariş takip sistemi uygulamasıdır.';
 
   static const String mainLogoPath = 'assets/images/main-logo.png';
 }

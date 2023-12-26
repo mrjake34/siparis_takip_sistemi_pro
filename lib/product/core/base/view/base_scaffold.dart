@@ -7,7 +7,6 @@ import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart
 import '../../../src/drawer/drawer.dart';
 import '../../../src/navbar/sidebar.dart';
 import '../../../utils/translations/locale_keys.g.dart';
-import '../../constants/navigation/navigation_constants.dart';
 
 /// This is the main Scaffold widget.
 final class BaseScaffold extends StatelessWidget {
@@ -51,10 +50,11 @@ final class BaseScaffold extends StatelessWidget {
             },
           ),
           Flexible(
-              child: Padding(
-            padding: const EdgeInsets.all(AppSize.pagePadding),
-            child: body,
-          )),
+            child: Padding(
+              padding: const EdgeInsets.all(AppSize.pagePadding),
+              child: body,
+            ),
+          ),
         ],
       ),
     );

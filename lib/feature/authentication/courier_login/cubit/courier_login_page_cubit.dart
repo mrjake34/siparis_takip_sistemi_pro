@@ -32,7 +32,6 @@ class CourierLoginPageCubit extends Cubit<CourierLoginPageState> {
         ),
       );
     }
-    final cookie = response.getCookie(headers: response.headers);
 
     emit(const CourierLoginPageState(status: Status.isDone));
   }

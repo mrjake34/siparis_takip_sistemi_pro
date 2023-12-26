@@ -1,6 +1,6 @@
+import 'package:siparis_takip_sistemi_pro/product/theme/theme_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/cache/shared_manager.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_manager.dart';
-import 'package:siparis_takip_sistemi_pro/product/theme/theme_service.dart';
 
 import '../device_info/device_info.dart';
 import '../network/network_service.dart';

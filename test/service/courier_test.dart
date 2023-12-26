@@ -7,7 +7,6 @@ import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/log
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/service/login_service.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/courier/model/courier_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/courier/service/courier_service.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_manager.dart';
 

@@ -24,11 +24,11 @@ class _OrderListPageState extends State<OrderListPage> {
 
   List<Widget> orderPages() {
     return [
-      OrderListAllOrders(),
-      OrderListPendingOrders(),
+      const OrderListAllOrders(),
+      const OrderListPendingOrders(),
       const OrderListProcessOrders(),
-      OrderListOnTheWayOrders(),
-      OrderListCompletedOrders(),
+      const OrderListOnTheWayOrders(),
+      const OrderListCompletedOrders(),
     ];
   }
 

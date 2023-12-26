@@ -1,5 +1,6 @@
 import 'dart:io';
 
+// ignore: implementation_imports
 import 'package:bloc/src/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_request_model.dart';

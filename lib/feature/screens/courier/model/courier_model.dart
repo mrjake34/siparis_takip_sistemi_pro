@@ -68,6 +68,7 @@ final class CourierModel extends IBaseNetworkModel<CourierModel> {
   factory CourierModel.fromJson(Map<String, dynamic> json) =>
       _$CourierModelFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$CourierModelToJson(this);
 
   @override

@@ -13,13 +13,11 @@ import 'interface_login_service.dart';
 final class LoginService implements ILoginService {
   @override
   Future<BaseResponseModel<T>> appleLogin<T extends IBaseNetworkModel<T>>() {
-    // TODO: implement appleLogin
     throw UnimplementedError();
   }
 
   @override
   Future<BaseResponseModel<T>> googleLogin<T extends IBaseNetworkModel<T>>() {
-    // TODO: implement googleLogin
     throw UnimplementedError();
   }
 
@@ -63,7 +61,6 @@ final class LoginService implements ILoginService {
 
   @override
   Future<BaseResponseModel<T>> logout<T extends IBaseNetworkModel<T>>() {
-    // TODO: implement logout
     throw UnimplementedError();
   }
 }

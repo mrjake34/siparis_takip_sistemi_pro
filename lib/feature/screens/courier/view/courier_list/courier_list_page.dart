@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/courier/bloc/courier_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/courier/model/courier_model.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/courier/service/courier_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';

@@ -31,7 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  #Packages
+
   animated_text_kit: ^4.2.2
   auto_size_text: ^3.0.0
   bloc: ^8.1.2
@@ -75,12 +75,13 @@ dependency_overrides:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  #Packages
+    
   build_runner: ^2.4.7
   flutter_lints: ^3.0.1
   json_serializable: ^6.7.1
   very_good_analysis: ^5.1.0
   auto_route_generator: ^7.3.2
+
 
   
 
