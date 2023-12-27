@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CustomDialog {
-  Future<void> showCustomDialog(BuildContext context, Widget child) async {
+final class CustomDialog {
+  CustomDialog._();
+
+  static Future<T?> showCustomDialog<T>(
+      BuildContext context, Widget child) async {
     return showDialog(
       context: context,
       builder: (context) {
@@ -17,7 +20,10 @@ class CustomDialog {
     );
   }
 
-  Future<void> showCustomDialogError(BuildContext context, Widget child) async {
+  static Future<T?> showCustomDialogError<T>(
+    BuildContext context,
+    Widget child,
+  ) async {
     return showDialog(
       context: context,
       builder: (context) {

@@ -16,9 +16,12 @@ import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys
 
 import '../../../../product/src/button/loading_button.dart';
 
+part 'send_email_button.dart';
+part 'email_form_field.dart';
+
 @RoutePage()
-class PassReset extends StatelessWidget {
-  PassReset({super.key});
+class PassResetPage extends StatelessWidget {
+  PassResetPage({super.key});
 
   final TextEditingController emailController = TextEditingController();
 
@@ -57,12 +60,12 @@ class PassReset extends StatelessWidget {
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 20),
-                          EmailFormField(emailController: emailController),
+                          _EmailFormField(emailController: emailController),
                           const SizedBox(
                             height: 5,
                           ),
                           const SizedBox(height: 20),
-                          SenderButton(
+                          _SendEmailButton(
                             formKey: _formKey,
                           ),
                         ],
@@ -75,92 +78,6 @@ class PassReset extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class SenderButton extends StatelessWidget {
-  const SenderButton({
-    this.formKey,
-    super.key,
-  });
-
-  final GlobalKey<FormState>? formKey;
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<PasswordResetCubit, PasswordResetState>(
-      listener: (context, state) {
-        if (state.status == Status.isDone) {
-          CustomDialog().showCustomDialog(
-            context,
-            Text(LocaleKeys.succes_resetPasswordSent.tr()),
-          );
-        } else if (state.status == Status.isFailed) {
-          CustomDialog().showCustomDialogError(
-            context,
-            Text(
-              LocaleKeys.errors_errorWhileSendingPasswordResetEmail.tr(),
-              style: TextStyle(color: Theme.of(context).colorScheme.error),
-            ),
-          );
-        }
-      },
-      builder: (context, state) {
-        if (state.status == Status.isLoading) {
-          return const LoadingButton();
-        }
-        return MainElevatedIconButton(
-          onPressed: () {
-            if (formKey!.currentState!.validate()) {
-              context.read<PasswordResetCubit>().sendResetPasswordEmail();
-            }
-          },
-          label: Text(
-            LocaleKeys.mainText_resetPassword.tr(),
-          ),
-          icon: const Icon(Icons.mail_outline),
-        );
-      },
-    );
-  }
-}
-
-class EmailFormField extends StatelessWidget {
-  const EmailFormField({
-    required this.emailController,
-    super.key,
-  });
-
-  final TextEditingController emailController;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: emailController,
-      textInputAction: TextInputAction.done,
-      autofillHints: const [AutofillHints.email],
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 10),
-        prefixIcon: const Icon(
-          Icons.mail_outline,
-          size: 20,
-        ),
-        hintText: LocaleKeys.mainText_enterMailAddress.tr(),
-        filled: true,
-        fillColor: Theme.of(context).colorScheme.surface.withOpacity(0.1),
-        border: InputBorder.none,
-        focusedBorder: InputBorder.none,
-      ),
-      validator: FormBuilderValidators.compose([
-        FormBuilderValidators.required(
-          errorText: LocaleKeys.errors_dontLeaveEmpty.tr(),
-        ),
-        FormBuilderValidators.email(
-          errorText: LocaleKeys.errors_justEnterEmail.tr(),
-        ),
-      ]),
     );
   }
 }

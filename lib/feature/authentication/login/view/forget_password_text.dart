@@ -13,13 +13,8 @@ final class _ForgetPasswordText extends StatelessWidget {
           fontSize: 15,
         ),
       ),
-      onPressed: () => Navigator.of(context).push(pageRouterPassReset()),
-    );
-  }
-
-  MaterialPageRoute<dynamic> pageRouterPassReset() {
-    return MaterialPageRoute(
-      builder: (context) => PassReset(),
+      onPressed: () =>
+          context.router.pushNamed(RoutePath.passwordResetScreen.path),
     );
   }
 }
