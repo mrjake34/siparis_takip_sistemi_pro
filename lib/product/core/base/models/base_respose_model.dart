@@ -10,9 +10,10 @@ final class BaseResponseModel<T> extends IBaseResponseModel<T> {
     this.statusCode,
     this.headers,
     this.message,
-    this.error,
     this.networkStatus,
+    this.cookie,
   });
+  final String? cookie;
   @override
   final T? data;
   @override
@@ -20,10 +21,13 @@ final class BaseResponseModel<T> extends IBaseResponseModel<T> {
   @override
   final String? message;
 
+  final Map<String, List<String>>? headers;
+  final NetworkStatus? networkStatus;
+
   @override
   BaseResponseModel<T> fromJson(Map<String, dynamic> json) {
     return BaseResponseModel<T>(
-      data: json['data'] as T?,
+      data: data,
       statusCode: json['statusCode'] as int?,
       message: json['message'] as String?,
     );
@@ -51,16 +55,7 @@ final class BaseResponseModel<T> extends IBaseResponseModel<T> {
   }
 
   @override
-  final String? error;
-
-  @override
-  final Map<String, List<dynamic>>? headers;
-
-  @override
   set data(T? data) => data;
-
-  @override
-  set headers(Map<String, List<dynamic>>? headers) => headers;
 
   @override
   set message(String? message) => message;
@@ -69,31 +64,11 @@ final class BaseResponseModel<T> extends IBaseResponseModel<T> {
   set statusCode(int? statusCode) => statusCode;
 
   @override
-  String? getCookie({Map<String, List<dynamic>>? headers}) {
-    if (headers == null) return null;
-    final cookie = headers['set-cookie']?.first as String?;
-    if (cookie == null) return null;
-    final cookieSplit = cookie.split(';');
-    final cookieString = cookieSplit[0].split('=');
-    return cookieString[1];
-  }
-
-  @override
-  final NetworkStatus? networkStatus;
-
-  @override
-  set networkStatus(NetworkStatus? networkStatus) => networkStatus;
-
-  @override
-  NetworkStatus getStatus(String value) => NetworkStatus.getStatus(value);
-
-  @override
-  NetworkStatus getStatusFromCode(int code) =>
-      NetworkStatus.getStatusFromCode(code);
-
-  @override
-  set error(String? error) => error;
-
-  @override
-  List<Object?> get props => [data, statusCode, headers, message, error];
+  List<Object?> get props => [
+        data,
+        statusCode,
+        headers,
+        message,
+        networkStatus,
+      ];
 }

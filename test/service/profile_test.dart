@@ -5,7 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_request_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/service/login_service.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/service/profile_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
@@ -33,7 +32,7 @@ void main() {
     debugPrint('Login Response Data: ${loginResponse.data!.user?.id}');
 
     if (loginResponse.statusCode == HttpStatus.ok) {
-      final cookie = loginResponse.getCookie(headers: loginResponse.headers);
+      final cookie = loginResponse.getCookie(loginResponse.headers);
       final response =
           await profileService.getProfile<UserResponseModel, UserResponseModel>(
         cookie: cookie,

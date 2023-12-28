@@ -35,7 +35,7 @@ void main() {
     if (loginResponse.statusCode == HttpStatus.ok) {
       debugPrint('Login Response ID ${loginResponse.data?.user?.id}');
 
-      final cookie = loginResponse.getCookie(headers: loginResponse.headers);
+      final cookie = loginResponse.getCookie(loginResponse.headers);
       final response =
           await productService.getProducts<ProductList, ProductList>(
         cookie: cookie,
@@ -74,7 +74,7 @@ void main() {
     if (loginResponse.statusCode == HttpStatus.ok) {
       debugPrint('Login Response ID ${loginResponse.data?.user?.id}');
 
-      final cookie = loginResponse.getCookie(headers: loginResponse.headers);
+      final cookie = loginResponse.getCookie(loginResponse.headers);
       final response = await productService
           .addProduct<ProductResponseModel, ProductResponseModel>(
         cookie: cookie,
@@ -119,7 +119,7 @@ void main() {
     if (loginResponse.statusCode == HttpStatus.ok) {
       debugPrint('Login Response ID ${loginResponse.data?.user?.id}');
 
-      final cookie = loginResponse.getCookie(headers: loginResponse.headers);
+      final cookie = loginResponse.getCookie(loginResponse.headers);
       final productList =
           await productService.getProducts<ProductList, ProductList>(
         cookie: cookie,
@@ -164,7 +164,7 @@ void main() {
     if (loginResponse.statusCode == HttpStatus.ok) {
       debugPrint('Login Response ID ${loginResponse.data?.user?.id}');
 
-      final cookie = loginResponse.getCookie(headers: loginResponse.headers);
+      final cookie = loginResponse.getCookie(loginResponse.headers);
       final productList =
           await productService.getProducts<ProductList, ProductList>(
         cookie: cookie,
