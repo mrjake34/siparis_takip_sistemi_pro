@@ -2,5 +2,5 @@ import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_s
 
 abstract class IBaseErrorModel {
   IBaseErrorModel(this.error);
-  NetworkStatus error;
+  final String? error;
 }

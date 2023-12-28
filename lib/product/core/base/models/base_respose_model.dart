@@ -11,13 +11,12 @@ final class BaseResponseModel<T> implements IBaseResponseModel<T> {
     this.headers,
     this.networkStatus,
     this.message,
+    this.error,
   });
   @override
   final T? data;
   @override
   final int? statusCode;
-  @override
-  final Map<String, List<dynamic>>? headers;
   @override
   final NetworkStatus? networkStatus;
   @override
@@ -28,8 +27,6 @@ final class BaseResponseModel<T> implements IBaseResponseModel<T> {
     return BaseResponseModel<T>(
       data: json['data'] as T?,
       statusCode: json['statusCode'] as int?,
-      headers: json['cookie'] as Map<String, List<dynamic>>?,
-      networkStatus: NetworkStatus.values[json['networkStatus'] as int? ?? 0],
       message: json['message'] as String?,
     );
   }
@@ -38,6 +35,7 @@ final class BaseResponseModel<T> implements IBaseResponseModel<T> {
     return json['message'] as String?;
   }
 
+  @override
   String? getCookie({Map<String, List<dynamic>>? headers}) {
     if (headers == null) return null;
     final cookie = headers['set-cookie']?.first as String?;
@@ -65,17 +63,23 @@ final class BaseResponseModel<T> implements IBaseResponseModel<T> {
   }
 
   @override
-  set data(T? data) {}
+  final String? error;
 
   @override
-  set message(String? message) {}
+  final Map<String, List<dynamic>>? headers;
 
   @override
-  set headers(Map<String, List<dynamic>>? headers) {}
+  set data(T? data) => data;
 
   @override
-  set networkStatus(NetworkStatus? networkStatus) {}
+  set headers(Map<String, List<dynamic>>? headers) => headers;
 
   @override
-  set statusCode(int? statusCode) {}
+  set message(String? message) => message;
+
+  @override
+  set networkStatus(NetworkStatus? networkStatus) => networkStatus;
+
+  @override
+  set statusCode(int? statusCode) => statusCode;
 }

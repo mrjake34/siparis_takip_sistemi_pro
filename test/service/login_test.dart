@@ -19,7 +19,7 @@ void main() {
     final response = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
-        password: 'alkan1222',
+        password: 'alkan12345',
       ),
       model: LoginResponseModel(),
     );

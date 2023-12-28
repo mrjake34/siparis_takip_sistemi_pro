@@ -170,7 +170,7 @@ abstract class $RouteManager extends _i19.RootStackRouter {
           routeData.argsAs<PassResetArgs>(orElse: () => const PassResetArgs());
       return _i19.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i14.PassReset(key: args.key),
+        child: _i14.PassResetPage(key: args.key),
       );
     },
     ProductListRoute.name: (routeData) {
