@@ -29,7 +29,12 @@ final class UserResponseModel extends IBaseNetworkModel<UserResponseModel> {
 
   @override
   UserResponseModel fromJson(Map<String, dynamic> json) {
-    return UserResponseModel.fromJson(json);
+    return UserResponseModel(
+      message: json['message'] as String?,
+      user: json['user'] == null
+          ? null
+          : User.fromJson(json['user'] as Map<String, dynamic>),
+    );
   }
 
   @override

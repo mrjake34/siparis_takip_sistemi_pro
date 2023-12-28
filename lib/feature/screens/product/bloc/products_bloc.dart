@@ -33,7 +33,7 @@ final class ProductsBloc extends BaseBloc<ProductsEvent, ProductsState> {
     if (event.data == null || event.id == null) {
       safeEmit(state.copyWith(status: Status.isFailed));
     } else {
-      final response = await productService.updateProduct<Product>(
+      final response = await productService.updateProduct<Product, Product>(
         model: Product(),
         data: UpdateModel(
           propName: event.data?.propName,
@@ -51,7 +51,7 @@ final class ProductsBloc extends BaseBloc<ProductsEvent, ProductsState> {
 
   Future<void> _addProductList(AddProductEvent event) async {
     safeEmit(state.copyWith(status: Status.isLoading));
-    final response = await productService.addProduct<ProductList>(
+    final response = await productService.addProduct<ProductList, ProductList>(
       product: event.product,
       cookie: event.cookie,
     );
@@ -64,7 +64,7 @@ final class ProductsBloc extends BaseBloc<ProductsEvent, ProductsState> {
 
   Future<void> _fetchProductList(ProductListEvent event) async {
     safeEmit(state.copyWith(status: Status.isLoading));
-    final response = await productService.getProducts<ProductList>(
+    final response = await productService.getProducts<ProductList, ProductList>(
       cookie: event.cookie,
     );
     if (response.data != null) {

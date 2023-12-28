@@ -3,23 +3,20 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/interface/interface_
 import '../../constants/enums/network_status.dart';
 
 /// Base response model for all api responses
-final class BaseResponseModel<T> implements IBaseResponseModel<T> {
+final class BaseResponseModel<T> extends IBaseResponseModel<T> {
   /// Base response model contructor method
   BaseResponseModel({
     this.data,
     this.statusCode,
     this.headers,
-    this.networkStatus,
     this.message,
+    this.error,
+    this.networkStatus,
   });
   @override
   final T? data;
   @override
   final int? statusCode;
-  @override
-  final Map<String, List<dynamic>>? headers;
-  @override
-  final NetworkStatus? networkStatus;
   @override
   final String? message;
 
@@ -28,8 +25,6 @@ final class BaseResponseModel<T> implements IBaseResponseModel<T> {
     return BaseResponseModel<T>(
       data: json['data'] as T?,
       statusCode: json['statusCode'] as int?,
-      headers: json['cookie'] as Map<String, List<dynamic>>?,
-      networkStatus: NetworkStatus.values[json['networkStatus'] as int? ?? 0],
       message: json['message'] as String?,
     );
   }
@@ -38,22 +33,13 @@ final class BaseResponseModel<T> implements IBaseResponseModel<T> {
     return json['message'] as String?;
   }
 
-  String? getCookie({Map<String, List<dynamic>>? headers}) {
-    if (headers == null) return null;
-    final cookie = headers['set-cookie']?.first as String?;
-    if (cookie == null) return null;
-    final cookieSplit = cookie.split(';');
-    final cookieString = cookieSplit[0].split('=');
-    return cookieString[1];
-  }
-
   @override
   Map<String, dynamic>? toJson() {
     return {
       'data': data,
       'statusCode': statusCode,
       'cookie': headers,
-      'networkStatus': networkStatus?.index,
+      'networkStatus': networkStatus?.name,
       'error': message ?? '',
     };
   }
@@ -65,17 +51,49 @@ final class BaseResponseModel<T> implements IBaseResponseModel<T> {
   }
 
   @override
-  set data(T? data) {}
+  final String? error;
 
   @override
-  set message(String? message) {}
+  final Map<String, List<dynamic>>? headers;
 
   @override
-  set headers(Map<String, List<dynamic>>? headers) {}
+  set data(T? data) => data;
 
   @override
-  set networkStatus(NetworkStatus? networkStatus) {}
+  set headers(Map<String, List<dynamic>>? headers) => headers;
 
   @override
-  set statusCode(int? statusCode) {}
+  set message(String? message) => message;
+
+  @override
+  set statusCode(int? statusCode) => statusCode;
+
+  @override
+  String? getCookie({Map<String, List<dynamic>>? headers}) {
+    if (headers == null) return null;
+    final cookie = headers['set-cookie']?.first as String?;
+    if (cookie == null) return null;
+    final cookieSplit = cookie.split(';');
+    final cookieString = cookieSplit[0].split('=');
+    return cookieString[1];
+  }
+
+  @override
+  final NetworkStatus? networkStatus;
+
+  @override
+  set networkStatus(NetworkStatus? networkStatus) => networkStatus;
+
+  @override
+  NetworkStatus getStatus(String value) => NetworkStatus.getStatus(value);
+
+  @override
+  NetworkStatus getStatusFromCode(int code) =>
+      NetworkStatus.getStatusFromCode(code);
+
+  @override
+  set error(String? error) => error;
+
+  @override
+  List<Object?> get props => [data, statusCode, headers, message, error];
 }

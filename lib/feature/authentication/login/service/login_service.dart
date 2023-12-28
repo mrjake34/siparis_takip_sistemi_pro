@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_request_model.dart';
-import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
 
@@ -12,55 +11,36 @@ import 'interface_login_service.dart';
 
 final class LoginService implements ILoginService {
   @override
-  Future<BaseResponseModel<T>> appleLogin<T extends IBaseNetworkModel<T>>() {
+  Future<BaseResponseModel<R>> appleLogin<R, T extends IBaseNetworkModel<T>>() {
     throw UnimplementedError();
   }
 
   @override
-  Future<BaseResponseModel<T>> googleLogin<T extends IBaseNetworkModel<T>>() {
+  Future<BaseResponseModel<R>>
+      googleLogin<R, T extends IBaseNetworkModel<T>>() {
     throw UnimplementedError();
   }
 
   @override
-  Future<BaseResponseModel<T>> login<T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<R>> login<R, T extends IBaseNetworkModel<T>>({
     LoginRequestModel? loginModel,
     T? model,
   }) async {
     if (loginModel == null) {
-      return BaseResponseModel(
+      return BaseResponseModel<R>(
         networkStatus: NetworkStatus.userNotFound,
         statusCode: HttpStatus.badRequest,
       );
     }
-    final response = await ProductItems.networkService.post<LoginResponseModel>(
+    return ProductItems.networkService.post<R, T>(
       AppNetwork.loginPath,
       data: loginModel.toJson(),
-      model: LoginResponseModel(),
+      model: model,
     );
-    if (response.statusCode == HttpStatus.ok) {
-      if (response.data == null || response.data == null) {
-        return BaseResponseModel(
-          networkStatus: NetworkStatus.userNotFound,
-          statusCode: response.statusCode,
-        );
-      } else {
-        return BaseResponseModel<T>(
-          data: response.data as T?,
-          statusCode: response.statusCode,
-          headers: response.headers,
-        );
-      }
-    } else {
-      return BaseResponseModel<T>(
-        networkStatus:
-            NetworkStatus.getStatus(response.data!.error?.message ?? ''),
-        statusCode: response.statusCode,
-      );
-    }
   }
 
   @override
-  Future<BaseResponseModel<T>> logout<T extends IBaseNetworkModel<T>>() {
+  Future<BaseResponseModel<R>> logout<R, T extends IBaseNetworkModel<T>>() {
     throw UnimplementedError();
   }
 }

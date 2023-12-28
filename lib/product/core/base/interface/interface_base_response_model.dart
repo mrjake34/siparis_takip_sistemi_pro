@@ -1,18 +1,9 @@
-import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
+import 'package:equatable/equatable.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/interface/data_model.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/interface/status_model.dart';
 
-abstract class IBaseResponseModel<T> {
-  IBaseResponseModel({
-    this.message,
-    this.data,
-    this.statusCode,
-    this.headers,
-    this.networkStatus,
-  });
-  String? message;
-  T? data;
-  int? statusCode;
-  Map<String, List<dynamic>>? headers;
-  NetworkStatus? networkStatus;
-  IBaseResponseModel<T> fromJson(Map<String, dynamic> json);
-  Map<String, dynamic>? toJson();
-}
+import 'headers_model.dart';
+import 'interface_base_error_model.dart';
+
+abstract class IBaseResponseModel<T> extends Equatable
+    implements IBaseErrorModel, IBaseHeaderModel, IDataModel<T>, IStatusModel {}

@@ -14,7 +14,7 @@ import 'package:siparis_takip_sistemi_pro/feature/authentication/courier_login/v
     as _i5;
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/view/login_page.dart'
     as _i12;
-import 'package:siparis_takip_sistemi_pro/feature/authentication/password_reset/view/passport_reset.dart'
+import 'package:siparis_takip_sistemi_pro/feature/authentication/password_reset/view/password_reset_page.dart'
     as _i14;
 import 'package:siparis_takip_sistemi_pro/feature/authentication/register/view/register_page.dart'
     as _i17;
@@ -170,7 +170,7 @@ abstract class $RouteManager extends _i19.RootStackRouter {
           routeData.argsAs<PassResetArgs>(orElse: () => const PassResetArgs());
       return _i19.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i14.PassReset(key: args.key),
+        child: _i14.PassResetPage(key: args.key),
       );
     },
     ProductListRoute.name: (routeData) {

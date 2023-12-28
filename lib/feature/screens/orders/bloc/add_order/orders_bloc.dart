@@ -17,7 +17,8 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
   OrdersBloc() : super(const OrdersState()) {
     on<OrdersListEvent>((event, emit) async {
       emit(state.copyWith(status: Status.isLoading));
-      final response = await OrderService().getOrderList<OrderResponseModel>();
+      final response = await OrderService()
+          .getOrderList<OrderResponseModel, OrderResponseModel>();
 
       emit(
         state.copyWith(

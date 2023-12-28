@@ -55,6 +55,9 @@ enum RoutePath {
 
   /// Courier Login Page
   courierLoginScreen('/courier-login-screen'),
+
+  /// Route manager enum password reset screen
+  passwordResetScreen('/password-reset-screen'),
   ;
 
   const RoutePath(this.path);

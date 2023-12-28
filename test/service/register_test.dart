@@ -16,7 +16,8 @@ void main() {
 
   test('Register', () async {
     final registerService = RegisterService();
-    final response = await registerService.register<RegisterResponseModel>(
+    final response = await registerService
+        .register<RegisterResponseModel, RegisterResponseModel>(
       data: RegisterRequestModel(
         email: 'alkanatas1333244@gmail.com',
         password: 'alkan12345',

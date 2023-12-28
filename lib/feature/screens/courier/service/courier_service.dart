@@ -9,17 +9,17 @@ import 'interface_courier_service.dart';
 
 final class CourierService implements ICourierService {
   @override
-  Future<BaseResponseModel<T>> postCourier<T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<R>> postCourier<R, T extends IBaseNetworkModel<T>>({
     CourierModel? data,
     String? cookie,
     T? model,
   }) async {
     if (data == null || cookie == null) {
-      return BaseResponseModel<T>(
+      return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.post<T>(
+    final response = await ProductItems.networkService.post<R, T>(
       AppNetwork.courierPath,
       options: Options(
         headers: {
@@ -33,17 +33,17 @@ final class CourierService implements ICourierService {
   }
 
   @override
-  Future<BaseResponseModel<T>> putCourier<T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<R>> putCourier<R, T extends IBaseNetworkModel<T>>({
     CourierModel? data,
     String? cookie,
     T? model,
   }) async {
     if (data == null || cookie == null) {
-      return BaseResponseModel<T>(
+      return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.put<T>(
+    final response = await ProductItems.networkService.put<R, T>(
       AppNetwork.courierPath,
       options: Options(
         headers: {
@@ -57,17 +57,18 @@ final class CourierService implements ICourierService {
   }
 
   @override
-  Future<BaseResponseModel<T>> deleteCourier<T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<R>>
+      deleteCourier<R, T extends IBaseNetworkModel<T>>({
     CourierModel? data,
     String? cookie,
     T? model,
   }) async {
     if (data == null || cookie == null) {
-      return BaseResponseModel<T>(
+      return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.delete<T>(
+    final response = await ProductItems.networkService.delete<R, T>(
       AppNetwork.courierPath,
       options: Options(
         headers: {
@@ -81,17 +82,17 @@ final class CourierService implements ICourierService {
   }
 
   @override
-  Future<BaseResponseModel<T>> getCourier<T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<R>> getCourier<R, T extends IBaseNetworkModel<T>>({
     String? id,
     String? cookie,
     T? model,
   }) async {
     if (id == null || cookie == null) {
-      return BaseResponseModel<T>(
+      return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.get<T>(
+    final response = await ProductItems.networkService.get<R, T>(
       '${AppNetwork.courierPath}/$id',
       options: Options(
         headers: {
@@ -104,16 +105,16 @@ final class CourierService implements ICourierService {
   }
 
   @override
-  Future<BaseResponseModel<T>> getCouriers<T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<R>> getCouriers<R, T extends IBaseNetworkModel<T>>({
     String? cookie,
     T? model,
   }) async {
     if (cookie == null) {
-      return BaseResponseModel<T>(
+      return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.get<T>(
+    final response = await ProductItems.networkService.get<R, T>(
       AppNetwork.courierPath,
       options: Options(
         headers: {

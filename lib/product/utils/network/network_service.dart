@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/interface/interface_base_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 import 'package:vexana/vexana.dart';
@@ -35,7 +36,7 @@ final class NetworkService {
   };
 
   /// This method is used to make a Get request.
-  Future<BaseResponseModel<T>> get<T extends IBaseNetworkModel<T>>(
+  Future<BaseResponseModel<R>> get<R, T extends IBaseNetworkModel<T>>(
     String path, {
     Options? options,
     T? model,
@@ -51,7 +52,7 @@ final class NetworkService {
         statusCode: response.statusCode,
       );
     }
-    final parseModel = _parseModel<T, T>(
+    final parseModel = _parseModel<R, T>(
       model: model,
       resp: response.data,
     );
@@ -64,44 +65,13 @@ final class NetworkService {
     return BaseResponseModel(
       data: parseModel,
       statusCode: response.statusCode,
-    );
-  }
-
-  /// This method is used to make a Post request.
-  Future<BaseResponseModel<T>> post<T extends IBaseNetworkModel<T>>(
-    String path, {
-    Object? data,
-    Map<String, dynamic>? queryParameters,
-    Options? options,
-    CancelToken? cancelToken,
-    T? model,
-  }) async {
-    final response = await _networkManager.post<dynamic>(
-      path,
-      data: data,
-      queryParameters: queryParameters,
-      options: options,
-      cancelToken: cancelToken,
-    );
-    final parseModel = _parseModel<T, T>(
-      model: model,
-      resp: response.data,
-    );
-    if (parseModel == null) {
-      return BaseResponseModel(
-        networkStatus: NetworkStatus.failedLoadData,
-        statusCode: response.statusCode,
-      );
-    }
-    return BaseResponseModel(
-      data: parseModel,
+      message: response.statusMessage,
       headers: response.headers.map,
-      statusCode: response.statusCode,
     );
   }
 
   /// This method is used to make a Put request.
-  Future<BaseResponseModel<T>> put<T extends IBaseNetworkModel<T>>(
+  Future<BaseResponseModel<R>> put<R, T extends IBaseNetworkModel<T>>(
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
@@ -109,37 +79,33 @@ final class NetworkService {
     CancelToken? cancelToken,
     T? model,
   }) async {
-    final reponse = await _networkManager.put<dynamic>(
+    final response = await _networkManager.put<dynamic>(
       path,
       data: data,
       queryParameters: queryParameters,
       options: options,
       cancelToken: cancelToken,
     );
-    if (reponse.data == null) {
+    if (response.data == null) {
       return BaseResponseModel(
         networkStatus: NetworkStatus.failedLoadData,
-        statusCode: reponse.statusCode,
+        statusCode: response.statusCode,
       );
     }
-    final parseModel = _parseModel<T, T>(
+    final parseModel = _parseModel<R, T>(
       model: model,
-      resp: reponse.data,
+      resp: response.data,
     );
-    if (parseModel == null) {
-      return BaseResponseModel(
-        networkStatus: NetworkStatus.failedLoadData,
-        statusCode: reponse.statusCode,
-      );
-    }
-    return BaseResponseModel<T>(
+    return BaseResponseModel(
       data: parseModel,
-      statusCode: reponse.statusCode,
+      statusCode: response.statusCode,
+      message: response.statusMessage,
+      headers: response.headers.map,
     );
   }
 
   /// This method is used to make a Delete request.
-  Future<BaseResponseModel<T>> delete<T extends IBaseNetworkModel<T>>(
+  Future<BaseResponseModel<R>> delete<R, T extends IBaseNetworkModel<T>>(
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
@@ -160,12 +126,40 @@ final class NetworkService {
         statusCode: response.statusCode,
       );
     }
-    final parseModel = _parseModel<T, T>(
+    final parseModel = _parseModel<R, T>(
+      model: model,
+      resp: response.data,
+    );
+    return BaseResponseModel(
+      data: parseModel,
+      statusCode: response.statusCode,
+      message: response.statusMessage,
+      headers: response.headers.map,
+    );
+  }
+
+  /// This method is used to make a Post request.
+  Future<BaseResponseModel<R>> post<R, T extends IBaseNetworkModel<T>>(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    T? model,
+  }) async {
+    final response = await _networkManager.post<dynamic>(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
+    );
+    final parseModel = _parseModel<R, T>(
       model: model,
       resp: response.data,
     );
     if (parseModel == null) {
-      return BaseResponseModel(
+      return BaseResponseModel<R>(
         networkStatus: NetworkStatus.failedLoadData,
         statusCode: response.statusCode,
       );
@@ -173,6 +167,8 @@ final class NetworkService {
     return BaseResponseModel(
       data: parseModel,
       statusCode: response.statusCode,
+      message: response.statusMessage,
+      headers: response.headers.map,
     );
   }
 
