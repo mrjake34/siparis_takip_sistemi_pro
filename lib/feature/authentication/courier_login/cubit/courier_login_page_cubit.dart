@@ -19,7 +19,8 @@ class CourierLoginPageCubit extends Cubit<CourierLoginPageState> {
   Future<void> loginUser({LoginRequestModel? data}) async {
     emit(const CourierLoginPageState(status: Status.isLoading));
 
-    final response = await courierLoginService.login<LoginResponseModel>(
+    final response =
+        await courierLoginService.login<LoginResponseModel, LoginResponseModel>(
       data: data,
       model: LoginResponseModel(),
     );
@@ -28,7 +29,7 @@ class CourierLoginPageCubit extends Cubit<CourierLoginPageState> {
         state.copyWith(
           status: Status.isFailed,
           networkStatus: response.networkStatus,
-          errorMessage: response.data?.error?.message ?? '',
+          errorMessage: response.data?.message ?? '',
         ),
       );
     }

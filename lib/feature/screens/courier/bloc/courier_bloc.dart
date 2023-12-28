@@ -13,7 +13,8 @@ class CourierBloc extends BaseBloc<CourierEvent, CourierState> {
   CourierBloc(this.courierService) : super(const CourierState()) {
     on<CourierEvent>((event, emit) async {
       safeEmit(state.copyWith(status: Status.isLoading));
-      final response = await courierService.getCouriers<CourierResponseModel>();
+      final response = await courierService
+          .getCouriers<CourierResponseModel, CourierResponseModel>();
       safeEmit(
         state.copyWith(
           status: Status.isDone,

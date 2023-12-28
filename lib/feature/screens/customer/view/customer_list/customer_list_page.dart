@@ -66,11 +66,13 @@ class CustomerListBuilder extends StatelessWidget {
                         CardMoreButton.openMenu<void>(
                           context: context,
                           id: customer.id ?? '',
-                          function: () =>
-                              CustomerService().deleteCustomer<CustomerList>(
-                            id: customer.id ?? '',
-                            cookie: context.read<LoginBloc>().state.cookie,
-                          ),
+                          function: () => context.read<CustomerBloc>().add(
+                                CustomerDeleteEvent(
+                                  id: customer.id ?? '',
+                                  cookie:
+                                      context.read<LoginBloc>().state.cookie,
+                                ),
+                              ),
                           offset: details.globalPosition,
                         );
                       },

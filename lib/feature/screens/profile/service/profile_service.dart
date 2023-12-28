@@ -1,53 +1,38 @@
-import 'package:dio/dio.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
-import '../../../../product/core/constants/enums/enums.dart';
+import 'package:vexana/vexana.dart';
 import 'interface_profile_service.dart';
 
 final class ProfileService extends IProfileService {
   @override
-  Future<BaseResponseModel<T>> getProfile<T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<R>> getProfile<R, T extends IBaseNetworkModel<T>>({
     String? cookie,
     String? id,
+    T? model,
   }) async {
     if (cookie == null || id == null) {
       return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.get<UserResponseModel>(
+    return ProductItems.networkService.get<R, T>(
       '${AppNetwork.userPath}$id',
       options: Options(
         headers: {
           'authorization': 'Bearer $cookie',
         },
       ),
-      model: UserResponseModel(),
+      model: model,
     );
-    if (response.data?.user != null) {
-      await ProductItems.sharedManager.setStringValue(
-        PreferenceKey.userName,
-        response.data!.user?.toJson().toString() ?? '',
-      );
-      return BaseResponseModel(
-        data: response.data?.user as T?,
-        statusCode: response.statusCode,
-      );
-    } else {
-      return BaseResponseModel(
-        networkStatus: NetworkStatus.getStatus(response.data?.message ?? ''),
-        statusCode: response.statusCode,
-      );
-    }
   }
 
   @override
-  Future<BaseResponseModel<T>> updateProfile<T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<R>>
+      updateProfile<R, T extends IBaseNetworkModel<T>>({
     UpdateModel? model,
     String? id,
     String? cookie,
@@ -58,7 +43,7 @@ final class ProfileService extends IProfileService {
       );
     }
 
-    final response = await ProductItems.networkService.put<UserResponseModel>(
+    final response = await ProductItems.networkService.put<R, T>(
       '${AppNetwork.userPath}$id',
       options: Options(
         headers: {
@@ -67,18 +52,11 @@ final class ProfileService extends IProfileService {
       ),
       data: model.toJson(),
     );
-    if (response.data != null) {
-      return BaseResponseModel(
-        data: NetworkStatus.updateSuccess.message as T?,
-        statusCode: response.statusCode,
-      );
-    } else {
-      return BaseResponseModel(
-        networkStatus: NetworkStatus.getStatus(
-          response.data?.message ?? '',
-        ),
-        statusCode: response.statusCode,
-      );
-    }
+    return BaseResponseModel(
+      data: response.data,
+      statusCode: response.statusCode,
+      networkStatus: response.networkStatus,
+      headers: response.headers,
+    );
   }
 }

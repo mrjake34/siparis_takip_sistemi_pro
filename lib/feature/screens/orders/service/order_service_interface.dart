@@ -2,9 +2,10 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_netwo
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
 
 abstract class IOrderService {
-  Future<BaseResponseModel<T>> postOrder<T extends IBaseNetworkModel<T>>();
-  Future<BaseResponseModel<T>> getOrderList<T extends IBaseNetworkModel<T>>();
-  Future<BaseResponseModel<T>> getOrder<T extends IBaseNetworkModel<T>>();
-  Future<BaseResponseModel<T>> deleteOrder<T extends IBaseNetworkModel<T>>();
-  Future<BaseResponseModel<T>> patchOrder<T extends IBaseNetworkModel<T>>();
+  Future<BaseResponseModel<R>> postOrder<R, T extends IBaseNetworkModel<T>>();
+  Future<BaseResponseModel<R>>
+      getOrderList<R, T extends IBaseNetworkModel<T>>();
+  Future<BaseResponseModel<R>> getOrder<R, T extends IBaseNetworkModel<T>>();
+  Future<BaseResponseModel<R>> deleteOrder<R, T extends IBaseNetworkModel<T>>();
+  Future<BaseResponseModel<R>> patchOrder<R, T extends IBaseNetworkModel<T>>();
 }

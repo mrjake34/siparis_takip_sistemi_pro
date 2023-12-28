@@ -23,7 +23,8 @@ class RegisterCubit extends BaseCubit<RegisterState> {
       return safeEmit(state.copyWith(status: Status.isFailed));
     }
     safeEmit(state.copyWith(status: Status.isLoading));
-    final response = await RegisterService().register<RegisterResponseModel>(
+    final response = await RegisterService()
+        .register<RegisterResponseModel, RegisterResponseModel>(
       model: RegisterResponseModel(),
       data: data,
     );

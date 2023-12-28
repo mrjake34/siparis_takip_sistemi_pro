@@ -16,7 +16,8 @@ void main() {
 
   test('Login', () async {
     final loginService = LoginService();
-    final response = await loginService.login<LoginResponseModel>(
+    final response =
+        await loginService.login<LoginResponseModel, LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
         password: 'alkan12345',

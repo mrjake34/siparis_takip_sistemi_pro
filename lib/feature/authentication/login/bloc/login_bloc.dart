@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_request_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/service/login_service.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 
@@ -50,7 +51,8 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
     }
 
     safeEmit(state.copyWith(status: Status.isLoading));
-    final response = await profileService.getProfile<User>(
+    final response =
+        await profileService.getProfile<UserResponseModel, UserResponseModel>(
       id: event.id,
       cookie: event.cookie,
     );
@@ -59,13 +61,13 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
         state.copyWith(
           status: Status.isFailed,
           networkStatus: response.networkStatus,
-          errorMessage: response.data?.message ?? '',
+          errorMessage: response.message,
         ),
       );
     }
     safeEmit(
       state.copyWith(
-        model: response.data,
+        model: response.data?.user,
         status: Status.isDone,
         autoLogin: true,
       ),
@@ -77,7 +79,8 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
     UserLoginEvent event,
   ) async {
     safeEmit(state.copyWith(status: Status.isLoading));
-    final response = await loginService.login<LoginResponseModel>(
+    final response =
+        await loginService.login<LoginResponseModel, LoginResponseModel>(
       loginModel: event.model,
       model: LoginResponseModel(),
     );
@@ -86,19 +89,20 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
         state.copyWith(
           status: Status.isFailed,
           networkStatus: response.networkStatus,
-          errorMessage: response.data?.error?.message ?? '',
+          errorMessage: response.data?.message ?? '',
         ),
       );
     }
     final cookie = response.getCookie(headers: response.headers);
-    final user = await profileService.getProfile<User>(
+    final user =
+        await profileService.getProfile<UserResponseModel, UserResponseModel>(
       cookie: cookie,
       id: response.data?.user?.id,
     );
     safeEmit(
       state.copyWith(
         status: Status.isDone,
-        model: user.data,
+        model: user.data?.user,
         networkStatus: NetworkStatus.loginSuccess,
         cookie: cookie,
       ),

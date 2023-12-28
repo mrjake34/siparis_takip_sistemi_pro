@@ -1,7 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'package:json_annotation/json_annotation.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/models/network_error_model.dart';
 
 import '../../../../product/core/base/interface/base_network_model.dart';
 
@@ -9,16 +6,16 @@ import '../../../../product/core/base/interface/base_network_model.dart';
 final class LoginResponseModel extends IBaseNetworkModel<LoginResponseModel> {
   LoginResponseModel({
     this.user,
-    this.error,
+    this.message,
   });
 
   final LoginModel? user;
-  final NetworkErrorModel? error;
+  final String? message;
   @override
   Map<String, dynamic> toJson() {
     return {
       'User': user,
-      'message': error?.toJson(),
+      'message': message,
     };
   }
 
@@ -28,42 +25,49 @@ final class LoginResponseModel extends IBaseNetworkModel<LoginResponseModel> {
       user: json['User'] == null
           ? null
           : LoginModel.fromJson(Map<String, String>.from(json['User'] as Map)),
-      error: json['message'] is String
-          ? NetworkErrorModel(message: json['message'] as String?)
+      message: json['message'] is String
+          ? json['message'] as String?
           : json['message'] is Map
-              ? NetworkErrorModel.fromJson(
-                  Map<String, dynamic>.from(json['message'] as Map),
-                )
+              ? Map<String, String>.from(json['message'] as Map) as String?
               : null,
     );
   }
 
   @override
-  List<Object?> get props => [user, error];
+  List<Object?> get props => [user, message];
 }
 
 @JsonSerializable()
-class LoginModel {
-  const LoginModel({
+final class LoginModel extends IBaseNetworkModel<LoginModel> {
+  LoginModel({
     this.id,
     this.shopName,
     this.role,
   });
-  factory LoginModel.fromJson(Map<String, String> json) {
+  factory LoginModel.fromJson(Map<String, dynamic> json) {
     return LoginModel(
-      id: json['Id'],
-      shopName: json['shopName'],
-      role: json['role'],
+      id: json['Id'] as String?,
+      shopName: json['shopName'] as String?,
+      role: json['role'] as String?,
     );
   }
   final String? id;
   final String? shopName;
   final String? role;
+  @override
   Map<String, dynamic> toJson() {
     return {
       'Id': id,
       'shopName': shopName,
       'role': role,
     };
+  }
+
+  @override
+  List<Object?> get props => [id, shopName, role];
+
+  @override
+  LoginModel fromJson(Map<String, dynamic> json) {
+    return LoginModel.fromJson(json);
   }
 }
