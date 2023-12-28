@@ -37,7 +37,7 @@ class ProfilePageBloc extends BaseBloc<ProfilePageEvent, ProfilePageState> {
         emit(
           state.copyWith(
             status: Status.isDone,
-            user: User(),
+            user: const User(),
           ),
         );
       } else {

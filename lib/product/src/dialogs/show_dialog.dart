@@ -4,7 +4,9 @@ final class CustomDialog {
   CustomDialog._();
 
   static Future<T?> showCustomDialog<T>(
-      BuildContext context, Widget child) async {
+    BuildContext context,
+    Widget child,
+  ) async {
     return showDialog(
       context: context,
       builder: (context) {

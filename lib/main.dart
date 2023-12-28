@@ -8,7 +8,6 @@ import 'package:siparis_takip_sistemi_pro/product/utils/localization/localizatio
 import 'package:siparis_takip_sistemi_pro/product/utils/provider/prodiver_manager.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
-
 import 'product/core/base/provider/theme/theme_cubit.dart';
 
 void main() async {

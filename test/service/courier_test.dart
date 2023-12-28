@@ -47,7 +47,7 @@ void main() {
       ),
       model: LoginResponseModel(),
     );
-    final cookie = response.getCookie(headers: response.headers);
+    final cookie = response.getCookie(response.headers);
     debugPrint(response.toString());
 
     if (response.statusCode == HttpStatus.ok) {

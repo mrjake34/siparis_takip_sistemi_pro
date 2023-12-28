@@ -93,7 +93,7 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
         ),
       );
     }
-    final cookie = response.getCookie(headers: response.headers);
+    final cookie = response.getCookie(response.headers);
     final user =
         await profileService.getProfile<UserResponseModel, UserResponseModel>(
       cookie: cookie,

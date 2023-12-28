@@ -32,11 +32,12 @@ final class LoginService implements ILoginService {
         statusCode: HttpStatus.badRequest,
       );
     }
-    return ProductItems.networkService.post<R, T>(
+    final response = await ProductItems.networkService.post<R, T>(
       AppNetwork.loginPath,
       data: loginModel.toJson(),
       model: model,
     );
+    return response;
   }
 
   @override

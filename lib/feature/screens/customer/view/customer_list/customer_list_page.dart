@@ -11,7 +11,6 @@ import '../../../../../product/src/cards/cards_more_button.dart';
 import '../../../../../product/src/cards/list_card.dart';
 import '../../bloc/customer_bloc.dart';
 import '../../model/customer.dart';
-import '../../service/customer_service.dart';
 
 @RoutePage()
 class CustomerListPage extends StatefulWidget {
