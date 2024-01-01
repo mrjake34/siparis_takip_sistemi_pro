@@ -37,33 +37,36 @@ final class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   @override
-  void initState() {
-    context.read<ProfilePageBloc>().add(const FetchUserDetailsEvent());
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return const BaseScaffold(
-      body: Column(
-        children: [
-          Flexible(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  _ProfileDetailField(),
-                  _ChooseThemeField(),
-                  _ChangeLanguageField(),
-                  _ChangeCurrencySymbolField(),
-                  _ProfilePageLogoutButton(),
-                  SizedBox(
-                    height: 30,
-                  ),
-                ],
-              ),
+    return BaseScaffold(
+      body: BlocProvider(
+        create: (context) => ProfilePageBloc()
+          ..add(
+            FetchUserDetailsEvent(
+              userId: context.read<LoginBloc>().state.model?.id,
+              cookie: context.read<LoginBloc>().state.cookie,
             ),
           ),
-        ],
+        child: const Column(
+          children: [
+            Flexible(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _ProfileDetailField(),
+                    _ChooseThemeField(),
+                    _ChangeLanguageField(),
+                    _ChangeCurrencySymbolField(),
+                    _ProfilePageLogoutButton(),
+                    SizedBox(
+                      height: 30,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

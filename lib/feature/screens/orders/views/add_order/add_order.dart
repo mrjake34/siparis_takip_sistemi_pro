@@ -405,13 +405,18 @@ class CustomerField extends StatelessWidget {
                     buildWhen: (previous, current) =>
                         previous.customer != current.customer,
                     builder: (context, state) {
+                      if (state.customer == null) {
+                        return Text(
+                          LocaleKeys.errors_failedLoadData.tr(),
+                        );
+                      }
                       return ListView(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         children: [
                           Text(
                             '${LocaleKeys.customer_customerName.tr()}: ',
-                            style: justBoldFontTextStyle,
+                            style: CustomTextStyles.justBoldFontTextStyle,
                           ),
                           SelectableText(
                             state.customer?.name ?? ' ',
@@ -420,7 +425,7 @@ class CustomerField extends StatelessWidget {
                           ),
                           Text(
                             '${LocaleKeys.customer_customerPhone.tr()}: ',
-                            style: justBoldFontTextStyle,
+                            style: CustomTextStyles.justBoldFontTextStyle,
                           ),
                           SelectableText(
                             state.customer?.phone ?? ' ',
@@ -429,7 +434,7 @@ class CustomerField extends StatelessWidget {
                           ),
                           Text(
                             '${LocaleKeys.customer_customerAddress.tr()}: ',
-                            style: justBoldFontTextStyle,
+                            style: CustomTextStyles.justBoldFontTextStyle,
                           ),
                           SelectableText(
                             state.customer?.adress ?? '',

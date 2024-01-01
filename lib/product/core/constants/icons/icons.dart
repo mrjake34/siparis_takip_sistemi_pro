@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppIcons {
+final class AppIcons {
   AppIcons._();
 
   static const IconData orderListIcon = Icons.list_alt;

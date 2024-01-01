@@ -29,25 +29,21 @@ final class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginBloc(
-        loginService: LoginService(),
-        profileService: ProfileService(),
-      ),
-      child: BlocConsumer<LoginBloc, LoginState>(
-        listener: (context, state) {
-          if (state.model != null) {
-            context.router.replaceNamed(RoutePath.splashScreen.path);
-          }
-        },
-        builder: (context, state) {
-          return const BaseScaffold(
-            body: Center(
-              child: CircularProgressIndicator.adaptive(),
-            ),
-          );
-        },
-      ),
+    return BlocConsumer<LoginBloc, LoginState>(
+      listener: (context, state) {
+        if (state.model != null) {
+          context.router.replaceNamed(RoutePath.splashScreen.path);
+        }
+        context.router.replaceNamed(RoutePath.loginScreen.path);
+      },
+      builder: (context, state) {
+        return const BaseScaffold(
+          appBar: false,
+          body: Center(
+            child: CircularProgressIndicator.adaptive(),
+          ),
+        );
+      },
     );
   }
 }
