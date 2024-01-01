@@ -42,6 +42,7 @@ final class _CourierLoginPageState extends State<CourierLoginPage>
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
+      appBar: false,
       body: BlocProvider(
         create: (context) => CourierLoginPageCubit(
           courierLoginService: CourierLoginService(),

@@ -46,6 +46,7 @@ final class _LoginPageState extends State<LoginPage> with _LoginPageMixin {
         profileService: ProfileService(),
       ),
       child: BaseScaffold(
+        appBar: false,
         body: Center(
           child: SingleChildScrollView(
             child: Container(

@@ -1,8 +1,6 @@
 import 'package:siparis_takip_sistemi_pro/product/core/base/mixin/status_mixin.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
-import '../../base/mixin/headers_mixin.dart';
-
 enum HttpTypes { post, get, delete, put }
 
 enum HttpPaths { login, signup, refresh, user }

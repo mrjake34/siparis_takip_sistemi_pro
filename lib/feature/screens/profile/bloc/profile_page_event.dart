@@ -8,11 +8,12 @@ abstract class ProfilePageEvent extends Equatable {
 }
 
 class FetchUserDetailsEvent extends ProfilePageEvent {
-  const FetchUserDetailsEvent({this.user, this.userId});
-  final User? user;
+  const FetchUserDetailsEvent({this.userId, this.cookie});
+
   final String? userId;
+  final String? cookie;
   @override
-  List<Object?> get props => [user, userId];
+  List<Object?> get props => [userId, cookie];
 }
 
 final class UserLogoutEvent extends ProfilePageEvent {}
