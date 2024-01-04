@@ -14,6 +14,7 @@ import 'package:siparis_takip_sistemi_pro/product/core/constants/strings/appstri
 import 'package:siparis_takip_sistemi_pro/product/src/button/loading_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.gr.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 

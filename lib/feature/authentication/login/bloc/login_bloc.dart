@@ -1,12 +1,10 @@
 import 'dart:io';
-
-// ignore: implementation_imports
-import 'package:bloc/src/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_request_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/service/login_service.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/mixin/headers_mixin.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 
@@ -25,7 +23,7 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
           const LoginState(),
         ) {
     on<UserLoginEvent>((event, emit) async {
-      await _userLogin(emit, event);
+      await _userLogin(event);
     });
     on<AutoLoginEvent>((event, emit) async {
       await _autoLogin(event);
@@ -75,7 +73,6 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
   }
 
   Future<void> _userLogin(
-    Emitter<LoginState> emit,
     UserLoginEvent event,
   ) async {
     safeEmit(state.copyWith(status: Status.isLoading));
@@ -93,11 +90,13 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
         ),
       );
     }
-    final cookie = response.getCookie(response.headers);
+    final cookie =
+        response.getCookie(response.headers, type: CookieTypes.setCookie);
     final user =
         await profileService.getProfile<UserResponseModel, UserResponseModel>(
       cookie: cookie,
       id: response.data?.user?.id,
+      model: UserResponseModel(),
     );
     safeEmit(
       state.copyWith(

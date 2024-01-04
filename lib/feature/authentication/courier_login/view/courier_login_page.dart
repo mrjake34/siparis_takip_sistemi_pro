@@ -26,6 +26,7 @@ part 'courier_login_button.dart';
 part 'email_field.dart';
 part 'main_logo_field.dart';
 part 'password_field.dart';
+part 'login_page_router_button.dart';
 
 @RoutePage()
 final class CourierLoginPage extends StatefulWidget {
@@ -82,45 +83,44 @@ class PageBuilder extends StatelessWidget {
                 ? 800
                 : context.general.mediaSize.width / 1,
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: FormBuilder(
-              key: _loginKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const _MainLogoField(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(AppSize.pagePadding),
-                      child: Column(
-                        children: [
-                          _EmailField(emailController: emailController),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          _PasswordField(
-                            passwordController: passwordController,
-                          ),
-                          const SizedBox(height: 20),
-                          _CourierLoginButton(
-                            loginKey: _loginKey,
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                        ],
-                      ),
+          child: FormBuilder(
+            key: _loginKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                const _MainLogoField(),
+                const SizedBox(
+                  height: 20,
+                ),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(AppSize.pagePadding),
+                    child: Column(
+                      children: [
+                        _EmailField(emailController: emailController),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        _PasswordField(
+                          passwordController: passwordController,
+                        ),
+                        const SizedBox(height: 20),
+                        _CourierLoginButton(
+                          loginKey: _loginKey,
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        const Divider(),
+                        const _LoginPageRouterButton(),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

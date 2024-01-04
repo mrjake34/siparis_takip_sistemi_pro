@@ -24,36 +24,38 @@ ThemeData lightTheme = ThemeData(
     tertiary: Color.fromARGB(255, 255, 255, 255),
     onTertiary: Color.fromARGB(255, 255, 255, 255),
   ),
-  elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      textStyle: const TextStyle(fontWeight: FontWeight.bold),
-      backgroundColor: const Color.fromARGB(255, 73, 84, 100),
-      surfaceTintColor: Colors.transparent,
-      foregroundColor: Colors.white,
-      disabledBackgroundColor: const Color(0xFF495464),
-      disabledForegroundColor: const Color.fromARGB(255, 255, 255, 255),
-      side: BorderSide.none,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2),
-      ),
-    ),
-  ),
-  textButtonTheme: TextButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      textStyle: const TextStyle(fontWeight: FontWeight.bold),
-      side: BorderSide.none,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2),
-      ),
-    ),
-  ),
   iconButtonTheme: IconButtonThemeData(
     style: IconButton.styleFrom(
       foregroundColor: const Color.fromARGB(255, 87, 92, 107),
     ),
   ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: const Color.fromARGB(255, 2, 34, 128),
+      foregroundColor: const Color.fromARGB(255, 255, 255, 255),
+      textStyle: const TextStyle(
+        fontSize: 15,
+        fontWeight: FontWeight.bold,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      elevation: 0,
+      minimumSize: const Size(300, 40),
+      fixedSize: const Size(300, 40),
+    ),
+  ),
+  textButtonTheme: TextButtonThemeData(
+    style: TextButton.styleFrom(
+      foregroundColor: const Color.fromARGB(255, 2, 34, 128),
+      textStyle: const TextStyle(
+        fontSize: 15,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  ),
   appBarTheme: AppBarTheme(
-    titleTextStyle: GoogleFonts.aBeeZee(
+    titleTextStyle: GoogleFonts.baloo2(
       textStyle: const TextStyle(
         color: Colors.black,
         fontWeight: FontWeight.bold,

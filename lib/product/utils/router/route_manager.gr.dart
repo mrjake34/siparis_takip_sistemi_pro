@@ -32,7 +32,7 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/customer/view/customer
     as _i6;
 import 'package:siparis_takip_sistemi_pro/feature/screens/customer/view/edit_customer/edit_customer.dart'
     as _i8;
-import 'package:siparis_takip_sistemi_pro/feature/screens/home_page/view/home_page_view.dart'
+import 'package:siparis_takip_sistemi_pro/feature/screens/home_page/view/home_page.dart'
     as _i11;
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/model/order_model.dart'
     as _i23;
@@ -50,7 +50,7 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/product/view/edit_prod
     as _i10;
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/view/product_list/product_list_page.dart'
     as _i15;
-import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart'
+import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user.dart'
     as _i25;
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/view/profile_page.dart'
     as _i16;
@@ -165,9 +165,9 @@ abstract class $RouteManager extends _i19.RootStackRouter {
         ),
       );
     },
-    PassReset.name: (routeData) {
-      final args =
-          routeData.argsAs<PassResetArgs>(orElse: () => const PassResetArgs());
+    PassResetRoute.name: (routeData) {
+      final args = routeData.argsAs<PassResetRouteArgs>(
+          orElse: () => const PassResetRouteArgs());
       return _i19.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i14.PassResetPage(key: args.key),
@@ -440,7 +440,7 @@ class EditProductRouteArgs {
 /// [_i11.HomePage]
 class HomeRoute extends _i19.PageRouteInfo<HomeRouteArgs> {
   HomeRoute({
-    required _i25.UserResponseModel userModel,
+    required _i25.User userModel,
     _i21.Key? key,
     List<_i19.PageRouteInfo>? children,
   }) : super(
@@ -464,7 +464,7 @@ class HomeRouteArgs {
     this.key,
   });
 
-  final _i25.UserResponseModel userModel;
+  final _i25.User userModel;
 
   final _i21.Key? key;
 
@@ -527,31 +527,31 @@ class OrderListRouteArgs {
 }
 
 /// generated route for
-/// [_i14.PassReset]
-class PassReset extends _i19.PageRouteInfo<PassResetArgs> {
-  PassReset({
+/// [_i14.PassResetPage]
+class PassResetRoute extends _i19.PageRouteInfo<PassResetRouteArgs> {
+  PassResetRoute({
     _i21.Key? key,
     List<_i19.PageRouteInfo>? children,
   }) : super(
-          PassReset.name,
-          args: PassResetArgs(key: key),
+          PassResetRoute.name,
+          args: PassResetRouteArgs(key: key),
           initialChildren: children,
         );
 
-  static const String name = 'PassReset';
+  static const String name = 'PassResetRoute';
 
-  static const _i19.PageInfo<PassResetArgs> page =
-      _i19.PageInfo<PassResetArgs>(name);
+  static const _i19.PageInfo<PassResetRouteArgs> page =
+      _i19.PageInfo<PassResetRouteArgs>(name);
 }
 
-class PassResetArgs {
-  const PassResetArgs({this.key});
+class PassResetRouteArgs {
+  const PassResetRouteArgs({this.key});
 
   final _i21.Key? key;
 
   @override
   String toString() {
-    return 'PassResetArgs{key: $key}';
+    return 'PassResetRouteArgs{key: $key}';
   }
 }
 
