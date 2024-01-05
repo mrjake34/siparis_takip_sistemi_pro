@@ -9,7 +9,7 @@ final class _FetchCouriersCountBox extends StatelessWidget {
       child: GestureDetector(
         onTap: () {},
         child: Card(
-          color: AppColors.couriersColor,
+          color: ColorName.couriersColor,
           child: Container(
             constraints: const BoxConstraints(
               minHeight: 110,

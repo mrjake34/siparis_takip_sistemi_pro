@@ -6,7 +6,7 @@ final class _PendingOrdersCountField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.orderPendingColor,
+      color: ColorName.orderPendingColor,
       child: ListTile(
         style: ListTileStyle.list,
         title: CustomAutoSizeText(

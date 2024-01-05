@@ -1,22 +1,32 @@
 import 'package:flutter/material.dart';
 import '../widgets/navbar_buttons.dart';
 
-final class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({super.key});
+final class CustomDrawer extends StatelessWidget {
+  const CustomDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var screenWidth = MediaQuery.of(context).size.width;
     return Drawer(
-      width: screenWidth * 0.6 < 600 ? screenWidth * 0.4 : screenWidth = 400,
-      child: const SingleChildScrollView(
+      width: 250,
+      child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 50,
+            Row(
+              children: [
+                Expanded(
+                  child: DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    child: Image.asset(
+                      'assets/images/main-logo-350.png',
+                    ),
+                  ),
+                ),
+              ],
             ),
-            NavbarButtons(),
+            const NavbarButtons(),
           ],
         ),
       ),

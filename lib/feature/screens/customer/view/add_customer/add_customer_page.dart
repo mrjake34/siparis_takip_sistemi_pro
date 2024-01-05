@@ -13,7 +13,7 @@ import 'package:siparis_takip_sistemi_pro/product/utils/device_info/device_info.
 import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
-import '../../../../../product/core/constants/colors/colors.dart';
+import '../../../../../gen/index.dart';
 import '../../../../../product/core/constants/enums/enums.dart';
 import '../../../../../product/utils/getit/product_items.dart';
 
@@ -97,7 +97,7 @@ class LinearField extends StatelessWidget {
       builder: (context, state) {
         if (state.status == Status.isLoading) {
           return const LinearProgressIndicator(
-            color: AppColors.alternativeButtonColor,
+            color: ColorName.alternativeButtonColor,
           );
         } else {
           return Container();

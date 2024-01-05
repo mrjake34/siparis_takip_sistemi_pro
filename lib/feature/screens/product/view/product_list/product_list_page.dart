@@ -10,7 +10,7 @@ import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart
 import 'package:siparis_takip_sistemi_pro/product/src/cards/cards_more_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/cards/list_card.dart';
 
-import '../../../../../product/core/constants/colors/colors.dart';
+import '../../../../../gen/index.dart';
 import '../../../../../product/core/constants/enums/enums.dart';
 
 part 'linear_field.dart';

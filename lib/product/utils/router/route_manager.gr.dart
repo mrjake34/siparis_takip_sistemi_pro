@@ -50,8 +50,6 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/product/view/edit_prod
     as _i10;
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/view/product_list/product_list_page.dart'
     as _i15;
-import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user.dart'
-    as _i25;
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/view/profile_page.dart'
     as _i16;
 import 'package:siparis_takip_sistemi_pro/feature/screens/splash/view/splash_screen.dart'
@@ -139,13 +137,9 @@ abstract class $RouteManager extends _i19.RootStackRouter {
       );
     },
     HomeRoute.name: (routeData) {
-      final args = routeData.argsAs<HomeRouteArgs>();
       return _i19.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i11.HomePage(
-          userModel: args.userModel,
-          key: args.key,
-        ),
+        child: const _i11.HomePage(),
       );
     },
     LoginRoute.name: (routeData) {
@@ -438,40 +432,16 @@ class EditProductRouteArgs {
 
 /// generated route for
 /// [_i11.HomePage]
-class HomeRoute extends _i19.PageRouteInfo<HomeRouteArgs> {
-  HomeRoute({
-    required _i25.User userModel,
-    _i21.Key? key,
-    List<_i19.PageRouteInfo>? children,
-  }) : super(
+class HomeRoute extends _i19.PageRouteInfo<void> {
+  const HomeRoute({List<_i19.PageRouteInfo>? children})
+      : super(
           HomeRoute.name,
-          args: HomeRouteArgs(
-            userModel: userModel,
-            key: key,
-          ),
           initialChildren: children,
         );
 
   static const String name = 'HomeRoute';
 
-  static const _i19.PageInfo<HomeRouteArgs> page =
-      _i19.PageInfo<HomeRouteArgs>(name);
-}
-
-class HomeRouteArgs {
-  const HomeRouteArgs({
-    required this.userModel,
-    this.key,
-  });
-
-  final _i25.User userModel;
-
-  final _i21.Key? key;
-
-  @override
-  String toString() {
-    return 'HomeRouteArgs{userModel: $userModel, key: $key}';
-  }
+  static const _i19.PageInfo<void> page = _i19.PageInfo<void>(name);
 }
 
 /// generated route for

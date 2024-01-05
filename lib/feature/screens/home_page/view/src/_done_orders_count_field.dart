@@ -6,7 +6,7 @@ final class _DoneOrdersCountField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.orderIsDoneColor,
+      color: ColorName.orderIsDoneColor,
       child: ListTile(
         style: ListTileStyle.list,
         title: CustomAutoSizeText(

@@ -6,7 +6,7 @@ final class _OnTheWayOrdersCountField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.orderOnTheWayColor,
+      color: ColorName.orderOnTheWayColor,
       child: ListTile(
         style: ListTileStyle.list,
         title: CustomAutoSizeText(

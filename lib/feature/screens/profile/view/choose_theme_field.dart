@@ -33,8 +33,8 @@ final class _ChooseThemeField extends StatelessWidget {
                   shape: BoxShape.circle,
                   gradient: const LinearGradient(
                     colors: [
-                      AppColors.darkThemeColor,
-                      AppColors.lightThemeColor,
+                      ColorName.darkThemeColor,
+                      ColorName.lightThemeColor,
                     ],
                   ),
                   border: Border.all(
@@ -70,7 +70,7 @@ final class _LightThemeButton extends StatelessWidget {
           border: Border.all(
             color: Theme.of(context).colorScheme.primary,
           ),
-          color: AppColors.lightThemeColor,
+          color: ColorName.lightThemeColor,
         ),
       ),
     );
@@ -97,7 +97,7 @@ final class _DarkThemeButton extends StatelessWidget {
           border: Border.all(
             color: Theme.of(context).colorScheme.primary,
           ),
-          color: AppColors.darkThemeColor,
+          color: ColorName.darkThemeColor,
         ),
       ),
     );

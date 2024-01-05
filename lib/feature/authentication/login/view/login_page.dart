@@ -10,14 +10,13 @@ import 'package:siparis_takip_sistemi_pro/feature/authentication/login/service/l
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/service/profile_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/strings/appstrings.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/loading_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.gr.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
+import '../../../../gen/index.dart';
 import '../model/login_request_model.dart';
 
 part 'login_page_mixin.dart';
@@ -91,7 +90,7 @@ final class _FormBuilder extends StatelessWidget {
             height: 20,
           ),
           Image.asset(
-            AppStrings.mainLogoPath,
+            Assets.images.mainLogo.path,
             fit: BoxFit.fill,
           ),
           const SizedBox(

@@ -5,7 +5,7 @@ import 'package:siparis_takip_sistemi_pro/feature/authentication/login/bloc/logi
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/text/failed_load_data_text.dart';
 
-import '../../../../../product/core/constants/colors/colors.dart';
+import '../../../../../gen/index.dart';
 import '../../../../../product/core/constants/enums/enums.dart';
 import '../../../../../product/src/cards/cards_more_button.dart';
 import '../../../../../product/src/cards/list_card.dart';
@@ -135,7 +135,7 @@ class LinearField extends StatelessWidget {
       builder: (context, state) {
         if (state.status == Status.isLoading) {
           return const LinearProgressIndicator(
-            color: AppColors.alternativeButtonColor,
+            color: ColorName.alternativeButtonColor,
           );
         } else {
           return Container();

@@ -18,7 +18,7 @@ final class _LoginButton extends StatelessWidget {
           CustomSnackBar.errorSnackBar(state.errorMessage);
         } else if (state.status == Status.isDone) {
           if (state.model != null) {
-            context.router.replace(HomeRoute(userModel: state.model!));
+            context.router.replaceNamed(RoutePath.homeScreen.path);
           }
         }
       },

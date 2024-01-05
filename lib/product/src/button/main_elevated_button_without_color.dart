@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/constants/colors/colors.dart';
-
 class MainElevatedButtonWithoutColor extends StatelessWidget {
   const MainElevatedButtonWithoutColor({
     required this.onPressed,
@@ -21,7 +19,6 @@ class MainElevatedButtonWithoutColor extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         fixedSize: Size(pageSize.width, 40),
         maximumSize: const Size(300, 40),
-        backgroundColor: color ?? AppColors.alternativeButtonColor,
       ),
       onPressed: onPressed,
       child: child,

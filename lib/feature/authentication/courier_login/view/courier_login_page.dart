@@ -13,12 +13,12 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.d
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/strings/appstrings.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/loading_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
+import '../../../../gen/index.dart';
 import '../../../../product/utils/router/route_manager.dart';
 
 part 'courier_login_page_mixin.dart';

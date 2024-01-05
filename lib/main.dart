@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/init/app_initialize.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/product/theme/dark_theme.dart';
 import 'package:siparis_takip_sistemi_pro/product/theme/light_theme.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/localization/localization_manager.dart';

@@ -6,7 +6,7 @@ final class _ProcessOrdersCountField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.orderInProcessColor,
+      color: ColorName.orderInProcessColor,
       child: ListTile(
         style: ListTileStyle.list,
         title: CustomAutoSizeText(

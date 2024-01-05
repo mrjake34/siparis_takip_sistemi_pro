@@ -9,7 +9,7 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/product/service/produc
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
-import '../../../../../product/core/constants/colors/colors.dart';
+import '../../../../../gen/index.dart';
 import '../../../../../product/core/constants/enums/enums.dart';
 import '../../bloc/products_bloc.dart';
 

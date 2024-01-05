@@ -27,7 +27,7 @@ final class _RegisterButton extends StatelessWidget {
         return MainElevatedIconButton(
           onPressed: () {
             if (formKey.currentState?.validate() ?? false) {
-              if (state.agreementCheck ?? false) {
+              if (state.agreementCheck) {
                 context.read<RegisterCubit>().postRegisterModel(
                       data: RegisterRequestModel(
                         name: nameController.text.trim(),

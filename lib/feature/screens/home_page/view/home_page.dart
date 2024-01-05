@@ -7,15 +7,12 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/courier/service/courie
 import 'package:siparis_takip_sistemi_pro/feature/screens/customer/bloc/customer_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order/orders_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/bloc/products_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/text/autosize_number.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/text/autosize_text.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
-
+import '../../../../gen/index.dart';
 import '../../product/service/product_service.dart';
 
 part 'src/_done_orders_count_field.dart';
@@ -33,16 +30,12 @@ part 'src/_fetch_customers_count_box.dart';
 /// This class is view a home page
 class HomePage extends StatelessWidget {
   /// This is contructor method for the home page
-  const HomePage({required this.userModel, super.key});
-
-  /// This is the user model
-  final User userModel;
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const BaseScaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(AppSize.pagePadding),
         child: Column(
           children: [
             Row(

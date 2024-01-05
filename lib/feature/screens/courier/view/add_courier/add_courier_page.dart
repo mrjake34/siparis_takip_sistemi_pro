@@ -8,7 +8,7 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.d
 import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
-import '../../../../../product/core/constants/colors/colors.dart';
+import '../../../../../gen/index.dart';
 import '../../../../../product/core/constants/enums/enums.dart';
 
 class AddCourierPage extends StatefulWidget {
@@ -35,7 +35,7 @@ class _AddCourierPageState extends State<AddCourierPage> {
             builder: (context, state) {
               if (state.status == Status.isLoading) {
                 return const LinearProgressIndicator(
-                  color: AppColors.alternativeButtonColor,
+                  color: ColorName.alternativeButtonColor,
                 );
               } else {
                 return Container();
