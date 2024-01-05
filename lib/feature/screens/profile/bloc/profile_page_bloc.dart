@@ -16,14 +16,19 @@ class ProfilePageBloc extends BaseBloc<ProfilePageEvent, ProfilePageState> {
     final profileService = ProfileService();
     on<FetchUserDetailsEvent>((event, emit) async {
       emit(state.copyWith(status: Status.isLoading));
-      if (event.cookie == null || event.userId == null) {
+
+      final cookie =
+          await ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
+      final user = await ProductItems.sharedManager.getModel();
+      if (cookie.isEmpty || user == null) {
         emit(state.copyWith(status: Status.isFailed));
         return;
       }
+
       final response =
           await profileService.getProfile<UserResponseModel, UserResponseModel>(
-        cookie: event.cookie,
-        id: event.userId,
+        cookie: cookie,
+        id: user.id,
         model: UserResponseModel(),
       );
       if (response.data != null || response.data?.user != null) {

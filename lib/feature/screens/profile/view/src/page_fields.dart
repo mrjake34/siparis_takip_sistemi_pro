@@ -1,8 +1,12 @@
-part of 'profile_page.dart';
+import 'package:flutter/material.dart';
 
-final class _PageFields extends StatelessWidget {
-  const _PageFields({
+import '../../model/user.dart';
+import 'index.dart';
+
+final class PageFields extends StatelessWidget {
+  const PageFields({
     required this.user,
+    super.key,
   });
 
   final User user;
@@ -13,17 +17,17 @@ final class _PageFields extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       children: [
-        _UserProfileCardName(name: user.name),
-        _UserProfileCardEmail(
+        UserProfileCardName(name: user.name),
+        UserProfileCardEmail(
           email: user.email,
         ),
-        _UserProfileCardPhone(
+        UserProfileCardPhone(
           phone: user.phone,
         ),
-        _UserProfileCardShopName(
+        UserProfileCardShopName(
           shopName: user.shopName,
         ),
-        _UserProfileCardExpirationDate(
+        UserProfileCardExpirationDate(
           dateTime: user.updatedAt ?? DateTime.now(),
         ),
       ],

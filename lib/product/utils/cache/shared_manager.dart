@@ -50,10 +50,11 @@ final class SharedManager {
 
   Future<void> saveModel({User? model}) async {
     if (model == null) return;
+    final modelJson = jsonEncode(model.toJson());
 
     await _storage.write(
       key: PreferenceKey.userModel.name,
-      value: model.toJson().toString(),
+      value: modelJson,
     );
   }
 

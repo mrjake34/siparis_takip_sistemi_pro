@@ -42,22 +42,25 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
   late final ProfileService profileService;
 
   Future<void> _autoLogin(AutoLoginEvent event) async {
-    if (event.autoLogin == null ||
-        event.autoLogin == false ||
-        event.cookie == null ||
-        event.id == null) {
-      safeEmit(state.copyWith(status: Status.isFailed, autoLogin: false));
+    if (event.autoLogin == false) {
+      safeEmit(
+          state.copyWith(status: Status.isFailed, autoLogin: AutoLogin.failed));
     }
 
-    safeEmit(state.copyWith(status: Status.isLoading));
+    safeEmit(state.copyWith(
+        status: Status.isLoading, autoLogin: AutoLogin.isLoading));
     final cookie =
         await ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
     final user = await ProductItems.sharedManager.getModel();
-
+    if (cookie.isEmpty || user == null) {
+      safeEmit(
+          state.copyWith(status: Status.isFailed, autoLogin: AutoLogin.failed));
+    }
     final response =
         await profileService.getProfile<UserResponseModel, UserResponseModel>(
       id: user?.id,
       cookie: cookie,
+      model: UserResponseModel(),
     );
     if (response.statusCode != HttpStatus.ok) {
       safeEmit(
@@ -72,7 +75,7 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
       state.copyWith(
         model: response.data?.user,
         status: Status.isDone,
-        autoLogin: true,
+        autoLogin: AutoLogin.completed,
       ),
     );
   }

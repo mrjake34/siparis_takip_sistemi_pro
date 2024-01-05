@@ -12,6 +12,9 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/loading.json
+  String get loading => 'assets/images/loading.json';
+
   /// File path: assets/images/main-logo-350.png
   AssetGenImage get mainLogo350 =>
       const AssetGenImage('assets/images/main-logo-350.png');
@@ -21,7 +24,7 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/main-logo.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [mainLogo350, mainLogo];
+  List<dynamic> get values => [loading, mainLogo350, mainLogo];
 }
 
 class $AssetsTranslationsGen {
