@@ -12,10 +12,10 @@ final class LoginState extends Equatable {
     this.passwordVisibility,
     this.cookie,
   });
-  final Enum? status;
-  final Enum? validate;
+  final Status? status;
+  final Validate? validate;
   final User? model;
-  final bool? autoLogin;
+  final AutoLogin? autoLogin;
   final String? errorMessage;
   final NetworkStatus? networkStatus;
   final bool? passwordVisibility;
@@ -33,10 +33,10 @@ final class LoginState extends Equatable {
       ];
 
   LoginState copyWith({
-    Enum? status,
-    Enum? validate,
+    Status? status,
+    Validate? validate,
     User? model,
-    bool? autoLogin,
+    AutoLogin? autoLogin,
     String? errorMessage,
     NetworkStatus? networkStatus,
     bool? passwordVisibility,

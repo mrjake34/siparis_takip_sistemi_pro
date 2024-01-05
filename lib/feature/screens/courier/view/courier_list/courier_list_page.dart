@@ -7,11 +7,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/courier/bloc/courier_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/courier/model/courier_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/cards/cards_more_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/cards/list_card.dart';
 
+import '../../../../../gen/index.dart';
 import '../../../../../product/src/text/failed_load_data_text.dart';
 
 part 'courier_list_page_mixin.dart';
@@ -51,7 +51,7 @@ class LinearField extends StatelessWidget {
       builder: (context, state) {
         if (state.status == Status.isLoading) {
           return const LinearProgressIndicator(
-            color: AppColors.alternativeButtonColor,
+            color: ColorName.alternativeButtonColor,
           );
         } else {
           return Container();

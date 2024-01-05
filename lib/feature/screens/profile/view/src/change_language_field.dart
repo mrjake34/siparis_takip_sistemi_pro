@@ -1,7 +1,11 @@
-part of 'profile_page.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 
-final class _ChangeLanguageField extends StatelessWidget {
-  const _ChangeLanguageField();
+import '../../../../../product/utils/localization/localization_manager.dart';
+import '../../../../../product/utils/translations/locale_keys.g.dart';
+
+final class ChangeLanguageField extends StatelessWidget {
+  const ChangeLanguageField({super.key});
 
   @override
   Widget build(BuildContext context) {

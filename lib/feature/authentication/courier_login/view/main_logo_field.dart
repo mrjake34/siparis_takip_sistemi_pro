@@ -6,7 +6,7 @@ final class _MainLogoField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      AppStrings.mainLogoPath,
+      Assets.images.mainLogo.path,
       fit: BoxFit.fill,
     );
   }

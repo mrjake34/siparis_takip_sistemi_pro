@@ -11,7 +11,6 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order/
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/views/add_customer_in_add_order/add_order_add_customer.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/views/add_order_product_list/add_order_product_list.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/styles/text_styles.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/bottomsheets/main_bottom_sheets.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button.dart';
@@ -19,6 +18,7 @@ import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_butto
 import 'package:siparis_takip_sistemi_pro/product/src/text/failed_load_data_text.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
+import '../../../../../gen/index.dart';
 import '../../../../../product/utils/router/route_manager.dart';
 
 /// This page is used to add orders.
@@ -237,7 +237,7 @@ final class ProductCard extends StatelessWidget {
                           onPressed: () {},
                           icon: const Icon(
                             Icons.delete,
-                            color: AppColors.removeColor,
+                            color: ColorName.removeColor,
                           ),
                         ),
                       ),

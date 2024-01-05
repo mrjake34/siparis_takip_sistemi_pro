@@ -1,14 +1,13 @@
 import 'dart:io';
-
-// ignore: implementation_imports
-import 'package:bloc/src/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_request_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/service/login_service.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/mixin/headers_mixin.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 
 import '../../../../product/core/constants/enums/enums.dart';
 import '../../../screens/profile/model/user.dart';
@@ -25,7 +24,7 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
           const LoginState(),
         ) {
     on<UserLoginEvent>((event, emit) async {
-      await _userLogin(emit, event);
+      await _userLogin(event);
     });
     on<AutoLoginEvent>((event, emit) async {
       await _autoLogin(event);
@@ -43,18 +42,25 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
   late final ProfileService profileService;
 
   Future<void> _autoLogin(AutoLoginEvent event) async {
-    if (event.autoLogin == null ||
-        event.autoLogin == false ||
-        event.cookie == null ||
-        event.id == null) {
-      safeEmit(state.copyWith(status: Status.isFailed, autoLogin: false));
+    if (event.autoLogin == false) {
+      safeEmit(
+          state.copyWith(status: Status.isFailed, autoLogin: AutoLogin.failed));
     }
 
-    safeEmit(state.copyWith(status: Status.isLoading));
+    safeEmit(state.copyWith(
+        status: Status.isLoading, autoLogin: AutoLogin.isLoading));
+    final cookie =
+        await ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
+    final user = await ProductItems.sharedManager.getModel();
+    if (cookie.isEmpty || user == null) {
+      safeEmit(
+          state.copyWith(status: Status.isFailed, autoLogin: AutoLogin.failed));
+    }
     final response =
         await profileService.getProfile<UserResponseModel, UserResponseModel>(
-      id: event.id,
-      cookie: event.cookie,
+      id: user?.id,
+      cookie: cookie,
+      model: UserResponseModel(),
     );
     if (response.statusCode != HttpStatus.ok) {
       safeEmit(
@@ -69,13 +75,12 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
       state.copyWith(
         model: response.data?.user,
         status: Status.isDone,
-        autoLogin: true,
+        autoLogin: AutoLogin.completed,
       ),
     );
   }
 
   Future<void> _userLogin(
-    Emitter<LoginState> emit,
     UserLoginEvent event,
   ) async {
     safeEmit(state.copyWith(status: Status.isLoading));
@@ -93,12 +98,19 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
         ),
       );
     }
-    final cookie = response.getCookie(response.headers);
+    final cookie =
+        response.getCookie(response.headers, type: CookieTypes.setCookie);
     final user =
         await profileService.getProfile<UserResponseModel, UserResponseModel>(
       cookie: cookie,
       id: response.data?.user?.id,
+      model: UserResponseModel(),
     );
+    await ProductItems.sharedManager.saveModel(
+      model: user.data?.user,
+    );
+    await ProductItems.sharedManager
+        .setStringValue(PreferenceKey.cookie, cookie ?? '');
     safeEmit(
       state.copyWith(
         status: Status.isDone,

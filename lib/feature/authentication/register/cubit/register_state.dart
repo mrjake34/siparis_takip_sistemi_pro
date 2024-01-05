@@ -6,13 +6,13 @@ final class RegisterState extends Equatable {
   const RegisterState({
     this.status,
     this.message,
-    this.agreementCheck,
+    this.agreementCheck = false,
     this.passwordVisibility,
     this.passwordAgainVisibility,
   });
   final Status? status;
   final String? message;
-  final bool? agreementCheck;
+  final bool agreementCheck;
   final bool? passwordVisibility;
   final bool? passwordAgainVisibility;
 

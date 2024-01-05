@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import '../../core/constants/colors/colors.dart';
+import 'package:siparis_takip_sistemi_pro/gen/colors.gen.dart';
 import '../../utils/translations/locale_keys.g.dart';
 
 final class CardMoreButton {
@@ -25,14 +25,14 @@ final class CardMoreButton {
           onTap: () {},
           child: Text(
             LocaleKeys.mainText_edit.tr(),
-            style: const TextStyle(color: AppColors.editColor),
+            style: const TextStyle(color: ColorName.editColor),
           ),
         ),
         PopupMenuItem(
           onTap: () => openDialog<void>(context, function: function),
           child: Text(
             LocaleKeys.mainText_remove.tr(),
-            style: const TextStyle(color: AppColors.removeColor),
+            style: const TextStyle(color: ColorName.removeColor),
           ),
         ),
       ],
@@ -75,7 +75,7 @@ final class CardMoreButton {
             const Spacer(),
             TextButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.removeColor,
+                backgroundColor: ColorName.removeColor,
               ),
               onPressed: function,
               child: Text(

@@ -4,28 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kartal/kartal.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/base/provider/theme/theme_cubit.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/localization/localization_manager.dart';
 
-import '../../../../product/core/constants/colors/colors.dart';
-import '../../../../product/theme/theme_service.dart';
-import '../../../../product/utils/getit/product_items.dart';
 import '../../../../product/utils/translations/locale_keys.g.dart';
 import '../../../authentication/login/bloc/login_bloc.dart';
 import '../bloc/profile_page_bloc.dart';
-import '../model/user.dart';
-
-part 'profile_detail_field.dart';
-part 'failed_load_data.dart';
-part 'user_profile_card_expiration_data.dart';
-part 'user_profile_card_name.dart';
-part 'user_profile_card_phone.dart';
-part 'user_profile_card_shopname.dart';
-part 'user_profile_card_email.dart';
-part 'page_fields.dart';
-part 'change_language_field.dart';
-part 'choose_theme_field.dart';
+import 'src/index.dart';
 
 @RoutePage()
 final class ProfilePage extends StatefulWidget {
@@ -42,10 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
       body: BlocProvider(
         create: (context) => ProfilePageBloc()
           ..add(
-            FetchUserDetailsEvent(
-              userId: context.read<LoginBloc>().state.model?.id,
-              cookie: context.read<LoginBloc>().state.cookie,
-            ),
+            const FetchUserDetailsEvent(),
           ),
         child: const Column(
           children: [
@@ -53,9 +34,9 @@ class _ProfilePageState extends State<ProfilePage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    _ProfileDetailField(),
-                    _ChooseThemeField(),
-                    _ChangeLanguageField(),
+                    ProfileDetailField(),
+                    ChooseThemeField(),
+                    ChangeLanguageField(),
                     _ChangeCurrencySymbolField(),
                     _ProfilePageLogoutButton(),
                     SizedBox(

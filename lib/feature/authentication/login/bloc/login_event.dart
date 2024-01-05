@@ -16,11 +16,11 @@ class UserLoginEvent extends LoginEvent {
 
 class AutoLoginEvent extends LoginEvent {
   const AutoLoginEvent({
-    this.autoLogin,
+    this.autoLogin = true,
     this.cookie,
     this.id,
   });
-  final bool? autoLogin;
+  final bool autoLogin;
   final String? cookie;
   final String? id;
   @override

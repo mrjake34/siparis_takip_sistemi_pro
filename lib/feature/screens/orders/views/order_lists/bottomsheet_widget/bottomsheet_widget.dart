@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/model/order_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
-import '../../../../../../product/core/constants/colors/colors.dart';
+import '../../../../../../gen/index.dart';
 
 // ignore: must_be_immutable
 class OrderListBottomSheetWidget extends StatelessWidget {
@@ -63,7 +63,7 @@ class UpdateStatusToWaiting extends StatelessWidget {
             onPressed: () {},
             child: Text(
               LocaleKeys.order_inLine.tr(),
-              style: const TextStyle(color: AppColors.orderPendingColor),
+              style: const TextStyle(color: ColorName.orderPendingColor),
             ),
           ),
         ),
@@ -89,7 +89,7 @@ class UpdateStatusToProcess extends StatelessWidget {
             onPressed: () {},
             child: Text(
               LocaleKeys.order_inProcess.tr(),
-              style: const TextStyle(color: AppColors.orderInProcessColor),
+              style: const TextStyle(color: ColorName.orderInProcessColor),
             ),
           ),
         ),
@@ -112,7 +112,7 @@ class UpdateStatusToDistribution extends StatelessWidget {
             onPressed: () {},
             child: Text(
               LocaleKeys.order_onTheWay.tr(),
-              style: const TextStyle(color: AppColors.orderOnTheWayColor),
+              style: const TextStyle(color: ColorName.orderOnTheWayColor),
             ),
           ),
         ),
@@ -138,7 +138,7 @@ class UpdateStatusToCompleted extends StatelessWidget {
             onPressed: () {},
             child: Text(
               LocaleKeys.order_isDone.tr(),
-              style: const TextStyle(color: AppColors.orderIsDoneColor),
+              style: const TextStyle(color: ColorName.orderIsDoneColor),
             ),
           ),
         ),
@@ -187,7 +187,7 @@ class RemoveButton extends StatelessWidget {
             onPressed: () {},
             child: Text(
               LocaleKeys.mainText_remove.tr(),
-              style: const TextStyle(color: AppColors.removeColor),
+              style: const TextStyle(color: ColorName.removeColor),
             ),
           ),
         ),

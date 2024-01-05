@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/navbar_button.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.dart';
 
 import '../../utils/translations/locale_keys.g.dart';
 
@@ -14,7 +16,11 @@ final class NavbarButtons extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         NavbarButton(
-          onPressed: () {},
+          onPressed: () {
+            context.router.replaceNamed(
+              RoutePath.homeScreen.path,
+            );
+          },
           icon: Icons.home,
           text: LocaleKeys.mainText_homepage,
         ),

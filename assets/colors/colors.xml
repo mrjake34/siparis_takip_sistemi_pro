@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="lightThemeColor">#F2F2F2</color>
+    <color name="darkThemeColor">#393E46</color>
+    <color name="alternativeButtonColor">#31AA75</color>
+    <color name="customersColor">#4ACE6F</color>
+    <color name="couriersColor">#3E9EB2</color>
+    <color name="ordersColor">#954CCF</color>
+    <color name="productsColor">#C9A939</color>
+    <color name="editColor">#2196F3</color>
+    <color name="removeColor">#F44336</color>
+    <color name="orderPendingColor">#D98624</color>
+    <color name="orderInProcessColor">#0685CC</color>
+    <color name="orderOnTheWayColor">#0DA00A</color>
+    <color name="orderIsDoneColor">#6E8D94</color>
+</resources>
+

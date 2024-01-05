@@ -21,8 +21,9 @@ final class BaseScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar == false ? null : const CustomAppBar(),
-      drawer:
-          context.general.mediaSize.width < 800 ? const DrawerWidget() : null,
+      drawer: context.general.mediaSize.width < 800
+          ? const CustomDrawer()
+          : const SideBar(),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

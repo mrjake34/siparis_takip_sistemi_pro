@@ -6,7 +6,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/edit_page_button_field.dart';
-import '../../../../../product/core/constants/colors/colors.dart';
+import '../../../../../gen/index.dart';
 import '../../../../../product/core/constants/enums/enums.dart';
 import '../../../../../product/utils/translations/locale_keys.g.dart';
 import '../../bloc/customer_bloc.dart';
@@ -128,7 +128,7 @@ class LinearField extends StatelessWidget {
       builder: (context, state) {
         if (state.status == Status.isLoading) {
           return const LinearProgressIndicator(
-            color: AppColors.alternativeButtonColor,
+            color: ColorName.alternativeButtonColor,
           );
         } else {
           return Container();

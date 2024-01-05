@@ -1,7 +1,15 @@
-part of 'profile_page.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-final class _ChooseThemeField extends StatelessWidget {
-  const _ChooseThemeField();
+import '../../../../../gen/index.dart';
+import '../../../../../product/core/base/provider/theme/theme_cubit.dart';
+import '../../../../../product/theme/theme_service.dart';
+import '../../../../../product/utils/getit/product_items.dart';
+import '../../../../../product/utils/translations/locale_keys.g.dart';
+
+final class ChooseThemeField extends StatelessWidget {
+  const ChooseThemeField({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +41,8 @@ final class _ChooseThemeField extends StatelessWidget {
                   shape: BoxShape.circle,
                   gradient: const LinearGradient(
                     colors: [
-                      AppColors.darkThemeColor,
-                      AppColors.lightThemeColor,
+                      ColorName.darkThemeColor,
+                      ColorName.lightThemeColor,
                     ],
                   ),
                   border: Border.all(
@@ -70,7 +78,7 @@ final class _LightThemeButton extends StatelessWidget {
           border: Border.all(
             color: Theme.of(context).colorScheme.primary,
           ),
-          color: AppColors.lightThemeColor,
+          color: ColorName.lightThemeColor,
         ),
       ),
     );
@@ -97,7 +105,7 @@ final class _DarkThemeButton extends StatelessWidget {
           border: Border.all(
             color: Theme.of(context).colorScheme.primary,
           ),
-          color: AppColors.darkThemeColor,
+          color: ColorName.darkThemeColor,
         ),
       ),
     );

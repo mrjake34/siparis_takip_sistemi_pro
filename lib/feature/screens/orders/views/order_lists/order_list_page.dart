@@ -7,8 +7,9 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/orders/views/order_lis
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/views/order_lists/order_list_pending_orders.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/views/order_lists/order_list_process_orders.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
-import 'package:siparis_takip_sistemi_pro/product/core/constants/colors/colors.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/icons/icons.dart';
+
+import '../../../../../gen/index.dart';
 
 @RoutePage()
 class OrderListPage extends StatefulWidget {
@@ -37,31 +38,31 @@ class _OrderListPageState extends State<OrderListPage> {
       PersistentBottomNavBarItem(
         icon: const Icon(
           AppIcons.orderListIcon,
-          color: AppColors.ordersColor,
+          color: ColorName.ordersColor,
         ),
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(
           AppIcons.pendingIcon,
-          color: AppColors.orderPendingColor,
+          color: ColorName.orderPendingColor,
         ),
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(
           AppIcons.inProcessIcon,
-          color: AppColors.orderInProcessColor,
+          color: ColorName.orderInProcessColor,
         ),
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(
           AppIcons.onTheWayIcon,
-          color: AppColors.orderOnTheWayColor,
+          color: ColorName.orderOnTheWayColor,
         ),
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(
           AppIcons.isDoneIcon,
-          color: AppColors.orderIsDoneColor,
+          color: ColorName.orderIsDoneColor,
         ),
       ),
     ];

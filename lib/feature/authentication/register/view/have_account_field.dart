@@ -16,10 +16,6 @@ final class _HaveAccountField extends StatelessWidget {
               context.router.replaceNamed(RoutePath.loginScreen.path),
           child: Text(
             LocaleKeys.mainText_login.tr(),
-            style: TextStyle(
-              decoration: TextDecoration.underline,
-              color: Theme.of(context).colorScheme.error,
-            ),
           ),
         ),
       ],

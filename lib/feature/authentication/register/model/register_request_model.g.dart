@@ -7,8 +7,7 @@ part of 'register_request_model.dart';
 // **************************************************************************
 
 RegisterRequestModel _$RegisterRequestModelFromJson(
-  Map<String, dynamic> json,
-) =>
+        Map<String, dynamic> json) =>
     RegisterRequestModel(
       name: json['name'] as String?,
       email: json['email'] as String?,
@@ -18,8 +17,7 @@ RegisterRequestModel _$RegisterRequestModelFromJson(
     );
 
 Map<String, dynamic> _$RegisterRequestModelToJson(
-  RegisterRequestModel instance,
-) =>
+        RegisterRequestModel instance) =>
     <String, dynamic>{
       'name': instance.name,
       'email': instance.email,
