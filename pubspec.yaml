@@ -70,6 +70,7 @@ dependencies:
   intl: ^0.19.0
   package_info_plus: ^5.0.1
   flutter_gen: ^5.3.2
+  flutter_secure_storage: ^9.0.0
 
 dependency_overrides:
   intl: ^0.19.0

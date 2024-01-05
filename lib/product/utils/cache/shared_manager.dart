@@ -1,50 +1,69 @@
-import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user.dart';
 
 import '../../core/constants/enums/enums.dart';
 
-class SharedManager {
+final class SharedManager {
   SharedManager._();
   static final SharedManager _instance = SharedManager._();
-  SharedPreferences? _preferences;
   static SharedManager get instance => _instance;
 
-  Future<SharedPreferences> preferencesInit() async =>
-      instance._preferences ??= await SharedPreferences.getInstance();
+  AndroidOptions get _androidOptions => const AndroidOptions(
+        encryptedSharedPreferences: true,
+      );
+
+  IOSOptions get _iosOptions => const IOSOptions(
+        accessibility: KeychainAccessibility.first_unlock,
+      );
+
+  late final FlutterSecureStorage _storage;
+
+  Future<void> preferencesInit() async {
+    _storage = FlutterSecureStorage(
+      aOptions: _instance._androidOptions,
+      iOptions: _instance._iosOptions,
+    );
+  }
 
   Future<bool> clearSavedModel() async {
-    final result = await _preferences?.remove(PreferenceKey.userModel.name);
-    return result ?? false;
-  }
-
-  Future<bool> removeFromKey(PreferenceKey key) async {
-    final result = await _preferences?.remove(key.name);
-    return result ?? false;
-  }
-
-  Future<bool> setStringValue(PreferenceKey key, String value) async {
-    final result = await _preferences?.setString(key.name, value);
-    return result ?? false;
-  }
-
-  Future<bool> setBoolValue(PreferenceKey key, {bool? value}) async {
-    final result = await _preferences?.setBool(key.name, value ?? false);
-    return result ?? false;
-  }
-
-  Future<bool> saveModel<T>({User? model}) async {
-    if (model == null) {
+    try {
+      await _storage.delete(key: PreferenceKey.userModel.name);
+    } catch (_) {
       return false;
     }
-    final result = await _preferences?.setString(
-      PreferenceKey.userModel.name,
-      model.toJson().toString(),
-    );
-    return result ?? false;
+    return true;
   }
 
-  String getStringValue(PreferenceKey key) =>
-      _preferences?.getString(key.name) ?? '';
-  bool getBoolValue(PreferenceKey key) =>
-      _preferences?.getBool(key.name) ?? false;
+  Future<void> removeFromKey(PreferenceKey key) async {
+    await _storage.delete(key: key.name);
+  }
+
+  Future<void> setStringValue(PreferenceKey key, String value) async {
+    await _storage.write(key: key.name, value: value);
+  }
+
+  Future<void> setBoolValue(PreferenceKey key, {bool? value}) async {
+    await _storage.write(key: key.name, value: value.toString());
+  }
+
+  Future<void> saveModel({User? model}) async {
+    if (model == null) return;
+
+    await _storage.write(
+      key: PreferenceKey.userModel.name,
+      value: model.toJson().toString(),
+    );
+  }
+
+  Future<User?> getModel() async {
+    final model = await _storage.read(key: PreferenceKey.userModel.name);
+    if (model == null) return null;
+    final decodedModel = jsonDecode(model);
+    return User.fromJson(decodedModel as Map<String, dynamic>);
+  }
+
+  Future<String> getStringValue(PreferenceKey key) async =>
+      await _storage.read(key: key.name) ?? '';
 }

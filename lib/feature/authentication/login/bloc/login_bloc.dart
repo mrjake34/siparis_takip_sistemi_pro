@@ -7,6 +7,7 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_res
 import 'package:siparis_takip_sistemi_pro/product/core/base/mixin/headers_mixin.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 
 import '../../../../product/core/constants/enums/enums.dart';
 import '../../../screens/profile/model/user.dart';
@@ -49,10 +50,14 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
     }
 
     safeEmit(state.copyWith(status: Status.isLoading));
+    final cookie =
+        await ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
+    final user = await ProductItems.sharedManager.getModel();
+
     final response =
         await profileService.getProfile<UserResponseModel, UserResponseModel>(
-      id: event.id,
-      cookie: event.cookie,
+      id: user?.id,
+      cookie: cookie,
     );
     if (response.statusCode != HttpStatus.ok) {
       safeEmit(
@@ -98,6 +103,11 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
       id: response.data?.user?.id,
       model: UserResponseModel(),
     );
+    await ProductItems.sharedManager.saveModel(
+      model: user.data?.user,
+    );
+    await ProductItems.sharedManager
+        .setStringValue(PreferenceKey.cookie, cookie ?? '');
     safeEmit(
       state.copyWith(
         status: Status.isDone,
