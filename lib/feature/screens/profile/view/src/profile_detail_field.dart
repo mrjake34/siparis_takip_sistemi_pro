@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../product/core/constants/enums/enums.dart';
 import '../../../../../product/src/shimmer/profile_shimmer.dart';
 import '../../bloc/profile_page_bloc.dart';
 import 'index.dart';

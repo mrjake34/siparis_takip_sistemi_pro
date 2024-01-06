@@ -37,6 +37,16 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
         ),
       );
     });
+    on<LogoutEvent>((event, emit) {
+      safeEmit(
+        state.copyWith(
+          status: Status.isDone,
+          userStatus: UserStatus.logout,
+          model: const User.empty(),
+          cookie: '',
+        ),
+      );
+    });
   }
   late final LoginService loginService;
   late final ProfileService profileService;
@@ -44,21 +54,28 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
   Future<void> _autoLogin(AutoLoginEvent event) async {
     if (event.autoLogin == false) {
       safeEmit(
-          state.copyWith(status: Status.isFailed, autoLogin: AutoLogin.failed));
+        state.copyWith(status: Status.isFailed, autoLogin: AutoLogin.failed),
+      );
+      return;
     }
-
-    safeEmit(state.copyWith(
-        status: Status.isLoading, autoLogin: AutoLogin.isLoading));
+    safeEmit(
+      state.copyWith(
+        status: Status.isLoading,
+        autoLogin: AutoLogin.isLoading,
+      ),
+    );
     final cookie =
         await ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
     final user = await ProductItems.sharedManager.getModel();
     if (cookie.isEmpty || user == null) {
       safeEmit(
-          state.copyWith(status: Status.isFailed, autoLogin: AutoLogin.failed));
+        state.copyWith(status: Status.isFailed, autoLogin: AutoLogin.failed),
+      );
+      return;
     }
     final response =
         await profileService.getProfile<UserResponseModel, UserResponseModel>(
-      id: user?.id,
+      id: user.id,
       cookie: cookie,
       model: UserResponseModel(),
     );

@@ -8,7 +8,6 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/profile/service/profil
 import 'package:siparis_takip_sistemi_pro/gen/index.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
-import 'package:siparis_takip_sistemi_pro/product/src/shimmer/home_shimmer.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.dart';
 
 /// This class is an starter screen for the app
@@ -16,19 +15,9 @@ import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.dar
 /// If the user is not logged in, it navigates to the login screen
 /// and will start all the services needed for the app
 @RoutePage()
-final class SplashScreen extends StatefulWidget {
+final class SplashScreen extends StatelessWidget {
   /// This is contructor method for the splash screen
   const SplashScreen({super.key});
-
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-final class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

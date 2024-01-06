@@ -15,13 +15,13 @@ class ProfilePageBloc extends BaseBloc<ProfilePageEvent, ProfilePageState> {
   ProfilePageBloc() : super(const ProfilePageState()) {
     final profileService = ProfileService();
     on<FetchUserDetailsEvent>((event, emit) async {
-      emit(state.copyWith(status: Status.isLoading));
+      safeEmit(state.copyWith(status: Status.isLoading));
 
       final cookie =
           await ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
       final user = await ProductItems.sharedManager.getModel();
       if (cookie.isEmpty || user == null) {
-        emit(state.copyWith(status: Status.isFailed));
+        safeEmit(state.copyWith(status: Status.isFailed));
         return;
       }
 
@@ -32,7 +32,7 @@ class ProfilePageBloc extends BaseBloc<ProfilePageEvent, ProfilePageState> {
         model: UserResponseModel(),
       );
       if (response.data != null || response.data?.user != null) {
-        emit(
+        safeEmit(
           state.copyWith(
             status: Status.isDone,
             user: response.data?.user,
@@ -40,21 +40,21 @@ class ProfilePageBloc extends BaseBloc<ProfilePageEvent, ProfilePageState> {
           ),
         );
       } else {
-        emit(state.copyWith(status: Status.isFailed));
+        safeEmit(state.copyWith(status: Status.isFailed));
       }
     });
     on<UserLogoutEvent>((event, emit) async {
-      emit(state.copyWith(status: Status.isLoading));
+      safeEmit(state.copyWith(status: Status.isLoading));
       final response = await ProductItems.sharedManager.clearSavedModel();
       if (response == true) {
-        emit(
+        safeEmit(
           state.copyWith(
             status: Status.isDone,
             user: const User(),
           ),
         );
       } else {
-        emit(state.copyWith(status: Status.isFailed));
+        safeEmit(state.copyWith(status: Status.isFailed));
       }
     });
   }

@@ -16,7 +16,7 @@ enum PreferenceKey {
 
 enum Status { isValidate, isLoading, isDone, isFailed }
 
-enum UserStatus { userNotFound, userDeleted, userAlreadySignIn }
+enum UserStatus { userNotFound, userDeleted, userAlreadySignIn, login, logout }
 
 enum Validate { validateTrue, validateFalse }
 
