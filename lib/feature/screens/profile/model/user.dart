@@ -20,6 +20,8 @@ final class User extends Equatable {
     this.refreshToken,
     this.message,
   });
+  const User.empty() : this();
+
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   final String? id;
   final String? name;

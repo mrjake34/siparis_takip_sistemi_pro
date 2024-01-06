@@ -30,6 +30,7 @@ final class SharedManager {
   Future<bool> clearSavedModel() async {
     try {
       await _storage.delete(key: PreferenceKey.userModel.name);
+      await _storage.delete(key: PreferenceKey.cookie.name);
     } catch (_) {
       return false;
     }

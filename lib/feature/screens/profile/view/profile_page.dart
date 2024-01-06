@@ -5,11 +5,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kartal/kartal.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
+import 'package:siparis_takip_sistemi_pro/product/src/button/loading_button.dart';
 
+import '../../../../product/utils/router/route_manager.dart';
 import '../../../../product/utils/translations/locale_keys.g.dart';
 import '../../../authentication/login/bloc/login_bloc.dart';
+import '../../../authentication/login/service/login_service.dart';
 import '../bloc/profile_page_bloc.dart';
+import '../service/profile_service.dart';
 import 'src/index.dart';
+
+part 'src/_profile_page_logout_button.dart';
+part 'src/_change_currency_symbol_field.dart';
 
 @RoutePage()
 final class ProfilePage extends StatefulWidget {
@@ -48,72 +56,6 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-final class _ChangeCurrencySymbolField extends StatelessWidget {
-  const _ChangeCurrencySymbolField();
-
-  @override
-  Widget build(BuildContext context) {
-    return ExpansionTile(
-      trailing: const Icon(Icons.keyboard_double_arrow_down),
-      title: Text(LocaleKeys.mainText_changeCurrencySymbol.tr()),
-      children: [
-        Wrap(
-          children: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.turkishLiraSign),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.euroSign),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.dollarSign),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.sterlingSign),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.rubleSign),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(FontAwesomeIcons.manatSign),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-final class _ProfilePageLogoutButton extends StatelessWidget {
-  const _ProfilePageLogoutButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          elevation: 5,
-          backgroundColor: Colors.red,
-          fixedSize: Size(context.general.mediaSize.width, 40),
-        ),
-        onPressed: () {
-          context
-            ..read<ProfilePageBloc>().add(UserLogoutEvent())
-            ..read<LoginBloc>().add(LogoutEvent());
-        },
-        child: Text(LocaleKeys.mainText_logout.tr()),
       ),
     );
   }

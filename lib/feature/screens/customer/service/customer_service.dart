@@ -51,7 +51,7 @@ final class CustomerService extends ICustomerService {
     T? model,
   }) async {
     final cookie =
-        ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
+        await ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
     final response = await ProductItems.networkService.get<R, T>(
       '${AppNetwork.customerPath}/$id',
       options: Options(
