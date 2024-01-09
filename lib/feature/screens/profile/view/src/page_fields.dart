@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../model/user.dart';
+import '../../model/user_model.dart';
 import 'index.dart';
 
 final class PageFields extends StatelessWidget {
@@ -9,7 +8,7 @@ final class PageFields extends StatelessWidget {
     super.key,
   });
 
-  final User user;
+  final UserModel user;
 
   @override
   Widget build(BuildContext context) {

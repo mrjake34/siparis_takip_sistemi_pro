@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import '../../../../product/core/base/interface/base_network_model.dart';
-import 'user.dart';
+import 'user_model.dart';
 
 part 'user_response_model.g.dart';
 
@@ -13,11 +13,11 @@ final class UserResponseModel extends IBaseNetworkModel<UserResponseModel> {
   factory UserResponseModel.fromJson(Map<String, dynamic> json) =>
       _$UserResponseModelFromJson(json);
   final String? message;
-  final User? user;
+  final UserModel? user;
 
   UserResponseModel copyWith({
     String? message,
-    User? user,
+    UserModel? user,
   }) =>
       UserResponseModel(
         message: message ?? this.message,
@@ -33,7 +33,7 @@ final class UserResponseModel extends IBaseNetworkModel<UserResponseModel> {
       message: json['message'] as String?,
       user: json['user'] == null
           ? null
-          : User.fromJson(json['user'] as Map<String, dynamic>),
+          : UserModel.fromJson(json['user'] as Map<String, dynamic>),
     );
   }
 

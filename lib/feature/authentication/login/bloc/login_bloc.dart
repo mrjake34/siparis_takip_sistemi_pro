@@ -7,10 +7,11 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_res
 import 'package:siparis_takip_sistemi_pro/product/core/base/mixin/headers_mixin.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
+import 'package:siparis_takip_sistemi_pro/product/extension/user_model_extension.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 
 import '../../../../product/core/constants/enums/enums.dart';
-import '../../../screens/profile/model/user.dart';
+import '../../../screens/profile/model/user_model.dart';
 import '../../../screens/profile/service/profile_service.dart';
 
 part 'login_event.dart';
@@ -42,7 +43,7 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
         state.copyWith(
           status: Status.isDone,
           userStatus: UserStatus.logout,
-          model: const User.empty(),
+          model: const UserModel.empty(),
           cookie: '',
         ),
       );
@@ -123,9 +124,7 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
       id: response.data?.user?.id,
       model: UserResponseModel(),
     );
-    await ProductItems.sharedManager.saveModel(
-      model: user.data?.user,
-    );
+    await user.data?.user.exten.saveModel();
     await ProductItems.sharedManager
         .setStringValue(PreferenceKey.cookie, cookie ?? '');
     safeEmit(

@@ -7,7 +7,7 @@ class ProfilePageState extends Equatable {
     this.status,
     this.networkStatus,
   });
-  final User? user;
+  final UserModel? user;
   final Status? status;
   final NetworkStatus? networkStatus;
 
@@ -19,7 +19,7 @@ class ProfilePageState extends Equatable {
       ];
 
   ProfilePageState copyWith({
-    User? user,
+    UserModel? user,
     Status? status,
     NetworkStatus? networkStatus,
     ThemeData? theme,

@@ -5,7 +5,7 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_bloc.dar
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 import '../../../../product/core/constants/enums/enums.dart';
 import '../../../../product/utils/getit/product_items.dart';
-import '../model/user.dart';
+import '../model/user_model.dart';
 import '../service/profile_service.dart';
 
 part 'profile_page_event.dart';
@@ -24,7 +24,6 @@ class ProfilePageBloc extends BaseBloc<ProfilePageEvent, ProfilePageState> {
         safeEmit(state.copyWith(status: Status.isFailed));
         return;
       }
-
       final response =
           await profileService.getProfile<UserResponseModel, UserResponseModel>(
         cookie: cookie,
@@ -50,7 +49,7 @@ class ProfilePageBloc extends BaseBloc<ProfilePageEvent, ProfilePageState> {
         safeEmit(
           state.copyWith(
             status: Status.isDone,
-            user: const User(),
+            user: const UserModel(),
           ),
         );
       } else {

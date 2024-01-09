@@ -15,7 +15,7 @@ final class LoginState extends Equatable {
   });
   final Status? status;
   final Validate? validate;
-  final User? model;
+  final UserModel? model;
   final AutoLogin? autoLogin;
   final String? errorMessage;
   final NetworkStatus? networkStatus;
@@ -38,7 +38,7 @@ final class LoginState extends Equatable {
   LoginState copyWith({
     Status? status,
     Validate? validate,
-    User? model,
+    UserModel? model,
     AutoLogin? autoLogin,
     String? errorMessage,
     NetworkStatus? networkStatus,

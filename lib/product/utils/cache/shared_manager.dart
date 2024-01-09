@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user.dart';
+import 'package:kartal/kartal.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_model.dart';
 
 import '../../core/constants/enums/enums.dart';
 
@@ -49,21 +48,22 @@ final class SharedManager {
     await _storage.write(key: key.name, value: value.toString());
   }
 
-  Future<void> saveModel({User? model}) async {
+  Future<void> saveModel({UserModel? model}) async {
     if (model == null) return;
-    final modelJson = jsonEncode(model.toJson());
-
     await _storage.write(
       key: PreferenceKey.userModel.name,
-      value: modelJson,
+      value: model.toString(),
     );
   }
 
-  Future<User?> getModel() async {
+  Future<UserModel?> getModel() async {
     final model = await _storage.read(key: PreferenceKey.userModel.name);
     if (model == null) return null;
-    final decodedModel = jsonDecode(model);
-    return User.fromJson(decodedModel as Map<String, dynamic>);
+
+    final decodedModel =
+        await model.ext.safeJsonDecodeCompute<Map<String, dynamic>>();
+    if (decodedModel is! Map<String, dynamic>) return null;
+    return UserModel.fromJson(decodedModel);
   }
 
   Future<String> getStringValue(PreferenceKey key) async =>
