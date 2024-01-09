@@ -11,7 +11,7 @@ UserResponseModel _$UserResponseModelFromJson(Map<String, dynamic> json) =>
       message: json['message'] as String?,
       user: json['user'] == null
           ? null
-          : User.fromJson(json['user'] as Map<String, dynamic>),
+          : UserModel.fromJson(json['user'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$UserResponseModelToJson(UserResponseModel instance) =>

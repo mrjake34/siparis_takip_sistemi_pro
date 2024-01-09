@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'user.g.dart';
+part 'user_model.g.dart';
 
 @JsonSerializable()
-final class User extends Equatable {
-  const User({
+final class UserModel extends Equatable {
+  const UserModel({
     this.id,
     this.name,
     this.email,
@@ -20,9 +20,10 @@ final class User extends Equatable {
     this.refreshToken,
     this.message,
   });
-  const User.empty() : this();
+  const UserModel.empty() : this();
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
   final String? id;
   final String? name;
   final String? email;
@@ -37,7 +38,7 @@ final class User extends Equatable {
   final String? refreshToken;
   final String? message;
 
-  User copyWith({
+  UserModel copyWith({
     String? id,
     String? name,
     String? email,
@@ -52,7 +53,7 @@ final class User extends Equatable {
     String? refreshToken,
     String? message,
   }) =>
-      User(
+      UserModel(
         id: id ?? this.id,
         name: name ?? this.name,
         email: email ?? this.email,
@@ -68,10 +69,10 @@ final class User extends Equatable {
         message: message ?? this.message,
       );
 
-  Map<String, dynamic> toJson() => _$UserToJson(this);
+  Map<String, dynamic> toJson() => _$UserModelToJson(this);
 
-  User fromJson(Map<String, dynamic> json) {
-    return User.fromJson(json);
+  UserModel fromJson(Map<String, dynamic> json) {
+    return UserModel.fromJson(json);
   }
 
   @override
@@ -90,4 +91,7 @@ final class User extends Equatable {
         refreshToken,
         message,
       ];
+
+  @override
+  bool get stringify => true;
 }
