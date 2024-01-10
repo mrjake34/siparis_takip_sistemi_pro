@@ -39,6 +39,15 @@ class _EditCustomerPageState extends State<EditCustomerPage> {
   }
 
   @override
+  void dispose() {
+    _nameController.dispose();
+    _addressController.dispose();
+    _phoneController.dispose();
+    _formKey.currentState?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BaseScaffold(
       body: SingleChildScrollView(

@@ -27,7 +27,6 @@ class _AddProductPageState extends State<AddProductPage>
       child: BaseScaffold(
         body: Column(
           children: [
-            const LinearField(),
             FormBuilder(
               key: formKey,
               child: Column(

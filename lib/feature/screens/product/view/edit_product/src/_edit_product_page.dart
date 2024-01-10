@@ -1,4 +1,4 @@
-part of 'index.dart';
+part of '../index.dart';
 
 @RoutePage()
 final class EditProductPage extends StatefulWidget {
@@ -20,7 +20,6 @@ final class _EditProductPageState extends State<EditProductPage>
         ),
         child: Column(
           children: [
-            const _LinearField(),
             Flexible(
               child: _ProductField(
                 nameController: _nameController,
