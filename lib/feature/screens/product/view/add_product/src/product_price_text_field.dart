@@ -2,25 +2,26 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
-import '../../../../../product/utils/translations/locale_keys.g.dart';
+import '../../../../../../product/utils/translations/locale_keys.g.dart';
 
-final class ProductNameTextField extends StatelessWidget {
-  const ProductNameTextField({
-    required this.productNameController,
+final class ProductPriceTextField extends StatelessWidget {
+  const ProductPriceTextField({
+    required this.productPriceController,
     super.key,
   });
 
-  final TextEditingController productNameController;
+  final TextEditingController productPriceController;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       textInputAction: TextInputAction.done,
       autovalidateMode: AutovalidateMode.disabled,
-      controller: productNameController,
+      keyboardType: TextInputType.number,
+      controller: productPriceController,
       decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.view_in_ar),
-        labelText: LocaleKeys.product_productName.tr(),
+        prefixIcon: const Icon(Icons.money),
+        labelText: LocaleKeys.product_productPrice.tr(),
       ),
       validator: FormBuilderValidators.compose([
         FormBuilderValidators.required(

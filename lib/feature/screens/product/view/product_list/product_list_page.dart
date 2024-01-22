@@ -9,14 +9,12 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.d
 import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/cards/cards_more_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/cards/list_card.dart';
+import 'package:siparis_takip_sistemi_pro/product/src/shimmer/list_shimmer.dart';
 
-import '../../../../../gen/index.dart';
-import '../../../../../product/core/constants/enums/enums.dart';
-
-part 'linear_field.dart';
-part 'product_detail_field.dart';
-part 'product_card_menu.dart';
+part 'src/_product_detail_field.dart';
+part 'src/_product_card_menu.dart';
 part 'product_list_page_mixin.dart';
+part 'src/_list_view_builder.dart';
 
 @RoutePage()
 final class ProductListPage extends StatefulWidget {
@@ -32,7 +30,6 @@ final class _ProductListPageState extends State<ProductListPage> {
     return BaseScaffold(
       body: Column(
         children: [
-          const _LinearField(),
           Flexible(
             child: BlocProvider(
               create: (context) => ProductsBloc(
@@ -40,47 +37,16 @@ final class _ProductListPageState extends State<ProductListPage> {
               ),
               child: BlocBuilder<ProductsBloc, ProductsState>(
                 builder: (context, state) {
-                  if (state.productList.ext.isNotNullOrEmpty) {
-                    return _ListViewBuilder(productList: state.productList!);
+                  if (state.productList.ext.isNullOrEmpty) {
+                    return const ListShimmer();
                   }
-                  return const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  );
+                  return _ListViewBuilder(productList: state.productList!);
                 },
               ),
             ),
           ),
         ],
       ),
-    );
-  }
-}
-
-final class _ListViewBuilder extends StatelessWidget {
-  const _ListViewBuilder({
-    required this.productList,
-  });
-  final List<Product> productList;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.all(AppSize.pagePadding),
-      itemCount: productList.length,
-      itemBuilder: (BuildContext context, int index) {
-        final product = productList[index];
-        return ListCard(
-          child: Row(
-            children: [
-              Expanded(
-                flex: 3,
-                child: _ProductDetailField(product: product),
-              ),
-              _ProductCardMenu(product: product),
-            ],
-          ),
-        );
-      },
     );
   }
 }

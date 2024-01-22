@@ -1,4 +1,4 @@
-part of 'index.dart';
+part of '../index.dart';
 
 final class _EditProductNameTextField extends StatelessWidget {
   const _EditProductNameTextField({

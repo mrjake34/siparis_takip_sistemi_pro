@@ -30,7 +30,7 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/customer/view/add_cust
     as _i1;
 import 'package:siparis_takip_sistemi_pro/feature/screens/customer/view/customer_list/customer_list_page.dart'
     as _i6;
-import 'package:siparis_takip_sistemi_pro/feature/screens/customer/view/edit_customer/edit_customer.dart'
+import 'package:siparis_takip_sistemi_pro/feature/screens/customer/view/edit_customer/edit_customer_page.dart'
     as _i8;
 import 'package:siparis_takip_sistemi_pro/feature/screens/home_page/view/home_page.dart'
     as _i11;

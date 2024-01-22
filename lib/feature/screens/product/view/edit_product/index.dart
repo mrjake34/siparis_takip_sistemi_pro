@@ -8,14 +8,10 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product.
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/service/product_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
-
-import '../../../../../gen/index.dart';
-import '../../../../../product/core/constants/enums/enums.dart';
 import '../../bloc/products_bloc.dart';
 
-part 'edit_product_name_field.dart';
-part 'edit_product_page.dart';
-part 'edit_product_page_mixin.dart';
-part 'edit_product_price_field.dart';
-part 'linear_field.dart';
+part 'src/_edit_product_name_field.dart';
+part 'src/_edit_product_page.dart';
+part 'src/_edit_product_page_mixin.dart';
+part 'src/_edit_product_price_field.dart';
 part 'product_field.dart';

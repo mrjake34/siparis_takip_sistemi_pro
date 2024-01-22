@@ -1,4 +1,4 @@
-part of 'product_list_page.dart';
+part of '../product_list_page.dart';
 
 final class _ProductCardMenu extends StatelessWidget {
   const _ProductCardMenu({

@@ -1,4 +1,4 @@
-part of 'index.dart';
+part of '../index.dart';
 
 mixin _EditProductPageMixin on State<EditProductPage> {
   late final TextEditingController _nameController;

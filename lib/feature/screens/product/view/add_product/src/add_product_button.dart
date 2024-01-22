@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import '../../../../../product/core/constants/strings/appstrings.dart';
-import '../../../../../product/utils/snackbar/snackbar.dart';
-import '../../../../../product/utils/translations/locale_keys.g.dart';
-import '../../../../authentication/login/bloc/login_bloc.dart';
-import '../../bloc/products_bloc.dart';
-import '../../model/product.dart';
+import '../../../../../../product/core/constants/strings/appstrings.dart';
+import '../../../../../../product/utils/snackbar/snackbar.dart';
+import '../../../../../../product/utils/translations/locale_keys.g.dart';
+import '../../../../../authentication/login/bloc/login_bloc.dart';
+import '../../../bloc/products_bloc.dart';
+import '../../../model/product.dart';
 
 final class AddProductButton extends StatelessWidget {
   const AddProductButton({

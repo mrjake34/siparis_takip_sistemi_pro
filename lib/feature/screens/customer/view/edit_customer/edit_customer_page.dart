@@ -1,16 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/edit_page_button_field.dart';
-import '../../../../../gen/index.dart';
-import '../../../../../product/core/constants/enums/enums.dart';
 import '../../../../../product/utils/translations/locale_keys.g.dart';
-import '../../bloc/customer_bloc.dart';
 import '../../model/customer.dart';
+
+part 'edit_customer_page_mixin.dart';
 
 @RoutePage()
 final class EditCustomerPage extends StatefulWidget {
@@ -21,119 +19,48 @@ final class EditCustomerPage extends StatefulWidget {
   State<EditCustomerPage> createState() => _EditCustomerPageState();
 }
 
-class _EditCustomerPageState extends State<EditCustomerPage> {
-  late final TextEditingController _nameController;
-  late final TextEditingController _addressController;
-  late final TextEditingController _phoneController;
-  late final GlobalKey<FormState> _formKey;
-
-  @override
-  void initState() {
-    _nameController = TextEditingController(text: widget.customer?.name ?? '');
-    _addressController =
-        TextEditingController(text: widget.customer?.adress ?? '');
-    _phoneController =
-        TextEditingController(text: widget.customer?.phone ?? '');
-    _formKey = GlobalKey<FormState>();
-    super.initState();
-  }
-
+class _EditCustomerPageState extends State<EditCustomerPage>
+    with EditCustomerPageMixin {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const LinearField(),
-            _FormBuilder(
-              formKey: _formKey,
-              nameController: _nameController,
-              customer: widget.customer ?? Customer(),
-              addressController: _addressController,
-              phoneController: _phoneController,
-            ),
-          ],
+        child: FormBuilder(
+          key: _formKey,
+          child: Column(
+            children: [
+              CustomerNameTextField(nameController: _nameController),
+              const SizedBox(
+                height: 10,
+              ),
+              CustomerNameButtonField(
+                customer: widget.customer,
+                nameController: _nameController,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              CustomerAddressTextField(
+                addressController: _addressController,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const CustomerAddressButtonField(),
+              const SizedBox(
+                height: 10,
+              ),
+              CustomerPhoneTextField(
+                phoneController: _phoneController,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const CustomerPhoneButtonField(),
+            ],
+          ),
         ),
       ),
-    );
-  }
-}
-
-class _FormBuilder extends StatelessWidget {
-  const _FormBuilder({
-    required GlobalKey<FormState> formKey,
-    required TextEditingController nameController,
-    required this.customer,
-    required TextEditingController addressController,
-    required TextEditingController phoneController,
-  })  : _formKey = formKey,
-        _nameController = nameController,
-        _addressController = addressController,
-        _phoneController = phoneController;
-
-  final GlobalKey<FormState> _formKey;
-  final TextEditingController _nameController;
-  final Customer customer;
-  final TextEditingController _addressController;
-  final TextEditingController _phoneController;
-
-  @override
-  Widget build(BuildContext context) {
-    return FormBuilder(
-      key: _formKey,
-      child: Column(
-        children: [
-          CustomerNameTextField(nameController: _nameController),
-          const SizedBox(
-            height: 10,
-          ),
-          CustomerNameButtonField(
-            customer: customer,
-            nameController: _nameController,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          CustomerAddressTextField(
-            addressController: _addressController,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          const CustomerAddressButtonField(),
-          const SizedBox(
-            height: 10,
-          ),
-          CustomerPhoneTextField(
-            phoneController: _phoneController,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          const CustomerPhoneButtonField(),
-        ],
-      ),
-    );
-  }
-}
-
-class LinearField extends StatelessWidget {
-  const LinearField({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<CustomerBloc, CustomerState>(
-      builder: (context, state) {
-        if (state.status == Status.isLoading) {
-          return const LinearProgressIndicator(
-            color: ColorName.alternativeButtonColor,
-          );
-        } else {
-          return Container();
-        }
-      },
     );
   }
 }
