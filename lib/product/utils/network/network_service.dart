@@ -10,6 +10,14 @@ import '../../core/constants/network/url.dart';
 final class NetworkService {
   NetworkService._init();
 
+  /// This map is used to set the headers.
+  final headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers':
+        'Origin, Content-Type, Accept, Credentials, Authorization',
+    'Access-Control-Allow-Credentials': 'true',
+  };
+
   /// This method is used to initialize the Dio package.
   void start() {
     _networkManager = NetworkManager<EmptyModel>(
@@ -26,14 +34,6 @@ final class NetworkService {
   static NetworkService get instance => _instance;
 
   late NetworkManager _networkManager;
-
-  /// This map is used to set the headers.
-  final headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers':
-        'Origin, Content-Type, Accept, Credentials, Authorization',
-    'Access-Control-Allow-Credentials': 'true',
-  };
 
   /// This method is used to make a Get request.
   Future<BaseResponseModel<R>> get<R, T extends IBaseNetworkModel<T>>(

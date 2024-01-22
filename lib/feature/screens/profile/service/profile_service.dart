@@ -19,15 +19,14 @@ final class ProfileService extends IProfileService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    return ProductItems.networkService.get<R, T>(
+    final response = await ProductItems.networkService.get<R, T>(
       '${AppNetwork.userPath}$id',
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       model: model,
     );
+    return response;
   }
 
   @override
@@ -46,9 +45,7 @@ final class ProfileService extends IProfileService {
     final response = await ProductItems.networkService.put<R, T>(
       '${AppNetwork.userPath}$id',
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       data: model.toJson(),
     );

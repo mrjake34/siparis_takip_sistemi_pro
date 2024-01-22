@@ -7,6 +7,7 @@ import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/log
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/service/login_service.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/service/profile_service.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/mixin/headers_mixin.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_manager.dart';
 
@@ -32,11 +33,15 @@ void main() {
     debugPrint('Login Response Data: ${loginResponse.data!.user?.id}');
 
     if (loginResponse.statusCode == HttpStatus.ok) {
-      final cookie = loginResponse.getCookie(loginResponse.headers);
+      final cookie = loginResponse.getCookie(
+        loginResponse.headers,
+        type: CookieTypes.setCookie,
+      );
       final response =
           await profileService.getProfile<UserResponseModel, UserResponseModel>(
         cookie: cookie,
         id: loginResponse.data?.user?.id,
+        model: UserResponseModel(),
       );
       if (response.statusCode == HttpStatus.ok) {
         debugPrint('Profile Response Status Code: ${response.statusCode}');
