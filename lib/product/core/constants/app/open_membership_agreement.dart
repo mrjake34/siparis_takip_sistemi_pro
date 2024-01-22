@@ -4,11 +4,10 @@ import 'package:url_launcher/url_launcher.dart';
 final class OpenMembershipAgreement {
   OpenMembershipAgreement._init();
   static Future<bool> openMembershipAgreement() async {
-    if (!await canLaunchUrl(
-      Uri.parse(AppNetwork.membershipAgreementLink),
-    )) {
+    final uri = Uri.parse(AppNetwork.membershipAgreementLink);
+    if (!await canLaunchUrl(uri)) {
       return launchUrl(
-        Uri.parse(AppNetwork.membershipAgreementLink),
+        uri,
         mode: LaunchMode.externalApplication,
       );
     } else {
