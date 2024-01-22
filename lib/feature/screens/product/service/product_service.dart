@@ -27,9 +27,7 @@ final class ProductService extends IProductService {
       AppNetwork.productPath,
       model: model,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
     );
   }
@@ -51,9 +49,7 @@ final class ProductService extends IProductService {
       '${AppNetwork.productPath}/$id',
       model: model,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
     );
   }
@@ -74,9 +70,7 @@ final class ProductService extends IProductService {
       AppNetwork.productPath,
       model: model,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       data: product.toJson(),
     );
@@ -98,9 +92,7 @@ final class ProductService extends IProductService {
       '${AppNetwork.productPath}/$id',
       model: model,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
     );
   }
@@ -113,7 +105,7 @@ final class ProductService extends IProductService {
     String? cookie,
     T? model,
   }) async {
-    if (id == null && data == null && cookie == null) {
+    if (id == null || data == null || cookie == null) {
       return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
         statusCode: HttpStatus.badRequest,
@@ -121,11 +113,9 @@ final class ProductService extends IProductService {
     }
     return ProductItems.networkService.put<R, T>(
       '${AppNetwork.productPath}/$id',
-      data: data?.toJson(),
+      data: data.toJson(),
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       model: model,
     );

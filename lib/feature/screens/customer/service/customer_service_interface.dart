@@ -1,8 +1,10 @@
 import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
 
+import '../../../../product/core/base/interface/base_service.dart';
+
 /// This class is Interface of CustomerService class
-abstract class ICustomerService {
+abstract class ICustomerService extends BaseService {
   /// This Function Add Customer to DB
   Future<BaseResponseModel<R>> addCustomer<R, T extends IBaseNetworkModel<T>>();
 

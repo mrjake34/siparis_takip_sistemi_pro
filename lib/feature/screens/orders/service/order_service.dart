@@ -16,13 +16,20 @@ final class OrderService extends IOrderService {
     String? cookie,
     T? model,
   }) async {
+    if (customerId == null ||
+        orderNote == null ||
+        orderListPostOut == null ||
+        cookie == null ||
+        model == null) {
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
+    }
     final response = await ProductItems.networkService.post<R, T>(
       AppNetwork.orderPath,
       model: model,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       data: {
         'customerId': customerId,
@@ -38,12 +45,16 @@ final class OrderService extends IOrderService {
     String? cookie,
     T? model,
   }) async {
+    if (cookie == null || model == null) {
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
+    }
+
     final response = await ProductItems.networkService.get<R, T>(
       AppNetwork.orderPath,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       model: model,
     );
@@ -56,7 +67,7 @@ final class OrderService extends IOrderService {
     String? cookie,
     T? model,
   }) async {
-    if (id == null || cookie == null) {
+    if (id == null || cookie == null || model == null) {
       return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
@@ -64,9 +75,7 @@ final class OrderService extends IOrderService {
     final response = await ProductItems.networkService.get<R, T>(
       AppNetwork.orderPath + id,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       model: model,
     );
@@ -79,7 +88,7 @@ final class OrderService extends IOrderService {
     String? cookie,
     T? model,
   }) async {
-    if (id == null || cookie == null) {
+    if (id == null || cookie == null || model == null) {
       return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
@@ -87,9 +96,7 @@ final class OrderService extends IOrderService {
     final response = await ProductItems.networkService.delete<R, T>(
       AppNetwork.orderPath + id,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       model: model,
     );
@@ -101,8 +108,9 @@ final class OrderService extends IOrderService {
     String? id,
     UpdateModel? updateModel,
     String? cookie,
+    T? model,
   }) async {
-    if (id == null || updateModel == null || cookie == null) {
+    if (id == null || updateModel == null || cookie == null || model == null) {
       return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
@@ -110,10 +118,9 @@ final class OrderService extends IOrderService {
     final response = await ProductItems.networkService.put<R, T>(
       AppNetwork.orderPath + id,
       data: updateModel.toJson(),
+      model: model,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
     );
     return response;

@@ -7,14 +7,14 @@ import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dar
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'interface_courier_service.dart';
 
-final class CourierService implements ICourierService {
+final class CourierService extends ICourierService {
   @override
   Future<BaseResponseModel<R>> postCourier<R, T extends IBaseNetworkModel<T>>({
     CourierModel? data,
     String? cookie,
     T? model,
   }) async {
-    if (data == null || cookie == null) {
+    if (data == null || cookie == null || model == null) {
       return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
@@ -22,9 +22,7 @@ final class CourierService implements ICourierService {
     final response = await ProductItems.networkService.post<R, T>(
       AppNetwork.courierPath,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       data: data.toJson(),
       model: model,
@@ -38,7 +36,7 @@ final class CourierService implements ICourierService {
     String? cookie,
     T? model,
   }) async {
-    if (data == null || cookie == null) {
+    if (data == null || cookie == null || model == null) {
       return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
@@ -46,9 +44,7 @@ final class CourierService implements ICourierService {
     final response = await ProductItems.networkService.put<R, T>(
       AppNetwork.courierPath,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       data: data.toJson(),
       model: model,
@@ -63,7 +59,7 @@ final class CourierService implements ICourierService {
     String? cookie,
     T? model,
   }) async {
-    if (data == null || cookie == null) {
+    if (data == null || cookie == null || model == null) {
       return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
@@ -71,9 +67,7 @@ final class CourierService implements ICourierService {
     final response = await ProductItems.networkService.delete<R, T>(
       AppNetwork.courierPath,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       data: data.toJson(),
       model: model,
@@ -87,7 +81,7 @@ final class CourierService implements ICourierService {
     String? cookie,
     T? model,
   }) async {
-    if (id == null || cookie == null) {
+    if (id == null || cookie == null || model == null) {
       return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
@@ -95,9 +89,7 @@ final class CourierService implements ICourierService {
     final response = await ProductItems.networkService.get<R, T>(
       '${AppNetwork.courierPath}/$id',
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       model: model,
     );
@@ -109,7 +101,7 @@ final class CourierService implements ICourierService {
     String? cookie,
     T? model,
   }) async {
-    if (cookie == null) {
+    if (cookie == null || model == null) {
       return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
@@ -117,9 +109,7 @@ final class CourierService implements ICourierService {
     final response = await ProductItems.networkService.get<R, T>(
       AppNetwork.courierPath,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       model: model,
     );

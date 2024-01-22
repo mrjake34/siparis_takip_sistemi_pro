@@ -4,7 +4,7 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.
 import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import '../../../../product/core/base/models/base_respose_model.dart';
-import '../../../../product/core/constants/enums/enums.dart';
+import '../../../../product/core/constants/enums/network_status.dart';
 import '../model/customer.dart';
 import 'customer_service_interface.dart';
 
@@ -15,14 +15,18 @@ final class CustomerService extends ICustomerService {
     String? cookie,
     T? model,
   }) async {
+    if (customer == null || cookie == null || model == null) {
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
+    }
+
     final response = await ProductItems.networkService.post<R, T>(
       AppNetwork.customerPath,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
-      data: customer?.toJson(),
+      data: customer.toJson(),
       model: model,
     );
     return response;
@@ -34,10 +38,16 @@ final class CustomerService extends ICustomerService {
     String? cookie,
     T? model,
   }) async {
+    if (cookie == null || model == null) {
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
+    }
+
     final response = await ProductItems.networkService.get<R, T>(
       AppNetwork.customerPath,
       options: Options(
-        headers: {'authorization': 'Bearer $cookie'},
+        headers: setHeaderWithCookie(cookie),
       ),
       model: model,
     );
@@ -50,12 +60,15 @@ final class CustomerService extends ICustomerService {
     String? cookie,
     T? model,
   }) async {
-    final cookie =
-        await ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
+    if (id == null || cookie == null || model == null) {
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
+    }
     final response = await ProductItems.networkService.get<R, T>(
       '${AppNetwork.customerPath}/$id',
       options: Options(
-        headers: {'authorization': 'Bearer $cookie'},
+        headers: setHeaderWithCookie(cookie),
       ),
       model: model,
     );
@@ -70,12 +83,18 @@ final class CustomerService extends ICustomerService {
     String? cookie,
     T? model,
   }) async {
+    if (id == null || data == null || cookie == null || model == null) {
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
+    }
+
     final response = await ProductItems.networkService.put<R, T>(
       '${AppNetwork.customerPath}/$id',
       options: Options(
-        headers: {'authorization': 'Bearer $cookie'},
+        headers: setHeaderWithCookie(cookie),
       ),
-      data: data?.toJson(),
+      data: data.toJson(),
       model: model,
     );
     return response;
@@ -88,10 +107,16 @@ final class CustomerService extends ICustomerService {
     String? cookie,
     T? model,
   }) async {
+    if (id == null || cookie == null || model == null) {
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
+    }
+
     final response = await ProductItems.networkService.delete<R, T>(
       '${AppNetwork.customerPath}/$id',
       options: Options(
-        headers: {'authorization': 'Bearer $cookie'},
+        headers: setHeaderWithCookie(cookie),
       ),
       model: model,
     );
