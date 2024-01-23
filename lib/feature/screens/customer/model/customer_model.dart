@@ -2,45 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
 
-part 'customer.g.dart';
-
-@JsonSerializable()
-final class CustomerList extends IBaseNetworkModel<CustomerList> {
-  CustomerList({
-    this.message,
-    this.customers,
-  });
-
-  factory CustomerList.fromJson(Map<String, dynamic> json) =>
-      _$CustomerListFromJson(json);
-  final String? message;
-  final List<Customer>? customers;
-
-  CustomerList copyWith({
-    String? message,
-    List<Customer>? customers,
-  }) =>
-      CustomerList(
-        message: message ?? this.message,
-        customers: customers ?? this.customers,
-      );
-
-  @override
-  Map<String, dynamic> toJson() => _$CustomerListToJson(this);
-
-  @override
-  CustomerList fromJson(Map<String, dynamic> json) {
-    return CustomerList.fromJson(json);
-  }
-
-  @override
-  List<Object?> get props => [message, customers];
-}
+part 'customer_model.g.dart';
 
 @JsonSerializable()
 @immutable
-final class Customer extends IBaseNetworkModel<Customer> {
-  Customer({
+final class CustomerModel extends IBaseNetworkModel<CustomerModel> {
+  CustomerModel({
     this.id,
     this.shopName,
     this.name,
@@ -53,8 +20,8 @@ final class Customer extends IBaseNetworkModel<Customer> {
     this.updatedAt,
   });
 
-  factory Customer.fromJson(Map<String, dynamic> json) =>
-      _$CustomerFromJson(json);
+  factory CustomerModel.fromJson(Map<String, dynamic> json) =>
+      _$CustomerModelFromJson(json);
   final String? id;
   final String? shopName;
   final String? name;
@@ -66,7 +33,7 @@ final class Customer extends IBaseNetworkModel<Customer> {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  Customer copyWith({
+  CustomerModel copyWith({
     String? id,
     String? shopName,
     String? name,
@@ -78,7 +45,7 @@ final class Customer extends IBaseNetworkModel<Customer> {
     DateTime? createdAt,
     DateTime? updatedAt,
   }) =>
-      Customer(
+      CustomerModel(
         id: id ?? this.id,
         shopName: shopName ?? this.shopName,
         name: name ?? this.name,
@@ -92,7 +59,7 @@ final class Customer extends IBaseNetworkModel<Customer> {
       );
 
   @override
-  Map<String, dynamic> toJson() => _$CustomerToJson(this);
+  Map<String, dynamic> toJson() => _$CustomerModelToJson(this);
 
   @override
   List<Object?> get props => [
@@ -109,7 +76,7 @@ final class Customer extends IBaseNetworkModel<Customer> {
       ];
 
   @override
-  Customer fromJson(Map<String, dynamic> json) {
-    return Customer.fromJson(json);
+  CustomerModel fromJson(Map<String, dynamic> json) {
+    return CustomerModel.fromJson(json);
   }
 }

@@ -5,13 +5,13 @@ import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dar
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import '../../../../product/core/base/models/base_respose_model.dart';
 import '../../../../product/core/constants/enums/network_status.dart';
-import '../model/customer.dart';
+import '../model/customer_model.dart';
 import 'customer_service_interface.dart';
 
 final class CustomerService extends ICustomerService {
   @override
   Future<BaseResponseModel<R>> addCustomer<R, T extends IBaseNetworkModel<T>>({
-    Customer? customer,
+    CustomerModel? customer,
     String? cookie,
     T? model,
   }) async {

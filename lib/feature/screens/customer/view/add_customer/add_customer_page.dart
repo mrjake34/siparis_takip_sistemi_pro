@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/customer/bloc/customer_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/customer/model/customer.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/customer/model/customer_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button_without_color.dart';
@@ -128,7 +128,7 @@ class AddCustomerAddButtonField extends StatelessWidget {
         if (_formKey.currentState!.validate()) {
           context.read<CustomerBloc>().add(
                 AddCustomerEvent(
-                  customer: Customer(
+                  customer: CustomerModel(
                     name: customerNameController.text.trim(),
                     phone: customerPhoneController.text.trim(),
                     adress: customerAddressController.text.trim(),

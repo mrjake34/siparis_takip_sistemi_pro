@@ -5,7 +5,7 @@ final class _CustomerListCardCustomerField extends StatelessWidget {
     required this.customer,
   });
 
-  final Customer customer;
+  final CustomerModel customer;
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,7 @@ final class _ListBuilder extends StatelessWidget {
     required this.customerList,
   });
 
-  final List<Customer?> customerList;
+  final List<CustomerModel?> customerList;
 
   @override
   Widget build(BuildContext context) {

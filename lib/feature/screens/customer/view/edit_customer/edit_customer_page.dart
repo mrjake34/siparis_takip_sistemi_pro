@@ -6,14 +6,14 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/edit_page_button_field.dart';
 import '../../../../../product/utils/translations/locale_keys.g.dart';
-import '../../model/customer.dart';
+import '../../model/customer_model.dart';
 
 part 'edit_customer_page_mixin.dart';
 
 @RoutePage()
 final class EditCustomerPage extends StatefulWidget {
   const EditCustomerPage({required this.customer, super.key});
-  final Customer? customer;
+  final CustomerModel? customer;
 
   @override
   State<EditCustomerPage> createState() => _EditCustomerPageState();
@@ -170,7 +170,7 @@ class CustomerNameButtonField extends StatelessWidget {
     super.key,
   });
 
-  final Customer? customer;
+  final CustomerModel? customer;
   final TextEditingController nameController;
 
   @override

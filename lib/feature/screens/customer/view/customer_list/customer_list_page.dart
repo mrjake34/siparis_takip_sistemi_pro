@@ -7,7 +7,7 @@ import 'package:siparis_takip_sistemi_pro/product/src/text/failed_load_data_text
 import '../../../../../product/src/cards/cards_more_button.dart';
 import '../../../../../product/src/cards/list_card.dart';
 import '../../bloc/customer_bloc.dart';
-import '../../model/customer.dart';
+import '../../model/customer_model.dart';
 
 part 'src/_customer_list_card_customer_field.dart';
 part 'src/_card_more_button.dart';
@@ -27,7 +27,8 @@ class _CustomerListPageState extends State<CustomerListPage> {
     return BaseScaffold(
       body: BlocBuilder<CustomerBloc, CustomerState>(
         builder: (context, state) {
-          final List<Customer?>? customerList = state.customerList?.customers;
+          final List<CustomerModel?>? customerList =
+              state.customerList?.customers;
           if (customerList == null) return const FailedLoadDataText();
           return _ListBuilder(customerList: customerList);
         },

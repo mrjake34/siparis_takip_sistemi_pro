@@ -18,7 +18,7 @@ class OrdersState extends Equatable {
   final double? orderCartTotalPrice;
   final List<Product>? productList;
   final OrderModel? order;
-  final Customer? customer;
+  final CustomerModel? customer;
   final Status? status;
   final List<OrderModel>? pendingOrders;
   final List<OrderModel>? processOrders;
@@ -43,7 +43,7 @@ class OrdersState extends Equatable {
     List<OrderModel>? orderList,
     double? orderCartTotalPrice,
     OrderModel? order,
-    Customer? customer,
+    CustomerModel? customer,
     Status? status,
     List<OrderModel>? pendingOrders,
     List<OrderModel>? processOrders,
