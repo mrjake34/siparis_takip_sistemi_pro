@@ -4,10 +4,11 @@ import 'package:provider/provider.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/init/app_initialize.dart';
 import 'package:siparis_takip_sistemi_pro/product/theme/dark_theme.dart';
 import 'package:siparis_takip_sistemi_pro/product/theme/light_theme.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/localization/localization_manager.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/provider/prodiver_manager.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/translations/localization_manager.dart';
+
 import 'product/core/base/provider/theme/theme_cubit.dart';
 
 void main() async {

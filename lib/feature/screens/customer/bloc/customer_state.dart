@@ -1,18 +1,17 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'customer_bloc.dart';
 
 class CustomerState extends Equatable {
   const CustomerState({this.customer, this.customerList, this.status});
-  final Customer? customer;
-  final CustomerList? customerList;
+  final CustomerModel? customer;
+  final CustomerResponse? customerList;
   final Enum? status;
 
   @override
   List<Object?> get props => [customer, customerList, status];
 
   CustomerState copyWith({
-    Customer? customer,
-    CustomerList? customerList,
+    CustomerModel? customer,
+    CustomerResponse? customerList,
     Enum? status,
   }) {
     return CustomerState(

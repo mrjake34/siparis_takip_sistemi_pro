@@ -73,7 +73,7 @@ class AddOrderPostOrderEvent extends OrdersEvent {
   });
 
   final String? orderNote;
-  final Customer? customer;
+  final CustomerModel? customer;
 
   @override
   List<Object?> get props => [orderNote, customer];
@@ -96,7 +96,7 @@ class CalculateOrderCartPrice extends OrdersEvent {
 class AddOrderAddCustomerEvent extends OrdersEvent {
   const AddOrderAddCustomerEvent({this.customer});
 
-  final Customer? customer;
+  final CustomerModel? customer;
   @override
   List<Object?> get props => [customer];
 }

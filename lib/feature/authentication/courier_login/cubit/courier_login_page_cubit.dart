@@ -19,8 +19,7 @@ class CourierLoginPageCubit extends Cubit<CourierLoginPageState> {
   Future<void> loginUser({LoginRequestModel? data}) async {
     emit(const CourierLoginPageState(status: Status.isLoading));
 
-    final response =
-        await courierLoginService.login<LoginResponseModel, LoginResponseModel>(
+    final response = await courierLoginService.login<LoginResponseModel>(
       data: data,
       model: LoginResponseModel(),
     );

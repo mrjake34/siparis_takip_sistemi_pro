@@ -14,7 +14,7 @@ class FetchCustomerListEvent extends CustomerEvent {
 
 class AddCustomerEvent extends CustomerEvent {
   const AddCustomerEvent({this.customer});
-  final Customer? customer;
+  final CustomerModel? customer;
 
   @override
   List<Object?> get props => [customer];

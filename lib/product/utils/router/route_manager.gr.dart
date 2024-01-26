@@ -24,7 +24,7 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/courier/view/courier_l
     as _i4;
 import 'package:siparis_takip_sistemi_pro/feature/screens/courier/view/edit_courier/edit_courier_page.dart'
     as _i7;
-import 'package:siparis_takip_sistemi_pro/feature/screens/customer/model/customer.dart'
+import 'package:siparis_takip_sistemi_pro/feature/screens/customer/model/customer_model.dart'
     as _i22;
 import 'package:siparis_takip_sistemi_pro/feature/screens/customer/view/add_customer/add_customer_page.dart'
     as _i1;
@@ -320,7 +320,7 @@ class EditCourierRouteArgs {
 /// [_i8.EditCustomerPage]
 class EditCustomerRoute extends _i19.PageRouteInfo<EditCustomerRouteArgs> {
   EditCustomerRoute({
-    required _i22.Customer? customer,
+    required _i22.CustomerModel? customer,
     _i21.Key? key,
     List<_i19.PageRouteInfo>? children,
   }) : super(
@@ -344,7 +344,7 @@ class EditCustomerRouteArgs {
     this.key,
   });
 
-  final _i22.Customer? customer;
+  final _i22.CustomerModel? customer;
 
   final _i21.Key? key;
 

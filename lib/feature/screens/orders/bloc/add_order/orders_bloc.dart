@@ -2,7 +2,7 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/customer/model/customer.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/customer/model/customer_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/model/order_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/model/order_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/service/order_service.dart';
@@ -17,8 +17,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
   OrdersBloc() : super(const OrdersState()) {
     on<OrdersListEvent>((event, emit) async {
       emit(state.copyWith(status: Status.isLoading));
-      final response = await OrderService()
-          .getOrderList<OrderResponseModel, OrderResponseModel>();
+      final response = await OrderService().getOrderList<OrderResponseModel>();
 
       emit(
         state.copyWith(
@@ -88,7 +87,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
     on<AddOrderClearProductList>((event, emit) {
       List<Product>? newList = List.from(state.productList ?? []);
       newList.clear();
-      emit(state.copyWith(productList: newList, customer: Customer()));
+      emit(state.copyWith(productList: newList, customer: CustomerModel()));
       double price;
       price = 0;
       if (state.productList != null) {

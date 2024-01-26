@@ -6,11 +6,11 @@ import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart
 import '../model/register_request_model.dart';
 
 final class RegisterService {
-  Future<BaseResponseModel<R>> register<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> register<T extends IBaseNetworkModel<T>>({
     T? model,
     RegisterRequestModel? data,
   }) async {
-    final response = await ProductItems.networkService.post<R, T>(
+    final response = await ProductItems.networkService.post<T>(
       AppNetwork.signupPath,
       data: data?.toJson(),
       model: model,

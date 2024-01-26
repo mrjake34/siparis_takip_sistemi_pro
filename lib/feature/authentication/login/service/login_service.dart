@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_request_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
 
@@ -11,37 +10,36 @@ import 'interface_login_service.dart';
 
 final class LoginService implements ILoginService {
   @override
-  Future<BaseResponseModel<R>> appleLogin<R, T extends IBaseNetworkModel<T>>() {
+  Future<BaseResponseModel<T>> appleLogin<T extends IBaseNetworkModel<T>>() {
     throw UnimplementedError();
   }
 
   @override
-  Future<BaseResponseModel<R>>
-      googleLogin<R, T extends IBaseNetworkModel<T>>() {
+  Future<BaseResponseModel<T>> googleLogin<T extends IBaseNetworkModel<T>>() {
     throw UnimplementedError();
   }
 
   @override
-  Future<BaseResponseModel<R>> login<R, T extends IBaseNetworkModel<T>>({
-    LoginRequestModel? loginModel,
+  Future<BaseResponseModel<T>> login<T extends IBaseNetworkModel<T>>({
+    Object? loginModel,
     T? model,
   }) async {
     if (loginModel == null) {
-      return BaseResponseModel<R>(
+      return BaseResponseModel(
         networkStatus: NetworkStatus.userNotFound,
         statusCode: HttpStatus.badRequest,
       );
     }
-    final response = await ProductItems.networkService.post<R, T>(
+    final response = await ProductItems.networkService.post<T>(
       AppNetwork.loginPath,
-      data: loginModel.toJson(),
+      data: loginModel,
       model: model,
     );
     return response;
   }
 
   @override
-  Future<BaseResponseModel<R>> logout<R, T extends IBaseNetworkModel<T>>() {
+  Future<BaseResponseModel<T>> logout<T extends IBaseNetworkModel<T>>() {
     throw UnimplementedError();
   }
 }

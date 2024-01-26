@@ -9,20 +9,27 @@ import 'order_service_interface.dart';
 
 final class OrderService extends IOrderService {
   @override
-  Future<BaseResponseModel<R>> postOrder<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> postOrder<T extends IBaseNetworkModel<T>>({
     String? customerId,
     String? orderNote,
     List<dynamic>? orderListPostOut,
     String? cookie,
     T? model,
   }) async {
-    final response = await ProductItems.networkService.post<R, T>(
+    if (customerId == null ||
+        orderNote == null ||
+        orderListPostOut == null ||
+        cookie == null ||
+        model == null) {
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
+    }
+    final response = await ProductItems.networkService.post<T>(
       AppNetwork.orderPath,
       model: model,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       data: {
         'customerId': customerId,
@@ -34,16 +41,20 @@ final class OrderService extends IOrderService {
   }
 
   @override
-  Future<BaseResponseModel<R>> getOrderList<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> getOrderList<T extends IBaseNetworkModel<T>>({
     String? cookie,
     T? model,
   }) async {
-    final response = await ProductItems.networkService.get<R, T>(
+    if (cookie == null || model == null) {
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
+    }
+
+    final response = await ProductItems.networkService.get<T>(
       AppNetwork.orderPath,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       model: model,
     );
@@ -51,22 +62,20 @@ final class OrderService extends IOrderService {
   }
 
   @override
-  Future<BaseResponseModel<R>> getOrder<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> getOrder<T extends IBaseNetworkModel<T>>({
     String? id,
     String? cookie,
     T? model,
   }) async {
-    if (id == null || cookie == null) {
+    if (id == null || cookie == null || model == null) {
       return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.get<R, T>(
+    final response = await ProductItems.networkService.get<T>(
       AppNetwork.orderPath + id,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       model: model,
     );
@@ -74,22 +83,20 @@ final class OrderService extends IOrderService {
   }
 
   @override
-  Future<BaseResponseModel<R>> deleteOrder<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> deleteOrder<T extends IBaseNetworkModel<T>>({
     String? id,
     String? cookie,
     T? model,
   }) async {
-    if (id == null || cookie == null) {
+    if (id == null || cookie == null || model == null) {
       return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.delete<R, T>(
+    final response = await ProductItems.networkService.delete<T>(
       AppNetwork.orderPath + id,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       model: model,
     );
@@ -97,23 +104,23 @@ final class OrderService extends IOrderService {
   }
 
   @override
-  Future<BaseResponseModel<R>> patchOrder<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> patchOrder<T extends IBaseNetworkModel<T>>({
     String? id,
     UpdateModel? updateModel,
     String? cookie,
+    T? model,
   }) async {
-    if (id == null || updateModel == null || cookie == null) {
+    if (id == null || updateModel == null || cookie == null || model == null) {
       return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.put<R, T>(
+    final response = await ProductItems.networkService.put<T>(
       AppNetwork.orderPath + id,
       data: updateModel.toJson(),
+      model: model,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
     );
     return response;

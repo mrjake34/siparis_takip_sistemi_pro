@@ -7,24 +7,22 @@ import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dar
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'interface_courier_service.dart';
 
-final class CourierService implements ICourierService {
+final class CourierService extends ICourierService {
   @override
-  Future<BaseResponseModel<R>> postCourier<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> postCourier<T extends IBaseNetworkModel<T>>({
     CourierModel? data,
     String? cookie,
     T? model,
   }) async {
-    if (data == null || cookie == null) {
+    if (data == null || cookie == null || model == null) {
       return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.post<R, T>(
+    final response = await ProductItems.networkService.post<T>(
       AppNetwork.courierPath,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       data: data.toJson(),
       model: model,
@@ -33,22 +31,20 @@ final class CourierService implements ICourierService {
   }
 
   @override
-  Future<BaseResponseModel<R>> putCourier<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> putCourier<T extends IBaseNetworkModel<T>>({
     CourierModel? data,
     String? cookie,
     T? model,
   }) async {
-    if (data == null || cookie == null) {
+    if (data == null || cookie == null || model == null) {
       return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.put<R, T>(
+    final response = await ProductItems.networkService.put<T>(
       AppNetwork.courierPath,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       data: data.toJson(),
       model: model,
@@ -57,23 +53,20 @@ final class CourierService implements ICourierService {
   }
 
   @override
-  Future<BaseResponseModel<R>>
-      deleteCourier<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> deleteCourier<T extends IBaseNetworkModel<T>>({
     CourierModel? data,
     String? cookie,
     T? model,
   }) async {
-    if (data == null || cookie == null) {
+    if (data == null || cookie == null || model == null) {
       return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.delete<R, T>(
+    final response = await ProductItems.networkService.delete<T>(
       AppNetwork.courierPath,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       data: data.toJson(),
       model: model,
@@ -82,22 +75,20 @@ final class CourierService implements ICourierService {
   }
 
   @override
-  Future<BaseResponseModel<R>> getCourier<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> getCourier<T extends IBaseNetworkModel<T>>({
     String? id,
     String? cookie,
     T? model,
   }) async {
-    if (id == null || cookie == null) {
+    if (id == null || cookie == null || model == null) {
       return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.get<R, T>(
+    final response = await ProductItems.networkService.get<T>(
       '${AppNetwork.courierPath}/$id',
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       model: model,
     );
@@ -105,21 +96,19 @@ final class CourierService implements ICourierService {
   }
 
   @override
-  Future<BaseResponseModel<R>> getCouriers<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> getCouriers<T extends IBaseNetworkModel<T>>({
     String? cookie,
     T? model,
   }) async {
-    if (cookie == null) {
+    if (cookie == null || model == null) {
       return BaseResponseModel(
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.get<R, T>(
+    final response = await ProductItems.networkService.get<T>(
       AppNetwork.courierPath,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
       model: model,
     );

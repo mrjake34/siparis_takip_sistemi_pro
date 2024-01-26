@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/customer/model/customer.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/customer/model/customer_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/maps/flutter_map.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/maps/google_map.dart';
@@ -15,7 +15,7 @@ final class CustomerDetails extends StatelessWidget {
     required this.customer,
     super.key,
   });
-  final Customer customer;
+  final CustomerModel customer;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class CustomerDetailCardCustomerLocation extends StatelessWidget {
     super.key,
   });
 
-  final Customer? customer;
+  final CustomerModel? customer;
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +135,7 @@ class CustomerDetailCardCustomerPhone extends StatelessWidget {
     super.key,
   });
 
-  final Customer? customer;
+  final CustomerModel? customer;
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +154,7 @@ class CustomerDetailCardCustomerAddress extends StatelessWidget {
     super.key,
   });
 
-  final Customer? customer;
+  final CustomerModel? customer;
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +173,7 @@ class CustomerDetailCardCustomerName extends StatelessWidget {
     super.key,
   });
 
-  final Customer? customer;
+  final CustomerModel? customer;
 
   @override
   Widget build(BuildContext context) {

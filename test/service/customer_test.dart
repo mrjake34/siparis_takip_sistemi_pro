@@ -5,10 +5,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_request_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/service/login_service.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/customer/model/customer_model.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/customer/model/customer_response.dart';
+import 'package:siparis_takip_sistemi_pro/feature/screens/customer/service/customer_service.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product_list.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/service/product_service.dart';
+import 'package:siparis_takip_sistemi_pro/product/core/base/mixin/headers_mixin.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
@@ -20,9 +23,9 @@ void main() {
     ProductItems.networkService.start();
   });
 
-  test('Product List', () async {
+  test('Customer List', () async {
     final loginService = LoginService();
-    final productService = ProductService();
+    final customerService = CustomerService();
     final loginResponse = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
@@ -34,20 +37,23 @@ void main() {
     if (loginResponse.statusCode == HttpStatus.ok) {
       debugPrint('Login Response ID ${loginResponse.data?.user?.id}');
 
-      final cookie = loginResponse.getCookie(loginResponse.headers);
-      final response = await productService.getProducts<ProductList>(
+      final cookie = loginResponse.getCookie(
+        loginResponse.headers,
+        type: CookieTypes.setCookie,
+      );
+      final response = await customerService.getCustomersList<CustomerResponse>(
         cookie: cookie,
-        model: ProductList(),
+        model: CustomerResponse(),
       );
       if (response.statusCode == HttpStatus.ok) {
         debugPrint(
-          'Product Response ${response.data?.products?.first.name}',
+          'Customer List Response ${response.data?.customers?.first.name}',
         );
 
         expect(response.statusCode == HttpStatus.ok, true);
       } else {
         debugPrint(
-          'Product Response NetworkStatus: ${response.networkStatus}',
+          'Customer List Response NetworkStatus: ${response.networkStatus}',
         );
         expect(response.networkStatus != null, true);
       }
@@ -57,9 +63,9 @@ void main() {
     }
   });
 
-  test('Add Product', () async {
+  test('Add Customer', () async {
     final loginService = LoginService();
-    final productService = ProductService();
+    final customerService = CustomerService();
     final loginResponse = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
@@ -71,26 +77,29 @@ void main() {
     if (loginResponse.statusCode == HttpStatus.ok) {
       debugPrint('Login Response ID ${loginResponse.data?.user?.id}');
 
-      final cookie = loginResponse.getCookie(loginResponse.headers);
-      final response = await productService.addProduct<ProductResponseModel>(
+      final cookie = loginResponse.getCookie(
+        loginResponse.headers,
+        type: CookieTypes.setCookie,
+      );
+      final response = await customerService.addCustomer<ProductResponseModel>(
         cookie: cookie,
         model: ProductResponseModel(),
-        product: Product(
-          name: 'Test Product1',
-          price: 100,
-          quantity: 1,
-          shopName: 'Test Shop',
+        customer: CustomerModel(
+          name: 'Alkan Atas',
+          phone: '0532 123 45 67',
+          adress: 'İstanbul',
+          shopName: 'Alkan Market',
         ),
       );
       if (response.statusCode == HttpStatus.ok) {
         debugPrint(
-          'Product Response ${response.statusCode}',
+          'Customer Response ${response.statusCode}',
         );
 
         expect(response.statusCode == HttpStatus.ok, true);
       } else {
         debugPrint(
-          'Product Response NetworkStatus: ${response.networkStatus}',
+          'Customer Response NetworkStatus: ${response.networkStatus}',
         );
         expect(response.networkStatus != null, true);
       }
@@ -100,9 +109,9 @@ void main() {
     }
   });
 
-  test('Delete Product', () async {
+  test('Delete Customer', () async {
     final loginService = LoginService();
-    final productService = ProductService();
+    final customerService = CustomerService();
     final loginResponse = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
@@ -115,14 +124,15 @@ void main() {
       debugPrint('Login Response ID ${loginResponse.data?.user?.id}');
 
       final cookie = loginResponse.getCookie(loginResponse.headers);
-      final productList = await productService.getProducts<ProductList>(
+      final customerList =
+          await customerService.getCustomersList<CustomerResponse>(
         cookie: cookie,
-        model: ProductList(),
+        model: CustomerResponse(),
       );
-      final response = await productService.deleteProduct<ProductResponseModel>(
+      final response = await customerService.deleteCustomer<CustomerResponse>(
         cookie: cookie,
-        model: ProductResponseModel(),
-        id: productList.data?.products?.first.id,
+        model: CustomerResponse(),
+        id: customerList.data?.customers?.first.id,
       );
       if (response.statusCode == HttpStatus.ok) {
         debugPrint(

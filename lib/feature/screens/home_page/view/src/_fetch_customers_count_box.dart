@@ -21,8 +21,9 @@ final class _FetchCustomersCountBox extends StatelessWidget {
                 textColor: Colors.white,
               ),
               subtitle: BlocProvider(
-                create: (context) =>
-                    CustomerBloc()..add(FetchCustomerListEvent()),
+                create: (context) => CustomerBloc(
+                  CustomerService(),
+                )..add(FetchCustomerListEvent()),
                 child: BlocBuilder<CustomerBloc, CustomerState>(
                   builder: (context, state) {
                     final customerList = state.customerList?.customers;

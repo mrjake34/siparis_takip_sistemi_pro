@@ -4,40 +4,50 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.
 import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import '../../../../product/core/base/models/base_respose_model.dart';
-import '../../../../product/core/constants/enums/enums.dart';
-import '../model/customer.dart';
+import '../../../../product/core/constants/enums/network_status.dart';
+import '../model/customer_model.dart';
 import 'customer_service_interface.dart';
 
 final class CustomerService extends ICustomerService {
   @override
-  Future<BaseResponseModel<R>> addCustomer<R, T extends IBaseNetworkModel<T>>({
-    Customer? customer,
+  Future<BaseResponseModel<T>> addCustomer<T extends IBaseNetworkModel<T>>({
+    CustomerModel? customer,
     String? cookie,
     T? model,
   }) async {
-    final response = await ProductItems.networkService.post<R, T>(
+    if (customer == null || cookie == null || model == null) {
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
+    }
+
+    final response = await ProductItems.networkService.post<T>(
       AppNetwork.customerPath,
       options: Options(
-        headers: {
-          'authorization': 'Bearer $cookie',
-        },
+        headers: setHeaderWithCookie(cookie),
       ),
-      data: customer?.toJson(),
+      data: customer.toJson(),
       model: model,
     );
     return response;
   }
 
   @override
-  Future<BaseResponseModel<R>>
-      getCustomersList<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>>
+      getCustomersList<T extends IBaseNetworkModel<T>>({
     String? cookie,
     T? model,
   }) async {
-    final response = await ProductItems.networkService.get<R, T>(
+    if (cookie == null || model == null) {
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
+    }
+
+    final response = await ProductItems.networkService.get<T>(
       AppNetwork.customerPath,
       options: Options(
-        headers: {'authorization': 'Bearer $cookie'},
+        headers: setHeaderWithCookie(cookie),
       ),
       model: model,
     );
@@ -45,17 +55,20 @@ final class CustomerService extends ICustomerService {
   }
 
   @override
-  Future<BaseResponseModel<R>> getCustomer<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> getCustomer<T extends IBaseNetworkModel<T>>({
     String? id,
     String? cookie,
     T? model,
   }) async {
-    final cookie =
-        await ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
-    final response = await ProductItems.networkService.get<R, T>(
+    if (id == null || cookie == null || model == null) {
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
+    }
+    final response = await ProductItems.networkService.get<T>(
       '${AppNetwork.customerPath}/$id',
       options: Options(
-        headers: {'authorization': 'Bearer $cookie'},
+        headers: setHeaderWithCookie(cookie),
       ),
       model: model,
     );
@@ -63,35 +76,45 @@ final class CustomerService extends ICustomerService {
   }
 
   @override
-  Future<BaseResponseModel<R>>
-      patchCustomer<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> patchCustomer<T extends IBaseNetworkModel<T>>({
     UpdateModel? data,
     String? id,
     String? cookie,
     T? model,
   }) async {
-    final response = await ProductItems.networkService.put<R, T>(
+    if (id == null || data == null || cookie == null || model == null) {
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
+    }
+
+    final response = await ProductItems.networkService.put<T>(
       '${AppNetwork.customerPath}/$id',
       options: Options(
-        headers: {'authorization': 'Bearer $cookie'},
+        headers: setHeaderWithCookie(cookie),
       ),
-      data: data?.toJson(),
+      data: data.toJson(),
       model: model,
     );
     return response;
   }
 
   @override
-  Future<BaseResponseModel<R>>
-      deleteCustomer<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> deleteCustomer<T extends IBaseNetworkModel<T>>({
     String? id,
     String? cookie,
     T? model,
   }) async {
-    final response = await ProductItems.networkService.delete<R, T>(
+    if (id == null || cookie == null || model == null) {
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.inputsNotFilled,
+      );
+    }
+
+    final response = await ProductItems.networkService.delete<T>(
       '${AppNetwork.customerPath}/$id',
       options: Options(
-        headers: {'authorization': 'Bearer $cookie'},
+        headers: setHeaderWithCookie(cookie),
       ),
       model: model,
     );

@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../product/utils/localization/localization_manager.dart';
 import '../../../../../product/utils/translations/locale_keys.g.dart';
+import '../../../../../product/utils/translations/localization_manager.dart';
 
 final class ChangeLanguageField extends StatelessWidget {
   const ChangeLanguageField({super.key});
