@@ -9,7 +9,7 @@ import 'order_service_interface.dart';
 
 final class OrderService extends IOrderService {
   @override
-  Future<BaseResponseModel<R>> postOrder<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> postOrder<T extends IBaseNetworkModel<T>>({
     String? customerId,
     String? orderNote,
     List<dynamic>? orderListPostOut,
@@ -25,7 +25,7 @@ final class OrderService extends IOrderService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.post<R, T>(
+    final response = await ProductItems.networkService.post<T>(
       AppNetwork.orderPath,
       model: model,
       options: Options(
@@ -41,7 +41,7 @@ final class OrderService extends IOrderService {
   }
 
   @override
-  Future<BaseResponseModel<R>> getOrderList<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> getOrderList<T extends IBaseNetworkModel<T>>({
     String? cookie,
     T? model,
   }) async {
@@ -51,7 +51,7 @@ final class OrderService extends IOrderService {
       );
     }
 
-    final response = await ProductItems.networkService.get<R, T>(
+    final response = await ProductItems.networkService.get<T>(
       AppNetwork.orderPath,
       options: Options(
         headers: setHeaderWithCookie(cookie),
@@ -62,7 +62,7 @@ final class OrderService extends IOrderService {
   }
 
   @override
-  Future<BaseResponseModel<R>> getOrder<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> getOrder<T extends IBaseNetworkModel<T>>({
     String? id,
     String? cookie,
     T? model,
@@ -72,7 +72,7 @@ final class OrderService extends IOrderService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.get<R, T>(
+    final response = await ProductItems.networkService.get<T>(
       AppNetwork.orderPath + id,
       options: Options(
         headers: setHeaderWithCookie(cookie),
@@ -83,7 +83,7 @@ final class OrderService extends IOrderService {
   }
 
   @override
-  Future<BaseResponseModel<R>> deleteOrder<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> deleteOrder<T extends IBaseNetworkModel<T>>({
     String? id,
     String? cookie,
     T? model,
@@ -93,7 +93,7 @@ final class OrderService extends IOrderService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.delete<R, T>(
+    final response = await ProductItems.networkService.delete<T>(
       AppNetwork.orderPath + id,
       options: Options(
         headers: setHeaderWithCookie(cookie),
@@ -104,7 +104,7 @@ final class OrderService extends IOrderService {
   }
 
   @override
-  Future<BaseResponseModel<R>> patchOrder<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> patchOrder<T extends IBaseNetworkModel<T>>({
     String? id,
     UpdateModel? updateModel,
     String? cookie,
@@ -115,7 +115,7 @@ final class OrderService extends IOrderService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.put<R, T>(
+    final response = await ProductItems.networkService.put<T>(
       AppNetwork.orderPath + id,
       data: updateModel.toJson(),
       model: model,

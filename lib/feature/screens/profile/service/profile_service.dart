@@ -9,7 +9,7 @@ import 'interface_profile_service.dart';
 
 final class ProfileService extends IProfileService {
   @override
-  Future<BaseResponseModel<R>> getProfile<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> getProfile<T extends IBaseNetworkModel<T>>({
     String? cookie,
     String? id,
     T? model,
@@ -19,7 +19,7 @@ final class ProfileService extends IProfileService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.get<R, T>(
+    final response = await ProductItems.networkService.get<T>(
       '${AppNetwork.userPath}$id',
       options: Options(
         headers: setHeaderWithCookie(cookie),
@@ -30,8 +30,7 @@ final class ProfileService extends IProfileService {
   }
 
   @override
-  Future<BaseResponseModel<R>>
-      updateProfile<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> updateProfile<T extends IBaseNetworkModel<T>>({
     UpdateModel? model,
     String? id,
     String? cookie,
@@ -42,7 +41,7 @@ final class ProfileService extends IProfileService {
       );
     }
 
-    final response = await ProductItems.networkService.put<R, T>(
+    final response = await ProductItems.networkService.put<T>(
       '${AppNetwork.userPath}$id',
       options: Options(
         headers: setHeaderWithCookie(cookie),

@@ -14,15 +14,14 @@ class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
   CustomerBloc(this.customerService) : super(const CustomerState()) {
     on<FetchCustomerListEvent>((event, emit) async {
       emit(state.copyWith(status: Status.isLoading));
-      final response = await customerService
-          .getCustomersList<CustomerResponse, CustomerResponse>();
+      final response =
+          await customerService.getCustomersList<CustomerResponse>();
       emit(state.copyWith(status: Status.isDone, customerList: response.data));
     });
     on<AddCustomerEvent>((event, emit) async {
       emit(state.copyWith(status: Status.isLoading));
       if (event.customer != null) {
-        final response = await customerService
-            .addCustomer<CustomerResponse, CustomerResponse>(
+        final response = await customerService.addCustomer<CustomerResponse>(
           customer: event.customer,
         );
         if (response.statusCode == HttpStatus.ok) {

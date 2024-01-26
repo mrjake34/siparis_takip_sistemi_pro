@@ -4,7 +4,6 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_
 import '../../../../product/core/base/interface/base_service.dart';
 
 abstract class IProfileService extends BaseService {
-  Future<BaseResponseModel<R>> getProfile<R, T extends IBaseNetworkModel<T>>();
-  Future<BaseResponseModel<R>>
-      updateProfile<R, T extends IBaseNetworkModel<T>>();
+  Future<BaseResponseModel<T>> getProfile<T extends IBaseNetworkModel<T>>();
+  Future<BaseResponseModel<T>> updateProfile<T extends IBaseNetworkModel<T>>();
 }

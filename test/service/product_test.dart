@@ -23,8 +23,7 @@ void main() {
   test('Product List', () async {
     final loginService = LoginService();
     final productService = ProductService();
-    final loginResponse =
-        await loginService.login<LoginResponseModel, LoginResponseModel>(
+    final loginResponse = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
         password: 'alkan12345',
@@ -36,8 +35,7 @@ void main() {
       debugPrint('Login Response ID ${loginResponse.data?.user?.id}');
 
       final cookie = loginResponse.getCookie(loginResponse.headers);
-      final response =
-          await productService.getProducts<ProductList, ProductList>(
+      final response = await productService.getProducts<ProductList>(
         cookie: cookie,
         model: ProductList(),
       );
@@ -62,8 +60,7 @@ void main() {
   test('Add Product', () async {
     final loginService = LoginService();
     final productService = ProductService();
-    final loginResponse =
-        await loginService.login<LoginResponseModel, LoginResponseModel>(
+    final loginResponse = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
         password: 'alkan12345',
@@ -75,8 +72,7 @@ void main() {
       debugPrint('Login Response ID ${loginResponse.data?.user?.id}');
 
       final cookie = loginResponse.getCookie(loginResponse.headers);
-      final response = await productService
-          .addProduct<ProductResponseModel, ProductResponseModel>(
+      final response = await productService.addProduct<ProductResponseModel>(
         cookie: cookie,
         model: ProductResponseModel(),
         product: Product(
@@ -107,8 +103,7 @@ void main() {
   test('Delete Product', () async {
     final loginService = LoginService();
     final productService = ProductService();
-    final loginResponse =
-        await loginService.login<LoginResponseModel, LoginResponseModel>(
+    final loginResponse = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
         password: 'alkan12345',
@@ -120,13 +115,11 @@ void main() {
       debugPrint('Login Response ID ${loginResponse.data?.user?.id}');
 
       final cookie = loginResponse.getCookie(loginResponse.headers);
-      final productList =
-          await productService.getProducts<ProductList, ProductList>(
+      final productList = await productService.getProducts<ProductList>(
         cookie: cookie,
         model: ProductList(),
       );
-      final response = await productService
-          .deleteProduct<ProductResponseModel, ProductResponseModel>(
+      final response = await productService.deleteProduct<ProductResponseModel>(
         cookie: cookie,
         model: ProductResponseModel(),
         id: productList.data?.products?.first.id,
@@ -152,8 +145,7 @@ void main() {
   test('Update Product', () async {
     final loginService = LoginService();
     final productService = ProductService();
-    final loginResponse =
-        await loginService.login<LoginResponseModel, LoginResponseModel>(
+    final loginResponse = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
         password: 'alkan12345',
@@ -165,8 +157,7 @@ void main() {
       debugPrint('Login Response ID ${loginResponse.data?.user?.id}');
 
       final cookie = loginResponse.getCookie(loginResponse.headers);
-      final productList =
-          await productService.getProducts<ProductList, ProductList>(
+      final productList = await productService.getProducts<ProductList>(
         cookie: cookie,
         model: ProductList(),
       );
@@ -174,8 +165,7 @@ void main() {
       debugPrint(
         'Product Response NetworkStatus: ${product?.id}',
       );
-      final response = await productService
-          .updateProduct<ProductResponseModel, ProductResponseModel>(
+      final response = await productService.updateProduct<ProductResponseModel>(
         cookie: cookie,
         model: ProductResponseModel(),
         id: productList.data?.products?.first.id,

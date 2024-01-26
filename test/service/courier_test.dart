@@ -18,8 +18,7 @@ void main() {
 
   test('Courier Login', () async {
     final courierLoginService = CourierLoginService();
-    final response =
-        await courierLoginService.login<LoginResponseModel, LoginResponseModel>(
+    final response = await courierLoginService.login<LoginResponseModel>(
       data: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
         password: 'alkan1234',
@@ -39,8 +38,7 @@ void main() {
   test('Courier Get List', () async {
     final loginService = LoginService();
     final courierService = CourierService();
-    final response =
-        await loginService.login<LoginResponseModel, LoginResponseModel>(
+    final response = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
         password: 'alkan12345',
@@ -51,8 +49,8 @@ void main() {
     debugPrint(response.toString());
 
     if (response.statusCode == HttpStatus.ok) {
-      final responseCourier = await courierService
-          .getCouriers<CourierResponseModel, CourierResponseModel>(
+      final responseCourier =
+          await courierService.getCouriers<CourierResponseModel>(
         cookie: cookie,
         model: CourierResponseModel(),
       );

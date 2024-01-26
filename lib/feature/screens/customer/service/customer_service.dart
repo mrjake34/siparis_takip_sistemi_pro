@@ -10,7 +10,7 @@ import 'customer_service_interface.dart';
 
 final class CustomerService extends ICustomerService {
   @override
-  Future<BaseResponseModel<R>> addCustomer<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> addCustomer<T extends IBaseNetworkModel<T>>({
     CustomerModel? customer,
     String? cookie,
     T? model,
@@ -21,7 +21,7 @@ final class CustomerService extends ICustomerService {
       );
     }
 
-    final response = await ProductItems.networkService.post<R, T>(
+    final response = await ProductItems.networkService.post<T>(
       AppNetwork.customerPath,
       options: Options(
         headers: setHeaderWithCookie(cookie),
@@ -33,8 +33,8 @@ final class CustomerService extends ICustomerService {
   }
 
   @override
-  Future<BaseResponseModel<R>>
-      getCustomersList<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>>
+      getCustomersList<T extends IBaseNetworkModel<T>>({
     String? cookie,
     T? model,
   }) async {
@@ -44,7 +44,7 @@ final class CustomerService extends ICustomerService {
       );
     }
 
-    final response = await ProductItems.networkService.get<R, T>(
+    final response = await ProductItems.networkService.get<T>(
       AppNetwork.customerPath,
       options: Options(
         headers: setHeaderWithCookie(cookie),
@@ -55,7 +55,7 @@ final class CustomerService extends ICustomerService {
   }
 
   @override
-  Future<BaseResponseModel<R>> getCustomer<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> getCustomer<T extends IBaseNetworkModel<T>>({
     String? id,
     String? cookie,
     T? model,
@@ -65,7 +65,7 @@ final class CustomerService extends ICustomerService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.get<R, T>(
+    final response = await ProductItems.networkService.get<T>(
       '${AppNetwork.customerPath}/$id',
       options: Options(
         headers: setHeaderWithCookie(cookie),
@@ -76,8 +76,7 @@ final class CustomerService extends ICustomerService {
   }
 
   @override
-  Future<BaseResponseModel<R>>
-      patchCustomer<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> patchCustomer<T extends IBaseNetworkModel<T>>({
     UpdateModel? data,
     String? id,
     String? cookie,
@@ -89,7 +88,7 @@ final class CustomerService extends ICustomerService {
       );
     }
 
-    final response = await ProductItems.networkService.put<R, T>(
+    final response = await ProductItems.networkService.put<T>(
       '${AppNetwork.customerPath}/$id',
       options: Options(
         headers: setHeaderWithCookie(cookie),
@@ -101,8 +100,7 @@ final class CustomerService extends ICustomerService {
   }
 
   @override
-  Future<BaseResponseModel<R>>
-      deleteCustomer<R, T extends IBaseNetworkModel<T>>({
+  Future<BaseResponseModel<T>> deleteCustomer<T extends IBaseNetworkModel<T>>({
     String? id,
     String? cookie,
     T? model,
@@ -113,7 +111,7 @@ final class CustomerService extends ICustomerService {
       );
     }
 
-    final response = await ProductItems.networkService.delete<R, T>(
+    final response = await ProductItems.networkService.delete<T>(
       '${AppNetwork.customerPath}/$id',
       options: Options(
         headers: setHeaderWithCookie(cookie),

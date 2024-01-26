@@ -4,10 +4,9 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_
 import '../../../../product/core/base/interface/base_service.dart';
 
 abstract class ICourierService extends BaseService {
-  Future<BaseResponseModel<R>> getCouriers<R, T extends IBaseNetworkModel<T>>();
-  Future<BaseResponseModel<R>> getCourier<R, T extends IBaseNetworkModel<T>>();
-  Future<BaseResponseModel<R>> postCourier<R, T extends IBaseNetworkModel<T>>();
-  Future<BaseResponseModel<R>> putCourier<R, T extends IBaseNetworkModel<T>>();
-  Future<BaseResponseModel<R>>
-      deleteCourier<R, T extends IBaseNetworkModel<T>>();
+  Future<BaseResponseModel<T>> getCouriers<T extends IBaseNetworkModel<T>>();
+  Future<BaseResponseModel<T>> getCourier<T extends IBaseNetworkModel<T>>();
+  Future<BaseResponseModel<T>> postCourier<T extends IBaseNetworkModel<T>>();
+  Future<BaseResponseModel<T>> putCourier<T extends IBaseNetworkModel<T>>();
+  Future<BaseResponseModel<T>> deleteCourier<T extends IBaseNetworkModel<T>>();
 }

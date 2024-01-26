@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/model/user_response_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/cache/shared_manager.dart';
 import '../../../../product/core/constants/enums/enums.dart';
-import '../../../../product/utils/getit/product_items.dart';
 import '../model/user_model.dart';
 import '../service/profile_service.dart';
 
@@ -17,15 +17,13 @@ class ProfilePageBloc extends BaseBloc<ProfilePageEvent, ProfilePageState> {
     on<FetchUserDetailsEvent>((event, emit) async {
       safeEmit(state.copyWith(status: Status.isLoading));
 
-      final cookie =
-          await ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
-      final user = await ProductItems.sharedManager.getModel();
-      if (cookie.isEmpty || user == null) {
+      final cookie = SharedManager.instance.get<String>(PreferenceKey.cookie);
+      final user = SharedManager.instance.getModel();
+      if (cookie == null || user == null) {
         safeEmit(state.copyWith(status: Status.isFailed));
         return;
       }
-      final response =
-          await profileService.getProfile<UserResponseModel, UserResponseModel>(
+      final response = await profileService.getProfile<UserResponseModel>(
         cookie: cookie,
         id: user.id,
         model: UserResponseModel(),
@@ -44,7 +42,7 @@ class ProfilePageBloc extends BaseBloc<ProfilePageEvent, ProfilePageState> {
     });
     on<UserLogoutEvent>((event, emit) async {
       safeEmit(state.copyWith(status: Status.isLoading));
-      final response = await ProductItems.sharedManager.clearSavedModel();
+      final response = SharedManager.instance.clearSavedModel();
       if (response == true) {
         safeEmit(
           state.copyWith(

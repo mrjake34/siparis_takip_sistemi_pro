@@ -1,8 +1,8 @@
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 import 'package:vexana/vexana.dart';
-
 import '../../core/base/interface/base_network_model.dart';
 import '../../core/constants/network/url.dart';
 
@@ -36,12 +36,12 @@ final class NetworkService {
   late NetworkManager _networkManager;
 
   /// This method is used to make a Get request.
-  Future<BaseResponseModel<R>> get<R, T extends IBaseNetworkModel<T>>(
+  Future<BaseResponseModel<T>> get<T extends IBaseNetworkModel<T>>(
     String path, {
     Options? options,
     T? model,
   }) async {
-    Response<dynamic> response;
+    Response<dynamic>? response;
     response = await _networkManager.get<dynamic>(
       path,
       options: options,
@@ -52,7 +52,7 @@ final class NetworkService {
         statusCode: response.statusCode,
       );
     }
-    final parseModel = _parseModel<R, T>(
+    final parseModel = _parseModel<T>(
       model: model,
       resp: response.data,
     );
@@ -71,7 +71,7 @@ final class NetworkService {
   }
 
   /// This method is used to make a Put request.
-  Future<BaseResponseModel<R>> put<R, T extends IBaseNetworkModel<T>>(
+  Future<BaseResponseModel<T>> put<T extends IBaseNetworkModel<T>>(
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
@@ -92,7 +92,7 @@ final class NetworkService {
         statusCode: response.statusCode,
       );
     }
-    final parseModel = _parseModel<R, T>(
+    final parseModel = _parseModel<T>(
       model: model,
       resp: response.data,
     );
@@ -105,7 +105,7 @@ final class NetworkService {
   }
 
   /// This method is used to make a Delete request.
-  Future<BaseResponseModel<R>> delete<R, T extends IBaseNetworkModel<T>>(
+  Future<BaseResponseModel<T>> delete<T extends IBaseNetworkModel<T>>(
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
@@ -126,7 +126,7 @@ final class NetworkService {
         statusCode: response.statusCode,
       );
     }
-    final parseModel = _parseModel<R, T>(
+    final parseModel = _parseModel<T>(
       model: model,
       resp: response.data,
     );
@@ -139,7 +139,7 @@ final class NetworkService {
   }
 
   /// This method is used to make a Post request.
-  Future<BaseResponseModel<R>> post<R, T extends IBaseNetworkModel<T>>(
+  Future<BaseResponseModel<T>> post<T extends IBaseNetworkModel<T>>(
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
@@ -154,17 +154,17 @@ final class NetworkService {
       options: options,
       cancelToken: cancelToken,
     );
-    final parseModel = _parseModel<R, T>(
+    final parseModel = _parseModel<T>(
       model: model,
       resp: response.data,
     );
     if (parseModel == null) {
-      return BaseResponseModel<R>(
+      return BaseResponseModel(
         networkStatus: NetworkStatus.failedLoadData,
         statusCode: response.statusCode,
       );
     }
-    return BaseResponseModel(
+    return BaseResponseModel<T>(
       data: parseModel,
       statusCode: response.statusCode,
       message: response.statusMessage,
@@ -172,7 +172,7 @@ final class NetworkService {
     );
   }
 
-  R? _parseModel<R, T extends IBaseNetworkModel<dynamic>>({
+  T? _parseModel<T extends IBaseNetworkModel<T>>({
     T? model,
     dynamic resp,
   }) {
@@ -180,7 +180,7 @@ final class NetworkService {
       return null;
     }
     if (resp is Map<String, dynamic>) {
-      return model.fromJson(resp) as R;
+      return model.fromJson(resp);
     } else if (resp is List) {
       return resp
           .map(
@@ -189,9 +189,9 @@ final class NetworkService {
             ),
           )
           .cast<T>()
-          .toList() as R;
+          .toList() as T;
     } else {
-      return model.toString() as R;
+      return model.toString() as T;
     }
   }
 }

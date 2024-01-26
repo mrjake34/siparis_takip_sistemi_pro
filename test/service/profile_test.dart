@@ -20,8 +20,7 @@ void main() {
   test('Profile', () async {
     final profileService = ProfileService();
     final loginService = LoginService();
-    final loginResponse =
-        await loginService.login<LoginResponseModel, LoginResponseModel>(
+    final loginResponse = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
         password: 'alkan12345',
@@ -37,8 +36,7 @@ void main() {
         loginResponse.headers,
         type: CookieTypes.setCookie,
       );
-      final response =
-          await profileService.getProfile<UserResponseModel, UserResponseModel>(
+      final response = await profileService.getProfile<UserResponseModel>(
         cookie: cookie,
         id: loginResponse.data?.user?.id,
         model: UserResponseModel(),

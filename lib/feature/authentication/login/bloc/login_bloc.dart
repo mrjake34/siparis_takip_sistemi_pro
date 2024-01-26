@@ -8,7 +8,7 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/mixin/headers_mixin.
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 import 'package:siparis_takip_sistemi_pro/product/extension/user_model_extension.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/cache/shared_manager.dart';
 
 import '../../../../product/core/constants/enums/enums.dart';
 import '../../../screens/profile/model/user_model.dart';
@@ -65,17 +65,15 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
         autoLogin: AutoLogin.isLoading,
       ),
     );
-    final cookie =
-        await ProductItems.sharedManager.getStringValue(PreferenceKey.cookie);
-    final user = await ProductItems.sharedManager.getModel();
-    if (cookie.isEmpty || user == null) {
+    final cookie = SharedManager.instance.get<String>(PreferenceKey.cookie);
+    final user = SharedManager.instance.getModel();
+    if (cookie == null || user == null) {
       safeEmit(
         state.copyWith(status: Status.isFailed, autoLogin: AutoLogin.failed),
       );
       return;
     }
-    final response =
-        await profileService.getProfile<UserResponseModel, UserResponseModel>(
+    final response = await profileService.getProfile<UserResponseModel>(
       id: user.id,
       cookie: cookie,
       model: UserResponseModel(),
@@ -102,10 +100,8 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
     UserLoginEvent event,
   ) async {
     safeEmit(state.copyWith(status: Status.isLoading));
-    final response =
-        await loginService.login<LoginResponseModel, LoginResponseModel>(
+    final response = await loginService.login<LoginResponseModel>(
       loginModel: event.model,
-      model: LoginResponseModel(),
     );
     if (response.statusCode != HttpStatus.ok) {
       safeEmit(
@@ -118,15 +114,13 @@ final class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
     }
     final cookie =
         response.getCookie(response.headers, type: CookieTypes.setCookie);
-    final user =
-        await profileService.getProfile<UserResponseModel, UserResponseModel>(
+    final user = await profileService.getProfile<UserResponseModel>(
       cookie: cookie,
       id: response.data?.user?.id,
       model: UserResponseModel(),
     );
-    await user.data?.user.exten.saveModel();
-    await ProductItems.sharedManager
-        .setStringValue(PreferenceKey.cookie, cookie ?? '');
+    user.data?.user.exten.saveModel();
+    SharedManager.instance.set<String>(PreferenceKey.cookie, cookie ?? '');
     safeEmit(
       state.copyWith(
         status: Status.isDone,
