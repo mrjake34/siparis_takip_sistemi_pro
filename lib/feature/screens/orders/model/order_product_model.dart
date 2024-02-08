@@ -18,6 +18,7 @@ final class OrderProductModel extends IBaseNetworkModel<OrderProductModel> {
   final String productId;
   final String quantity;
   final String? productNote;
+  @JsonKey(name: '_id')
   final String id;
 
   OrderProductModel copyWith({

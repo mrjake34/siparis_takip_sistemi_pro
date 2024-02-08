@@ -22,6 +22,7 @@ final class CustomerModel extends IBaseNetworkModel<CustomerModel> {
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelFromJson(json);
+  @JsonKey(name: '_id')
   final String? id;
   final String? shopName;
   final String? name;

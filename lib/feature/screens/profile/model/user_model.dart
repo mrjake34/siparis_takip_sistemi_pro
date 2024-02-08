@@ -24,6 +24,7 @@ final class UserModel extends Equatable {
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
+  @JsonKey(name: '_id')
   final String? id;
   final String? name;
   final String? email;

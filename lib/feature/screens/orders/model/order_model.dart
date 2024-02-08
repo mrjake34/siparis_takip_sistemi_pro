@@ -26,6 +26,7 @@ final class OrderModel extends IBaseNetworkModel<OrderModel> {
 
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);
+  @JsonKey(name: '_id')
   final String? id;
   final String? shopName;
   final String? customerId;

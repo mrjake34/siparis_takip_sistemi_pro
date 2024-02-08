@@ -146,7 +146,7 @@ final class NetworkService {
     CancelToken? cancelToken,
     T? model,
   }) async {
-    final response = await _networkManager.post<dynamic>(
+    final response = await _networkManager.request<dynamic>(
       path,
       data: data,
       queryParameters: queryParameters,
