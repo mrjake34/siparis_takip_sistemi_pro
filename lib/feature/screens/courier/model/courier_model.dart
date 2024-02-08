@@ -8,6 +8,7 @@ part 'courier_model.g.dart';
 
 @JsonSerializable()
 final class CourierModel extends IBaseNetworkModel<CourierModel> {
+  @JsonKey(name: '_id')
   final String? id;
   final String? shopName;
   final String? name;

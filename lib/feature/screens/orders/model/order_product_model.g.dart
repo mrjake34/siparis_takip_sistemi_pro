@@ -10,7 +10,7 @@ OrderProductModel _$OrderProductModelFromJson(Map<String, dynamic> json) =>
     OrderProductModel(
       productId: json['productId'] as String,
       quantity: json['quantity'] as String,
-      id: json['id'] as String,
+      id: json['_id'] as String,
       productNote: json['productNote'] as String?,
     );
 
@@ -19,5 +19,5 @@ Map<String, dynamic> _$OrderProductModelToJson(OrderProductModel instance) =>
       'productId': instance.productId,
       'quantity': instance.quantity,
       'productNote': instance.productNote,
-      'id': instance.id,
+      '_id': instance.id,
     };

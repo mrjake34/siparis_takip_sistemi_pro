@@ -20,7 +20,7 @@ final class Product extends IBaseNetworkModel<Product> {
 
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);
-
+  @JsonKey(name: '_id')
   final String? id;
   final String? name;
   final String? shopName;
