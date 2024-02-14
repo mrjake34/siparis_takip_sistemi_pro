@@ -5,6 +5,7 @@ import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dar
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import '../../../../product/core/base/models/base_respose_model.dart';
 import '../../../../product/core/constants/enums/network_status.dart';
+import '../../../../product/utils/network/network_service.dart';
 import '../model/customer_model.dart';
 import 'customer_service_interface.dart';
 
@@ -21,11 +22,12 @@ final class CustomerService extends ICustomerService {
       );
     }
 
-    final response = await ProductItems.networkService.post<T>(
+    final response = await ProductItems.networkService.request<T>(
       AppNetwork.customerPath,
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
+      method: MethodType.post,
       data: customer.toJson(),
       model: model,
     );
@@ -44,11 +46,12 @@ final class CustomerService extends ICustomerService {
       );
     }
 
-    final response = await ProductItems.networkService.get<T>(
+    final response = await ProductItems.networkService.request<T>(
       AppNetwork.customerPath,
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
+      method: MethodType.get,
       model: model,
     );
     return response;
@@ -65,11 +68,12 @@ final class CustomerService extends ICustomerService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.get<T>(
+    final response = await ProductItems.networkService.request<T>(
       '${AppNetwork.customerPath}/$id',
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
+      method: MethodType.get,
       model: model,
     );
     return response;
@@ -88,12 +92,13 @@ final class CustomerService extends ICustomerService {
       );
     }
 
-    final response = await ProductItems.networkService.put<T>(
+    final response = await ProductItems.networkService.request<T>(
       '${AppNetwork.customerPath}/$id',
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
       data: data.toJson(),
+      method: MethodType.put,
       model: model,
     );
     return response;
@@ -111,11 +116,12 @@ final class CustomerService extends ICustomerService {
       );
     }
 
-    final response = await ProductItems.networkService.delete<T>(
+    final response = await ProductItems.networkService.request<T>(
       '${AppNetwork.customerPath}/$id',
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
+      method: MethodType.delete,
       model: model,
     );
     return response;

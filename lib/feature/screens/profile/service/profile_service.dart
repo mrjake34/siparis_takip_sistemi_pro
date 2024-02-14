@@ -4,6 +4,7 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/network/network_service.dart';
 import 'package:vexana/vexana.dart';
 import 'interface_profile_service.dart';
 
@@ -19,11 +20,12 @@ final class ProfileService extends IProfileService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.get<T>(
+    final response = await ProductItems.networkService.request<T>(
       '${AppNetwork.userPath}$id',
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
+      method: MethodType.get,
       model: model,
     );
     return response;
@@ -41,11 +43,12 @@ final class ProfileService extends IProfileService {
       );
     }
 
-    final response = await ProductItems.networkService.put<T>(
+    final response = await ProductItems.networkService.request<T>(
       '${AppNetwork.userPath}$id',
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
+      method: MethodType.put,
       data: model.toJson(),
     );
     return BaseResponseModel(

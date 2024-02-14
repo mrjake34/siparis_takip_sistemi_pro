@@ -5,6 +5,7 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/network/network_service.dart';
 import 'interface_courier_service.dart';
 
 final class CourierService extends ICourierService {
@@ -19,12 +20,13 @@ final class CourierService extends ICourierService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.post<T>(
+    final response = await ProductItems.networkService.request<T>(
       AppNetwork.courierPath,
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
       data: data.toJson(),
+      method: MethodType.post,
       model: model,
     );
     return response;
@@ -41,12 +43,13 @@ final class CourierService extends ICourierService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.put<T>(
+    final response = await ProductItems.networkService.request<T>(
       AppNetwork.courierPath,
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
       data: data.toJson(),
+      method: MethodType.put,
       model: model,
     );
     return response;
@@ -63,12 +66,13 @@ final class CourierService extends ICourierService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.delete<T>(
+    final response = await ProductItems.networkService.request<T>(
       AppNetwork.courierPath,
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
       data: data.toJson(),
+      method: MethodType.delete,
       model: model,
     );
     return response;
@@ -85,11 +89,12 @@ final class CourierService extends ICourierService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.get<T>(
+    final response = await ProductItems.networkService.request<T>(
       '${AppNetwork.courierPath}/$id',
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
+      method: MethodType.get,
       model: model,
     );
     return response;
@@ -105,11 +110,12 @@ final class CourierService extends ICourierService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.get<T>(
+    final response = await ProductItems.networkService.request<T>(
       AppNetwork.courierPath,
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
+      method: MethodType.get,
       model: model,
     );
     return response;

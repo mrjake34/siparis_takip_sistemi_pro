@@ -6,6 +6,7 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_
 import '../../../../product/core/constants/enums/network_status.dart';
 import '../../../../product/core/constants/network/url.dart';
 import '../../../../product/utils/getit/product_items.dart';
+import '../../../../product/utils/network/network_service.dart';
 import 'interface_login_service.dart';
 
 final class LoginService implements ILoginService {
@@ -30,10 +31,11 @@ final class LoginService implements ILoginService {
         statusCode: HttpStatus.badRequest,
       );
     }
-    final response = await ProductItems.networkService.post<T>(
+    final response = await ProductItems.networkService.request<T>(
       AppNetwork.loginPath,
       data: loginModel,
       model: model,
+      method: MethodType.post,
     );
     return response;
   }
