@@ -7,6 +7,7 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/network/network_service.dart';
 
 import '../../../../product/core/constants/enums/network_status.dart';
 import '../model/product.dart';
@@ -23,12 +24,13 @@ final class ProductService extends IProductService {
         statusCode: HttpStatus.badRequest,
       );
     }
-    return ProductItems.networkService.get<T>(
+    return ProductItems.networkService.request<T>(
       AppNetwork.productPath,
       model: model,
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
+      method: MethodType.get,
     );
   }
 
@@ -44,12 +46,13 @@ final class ProductService extends IProductService {
         statusCode: HttpStatus.badRequest,
       );
     }
-    return ProductItems.networkService.delete<T>(
+    return ProductItems.networkService.request<T>(
       '${AppNetwork.productPath}/$id',
       model: model,
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
+      method: MethodType.delete,
     );
   }
 
@@ -65,12 +68,13 @@ final class ProductService extends IProductService {
         statusCode: HttpStatus.badRequest,
       );
     }
-    return ProductItems.networkService.post<T>(
+    return ProductItems.networkService.request<T>(
       AppNetwork.productPath,
       model: model,
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
+      method: MethodType.post,
       data: product.toJson(),
     );
   }
@@ -87,12 +91,13 @@ final class ProductService extends IProductService {
         statusCode: HttpStatus.badRequest,
       );
     }
-    return ProductItems.networkService.get<T>(
+    return ProductItems.networkService.request<T>(
       '${AppNetwork.productPath}/$id',
       model: model,
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
+      method: MethodType.get,
     );
   }
 
@@ -109,12 +114,13 @@ final class ProductService extends IProductService {
         statusCode: HttpStatus.badRequest,
       );
     }
-    return ProductItems.networkService.put<T>(
+    return ProductItems.networkService.request<T>(
       '${AppNetwork.productPath}/$id',
       data: data.toJson(),
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
+      method: MethodType.put,
       model: model,
     );
   }

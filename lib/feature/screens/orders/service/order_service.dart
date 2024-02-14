@@ -5,6 +5,7 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
+import '../../../../product/utils/network/network_service.dart';
 import 'order_service_interface.dart';
 
 final class OrderService extends IOrderService {
@@ -25,12 +26,13 @@ final class OrderService extends IOrderService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.post<T>(
+    final response = await ProductItems.networkService.request<T>(
       AppNetwork.orderPath,
       model: model,
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
+      method: MethodType.get,
       data: {
         'customerId': customerId,
         'orderNote': orderNote,
@@ -51,11 +53,12 @@ final class OrderService extends IOrderService {
       );
     }
 
-    final response = await ProductItems.networkService.get<T>(
+    final response = await ProductItems.networkService.request<T>(
       AppNetwork.orderPath,
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
+      method: MethodType.get,
       model: model,
     );
     return response;
@@ -72,11 +75,12 @@ final class OrderService extends IOrderService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.get<T>(
+    final response = await ProductItems.networkService.request<T>(
       AppNetwork.orderPath + id,
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
+      method: MethodType.get,
       model: model,
     );
     return response;
@@ -93,11 +97,12 @@ final class OrderService extends IOrderService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.delete<T>(
+    final response = await ProductItems.networkService.request<T>(
       AppNetwork.orderPath + id,
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
+      method: MethodType.delete,
       model: model,
     );
     return response;
@@ -115,13 +120,14 @@ final class OrderService extends IOrderService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.put<T>(
+    final response = await ProductItems.networkService.request<T>(
       AppNetwork.orderPath + id,
       data: updateModel.toJson(),
       model: model,
       options: Options(
         headers: setHeaderWithCookie(cookie),
       ),
+      method: MethodType.put,
     );
     return response;
   }

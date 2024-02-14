@@ -3,6 +3,7 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_
 import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 
+import '../../../../product/utils/network/network_service.dart';
 import '../model/register_request_model.dart';
 
 final class RegisterService {
@@ -10,10 +11,11 @@ final class RegisterService {
     T? model,
     RegisterRequestModel? data,
   }) async {
-    final response = await ProductItems.networkService.post<T>(
+    final response = await ProductItems.networkService.request<T>(
       AppNetwork.signupPath,
       data: data?.toJson(),
       model: model,
+      method: MethodType.post,
     );
     return response;
   }
