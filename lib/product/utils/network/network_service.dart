@@ -52,6 +52,12 @@ final class NetworkService {
       options: options,
       cancelToken: cancelToken,
     );
+    if (response.data == null) {
+      return BaseResponseModel(
+        networkStatus: NetworkStatus.failedLoadData,
+        statusCode: response.statusCode,
+      );
+    }
     final parseModel = _parseModel<T>(
       model: model,
       resp: response.data,

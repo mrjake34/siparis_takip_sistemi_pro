@@ -20,14 +20,9 @@ part 'src/_profile_page_logout_button.dart';
 part 'src/_change_currency_symbol_field.dart';
 
 @RoutePage()
-final class ProfilePage extends StatefulWidget {
+final class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
