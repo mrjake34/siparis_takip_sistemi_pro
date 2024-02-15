@@ -7,7 +7,8 @@ part of 'courier_response_model.dart';
 // **************************************************************************
 
 CourierResponseModel _$CourierResponseModelFromJson(
-        Map<String, dynamic> json) =>
+  Map<String, dynamic> json,
+) =>
     CourierResponseModel(
       message: json['message'] as String?,
       couriers: (json['couriers'] as List<dynamic>?)
@@ -16,7 +17,8 @@ CourierResponseModel _$CourierResponseModelFromJson(
     );
 
 Map<String, dynamic> _$CourierResponseModelToJson(
-        CourierResponseModel instance) =>
+  CourierResponseModel instance,
+) =>
     <String, dynamic>{
       'message': instance.message,
       'couriers': instance.couriers,
