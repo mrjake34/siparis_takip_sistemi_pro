@@ -28,7 +28,7 @@ class RegisterCubit extends BaseCubit<RegisterState> {
       data: data,
     );
     if (response.statusCode == HttpStatus.ok) {
-      return emit(const RegisterState(status: Status.isDone));
+      return safeEmit(const RegisterState(status: Status.isDone));
     } else if (response.statusCode == HttpStatus.badRequest) {
       if (response.data == null) {
         return safeEmit(state.copyWith(status: Status.isFailed));

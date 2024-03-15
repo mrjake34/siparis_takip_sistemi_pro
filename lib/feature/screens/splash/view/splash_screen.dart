@@ -47,3 +47,27 @@ class _SplashScreenState extends State<SplashScreen> with SplashScreenMixin {
     );
   }
 }
+
+final class Valid extends StatelessWidget {
+  const Valid({
+    super.key,
+    this.isValid = false,
+    this.text,
+  });
+  final bool isValid;
+  final String? text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(
+          isValid ? Icons.check : Icons.close,
+          color: isValid ? Colors.green : Colors.red,
+        ),
+        const SizedBox(width: 8),
+        Text(text ?? ''),
+      ],
+    );
+  }
+}

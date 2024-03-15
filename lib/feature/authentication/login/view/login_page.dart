@@ -22,7 +22,7 @@ import '../model/login_request_model.dart';
 part 'login_page_mixin.dart';
 part 'courier_login_page_router_button.dart';
 part 'forget_password_text.dart';
-part 'login_button.dart';
+part '_login_button.dart';
 part 'email_form_field.dart';
 part 'password_form_field.dart';
 part 'register_text.dart';

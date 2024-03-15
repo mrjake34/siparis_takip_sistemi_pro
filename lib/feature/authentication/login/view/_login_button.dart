@@ -13,6 +13,7 @@ final class _LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginBloc, LoginState>(
+      listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         if (state.status == Status.isFailed) {
           CustomSnackBar.errorSnackBar(state.errorMessage);
@@ -22,6 +23,7 @@ final class _LoginButton extends StatelessWidget {
           }
         }
       },
+      buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
         if (state.status == Status.isLoading) {
           return const LoadingButton();
