@@ -22,7 +22,7 @@ final class _FetchCustomersCountBox extends StatelessWidget {
               ),
               subtitle: BlocProvider(
                 create: (context) => CustomerBloc(
-                  CustomerService(),
+                  ProductItems.customerService,
                 )..add(FetchCustomerListEvent()),
                 child: BlocBuilder<CustomerBloc, CustomerState>(
                   builder: (context, state) {

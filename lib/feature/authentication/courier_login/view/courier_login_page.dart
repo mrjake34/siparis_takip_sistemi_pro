@@ -15,6 +15,7 @@ import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_s
 import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/loading_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
@@ -46,7 +47,7 @@ final class _CourierLoginPageState extends State<CourierLoginPage>
       appBar: false,
       body: BlocProvider(
         create: (context) => CourierLoginPageCubit(
-          courierLoginService: CourierLoginService(),
+          courierLoginService: ProductItems.courierLoginService,
         ),
         child: BlocListener<CourierLoginPageCubit, CourierLoginPageState>(
           listener: (context, state) => courierLoginPageListener(state),

@@ -1,21 +1,20 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/register/model/register_request_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/register/model/register_response_model.dart';
-import 'package:siparis_takip_sistemi_pro/feature/authentication/register/service/register_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_manager.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/network/network_service.dart';
 
 void main() {
   setUpAll(() {
     ProductManager.setup();
-    ProductItems.networkService.start();
+    NetworkService.start();
   });
 
   test('Register', () async {
-    final registerService = RegisterService();
+    final registerService = ProductItems.registerService;
     final response = await registerService.register<RegisterResponseModel>(
       data: RegisterRequestModel(
         email: 'alkanatas1333244@gmail.com',

@@ -16,6 +16,7 @@ import 'package:siparis_takip_sistemi_pro/product/src/bottomsheets/main_bottom_s
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button_without_color.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/text/failed_load_data_text.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 
 import '../../../../../gen/index.dart';
@@ -35,7 +36,7 @@ final class AddOrder extends StatefulWidget {
 final class _AddOrderState extends State<AddOrder> {
   final orderNoteController = TextEditingController();
   final orderProductNoteController = TextEditingController();
-  final _ordersBloc = OrdersBloc();
+  final _ordersBloc = OrdersBloc(ProductItems.orderService);
 
   @override
   void dispose() {

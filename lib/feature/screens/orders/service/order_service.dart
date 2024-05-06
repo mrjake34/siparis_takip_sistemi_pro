@@ -4,11 +4,13 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import '../../../../product/utils/network/network_service.dart';
 import 'order_service_interface.dart';
 
 final class OrderService extends IOrderService {
+  OrderService(NetworkService networkService)
+      : _networkService = networkService;
+  late final NetworkService _networkService;
   @override
   Future<BaseResponseModel<T>> postOrder<T extends IBaseNetworkModel<T>>({
     String? customerId,
@@ -26,7 +28,7 @@ final class OrderService extends IOrderService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.request<T>(
+    final response = await _networkService.request<T>(
       AppNetwork.orderPath,
       model: model,
       options: Options(
@@ -53,7 +55,7 @@ final class OrderService extends IOrderService {
       );
     }
 
-    final response = await ProductItems.networkService.request<T>(
+    final response = await _networkService.request<T>(
       AppNetwork.orderPath,
       options: Options(
         headers: setHeaderWithCookie(cookie),
@@ -75,7 +77,7 @@ final class OrderService extends IOrderService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.request<T>(
+    final response = await _networkService.request<T>(
       AppNetwork.orderPath + id,
       options: Options(
         headers: setHeaderWithCookie(cookie),
@@ -97,7 +99,7 @@ final class OrderService extends IOrderService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.request<T>(
+    final response = await _networkService.request<T>(
       AppNetwork.orderPath + id,
       options: Options(
         headers: setHeaderWithCookie(cookie),
@@ -120,7 +122,7 @@ final class OrderService extends IOrderService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.request<T>(
+    final response = await _networkService.request<T>(
       AppNetwork.orderPath + id,
       data: updateModel.toJson(),
       model: model,

@@ -14,10 +14,12 @@ part 'orders_state.dart';
 
 class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
   // ignore: public_member_api_docs
-  OrdersBloc() : super(const OrdersState()) {
+  OrdersBloc(OrderService orderService)
+      : _orderService = orderService,
+        super(const OrdersState()) {
     on<OrdersListEvent>((event, emit) async {
       emit(state.copyWith(status: Status.isLoading));
-      final response = await OrderService().getOrderList<OrderResponseModel>();
+      final response = await _orderService.getOrderList<OrderResponseModel>();
 
       emit(
         state.copyWith(
@@ -109,4 +111,5 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
       }
     });
   }
+  late final OrderService _orderService;
 }

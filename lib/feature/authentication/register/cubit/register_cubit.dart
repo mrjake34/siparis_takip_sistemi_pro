@@ -8,22 +8,21 @@ import 'package:siparis_takip_sistemi_pro/feature/authentication/register/servic
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_cubit.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
-import 'package:vexana/vexana.dart';
-
 import '../../../../product/core/constants/enums/network_status.dart';
 import '../model/register_response_model.dart';
 
 class RegisterCubit extends BaseCubit<RegisterState> {
-  late final INetworkManager networkManager;
-
-  RegisterCubit() : super(const RegisterState());
+  late final RegisterService _registerService;
+  RegisterCubit(RegisterService registerService)
+      : _registerService = registerService,
+        super(const RegisterState());
 
   Future<void> postRegisterModel({RegisterRequestModel? data}) async {
     if (data == null) {
       return safeEmit(state.copyWith(status: Status.isFailed));
     }
     safeEmit(state.copyWith(status: Status.isLoading));
-    final response = await RegisterService().register<RegisterResponseModel>(
+    final response = await _registerService.register<RegisterResponseModel>(
       model: RegisterResponseModel(),
       data: data,
     );

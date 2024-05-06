@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/network/network_service.dart';
 
 import '../../../utils/getit/product_manager.dart';
 
@@ -26,6 +27,6 @@ final class AppInitialize {
   }
 
   static Future<void> _initNetworkService() async {
-    ProductItems.networkService.start();
+    NetworkService.start();
   }
 }

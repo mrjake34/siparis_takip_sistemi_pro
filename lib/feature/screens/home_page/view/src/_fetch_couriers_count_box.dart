@@ -22,7 +22,7 @@ final class _FetchCouriersCountBox extends StatelessWidget {
               ),
               subtitle: BlocProvider(
                 create: (context) => CourierBloc(
-                  CourierService(),
+                  ProductItems.courierService,
                 )..add(const CourierEvent()),
                 child: BlocBuilder<CourierBloc, CourierState>(
                   builder: (context, state) {

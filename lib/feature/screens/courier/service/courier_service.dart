@@ -4,11 +4,13 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_netwo
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/network/network_service.dart';
 import 'interface_courier_service.dart';
 
 final class CourierService extends ICourierService {
+  CourierService(NetworkService networkService)
+      : _networkService = networkService;
+  late final NetworkService _networkService;
   @override
   Future<BaseResponseModel<T>> postCourier<T extends IBaseNetworkModel<T>>({
     CourierModel? data,
@@ -20,7 +22,7 @@ final class CourierService extends ICourierService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.request<T>(
+    final response = await _networkService.request<T>(
       AppNetwork.courierPath,
       options: Options(
         headers: setHeaderWithCookie(cookie),
@@ -43,7 +45,7 @@ final class CourierService extends ICourierService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.request<T>(
+    final response = await _networkService.request<T>(
       AppNetwork.courierPath,
       options: Options(
         headers: setHeaderWithCookie(cookie),
@@ -66,7 +68,7 @@ final class CourierService extends ICourierService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.request<T>(
+    final response = await _networkService.request<T>(
       AppNetwork.courierPath,
       options: Options(
         headers: setHeaderWithCookie(cookie),
@@ -89,7 +91,7 @@ final class CourierService extends ICourierService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.request<T>(
+    final response = await _networkService.request<T>(
       '${AppNetwork.courierPath}/$id',
       options: Options(
         headers: setHeaderWithCookie(cookie),
@@ -110,7 +112,7 @@ final class CourierService extends ICourierService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.request<T>(
+    final response = await _networkService.request<T>(
       AppNetwork.courierPath,
       options: Options(
         headers: setHeaderWithCookie(cookie),

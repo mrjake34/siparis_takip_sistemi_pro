@@ -7,6 +7,7 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/profile/service/profil
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/images/app_images.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.dart';
 
 part 'splash_screen_mixin.dart';
@@ -29,8 +30,8 @@ class _SplashScreenState extends State<SplashScreen> with SplashScreenMixin {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => LoginBloc(
-        loginService: LoginService(),
-        profileService: ProfileService(),
+        loginService: ProductItems.loginService,
+        profileService: ProductItems.profileService,
       )..add(const AutoLoginEvent()),
       child: BlocConsumer<LoginBloc, LoginState>(
         listenWhen: _listenWhen,

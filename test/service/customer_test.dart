@@ -4,28 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_request_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/model/login_response_model.dart';
-import 'package:siparis_takip_sistemi_pro/feature/authentication/login/service/login_service.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/customer/model/customer_model.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/customer/model/customer_response.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/customer/service/customer_service.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product_list.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product_response_model.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/product/service/product_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/mixin/headers_mixin.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_manager.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/network/network_service.dart';
 
 void main() {
   setUpAll(() {
     ProductManager.setup();
-    ProductItems.networkService.start();
+    NetworkService.start();
   });
 
   test('Customer List', () async {
-    final loginService = LoginService();
-    final customerService = CustomerService();
+    final loginService = ProductItems.loginService;
+    final customerService = ProductItems.customerService;
     final loginResponse = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
@@ -64,8 +62,8 @@ void main() {
   });
 
   test('Add Customer', () async {
-    final loginService = LoginService();
-    final customerService = CustomerService();
+    final loginService = ProductItems.loginService;
+    final customerService = ProductItems.customerService;
     final loginResponse = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
@@ -110,8 +108,8 @@ void main() {
   });
 
   test('Delete Customer', () async {
-    final loginService = LoginService();
-    final customerService = CustomerService();
+    final loginService = ProductItems.loginService;
+    final customerService = ProductItems.customerService;
     final loginResponse = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
@@ -153,8 +151,8 @@ void main() {
   });
 
   test('Update Product', () async {
-    final loginService = LoginService();
-    final productService = ProductService();
+    final loginService = ProductItems.loginService;
+    final productService = ProductItems.productService;
     final loginResponse = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',

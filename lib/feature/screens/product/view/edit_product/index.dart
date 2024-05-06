@@ -7,6 +7,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/model/product.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/service/product_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 import '../../bloc/products_bloc.dart';
 

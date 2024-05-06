@@ -13,6 +13,9 @@ import '../../../../product/core/constants/enums/network_status.dart';
 import '../model/product.dart';
 
 final class ProductService extends IProductService {
+  ProductService(NetworkService networkService)
+      : _networkService = networkService;
+  late final NetworkService _networkService;
   @override
   Future<BaseResponseModel<T>> getProducts<T extends IBaseNetworkModel<T>>({
     String? cookie,
@@ -24,7 +27,7 @@ final class ProductService extends IProductService {
         statusCode: HttpStatus.badRequest,
       );
     }
-    return ProductItems.networkService.request<T>(
+    return _networkService.request<T>(
       AppNetwork.productPath,
       model: model,
       options: Options(
@@ -46,7 +49,7 @@ final class ProductService extends IProductService {
         statusCode: HttpStatus.badRequest,
       );
     }
-    return ProductItems.networkService.request<T>(
+    return _networkService.request<T>(
       '${AppNetwork.productPath}/$id',
       model: model,
       options: Options(
@@ -68,7 +71,7 @@ final class ProductService extends IProductService {
         statusCode: HttpStatus.badRequest,
       );
     }
-    return ProductItems.networkService.request<T>(
+    return _networkService.request<T>(
       AppNetwork.productPath,
       model: model,
       options: Options(
@@ -91,7 +94,7 @@ final class ProductService extends IProductService {
         statusCode: HttpStatus.badRequest,
       );
     }
-    return ProductItems.networkService.request<T>(
+    return _networkService.request<T>(
       '${AppNetwork.productPath}/$id',
       model: model,
       options: Options(
@@ -114,7 +117,7 @@ final class ProductService extends IProductService {
         statusCode: HttpStatus.badRequest,
       );
     }
-    return ProductItems.networkService.request<T>(
+    return _networkService.request<T>(
       '${AppNetwork.productPath}/$id',
       data: data.toJson(),
       options: Options(
