@@ -9,7 +9,7 @@ final class NetworkService {
   NetworkService._init();
 
   /// This map is used to set the headers.
-  final headers = {
+  static final _headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers':
         'Origin, Content-Type, Accept, Credentials, Authorization',
@@ -17,11 +17,11 @@ final class NetworkService {
   };
 
   /// This method is used to initialize the Dio package.
-  void start() {
+  static void start() {
     _networkManager = NetworkManager<EmptyModel>(
       options: BaseOptions(
         baseUrl: AppNetwork.baseUrl,
-        headers: headers,
+        headers: _headers,
         receiveDataWhenStatusError: true,
         validateStatus: (status) => status != null,
       ),
@@ -31,7 +31,7 @@ final class NetworkService {
   static final NetworkService _instance = NetworkService._init();
   static NetworkService get instance => _instance;
 
-  late NetworkManager _networkManager;
+  static late NetworkManager _networkManager;
 
   /// This method is used to make a Post request.
   Future<BaseResponseModel<T>> request<T extends IBaseNetworkModel<T>>(

@@ -13,16 +13,17 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_manager.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/network/network_service.dart';
 
 void main() {
   setUpAll(() {
     ProductManager.setup();
-    ProductItems.networkService.start();
+    NetworkService.start();
   });
 
   test('Product List', () async {
-    final loginService = LoginService();
-    final productService = ProductService();
+    final loginService = ProductItems.loginService;
+    final productService = ProductItems.productService;
     final loginResponse = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
@@ -58,8 +59,8 @@ void main() {
   });
 
   test('Add Product', () async {
-    final loginService = LoginService();
-    final productService = ProductService();
+    final loginService = ProductItems.loginService;
+    final productService = ProductItems.productService;
     final loginResponse = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
@@ -101,8 +102,8 @@ void main() {
   });
 
   test('Delete Product', () async {
-    final loginService = LoginService();
-    final productService = ProductService();
+    final loginService = ProductItems.loginService;
+    final productService = ProductItems.productService;
     final loginResponse = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',
@@ -143,8 +144,8 @@ void main() {
   });
 
   test('Update Product', () async {
-    final loginService = LoginService();
-    final productService = ProductService();
+    final loginService = ProductItems.loginService;
+    final productService = ProductItems.productService;
     final loginResponse = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',

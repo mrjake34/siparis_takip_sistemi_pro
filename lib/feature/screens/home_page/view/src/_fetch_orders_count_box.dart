@@ -21,7 +21,8 @@ final class _FetchOrdersCountBox extends StatelessWidget {
                 textColor: Colors.white,
               ),
               subtitle: BlocProvider(
-                create: (context) => OrdersBloc()..add(OrdersListEvent()),
+                create: (context) => OrdersBloc(ProductItems.orderService)
+                  ..add(OrdersListEvent()),
                 child: BlocBuilder<OrdersBloc, OrdersState>(
                   builder: (context, state) {
                     final orderList = state.orderList;

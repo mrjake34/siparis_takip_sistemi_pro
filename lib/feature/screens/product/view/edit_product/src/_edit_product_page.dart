@@ -16,7 +16,7 @@ final class _EditProductPageState extends State<EditProductPage>
     return BaseScaffold(
       body: BlocProvider(
         create: (context) => ProductsBloc(
-          productService: ProductService(),
+          productService: ProductItems.productService,
         ),
         child: Column(
           children: [

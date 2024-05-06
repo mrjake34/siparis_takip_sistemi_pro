@@ -12,8 +12,9 @@ part 'profile_page_event.dart';
 part 'profile_page_state.dart';
 
 class ProfilePageBloc extends BaseBloc<ProfilePageEvent, ProfilePageState> {
-  ProfilePageBloc() : super(const ProfilePageState()) {
-    final profileService = ProfileService();
+  ProfilePageBloc(ProfileService profileService)
+      : _profileService = profileService,
+        super(const ProfilePageState()) {
     on<FetchUserDetailsEvent>((event, emit) async {
       safeEmit(state.copyWith(status: Status.isLoading));
 
@@ -23,7 +24,7 @@ class ProfilePageBloc extends BaseBloc<ProfilePageEvent, ProfilePageState> {
         safeEmit(state.copyWith(status: Status.isFailed));
         return;
       }
-      final response = await profileService.getProfile<UserResponseModel>(
+      final response = await _profileService.getProfile<UserResponseModel>(
         cookie: cookie,
         id: user.id,
         model: UserResponseModel(),
@@ -55,4 +56,5 @@ class ProfilePageBloc extends BaseBloc<ProfilePageEvent, ProfilePageState> {
       }
     });
   }
+  late final ProfileService _profileService;
 }

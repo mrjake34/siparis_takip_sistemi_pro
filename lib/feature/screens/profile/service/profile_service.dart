@@ -3,12 +3,14 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/network/network_service.dart';
 import 'package:vexana/vexana.dart';
 import 'interface_profile_service.dart';
 
 final class ProfileService extends IProfileService {
+  ProfileService(NetworkService networkService)
+      : _networkService = networkService;
+  late final NetworkService _networkService;
   @override
   Future<BaseResponseModel<T>> getProfile<T extends IBaseNetworkModel<T>>({
     String? cookie,
@@ -20,7 +22,7 @@ final class ProfileService extends IProfileService {
         networkStatus: NetworkStatus.inputsNotFilled,
       );
     }
-    final response = await ProductItems.networkService.request<T>(
+    final response = await _networkService.request<T>(
       '${AppNetwork.userPath}$id',
       options: Options(
         headers: setHeaderWithCookie(cookie),
@@ -43,7 +45,7 @@ final class ProfileService extends IProfileService {
       );
     }
 
-    final response = await ProductItems.networkService.request<T>(
+    final response = await _networkService.request<T>(
       '${AppNetwork.userPath}$id',
       options: Options(
         headers: setHeaderWithCookie(cookie),

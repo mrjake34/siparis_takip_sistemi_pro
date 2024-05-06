@@ -7,8 +7,8 @@ final class _ProfilePageLogoutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => LoginBloc(
-        loginService: LoginService(),
-        profileService: ProfileService(),
+        loginService: ProductItems.loginService,
+        profileService: ProductItems.profileService,
       ),
       child: BlocConsumer<LoginBloc, LoginState>(
         listener: (context, state) {

@@ -10,16 +10,17 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/profile/service/profil
 import 'package:siparis_takip_sistemi_pro/product/core/base/mixin/headers_mixin.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_manager.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/network/network_service.dart';
 
 void main() {
   setUpAll(() {
     ProductManager.setup();
-    ProductItems.networkService.start();
+    NetworkService.start();
   });
 
   test('Profile', () async {
-    final profileService = ProfileService();
-    final loginService = LoginService();
+    final profileService = ProductItems.profileService;
+    final loginService = ProductItems.loginService;
     final loginResponse = await loginService.login<LoginResponseModel>(
       loginModel: LoginRequestModel(
         email: 'alkanatas34@gmail.com',

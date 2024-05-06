@@ -14,7 +14,7 @@ final class _ProcessOrdersCountField extends StatelessWidget {
           textColor: Colors.white,
         ),
         subtitle: BlocProvider(
-          create: (context) => OrdersBloc(),
+          create: (context) => OrdersBloc(ProductItems.orderService),
           child: BlocListener<OrdersBloc, OrdersState>(
             listener: (context, state) {
               if (state.status == Status.isDone) {

@@ -10,6 +10,7 @@ import 'package:siparis_takip_sistemi_pro/product/core/constants/app/open_member
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/loading_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_icon_button.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
@@ -41,7 +42,7 @@ final class _RegisterPageState extends State<RegisterPage>
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RegisterCubit(),
+      create: (context) => RegisterCubit(ProductItems.registerService),
       child: BlocListener<RegisterCubit, RegisterState>(
         listener: (context, state) => _registerListener(state),
         child: _PageField(

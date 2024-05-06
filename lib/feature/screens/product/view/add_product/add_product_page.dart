@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/product/service/product_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import '../../bloc/products_bloc.dart';
 
 import 'index.dart';
@@ -22,7 +22,7 @@ class _AddProductPageState extends State<AddProductPage>
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ProductsBloc(
-        productService: ProductService(),
+        productService: ProductItems.productService,
       ),
       child: BaseScaffold(
         body: Column(
