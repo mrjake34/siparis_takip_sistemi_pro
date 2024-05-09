@@ -7,7 +7,7 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/profile/service/profil
 import 'package:siparis_takip_sistemi_pro/product/theme/theme_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/cache/shared_manager.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_manager.dart';
-
+import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 import '../../../feature/screens/customer/service/customer_service.dart';
 import '../../../feature/screens/orders/service/order_service.dart';
 import '../device_info/device_info.dart';
@@ -32,4 +32,6 @@ final class ProductItems {
   static RegisterService get registerService =>
       ProductManager.get<RegisterService>();
   static LoginService get loginService => ProductManager.get<LoginService>();
+  static CustomSnackBar get customSnackBar =>
+      ProductManager.get<CustomSnackBar>();
 }

@@ -18,7 +18,7 @@ final class _CourierLoginButton extends StatelessWidget {
                   if (_loginKey.currentState!.validate()) {
                     context.read<CourierLoginPageCubit>().loginUser();
                   } else {
-                    CustomSnackBar.errorSnackBar(
+                    ProductItems.customSnackBar.errorSnackBar(
                       LocaleKeys.errors_pleaseEnterAllField.tr(),
                     );
                   }

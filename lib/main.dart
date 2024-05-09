@@ -6,10 +6,9 @@ import 'package:siparis_takip_sistemi_pro/product/theme/dark_theme.dart';
 import 'package:siparis_takip_sistemi_pro/product/theme/light_theme.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/provider/prodiver_manager.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/localization_manager.dart';
-
 import 'product/core/base/provider/theme/theme_cubit.dart';
+import 'product/utils/getit/product_items.dart';
 
 void main() async {
   await AppInitialize.init();
@@ -31,7 +30,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      scaffoldMessengerKey: CustomSnackBar.messengerKey,
+      scaffoldMessengerKey:  ProductItems.customSnackBar.messengerKey,
       routerConfig: _routeManager.config(),
       debugShowCheckedModeBanner: false,
       theme: lightTheme,

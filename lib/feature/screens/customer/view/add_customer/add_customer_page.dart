@@ -10,9 +10,7 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.d
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button_without_color.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/device_info/device_info.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
-
 import '../../../../../gen/index.dart';
 import '../../../../../product/core/constants/enums/enums.dart';
 import '../../../../../product/utils/getit/product_items.dart';
@@ -138,7 +136,7 @@ class AddCustomerAddButtonField extends StatelessWidget {
                 ),
               );
         } else {
-          CustomSnackBar.errorSnackBar(
+          ProductItems.customSnackBar.errorSnackBar(
             LocaleKeys.errors_pleaseEnterAllField.tr(),
           );
         }

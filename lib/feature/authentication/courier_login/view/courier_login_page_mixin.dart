@@ -25,14 +25,16 @@ mixin CourierLoginPageMixin on State<CourierLoginPage> {
     CourierLoginPageState state,
   ) {
     if (state.status == Status.isDone) {
-      CustomSnackBar.showSnackBar(LocaleKeys.succes_loginSuccess.tr());
+      ProductItems.customSnackBar
+          .showSnackBar(LocaleKeys.succes_loginSuccess.tr());
       context.router.pushNamed(RoutePath.splashScreen.path);
     } else if (state.networkStatus == NetworkStatus.userNotFound) {
-      CustomSnackBar.errorSnackBar(
+      ProductItems.customSnackBar.errorSnackBar(
         LocaleKeys.errors_userInfoIncorrect.tr(),
       );
     } else {
-      CustomSnackBar.errorSnackBar(LocaleKeys.errors_loginError.tr());
+      ProductItems.customSnackBar
+          .errorSnackBar(LocaleKeys.errors_loginError.tr());
     }
   }
 }

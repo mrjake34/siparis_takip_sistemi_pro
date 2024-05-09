@@ -9,6 +9,7 @@ import 'package:siparis_takip_sistemi_pro/feature/screens/product/service/produc
 import 'package:siparis_takip_sistemi_pro/feature/screens/profile/service/profile_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/cache/shared_manager.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/device_info/device_info.dart';
+import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 
 import '../../theme/theme_service.dart';
 import '../network/network_service.dart';
@@ -22,6 +23,7 @@ final class ProductManager {
       ..registerSingleton<NetworkService>(NetworkService.instance)
       ..registerSingleton<ThemeService>(ThemeService.instance)
       ..registerSingleton<DeviceInfo>(DeviceInfo.instance)
+      ..registerSingleton(CustomSnackBar.newInstance())
       ..registerFactory(() => CustomerService(_getIt()))
       ..registerFactory(() => NetworkService.instance)
       ..registerFactory(() => ProfileService(_getIt()))

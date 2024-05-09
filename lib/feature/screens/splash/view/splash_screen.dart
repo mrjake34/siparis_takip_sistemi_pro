@@ -2,8 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/login/bloc/login_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/authentication/login/service/login_service.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/profile/service/profile_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/images/app_images.dart';

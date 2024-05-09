@@ -12,12 +12,9 @@ import 'package:siparis_takip_sistemi_pro/product/src/button/loading_button.dart
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_icon_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/router/route_manager.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
-
 import '../../../../product/core/base/view/base_scaffold.dart';
 import '../model/register_request_model.dart';
-
 part 'have_account_field.dart';
 part 'membership_agreement_field.dart';
 part 'password_form_field.dart';

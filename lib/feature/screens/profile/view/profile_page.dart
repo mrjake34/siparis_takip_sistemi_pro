@@ -8,11 +8,9 @@ import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.d
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/loading_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
-
 import '../../../../product/utils/router/route_manager.dart';
 import '../../../../product/utils/translations/locale_keys.g.dart';
 import '../../../authentication/login/bloc/login_bloc.dart';
-import '../../../authentication/login/service/login_service.dart';
 import '../bloc/profile_page_bloc.dart';
 import 'src/index.dart';
 

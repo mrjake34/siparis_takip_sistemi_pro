@@ -38,12 +38,12 @@ final class _RegisterButton extends StatelessWidget {
                       ),
                     );
               } else {
-                CustomSnackBar.errorSnackBar(
+                ProductItems.customSnackBar.errorSnackBar(
                   LocaleKeys.errors_errorUserAgreement.tr(),
                 );
               }
             } else {
-              CustomSnackBar.errorSnackBar(
+              ProductItems.customSnackBar.errorSnackBar(
                 LocaleKeys.errors_pleaseEnterAllField.tr(),
               );
             }

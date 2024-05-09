@@ -5,10 +5,12 @@ import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys
 final class CustomSnackBar {
   CustomSnackBar._();
 
-  static final GlobalKey<ScaffoldMessengerState> _messengerKey = GlobalKey();
-  static GlobalKey<ScaffoldMessengerState> get messengerKey => _messengerKey;
+  factory CustomSnackBar.newInstance() => CustomSnackBar._();
 
-  static void showSnackBar(String? text) {
+  final GlobalKey<ScaffoldMessengerState> _messengerKey = GlobalKey();
+  GlobalKey<ScaffoldMessengerState> get messengerKey => _messengerKey;
+
+  void showSnackBar(String? text) {
     if (text == null) return;
 
     final snackBar = SnackBar(content: Text(text));
@@ -18,7 +20,7 @@ final class CustomSnackBar {
       ..showSnackBar(snackBar);
   }
 
-  static void errorSnackBar(String? text) {
+  void errorSnackBar(String? text) {
     if (text == null) return;
 
     final snackBar = SnackBar(

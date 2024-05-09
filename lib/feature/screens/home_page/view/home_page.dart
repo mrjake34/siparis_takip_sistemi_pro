@@ -3,9 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/courier/bloc/courier_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/courier/service/courier_service.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/customer/bloc/customer_bloc.dart';
-import 'package:siparis_takip_sistemi_pro/feature/screens/customer/service/customer_service.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/orders/bloc/add_order/orders_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/bloc/products_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
@@ -15,7 +13,6 @@ import 'package:siparis_takip_sistemi_pro/product/src/text/autosize_text.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
 import '../../../../gen/index.dart';
-import '../../product/service/product_service.dart';
 
 part 'src/_done_orders_count_field.dart';
 part 'src/_fetch_order_status_count.dart';

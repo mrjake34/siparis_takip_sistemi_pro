@@ -1,14 +1,11 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/product/service/interface_product_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/interface/base_network_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/base_respose_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/models/update_model.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/network/url.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/network/network_service.dart';
-
 import '../../../../product/core/constants/enums/network_status.dart';
 import '../model/product.dart';
 

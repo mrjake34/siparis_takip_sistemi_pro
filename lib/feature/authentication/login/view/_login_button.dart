@@ -16,7 +16,7 @@ final class _LoginButton extends StatelessWidget {
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         if (state.status == Status.isFailed) {
-          CustomSnackBar.errorSnackBar(state.errorMessage);
+          ProductItems.customSnackBar.errorSnackBar(state.errorMessage);
         } else if (state.status == Status.isDone) {
           if (state.model != null) {
             context.router.replaceNamed(RoutePath.homeScreen.path);
@@ -40,7 +40,7 @@ final class _LoginButton extends StatelessWidget {
                       ),
                     );
               } else {
-                CustomSnackBar.errorSnackBar(
+                ProductItems.customSnackBar.errorSnackBar(
                   LocaleKeys.errors_pleaseEnterAllField.tr(),
                 );
               }

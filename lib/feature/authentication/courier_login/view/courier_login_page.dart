@@ -8,7 +8,6 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:kartal/kartal.dart';
 import 'package:siparis_takip_sistemi_pro/feature/authentication/courier_login/cubit/courier_login_page_cubit.dart';
-import 'package:siparis_takip_sistemi_pro/feature/authentication/courier_login/service/courier_login_service.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/enums.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/constants/enums/network_status.dart';
@@ -16,12 +15,9 @@ import 'package:siparis_takip_sistemi_pro/product/core/constants/size/sizes.dart
 import 'package:siparis_takip_sistemi_pro/product/src/button/loading_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/src/button/main_elevated_button.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/getit/product_items.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
-
 import '../../../../gen/index.dart';
 import '../../../../product/utils/router/route_manager.dart';
-
 part 'courier_login_page_mixin.dart';
 part 'courier_login_button.dart';
 part 'email_field.dart';

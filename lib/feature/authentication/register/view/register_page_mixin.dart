@@ -35,12 +35,13 @@ mixin RegisterPageMixin on State<RegisterPage> {
 
   void _registerListener(RegisterState state) {
     if (state.status == Status.isFailed) {
-      CustomSnackBar.errorSnackBar(
+      ProductItems.customSnackBar.errorSnackBar(
         LocaleKeys.errors_errorUserRegister.tr(),
       );
     } else if (state.status == Status.isDone) {
       context.router.replaceNamed(RoutePath.loginScreen.path);
-      CustomSnackBar.showSnackBar(LocaleKeys.succes_registerSuccess.tr());
+      ProductItems.customSnackBar
+          .showSnackBar(LocaleKeys.succes_registerSuccess.tr());
     }
   }
 }

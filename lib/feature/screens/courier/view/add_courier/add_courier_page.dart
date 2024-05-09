@@ -5,11 +5,10 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:siparis_takip_sistemi_pro/feature/screens/courier/bloc/courier_bloc.dart';
 import 'package:siparis_takip_sistemi_pro/product/core/base/view/base_scaffold.dart';
-import 'package:siparis_takip_sistemi_pro/product/utils/snackbar/snackbar.dart';
 import 'package:siparis_takip_sistemi_pro/product/utils/translations/locale_keys.g.dart';
-
 import '../../../../../gen/index.dart';
 import '../../../../../product/core/constants/enums/enums.dart';
+import '../../../../../product/utils/getit/product_items.dart';
 
 class AddCourierPage extends StatefulWidget {
   const AddCourierPage({super.key});
@@ -107,12 +106,12 @@ class AddCourierButtonField extends StatelessWidget {
                 if (passwordController.text.trim() ==
                     password2Controller.text.trim()) {
                 } else {
-                  CustomSnackBar.errorSnackBar(
+                  ProductItems.customSnackBar.errorSnackBar(
                     LocaleKeys.errors_passwordDontMatch.tr(),
                   );
                 }
               } else {
-                CustomSnackBar.errorSnackBar(
+                ProductItems.customSnackBar.errorSnackBar(
                   LocaleKeys.errors_pleaseEnterAllField.tr(),
                 );
               }
